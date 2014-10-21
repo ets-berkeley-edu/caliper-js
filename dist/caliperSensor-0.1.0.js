@@ -4,19 +4,34 @@ var unique = require('uniq');
 var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
 
 console.log(unique(data));
-},{"uniq":3}],2:[function(require,module,exports){
+},{"uniq":5}],2:[function(require,module,exports){
+
+},{}],3:[function(require,module,exports){
+module.exports=require(2)
+},{"/Users/pnayak/Documents/workspace-ims/caliper-js/caliperEntity.js":2}],4:[function(require,module,exports){
 // Grab an existing namespace object, or create a blank object
 // if it doesn't exist
 var CaliperSensor = window.CaliperSensor || {};
+
+CaliperSensor.send = function(caliperEvent) {
+	//
+};
+
+CaliperSensor.describe = function(caliperEntity) {
+	//
+};
+
 
 // Stick on the modules that need to be exported.
 // You only need to require the top-level modules, browserify
 // will walk the dependency graph and load everything correctly
 CaliperSensor.RoadRunner = require('./actions');
+CaliperSensor.RoadRunner = require('./caliperEntity');
+CaliperSensor.RoadRunner = require('./caliperEvent');
 
 // Replace/Create the global namespace
 window.CaliperSensor = CaliperSensor;
-},{"./actions":1}],3:[function(require,module,exports){
+},{"./actions":1,"./caliperEntity":2,"./caliperEvent":3}],5:[function(require,module,exports){
 "use strict"
 
 function unique_pred(list, compare) {
@@ -75,4 +90,4 @@ function unique(list, compare, sorted) {
 
 module.exports = unique
 
-},{}]},{},[2]);
+},{}]},{},[4]);
