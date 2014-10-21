@@ -1,0 +1,18 @@
+{
+  "author": {
+    "name": "Prashant Nayak",
+    "company": "IMS Global"
+  },
+  "name": "caliperjs",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IMSGlobal/caliper-js"
+  },
+  "dependencies": {
+    "uniq": "*"
+  },
+  "license": "For license information contact, info@imsglobal.org",
+  "dependencies": {
+  }
+}
