@@ -1,5 +1,11 @@
-var unique = require('uniq');
+// Grab an existing namespace object, or create a blank object
+// if it doesn't exist
+var CaliperSensor = window.CaliperSensor || {};
 
-var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
+// Stick on the modules that need to be exported.
+// You only need to require the top-level modules, browserify
+// will walk the dependency graph and load everything correctly
+CaliperSensor.RoadRunner = require('./actions');
 
-console.log(unique(data));
+// Replace/Create the global namespace
+window.CaliperSensor = CaliperSensor;
