@@ -66,7 +66,7 @@ self.describe = function (caliperEntity) {
     logger.log('debug', "Sending describe " + JSON.stringify(caliperEntity));
 
     var postOptions = _.merge(sensorOptions, {
-      method: 'POST', path: "/measure"
+      method: 'POST', path: "/describe"
     });
 
     var request = http.request(postOptions, function (response) {
