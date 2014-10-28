@@ -57,4 +57,7 @@ Caliper.Event = require('./caliperEvent');
 // Replace/Create the global namespace and objects (the sensor) we want there
 Caliper.Sensor = CaliperSensor;
 
+// Replace/create Caliper in global namespace
+window.Caliper = Caliper;
+
 logger.log('debug', "Added sensor to window global %o", window.Sensor);
