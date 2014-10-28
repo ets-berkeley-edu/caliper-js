@@ -5,9 +5,8 @@
  */
 
 
-// Constructor
-function Entity(type) {
-  this.type = type;
+function Entity() {
+  // Constructor
 }
 
 // Setters for base properties of all Caliper Entities
