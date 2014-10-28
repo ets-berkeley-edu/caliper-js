@@ -17,8 +17,13 @@
 
         sensor.initialize({host: 'www.google.com', port: '80'});
 
-        var event = new Caliper.Event('eventy');
-        console.log('created event ' + JSON.stringify(event));
+        var event = new Caliper.Event();
+        event.setContext('http://purl.imsglobal.org/ctx/caliper/v1/NavigationEvent');
+        event.setType('http://purl.imsglobal.org/caliper/v1/NavigationEvent');
+        event.setActor({id: 'jsmith-1234'});
+        event.setAction('navigatedTo');
+        event.setObject({id: 'sfsaffsdfs', type: 'epubPart'});
+        console.log('created event ' + JSON.stringify(event));  
 
     });
     </script>

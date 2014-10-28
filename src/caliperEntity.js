@@ -4,12 +4,31 @@
  *  For license information contact, info@imsglobal.org
  */
 
- function Entity(type) {
+
+// Constructor
+function Entity(type) {
   this.type = type;
 }
 
-Entity.prototype.test = function() {
-  return this.type;
+// Setters for base properties of all Caliper Entities
+Entity.prototype.setId = function(id) {
+  this.id = id;
+};
+
+Entity.prototype.setType = function(type) {
+  this.type = type;
+};
+
+Entity.prototype.setName = function(name) {
+  this.name = name;
+};
+
+Entity.prototype.setLastModifiedAt = function(lastModifiedAt) {
+  this.lastModifiedAt = lastModifiedAt;
+};
+
+Entity.prototype.setProperties = function(properties) {
+  this.properties = properties;
 };
 
 module.exports = Entity;
