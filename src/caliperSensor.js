@@ -11,6 +11,10 @@ var logger = require('./logger');
 
 // Grab an existing namespace object
 // or create a blank object if it doesn't exist
+// so we can attach non-sensor module exports to it
+var Caliper = window.Caliper || {};
+
+// The sensor itself
 var CaliperSensor = {};
 
 /**
@@ -46,12 +50,11 @@ CaliperSensor.describe = function (caliperEntity) {
 // Stick on the modules that need to be exported.
 // You only need to require the top-level modules, browserify
 // will walk the dependency graph and load everything correctly
-CaliperSensor.RoadRunner = require('./asyncClient');
-CaliperSensor.RoadRunner = require('./actions');
-CaliperSensor.RoadRunner = require('./caliperEntity');
-CaliperSensor.RoadRunner = require('./caliperEvent');
+Caliper.Actions = require('./actions');
+Caliper.Entity = require('./caliperEntity');
+Caliper.Event = require('./caliperEvent');
 
 // Replace/Create the global namespace and objects (the sensor) we want there
-window.Sensor = CaliperSensor;
+Caliper.Sensor = CaliperSensor;
 
 logger.log('debug', "Added sensor to window global %o", window.Sensor);
