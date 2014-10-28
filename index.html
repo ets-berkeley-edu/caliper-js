@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title>Caliper JS Sensor Test Page</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+    <script src="dist/caliperSensor-0.1.0.js"></script>
+</head>
+
+<body>
+    <h1>Caliper JS Sensor Test</h1>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        // Initialize sensor with options
+        var sensor = window.Sensor;
+
+        sensor.initialize({foo: 'bar'});
+
+    });
+    </script>
+
+</body>
+
+</html>

@@ -5,14 +5,16 @@
   },
   "name": "caliperjs",
   "version": "0.1.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/IMSGlobal/caliper-js"
-  },
+  "description": "Caliper Javascript Sensor",
   "dependencies": {
-    "uniq": "*"
+    "uniq": "*",
+    "lodash-node": "*",
+    "cors": "*"
   },
   "license": "For license information contact, info@imsglobal.org",
-  "dependencies": {
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.1.0",
+    "grunt-http-server": "^1.0.0"
   }
 }
