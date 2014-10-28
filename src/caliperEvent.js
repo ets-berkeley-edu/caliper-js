@@ -4,26 +4,12 @@
  *  For license information contact, info@imsglobal.org
  */
 
-var self = this;
-
-self.event = {'@context' : ''};
-
-self.setContext = function(context) {
-	self.event['@context'] = context;
+function Event(type) {
+  this.type = type;
 }
-var type;
-var actor;
-var action;
-var object;
-var target;
-var startedAt;
-var endedAt = 0;
-var edApp;
-var lisOrganization;
-var generated;
-var duration;
 
-module.exports = {
-  event: self.event,
-  setContext: self.setContext
+Event.prototype.test = function() {
+  return this.type;
 };
+
+module.exports = Event;
