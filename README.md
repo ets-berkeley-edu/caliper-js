@@ -13,22 +13,27 @@ Access to this draft code is reserved for IMS Contributing Members who are activ
 
 ### Pre-requisites for development:  
 
+* Install npm for your platform
 * npm install -g browserify
 
 ### Building
 
-* make build
+* npm install
+* grunt
+
+### Running the example
+
+* grunt http-server:dev
+* In a browser, navigate to http://localhost:9999/index.html
 
 ### Installing and using the Library:
 
-To install the library, get the latest distribution from the Github repo or from your local dist folder
-
-https://github.com/IMSGlobal/caliper-js/blob/master/dist/caliperSensor-0.1.0.js
+Install and build the library using the steps above.
 
 Then, add the following to your Javascript script:
 
 ```
-<script src="caliperSensor-0.1.0.js"></script>
+<script src="dist/caliperSensor-0.1.0.js"></script>
 ```
 
 Now, you're ready to initialize the Caliper sensor as follows:
