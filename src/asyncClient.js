@@ -30,6 +30,24 @@ self.initialize = function (options) {
   logger.log('info', "Initializing sensor with options " + JSON.stringify(options));
 };
 
+self.post = function (postOptions, postData) {
+
+  var headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': postData.length
+  };
+
+  var postOptions = _.merge(postOptions, {headers: headers});
+
+  var request = http.request(postOptions, function (response) {
+    logger.log('debug', "finished sending " + JSON.stringify(response));
+  });
+
+  request.write(postData);
+  request.end();
+
+}
+
 
 /**
  * Send learning events
@@ -42,13 +60,12 @@ self.send = function (caliperEvent) {
     logger.log('debug', "Sending event " + JSON.stringify(caliperEvent));
 
     var postOptions = _.merge(sensorOptions, {
-      method: 'POST', path: "/measure"
+      method: 'POST'
     });
 
-    var request = http.request(postOptions, function (response) {
-      logger.log('debug', "finished sending " + JSON.stringify(response));
-    });
-    request.end();
+    var postData = JSON.stringify(caliperEvent);
+
+    self.post(postOptions, postData);
 
   } else {
     logger.log('error', "Sensor is not initialized!!");
@@ -66,13 +83,12 @@ self.describe = function (caliperEntity) {
     logger.log('debug', "Sending describe " + JSON.stringify(caliperEntity));
 
     var postOptions = _.merge(sensorOptions, {
-      method: 'POST', path: "/describe"
+      method: 'POST'
     });
 
-    var request = http.request(postOptions, function (response) {
-      logger.log('debug', "finished sending " + JSON.stringify(response));
-    });
-    request.end();
+    var postData = JSON.stringify(caliperEvent);
+
+    self.post(postOptions, postData);
 
   } else {
     logger.log('error', "Sensor is not initialized!!");
