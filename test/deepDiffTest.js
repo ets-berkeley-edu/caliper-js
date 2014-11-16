@@ -2,7 +2,7 @@ var test = require('tape');
 var _ = require('lodash-node');
 var diff = require('deep-diff').diff;
 
-test('Create base Caliper Event and validate attributes', function (t) {
+test('Validate JSON with different attribute order', function (t) {
 
   // Plan for N assertions
   t.plan(1);
