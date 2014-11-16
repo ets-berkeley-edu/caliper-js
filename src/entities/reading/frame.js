@@ -7,7 +7,7 @@
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
 
-function Frame(id, type) {
+function Frame(id) {
 
   DigitalResource.call(this);
 

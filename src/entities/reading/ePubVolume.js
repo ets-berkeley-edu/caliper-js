@@ -7,7 +7,7 @@
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
 
-function EPubVolume(id, type) {
+function EPubVolume(id) {
 
   DigitalResource.call(this);
 
