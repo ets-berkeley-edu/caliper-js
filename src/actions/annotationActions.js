@@ -21,7 +21,7 @@ var readingActions = {
   "SHARED": "shared",
   "SUBSCRIBED": "subscribed",
   "TAGGED": "tagged",
-  "NAVIGATED_TO": "navigation.navigatedTo"
+  "NAVIGATED_TO": "navigatedTo"
 }
 
 module.exports = readingActions;
