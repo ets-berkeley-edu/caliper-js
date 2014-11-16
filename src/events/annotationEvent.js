@@ -11,8 +11,8 @@ function AnnotationEvent() {
 
   Event.call(this);
 
-  this.setContext('http://purl.imsglobal.org/ctx/caliper/v1/AnnotationEvent');
-  this.setType('http://purl.imsglobal.org/caliper/v1/AnnotationEvent');
+  this.setContext(this.Contexts.ANNOTATION);
+  this.setType(this.Types.ANNOTATION);
 
   this.setGenerated(null);
   this.setStartedAtTime(0);

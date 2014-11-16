@@ -11,8 +11,8 @@ function MediaEvent() {
 
   Event.call(this);
 
-  this.setContext('http://purl.imsglobal.org/ctx/caliper/v1/MediaEvent');
-  this.setType('http://purl.imsglobal.org/caliper/v1/MediaEvent');
+  this.setContext(this.Contexts.MEDIA);
+  this.setType(this.Types.MEDIA);
 
   this.setGenerated(null);
   this.setStartedAtTime(0);

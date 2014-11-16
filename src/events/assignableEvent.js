@@ -11,8 +11,8 @@ function AssignableEvent() {
 
   Event.call(this);
 
-  this.setContext('http://purl.imsglobal.org/ctx/caliper/v1/AssignableEvent');
-  this.setType('http://purl.imsglobal.org/caliper/v1/AssignableEvent');
+  this.setContext(this.Contexts.ASSIGNABLE);
+  this.setType(this.Types.ASSIGNABLE);
 
   this.setGenerated(null);
   this.setStartedAtTime(0);

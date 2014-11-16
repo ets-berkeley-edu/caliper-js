@@ -11,8 +11,8 @@ function OutcomeEvent() {
 
   Event.call(this);
 
-  this.setContext('http://purl.imsglobal.org/ctx/caliper/v1/OutcomeEvent');
-  this.setType('http://purl.imsglobal.org/caliper/v1/OutcomeEvent');
+  this.setContext(this.Contexts.OUTCOME);
+  this.setType(this.Types.OUTCOME);
 
   this.setGenerated(null);
   this.setStartedAtTime(0);

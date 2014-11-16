@@ -11,8 +11,8 @@ function AssessmentEvent() {
 
   Event.call(this);
 
-  this.setContext('http://purl.imsglobal.org/ctx/caliper/v1/AssessmentEvent');
-  this.setType('http://purl.imsglobal.org/caliper/v1/AssessmentEvent');
+  this.setContext(this.Contexts.ASSESSMENT);
+  this.setType(this.Types.ASSESSMENT);
 
   this.setGenerated(null);
   this.setStartedAtTime(0);
