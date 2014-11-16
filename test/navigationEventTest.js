@@ -26,11 +26,16 @@ test('Create Navigation Event and validate attributes', function (t) {
   var actor = new Person("https://some-university.edu/user/554433");
   actor.setLastModifiedTime(1402965614516);
 
+  // The Action for the Caliper Event
+  var action = ReadingActions.NAVIGATED_TO;
+
+  // The Object being interacted with by the Actor
   var eventObj = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   eventObj.setResourceType("EPUB_VOLUME");
   eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
   eventObj.setLastModifiedTime(1402965614516);
 
+  // The target object (frame) within the Event Object
   var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
   targetObj.setResourceType("FRAME");
   targetObj.setName("Key Figures: George Washington");
@@ -51,15 +56,16 @@ test('Create Navigation Event and validate attributes', function (t) {
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");
 
+  // Specific to the Navigation Event - the location where the user navigated from
   var navigatedFromObj = new WebPage("AmRev-101-landingPage");
   navigatedFromObj.setName("American Revolution 101 Landing Page");
   navigatedFromObj.setPartOf(org);
   navigatedFromObj.setLastModifiedTime(1402965614516);
 
-  // Asser that key attributes are the same
+  // Assert that key attributes are the same
   var navigationEvent = new Event();
   navigationEvent.setActor(actor);
-  navigationEvent.setAction(ReadingActions.NAVIGATED_TO);
+  navigationEvent.setAction(action);
   navigationEvent.setObject(eventObj);
   navigationEvent.setTarget(targetObj);
   navigationEvent.setEdApp(edApp);

@@ -26,11 +26,16 @@ test('Create View Event and validate attributes', function (t) {
   var actor = new Person("https://some-university.edu/user/554433");
   actor.setLastModifiedTime(1402965614516);
 
+  // The Action for the Caliper Event
+  var action = ReadingActions.VIEWED;
+
+  // The Object being interacted with by the Actor
   var eventObj = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   eventObj.setResourceType("EPUB_VOLUME");
   eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
   eventObj.setLastModifiedTime(1402965614516);
 
+  // The target object (frame) within the Event Object
   var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
   targetObj.setResourceType("FRAME");
   targetObj.setName("Key Figures: George Washington");
@@ -54,7 +59,7 @@ test('Create View Event and validate attributes', function (t) {
   // Asser that key attributes are the same
   var viewEvent = new Event();
   viewEvent.setActor(actor);
-  viewEvent.setAction(ReadingActions.VIEWED);
+  viewEvent.setAction(action);
   viewEvent.setObject(eventObj);
   viewEvent.setTarget(targetObj);
   viewEvent.setEdApp(edApp);
