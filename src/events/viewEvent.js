@@ -11,8 +11,8 @@ function ViewEvent() {
 
   Event.call(this);
 
-  this.setContext('http://purl.imsglobal.org/ctx/caliper/v1/ViewEvent');
-  this.setType('http://purl.imsglobal.org/caliper/v1/ViewEvent');
+  this.setContext(this.Contexts.VIEWED);
+  this.setType(this.Types.VIEWED);
 
   this.setGenerated(null);
   this.setStartedAtTime(0);

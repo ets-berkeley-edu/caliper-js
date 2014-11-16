@@ -11,8 +11,8 @@ function NavigationEvent() {
 
   Event.call(this);
 
-  this.setContext('http://purl.imsglobal.org/ctx/caliper/v1/NavigationEvent');
-  this.setType('http://purl.imsglobal.org/caliper/v1/NavigationEvent');
+  this.setContext(this.Contexts.NAVIGATION);
+  this.setType(this.Types.NAVIGATION);
 
   this.setGenerated(null);
   this.setStartedAtTime(0);
