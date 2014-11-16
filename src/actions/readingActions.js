@@ -3,9 +3,11 @@
  *  ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  For license information contact, info@imsglobal.org
  */
- 
-var unique = require('uniq');
 
-var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
+var readingActions = {
+  "SEARCHED": "searched",
+  "VIEWED": "viewed",
+  "NAVIGATED_TO": "navigated to"
+}
 
-// console.log(unique(data));
+module.exports = readingActions;

@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
@@ -20,15 +20,27 @@ module.exports = function(grunt) {
         port: 9999,
         host: "127.0.0.1",
         cache: 0,
-        showDir : true,
+        showDir: true,
         autoIndex: true,
         // server default file extension
         ext: "html",
         // run in parallel with other tasks
         runInBackground: false
       }
+    },
+    tape: {
+      options: {
+        pretty: true,
+        output: 'console'
+      },
+      files: ['test/*.js']
     }
   });
+
+  // Load the plugin and tasks that provides unit testing via tap/tape
+  grunt.loadNpmTasks('grunt-tape');
+  grunt.registerTask('test', ['tape']);
+  grunt.registerTask('ci', ['tape:ci']);
 
   // Load the plugin that provides the "browserify" task.
   grunt.loadNpmTasks('grunt-browserify');
@@ -37,5 +49,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-http-server');
 
   // Default task(s).
-  grunt.registerTask('default', ['browserify']);
+  grunt.registerTask('default', ['test', 'browserify']);
 };

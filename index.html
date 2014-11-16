@@ -15,7 +15,7 @@
         // Initialize sensor with options
         var sensor = window.Caliper.Sensor;
 
-        sensor.initialize({host: 'localhost', port: '1080', path: '/1.0/event/put'});
+        sensor.initialize({host: 'lvh.me', port: '1080', path: '/1.0/event/put'});
 
         var event = new Caliper.Event();
         event.setContext('http://purl.imsglobal.org/ctx/caliper/v1/NavigationEvent');
@@ -23,9 +23,16 @@
         event.setActor({id: 'jsmith-1234'});
         event.setAction('navigatedTo');
         event.setObject({id: 'sfsaffsdfs', type: 'epubPart'});
-        console.log('created event ' + JSON.stringify(event));  
+        console.log('created event ' + JSON.stringify(event)); 
 
-        sensor.send(event);
+        var currentTimeMillis = (new Date()).getTime();
+
+        var eventEnvelope = {};
+        eventEnvelope['_id'] = 'caliper-js' + currentTimeMillis;
+        eventEnvelope.d = event;
+        console.log('created event envelope ' + JSON.stringify(eventEnvelope));
+
+        sensor.send(eventEnvelope);
 
     });
     </script>

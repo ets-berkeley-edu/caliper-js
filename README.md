@@ -16,10 +16,10 @@ Access to this draft code is reserved for IMS Contributing Members who are activ
 * Install npm for your platform
 * npm install -g browserify
 
-### Building
+### Testing and Building
 
 * npm install
-* grunt
+* grunt (this will run unit tests and build dist/caliperSensor-x.x.x.js)
 
 ### Running the example
 

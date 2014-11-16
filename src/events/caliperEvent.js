@@ -11,11 +11,11 @@ function Event() {
 // Setters for Caliper Event properties
 
 Event.prototype.setContext = function (context) {
-  this.context = context;
+  this['@context'] = context;
 };
 
 Event.prototype.setType = function (type) {
-  this.type = type;
+  this['@type'] = type;
 };
 
 Event.prototype.setActor = function (actor) {
@@ -38,12 +38,12 @@ Event.prototype.setGenerated = function (generated) {
   this.generated = generated;
 };
 
-Event.prototype.setStartedAt = function (startedAt) {
-  this.startedAt = startedAt;
+Event.prototype.setStartedAtTime = function (startedAt) {
+  this.startedAtTime = startedAt;
 };
 
-Event.prototype.setEndedAt = function (endedAt) {
-  this.endedAt = endedAt;
+Event.prototype.setEndedAtTime = function (endedAt) {
+  this.endedAtTime = endedAt;
 };
 
 Event.prototype.setDuration = function (duration) {
@@ -51,7 +51,7 @@ Event.prototype.setDuration = function (duration) {
 };
 
 Event.prototype.setLisOrganization = function (lisOrganization) {
-  this.lisOrganization = lisOrganization;
+  this.group = lisOrganization;
 };
 
 Event.prototype.setEdApp = function (edApp) {

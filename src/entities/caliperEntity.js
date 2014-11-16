@@ -11,23 +11,23 @@ function Entity() {
 
 // Setters for base properties of all Caliper Entities
 Entity.prototype.setId = function(id) {
-  this.id = id;
+  this['@id'] = id;
 };
 
 Entity.prototype.setType = function(type) {
-  this.type = type;
+  this['@type'] = type;
 };
 
 Entity.prototype.setName = function(name) {
   this.name = name;
 };
 
-Entity.prototype.setLastModifiedAt = function(lastModifiedAt) {
-  this.lastModifiedAt = lastModifiedAt;
-};
-
 Entity.prototype.setProperties = function(properties) {
   this.properties = properties;
+};
+
+Entity.prototype.setLastModifiedTime = function(lastModifiedTime) {
+  this.lastModifiedTime = lastModifiedTime;
 };
 
 module.exports = Entity;
