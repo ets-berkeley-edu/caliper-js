@@ -21,6 +21,6 @@ MediaLocation.prototype = _.create(Entity.prototype);
 
 MediaLocation.prototype.setCurrentTime = function (currentTime) {
   this.currentTime = currentTime;
-}
+};
 
 module.exports = MediaLocation;

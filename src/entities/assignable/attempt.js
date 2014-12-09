@@ -25,6 +25,6 @@ Attempt.prototype.setAssignable = function (assignable) {
 
 Attempt.prototype.setCount = function (count) {
   this.count = count;
-}
+};
 
 module.exports = Attempt;
