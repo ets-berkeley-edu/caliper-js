@@ -19,6 +19,18 @@ function Attempt(id, type) {
 
 Attempt.prototype = _.create(Entity.prototype);
 
+Attempt.prototype.setStartedAtTime = function (startedAt) {
+  this.startedAtTime = startedAt;
+};
+
+Attempt.prototype.setEndedAtTime = function (endedAt) {
+  this.endedAtTime = endedAt;
+};
+
+Attempt.prototype.setDuration = function (duration) {
+  this.duration = duration;
+};
+
 Attempt.prototype.setAssignable = function (assignable) {
   this.assignable = assignable;
 };

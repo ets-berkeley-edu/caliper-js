@@ -15,6 +15,15 @@ function AssignableDigitalResource(id, type) {
   this.setType(this.Types.ASSIGNABLE_DIGITAL_RESOURCE);
 
   this.setProperties({});
+  this.setDateCreated(0);
+  this.setDatePublished(0);
+  this.setDateToActivate(0);
+  this.setDateToShow(0);
+  this.setDateToStartOn(0);
+  this.setDateToSubmit(0);
+  this.setMaxAttempts(0);
+  this.setMaxSubmits(0);
+  this.setMaxScore(0);
 }
 
 AssignableDigitalResource.prototype = _.create(DigitalResource.prototype);

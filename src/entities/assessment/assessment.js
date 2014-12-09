@@ -19,5 +19,8 @@ function Assessment(id, type) {
 
 Assessment.prototype = _.create(AssignableDigitalResource.prototype);
 
+Assessment.prototype.setAssessmentItems = function (assessmentItems) {
+  this.assessmentItems = assessmentItems;
+}
 
 module.exports = Assessment;

@@ -14,6 +14,9 @@ function DigitalResource(id) {
   this.setId(id);
 
   this.setProperties({});
+  this.setObjectType([]);
+  this.setAlignedLearningObjective([]);
+  this.setKeyword([]);
 }
 
 DigitalResource.prototype = _.create(Entity.prototype);
