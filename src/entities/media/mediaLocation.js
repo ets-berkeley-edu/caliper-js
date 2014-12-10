@@ -14,6 +14,7 @@ function MediaLocation(id, type) {
   this.setId(id);
   this.setType(this.Types.MEDIA_LOCATION);
 
+  this.setName(null);
   this.setProperties({});
 }
 
