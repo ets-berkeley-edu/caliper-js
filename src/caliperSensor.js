@@ -50,10 +50,18 @@ CaliperSensor.describe = function (caliperEntity) {
 // Stick on the modules that need to be exported under the Caliper namespace
 // You only need to require the top-level modules. Browserify
 // will walk the dependency graph and load everything correctly
-Caliper.Actions = require('./actions/readingActions');
+Caliper.ReadingActions = require('./actions/readingActions');
+
 Caliper.Entity = require('./entities/caliperEntity');
+Caliper.Person = require('./entities/lis/person');
+Caliper.CourseSection = require('./entities/lis/courseSection');
+Caliper.EPubVolume = require('./entities/reading/ePubVolume');
+Caliper.Frame = require('./entities/reading/frame');
+Caliper.SoftwareApplication = require('./entities/softwareApplication');
+Caliper.WebPage = require('./entities/webPage');
+
 Caliper.Event = require('./events/caliperEvent');
-Caliper.Event = require('./events/navigationEvent');
+Caliper.NavigationEvent = require('./events/navigationEvent');
 
 // Replace/Create the global namespace and objects (the sensor) we want there
 Caliper.Sensor = CaliperSensor;
