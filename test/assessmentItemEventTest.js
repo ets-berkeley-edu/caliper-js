@@ -41,8 +41,8 @@ test('Create Assessment Item Event and validate attributes', function (t) {
   // The target object (frame) within the Event Object
   var targetObj = null;
 
-  // The generated object (Attempt) within the Event Object
-  var generatedObj = null;
+  // The generated object (Response/Result?) within the Event Object
+  var generatedObj = null; //TODO - fix
 
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");

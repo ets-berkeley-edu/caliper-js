@@ -39,7 +39,8 @@ Entity.prototype.Types = {
   "LEARNING_OBJECTIVE": "http://purl.imsglobal.org/caliper/v1/LearningObjective",
   "MEDIA_LOCATION": "http://purl.imsglobal.org/caliper/v1/MediaLocation",
   "RESULT": "http://purl.imsglobal.org/caliper/v1/Result",
-  "VIEW": "http://purl.imsglobal.org/caliper/v1/View"
+  "VIEW": "http://purl.imsglobal.org/caliper/v1/View",
+  "SESSION": "http://purl.imsglobal.org/caliper/v1/Session"
 };
 
 module.exports = Entity;

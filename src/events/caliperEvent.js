@@ -67,7 +67,8 @@ Event.prototype.Contexts = {
   "MEDIA": "http://purl.imsglobal.org/ctx/caliper/v1/MediaEvent",
   "NAVIGATION": "http://purl.imsglobal.org/ctx/caliper/v1/NavigationEvent",
   "OUTCOME": "http://purl.imsglobal.org/ctx/caliper/v1/OutcomeEvent",
-  "VIEWED": "http://purl.imsglobal.org/ctx/caliper/v1/ViewEvent"
+  "VIEWED": "http://purl.imsglobal.org/ctx/caliper/v1/ViewEvent",
+  "SESSION": "http://purl.imsglobal.org/ctx/caliper/v1/SessionEvent"
 };
 
 Event.prototype.Types = {
@@ -79,7 +80,8 @@ Event.prototype.Types = {
   "MEDIA": "http://purl.imsglobal.org/caliper/v1/MediaEvent",
   "NAVIGATION": "http://purl.imsglobal.org/caliper/v1/NavigationEvent",
   "OUTCOME": "http://purl.imsglobal.org/caliper/v1/OutcomeEvent",
-  "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent"
+  "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent",
+  "SESSION": "http://purl.imsglobal.org/caliper/v1/SessionEvent"
 };
 
 module.exports = Event;
