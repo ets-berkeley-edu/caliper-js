@@ -24,7 +24,8 @@ var jsonCompare = function (expectedJsonFile, JsonToCompare, t, filterCallback) 
 
   var differences;
 
-  var file = './test/fixtures/' + expectedJsonFile + '.json';
+  var FIXTURES_BASE_DIR = '../caliper-common-fixtures/src/test/resources/fixtures/';
+  var file = FIXTURES_BASE_DIR + expectedJsonFile + '.json';
   jf.readFile(file, function (err, expectedJson) {
     // console.log("INFO: Loaded JSON from file: " + util.inspect(expectedJson));
     if (_.isNull(expectedJson)) {
