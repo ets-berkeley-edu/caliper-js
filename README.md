@@ -15,6 +15,8 @@ Access to this draft code is reserved for IMS Contributing Members who are activ
 
 * Install npm for your platform
 * npm install -g browserify
+* npm install grunt
+* npm install -g grunt-cli
 
 ### Testing and Building
 
