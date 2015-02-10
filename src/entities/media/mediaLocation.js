@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash-node');
-var Entity = require('../caliperEntity');
+var Entity = require('./mediaObject');
 
 function MediaLocation(id, type) {
 

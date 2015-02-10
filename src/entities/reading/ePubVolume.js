@@ -16,8 +16,8 @@ function EPubVolume(id) {
   this.setName(null);
   this.setObjectType([]);
   this.setAlignedLearningObjective([]);
-  this.setKeyword([]);
-  this.setPartOf(null);
+  this.setKeywords([]);
+  this.setIsPartOf(null);
 }
 
 EPubVolume.prototype = _.create(DigitalResource.prototype);

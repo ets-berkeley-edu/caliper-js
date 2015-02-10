@@ -24,7 +24,8 @@ test('Create View Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setLastModifiedTime(1402965614516);
+  actor.setDateCreated(1402965614516);
+  actor.setDateModified(1402965614516);
 
   // The Action for the Caliper Event
   var action = ReadingActions.VIEWED;
@@ -33,25 +34,29 @@ test('Create View Event and validate attributes', function (t) {
   var eventObj = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   eventObj.setResourceType("EPUB_VOLUME");
   eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-  eventObj.setLastModifiedTime(1402965614516);
+  eventObj.setDateCreated(1402965614516);
+  eventObj.setDateModified(1402965614516);
 
   // The target object (frame) within the Event Object
   var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
   targetObj.setResourceType("FRAME");
   targetObj.setName("Key Figures: George Washington");
-  targetObj.setLastModifiedTime(1402965614516);
+  targetObj.setDateCreated(1402965614516);
+  targetObj.setDateModified(1402965614516);
   targetObj.setIndex(1);
-  targetObj.setPartOf(eventObj);
+  targetObj.setIsPartOf(eventObj);
 
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   edApp.setName("Readium");
-  edApp.setLastModifiedTime(1402965614516);
+  edApp.setDateCreated(1402965614516);
+  edApp.setDateModified(1402965614516);
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setLastModifiedTime(1402965614516);
+  org.setDateCreated(1402965614516);
+  org.setDateModified(1402965614516);
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");

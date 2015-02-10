@@ -16,8 +16,8 @@ function Frame(id) {
   this.setName(null);
   this.setObjectType([]);
   this.setAlignedLearningObjective([]);
-  this.setKeyword([]);
-  this.setPartOf(null);
+  this.setKeywords([]);
+  this.setIsPartOf(null);
 }
 
 Frame.prototype = _.create(DigitalResource.prototype);

@@ -14,8 +14,6 @@ function Person(id) {
   this.setId(id);
   this.setType("http://purl.imsglobal.org/caliper/v1/lis/Person");
 
-  this.setName(null);
-
 }
 
 Person.prototype = _.create(Agent.prototype);

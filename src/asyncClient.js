@@ -60,7 +60,7 @@ self.send = function (caliperEvent) {
     logger.log('debug', "Sending event " + JSON.stringify(caliperEvent));
 
     var postOptions = _.merge(sensorOptions, {
-      method: 'POST'
+      method: 'PUT'
     });
 
     var postData = JSON.stringify(caliperEvent);
@@ -83,7 +83,7 @@ self.describe = function (caliperEntity) {
     logger.log('debug', "Sending describe " + JSON.stringify(caliperEntity));
 
     var postOptions = _.merge(sensorOptions, {
-      method: 'POST'
+      method: 'PUT'
     });
 
     var postData = JSON.stringify(caliperEvent);

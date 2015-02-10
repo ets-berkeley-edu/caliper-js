@@ -13,11 +13,14 @@ function DigitalResource(id) {
 
   this.setId(id);
 
+  this.setName(null);
+  this.setDescription(null);
   this.setProperties({});
   this.setObjectType([]);
   this.setAlignedLearningObjective([]);
-  this.setKeyword([]);
-  this.setPartOf(null);
+  this.setKeywords([]);
+  this.setIsPartOf(null);
+  this.setDatePublished(0);
 }
 
 DigitalResource.prototype = _.create(Entity.prototype);
@@ -62,12 +65,16 @@ DigitalResource.prototype.setAlignedLearningObjective = function (alignedLearnin
   this.alignedLearningObjective = alignedLearningObjective;
 };
 
-DigitalResource.prototype.setKeyword = function (keyword) {
-  this.keyword = keyword;
+DigitalResource.prototype.setKeywords = function (keywords) {
+  this.keywords = keywords;
 };
 
-DigitalResource.prototype.setPartOf = function (partOf) {
-  this.partOf = partOf;
+DigitalResource.prototype.setIsPartOf = function (isPartOf) {
+  this.isPartOf = isPartOf;
+};
+
+DigitalResource.prototype.setDatePublished = function (datePublished) {
+  this.datePublished = datePublished;
 };
 
 DigitalResource.prototype.Types = {

@@ -1,0 +1,90 @@
+/**
+ *  author: Prashant Nayak
+ *  ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
+ *  For license information contact, info@imsglobal.org
+ */
+
+var test = require('tape');
+var _ = require('lodash-node');
+var util = require('util');
+var jsonCompare = require('./testUtils');
+var Event = require('../src/events/sessionEvent');
+var Person = require('../src/entities/lis/person');
+var Session = require('../src/entities/session/session');
+var EPubVolume = require('../src/entities/reading/ePubVolume');
+var SoftwareApplication = require('../src/entities/softwareApplication');
+var Frame = require('../src/entities/reading/frame');
+var SessionActions = require('../src/actions/sessionActions');
+var CourseSection = require('../src/entities/lis/courseSection');
+
+test('Create Session LOGOUT Event and validate attributes', function(t) {
+
+  // Plan for N assertions
+  t.plan(1);
+
+  // The Actor for the Caliper Event
+  var actor = new Person("https://some-university.edu/user/554433");
+  actor.setDateCreated(1402965614516);
+  actor.setDateCreated(1402965614516);
+  actor.setDateModified(1402965614516);
+
+  // The Action for the Caliper Event
+  var action = SessionActions.LOGGED_OUT;
+
+  // The Object being interacted with by the Actor
+  var eventObj = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
+  eventObj.setName("Readium");
+  eventObj.setDateCreated(1402965614516);
+  eventObj.setDateModified(1402965614516);
+
+  var ePubVolume = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
+  ePubVolume.setResourceType("EPUB_VOLUME");
+  ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+  ePubVolume.setDateCreated(1402965614516);
+  ePubVolume.setDateModified(1402965614516);
+
+  // The target object (frame) within the Event Object
+  var targetObj = new Session("https://github.com/readium/session-123456789");
+  targetObj.setName("session-123456789");
+  targetObj.setDescription(null);
+  targetObj.setActor(actor);
+  targetObj.setStartedAtTime(1402965614516);
+  targetObj.setEndedAtTime(1402965614516);
+  targetObj.setDuration(null);
+  targetObj.setDateCreated(1402965614516);
+  targetObj.setDateModified(1402965614516);
+
+  var generatedObj = null;
+
+  // The edApp that is part of the Learning Context
+  var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
+  edApp.setName("Readium");
+  edApp.setDateCreated(1402965614516);
+  edApp.setDateModified(1402965614516);
+
+  // The LIS Course Section for the Caliper Event
+  var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
+  org.setName("American Revolution 101");
+  org.setDateCreated(1402965614516);
+  org.setDateModified(1402965614516);
+  org.setCourseNumber("AmRev-101");
+  org.setLabel("Am Rev 101");
+  org.setSemester("Spring-2014");
+
+  // Assert that key attributes are the same
+  var sessionEvent = new Event();
+  sessionEvent.setActor(actor);
+  sessionEvent.setAction(action);
+  sessionEvent.setObject(eventObj);
+  sessionEvent.setTarget(targetObj);
+  sessionEvent.setGenerated(generatedObj);
+  sessionEvent.setEdApp(edApp);
+  sessionEvent.setLisOrganization(org);
+  sessionEvent.setStartedAtTime(1402965614516);
+  sessionEvent.setEndedAtTime(1402965614516);
+
+  console.log("Session Event = " + util.inspect(sessionEvent));
+
+  // Assert that JSON produced is the same
+  jsonCompare('caliperSessionLogoutEvent', sessionEvent, t);
+})

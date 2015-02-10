@@ -14,6 +14,7 @@ function Annotation(id) {
   this.setId(id);
 
   this.setName(null);
+  this.setDescription(null);
   this.setProperties({});
 }
 

@@ -28,6 +28,8 @@ function Agent(id, type) {
     break;
   }
 
+  this.setName(null);
+  this.setDescription(null);
   this.setProperties({});
 }
 

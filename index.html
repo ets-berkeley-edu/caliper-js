@@ -16,14 +16,14 @@
         var sensor = Caliper.Sensor;
 
         sensor.initialize({
-            host: 'lvh.me',
-            port: '1080',
-            path: '/1.0/event/put'
+            host: '127.0.0.1',
+            port: '8070',
+            path: '/v1custom/eventdata'
         });
 
         // The Actor for the Caliper Event
         var actor = new Caliper.Person("https://some-university.edu/user/554433");
-        actor.setLastModifiedTime(1402965614516);
+        actor.setDateModified(1402965614516);
 
         // The Action for the Caliper Event
         var action = Caliper.ReadingActions.NAVIGATED_TO;
@@ -32,25 +32,25 @@
         var eventObj = new Caliper.EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
         eventObj.setResourceType("EPUB_VOLUME");
         eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-        eventObj.setLastModifiedTime(1402965614516);
+        eventObj.setDateModified(1402965614516);
 
         // The target object (frame) within the Event Object
         var targetObj = new Caliper.Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
         targetObj.setResourceType("FRAME");
         targetObj.setName("Key Figures: George Washington");
-        targetObj.setLastModifiedTime(1402965614516);
+        targetObj.setDateModified(1402965614516);
         targetObj.setIndex(1);
-        targetObj.setPartOf(eventObj);
+        targetObj.setIsPartOf(eventObj);
 
         // The edApp that is part of the Learning Context
         var edApp = new Caliper.SoftwareApplication("https://github.com/readium/readium-js-viewer");
         edApp.setName("Readium");
-        edApp.setLastModifiedTime(1402965614516);
+        edApp.setDateModified(1402965614516);
 
         // The LIS Course Section for the Caliper Event
         var org = new Caliper.CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
         org.setName("American Revolution 101");
-        org.setLastModifiedTime(1402965614516);
+        org.setDateModified(1402965614516);
         org.setCourseNumber("AmRev-101");
         org.setLabel("Am Rev 101");
         org.setSemester("Spring-2014");
@@ -58,10 +58,10 @@
         // Specific to the Navigation Event - the location where the user navigated from
         var navigatedFromObj = new Caliper.WebPage("AmRev-101-landingPage");
         navigatedFromObj.setName("American Revolution 101 Landing Page");
-        navigatedFromObj.setPartOf(org);
-        navigatedFromObj.setLastModifiedTime(1402965614516);
+        navigatedFromObj.setIsPartOf(org);
+        navigatedFromObj.setDateModified(1402965614516);
 
-        // Assert that key attributes are the same
+        // Create the Event
         var navigationEvent = new Caliper.NavigationEvent();
         navigationEvent.setActor(actor);
         navigationEvent.setAction(action);
@@ -75,12 +75,13 @@
 
         var currentTimeMillis = (new Date()).getTime();
 
+        // Send the Event
         var eventEnvelope = {};
         eventEnvelope['_id'] = 'caliper-js' + currentTimeMillis;
         eventEnvelope.d = navigationEvent;
         console.log('created event envelope %O', eventEnvelope);
 
-        //sensor.send(eventEnvelope);
+        sensor.send(eventEnvelope);
 
     });
     </script>

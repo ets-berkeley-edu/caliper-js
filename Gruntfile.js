@@ -17,7 +17,7 @@ module.exports = function (grunt) {
       'dev': {
         // the server root directory
         root: '.',
-        port: 9999,
+        port: 8888,
         host: "127.0.0.1",
         cache: 0,
         showDir: true,
@@ -50,4 +50,5 @@ module.exports = function (grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['test', 'browserify']);
+  grunt.registerTask('server', ['http-server']);
 };

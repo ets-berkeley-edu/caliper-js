@@ -17,8 +17,8 @@ function WebPage(id, type) {
   this.setName(null);
   this.setObjectType([]);
   this.setAlignedLearningObjective([]);
-  this.setKeyword([]);
-  this.setPartOf(null);
+  this.setKeywords([]);
+  this.setIsPartOf(null);
 }
 
 WebPage.prototype = _.create(DigitalResource.prototype);

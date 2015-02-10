@@ -16,7 +16,6 @@ function AssignableDigitalResource(id, type) {
 
   this.setProperties({});
   this.setDateCreated(0);
-  this.setDatePublished(0);
   this.setDateToActivate(0);
   this.setDateToShow(0);
   this.setDateToStartOn(0);
@@ -30,10 +29,6 @@ AssignableDigitalResource.prototype = _.create(DigitalResource.prototype);
 
 AssignableDigitalResource.prototype.setDateCreated = function (dateCreated) {
   this.dateCreated = dateCreated;
-};
-
-AssignableDigitalResource.prototype.setDatePublished = function (datePublished) {
-  this.datePublished = datePublished;
 };
 
 AssignableDigitalResource.prototype.setDateToActivate = function (dateToActivate) {

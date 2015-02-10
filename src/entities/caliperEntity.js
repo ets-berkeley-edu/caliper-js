@@ -22,12 +22,20 @@ Entity.prototype.setName = function (name) {
   this.name = name;
 };
 
+Entity.prototype.setDescription = function (description) {
+  this.description = description;
+};
+
 Entity.prototype.setProperties = function (properties) {
   this.properties = properties;
 };
 
-Entity.prototype.setLastModifiedTime = function (lastModifiedTime) {
-  this.lastModifiedTime = lastModifiedTime;
+Entity.prototype.setDateCreated = function (dateCreated) {
+  this.dateCreated = dateCreated;
+};
+
+Entity.prototype.setDateModified = function (dateModified) {
+  this.dateModified = dateModified;
 };
 
 Entity.prototype.Types = {
@@ -37,7 +45,6 @@ Entity.prototype.Types = {
   "DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/DigitalResource",
   "ENTITY": "http://purl.imsglobal.org/caliper/v1/Entity",
   "LEARNING_OBJECTIVE": "http://purl.imsglobal.org/caliper/v1/LearningObjective",
-  "MEDIA_LOCATION": "http://purl.imsglobal.org/caliper/v1/MediaLocation",
   "RESULT": "http://purl.imsglobal.org/caliper/v1/Result",
   "VIEW": "http://purl.imsglobal.org/caliper/v1/View",
   "SESSION": "http://purl.imsglobal.org/caliper/v1/Session"

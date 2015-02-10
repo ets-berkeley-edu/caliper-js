@@ -25,7 +25,8 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setLastModifiedTime(1402965614516);
+  actor.setDateCreated(1402965614516);
+  actor.setDateModified(1402965614516);
 
   // The Action for the Caliper Event
   var action = AnnotationActions.BOOKMARKED;
@@ -33,32 +34,37 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   // The Object being interacted with by the Actor
   var eventObj = new BookmarkAnnotation("https://someEduApp.edu/bookmarks/00001");
   eventObj.setAnnotationType("BOOKMARK_ANNOTATION");
-  eventObj.setLastModifiedTime(1402965614516);
+  eventObj.setDateCreated(1402965614516);
+  eventObj.setDateModified(1402965614516);
   eventObj.setBookmarkNotes("The Intolerable Acts (1774)--bad idea Lord North");
 
   // The Digital Resource that the targetObj (below) belongs to
   var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   ePub.setResourceType("EPUB_VOLUME");
   ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-  ePub.setLastModifiedTime(1402965614516);
+  ePub.setDateCreated(1402965614516);
+  ePub.setDateModified(1402965614516);
 
   // The target object (frame) within the Event Object
   var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/2)");
   targetObj.setResourceType("FRAME");
   targetObj.setName("Key Figures: Lord North");
-  targetObj.setLastModifiedTime(1402965614516);
+  targetObj.setDateCreated(1402965614516);
+  targetObj.setDateModified(1402965614516);
   targetObj.setIndex(2);
-  targetObj.setPartOf(ePub);
+  targetObj.setIsPartOf(ePub);
 
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   edApp.setName("Readium");
-  edApp.setLastModifiedTime(1402965614516);
+  edApp.setDateCreated(1402965614516);
+  edApp.setDateModified(1402965614516);
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setLastModifiedTime(1402965614516);
+  org.setDateCreated(1402965614516);
+  org.setDateModified(1402965614516);
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");

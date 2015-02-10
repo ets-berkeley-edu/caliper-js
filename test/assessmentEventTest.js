@@ -25,7 +25,8 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setLastModifiedTime(1402965614516);
+  actor.setDateCreated(1402965614516);
+  actor.setDateModified(1402965614516);
 
   // The Action for the Caliper Event
   var action = AssessmentActions.STARTED;
@@ -33,8 +34,8 @@ test('Create Assessment Event and validate attributes', function (t) {
   // The Object being interacted with by the Actor (Assessment)
   var eventObj = new Assessment("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   eventObj.setName("American Revolution - Key Figures Assessment");
-  eventObj.setPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101");
-  eventObj.setLastModifiedTime(1402965614516);
+  eventObj.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101");
+  eventObj.setDateModified(1402965614516);
   eventObj.setDateCreated(1402965614516);
   eventObj.setDatePublished(1402965614516);
   eventObj.setDateToActivate(1402965614516);
@@ -48,25 +49,28 @@ test('Create Assessment Event and validate attributes', function (t) {
   // The Assessment has three items
   var assessmentItem1 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item1");
   assessmentItem1.setName("Assessment Item 1");
-  assessmentItem1.setPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+  assessmentItem1.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   assessmentItem1.setMaxAttempts(2);
   assessmentItem1.setMaxSubmits(2);
   assessmentItem1.setMaxScore(1.0);
-  assessmentItem1.setLastModifiedTime(0);
+  assessmentItem1.setDateCreated(0);
+  assessmentItem1.setDateModified(0);
   var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item2");  
   assessmentItem2.setName("Assessment Item 2"); 
-  assessmentItem2.setPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+  assessmentItem2.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   assessmentItem2.setMaxAttempts(2);
   assessmentItem2.setMaxSubmits(2);
   assessmentItem2.setMaxScore(1.0);
-  assessmentItem2.setLastModifiedTime(0);
+  assessmentItem2.setDateCreated(0);
+  assessmentItem2.setDateModified(0);
   var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item3");  
   assessmentItem3.setName("Assessment Item 3"); 
-  assessmentItem3.setPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+  assessmentItem3.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   assessmentItem3.setMaxAttempts(2);
   assessmentItem3.setMaxSubmits(2);
   assessmentItem3.setMaxScore(1.0);
-  assessmentItem3.setLastModifiedTime(0);
+  assessmentItem3.setDateCreated(0);
+  assessmentItem3.setDateModified(0);
 
   eventObj.setAssessmentItems([assessmentItem1, assessmentItem2, assessmentItem3]);
 
@@ -76,21 +80,25 @@ test('Create Assessment Event and validate attributes', function (t) {
   // The generated object (Attempt) within the Event Object
   var generatedObj = new Attempt("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/attempt1");
   generatedObj.setName(null);
-  generatedObj.setLastModifiedTime(0);
+  generatedObj.setDescription(null);
+  generatedObj.setDateCreated(1402965614516);
+  generatedObj.setDateModified(0);
   generatedObj.setCount(1);
-  generatedObj.setStartedAtTime(0);
+  generatedObj.setStartedAtTime(1402965614516);
   generatedObj.setEndedAtTime(0);
   generatedObj.setDuration(null);
 
   // The edApp that is part of the Learning Context
-  var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
-  edApp.setName("Readium");
-  edApp.setLastModifiedTime(1402965614516);
+  var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
+  edApp.setName("Super Assessment Tool");
+  edApp.setDateCreated(1402965614516);
+  edApp.setDateModified(0);
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setLastModifiedTime(1402965614516);
+  org.setDateCreated(1402965614516);
+  org.setDateModified(1402965614516);
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");

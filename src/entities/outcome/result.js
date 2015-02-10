@@ -19,6 +19,14 @@ function Result(id, type) {
 
 Result.prototype = _.create(Entity.prototype);
 
+Result.prototype.setActorId = function (actorId) {
+  this.actorId = actorId;
+};
+
+Result.prototype.setAssignableId = function (assignableId) {
+  this.assignableId = assignableId;
+};
+
 Result.prototype.setNormalScore = function (normalScore) {
   this.normalScore = normalScore;
 };
