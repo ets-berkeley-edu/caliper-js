@@ -17,6 +17,7 @@ var AssessmentItem = require('../src/entities/assessment/assessmentItem');
 var Attempt = require('../src/entities/assignable/attempt');
 var SoftwareApplication = require('../src/entities/softwareApplication');
 var AssessmentActions = require('../src/actions/assessmentActions');
+var moment = require('moment');
 
 test('Create Assessment Event and validate attributes', function (t) {
 
@@ -25,8 +26,8 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setDateCreated(1402965614516);
-  actor.setDateModified(1402965614516);
+  actor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The Action for the Caliper Event
   var action = AssessmentActions.STARTED;
@@ -35,13 +36,13 @@ test('Create Assessment Event and validate attributes', function (t) {
   var eventObj = new Assessment("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   eventObj.setName("American Revolution - Key Figures Assessment");
   eventObj.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101");
-  eventObj.setDateModified(1402965614516);
-  eventObj.setDateCreated(1402965614516);
-  eventObj.setDatePublished(1402965614516);
-  eventObj.setDateToActivate(1402965614516);
-  eventObj.setDateToShow(1402965614516);
-  eventObj.setDateToStartOn(1402965614516);
-  eventObj.setDateToSubmit(1402965614516);
+  eventObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
+  eventObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  eventObj.setDatePublished((new Date("2015-02-02T11:30:00Z")).toISOString());
+  eventObj.setDateToActivate((new Date("2015-02-02T11:30:00Z")).toISOString());
+  eventObj.setDateToShow((new Date("2015-02-02T11:30:00Z")).toISOString());
+  eventObj.setDateToStartOn((new Date("2015-02-02T11:30:00Z")).toISOString());
+  eventObj.setDateToSubmit((new Date("2015-02-02T11:30:00Z")).toISOString());
   eventObj.setMaxAttempts(2);
   eventObj.setMaxSubmits(2);
   eventObj.setMaxScore(3.0);
@@ -53,24 +54,24 @@ test('Create Assessment Event and validate attributes', function (t) {
   assessmentItem1.setMaxAttempts(2);
   assessmentItem1.setMaxSubmits(2);
   assessmentItem1.setMaxScore(1.0);
-  assessmentItem1.setDateCreated(0);
-  assessmentItem1.setDateModified(0);
+  assessmentItem1.setDateCreated(null);
+  assessmentItem1.setDateModified(null);
   var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item2");  
   assessmentItem2.setName("Assessment Item 2"); 
   assessmentItem2.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   assessmentItem2.setMaxAttempts(2);
   assessmentItem2.setMaxSubmits(2);
   assessmentItem2.setMaxScore(1.0);
-  assessmentItem2.setDateCreated(0);
-  assessmentItem2.setDateModified(0);
+  assessmentItem2.setDateCreated(null);
+  assessmentItem2.setDateModified(null);
   var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item3");  
   assessmentItem3.setName("Assessment Item 3"); 
   assessmentItem3.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   assessmentItem3.setMaxAttempts(2);
   assessmentItem3.setMaxSubmits(2);
   assessmentItem3.setMaxScore(1.0);
-  assessmentItem3.setDateCreated(0);
-  assessmentItem3.setDateModified(0);
+  assessmentItem3.setDateCreated(null);
+  assessmentItem3.setDateModified(null);
 
   eventObj.setAssessmentItems([assessmentItem1, assessmentItem2, assessmentItem3]);
 
@@ -81,24 +82,24 @@ test('Create Assessment Event and validate attributes', function (t) {
   var generatedObj = new Attempt("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/attempt1");
   generatedObj.setName(null);
   generatedObj.setDescription(null);
-  generatedObj.setDateCreated(1402965614516);
-  generatedObj.setDateModified(0);
+  generatedObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  generatedObj.setDateModified(null);
   generatedObj.setCount(1);
-  generatedObj.setStartedAtTime(1402965614516);
-  generatedObj.setEndedAtTime(0);
+  generatedObj.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  generatedObj.setEndedAtTime(null);
   generatedObj.setDuration(null);
 
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
   edApp.setName("Super Assessment Tool");
-  edApp.setDateCreated(1402965614516);
-  edApp.setDateModified(0);
+  edApp.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  edApp.setDateModified(null);
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setDateCreated(1402965614516);
-  org.setDateModified(1402965614516);
+  org.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  org.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");
@@ -112,7 +113,7 @@ test('Create Assessment Event and validate attributes', function (t) {
   assessmentEvent.setGenerated(generatedObj);
   assessmentEvent.setEdApp(edApp);
   assessmentEvent.setLisOrganization(org);
-  assessmentEvent.setStartedAtTime(1402965614516);
+  assessmentEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   console.log("Assessment Event = " + util.inspect(assessmentEvent));
 

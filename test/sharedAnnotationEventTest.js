@@ -25,8 +25,8 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setDateCreated(1402965614516);
-  actor.setDateModified(1402965614516);
+  actor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The Action for the Caliper Event
   var action = AnnotationActions.SHARED;
@@ -34,43 +34,43 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   // The Object being interacted with by the Actor
   var eventObj = new SharedAnnotation("https://someEduApp.edu/shared/9999");
   eventObj.setAnnotationType("SHARED_ANNOTATION");
-  eventObj.setDateCreated(1402965614516);
-  eventObj.setDateModified(1402965614516);
+  eventObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  eventObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   var sharee1 = new Person("https://some-university.edu/students/657585");
-  sharee1.setDateCreated(1402965614516);
-  sharee1.setDateModified(1402965614516);
+  sharee1.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  sharee1.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   var sharee2 = new Person("https://some-university.edu/students/667788");
-  sharee2.setDateCreated(1402965614516);
-  sharee2.setDateModified(1402965614516);
+  sharee2.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  sharee2.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   eventObj.setWithAgents([sharee1, sharee2]);
 
   // The Digital Resource that the targetObj (below) belongs to
   var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   ePub.setResourceType("EPUB_VOLUME");
   ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-  ePub.setDateCreated(1402965614516);
-  ePub.setDateModified(1402965614516);
+  ePub.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  ePub.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The target object (frame) within the Event Object
   var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/3)");
   targetObj.setResourceType("FRAME");
   targetObj.setName("Key Figures: John Adams");
-  targetObj.setDateCreated(1402965614516);
-  targetObj.setDateModified(1402965614516);
+  targetObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  targetObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   targetObj.setIndex(3);
   targetObj.setIsPartOf(ePub);
 
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   edApp.setName("Readium");
-  edApp.setDateCreated(1402965614516);
-  edApp.setDateModified(1402965614516);
+  edApp.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  edApp.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setDateCreated(1402965614516);
-  org.setDateModified(1402965614516);
+  org.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  org.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");
@@ -83,7 +83,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   sharedAnnotationEvent.setTarget(targetObj);
   sharedAnnotationEvent.setEdApp(edApp);
   sharedAnnotationEvent.setLisOrganization(org);
-  sharedAnnotationEvent.setStartedAtTime(1402965614516);
+  sharedAnnotationEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   console.log("Shared Annotation Event = " + util.inspect(sharedAnnotationEvent));
 

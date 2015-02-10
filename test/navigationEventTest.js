@@ -24,8 +24,8 @@ test('Create Navigation Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setDateCreated(1402965614516);
-  actor.setDateModified(1402965614516);
+  actor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The Action for the Caliper Event
   var action = ReadingActions.NAVIGATED_TO;
@@ -34,29 +34,29 @@ test('Create Navigation Event and validate attributes', function (t) {
   var eventObj = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   eventObj.setResourceType("EPUB_VOLUME");
   eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-  eventObj.setDateCreated(1402965614516);
-  eventObj.setDateModified(1402965614516);
+  eventObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  eventObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The target object (frame) within the Event Object
   var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
   targetObj.setResourceType("FRAME");
   targetObj.setName("Key Figures: George Washington");
-  targetObj.setDateCreated(1402965614516);
-  targetObj.setDateModified(1402965614516);
+  targetObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  targetObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   targetObj.setIndex(1);
   targetObj.setIsPartOf(eventObj);
 
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   edApp.setName("Readium");
-  edApp.setDateCreated(1402965614516);
-  edApp.setDateModified(1402965614516);
+  edApp.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  edApp.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setDateCreated(1402965614516);
-  org.setDateModified(1402965614516);
+  org.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  org.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");
@@ -65,8 +65,8 @@ test('Create Navigation Event and validate attributes', function (t) {
   var navigatedFromObj = new WebPage("AmRev-101-landingPage");
   navigatedFromObj.setName("American Revolution 101 Landing Page");
   navigatedFromObj.setIsPartOf(org);
-  navigatedFromObj.setDateCreated(1402965614516);
-  navigatedFromObj.setDateModified(1402965614516);
+  navigatedFromObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  navigatedFromObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // Assert that key attributes are the same
   var navigationEvent = new Event();
@@ -76,7 +76,7 @@ test('Create Navigation Event and validate attributes', function (t) {
   navigationEvent.setTarget(targetObj);
   navigationEvent.setEdApp(edApp);
   navigationEvent.setLisOrganization(org);
-  navigationEvent.setStartedAtTime(1402965614516);
+  navigationEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
   navigationEvent.setNavigatedFrom(navigatedFromObj);
 
   console.log("Navigation Event = " + util.inspect(navigationEvent));

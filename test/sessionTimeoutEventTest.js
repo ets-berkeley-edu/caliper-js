@@ -25,8 +25,8 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
   // The Actor for the Caliper Event
   var actor = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   actor.setName("Readium");
-  actor.setDateCreated(1402965614516);
-  actor.setDateModified(1402965614516);
+  actor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The Action for the Caliper Event
   var action = SessionActions.TIMED_OUT;
@@ -34,29 +34,29 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
   // The Object being interacted with by the Actor
   var eventObj = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   eventObj.setName("Readium");
-  eventObj.setDateCreated(1402965614516);
-  eventObj.setDateModified(1402965614516);
+  eventObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  eventObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   var ePubVolume = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   ePubVolume.setResourceType("EPUB_VOLUME");
   ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-  ePubVolume.setDateCreated(1402965614516);
-  ePubVolume.setDateModified(1402965614516);
+  ePubVolume.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  ePubVolume.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The target object (frame) within the Event Object
   var targetObj = new Session("https://github.com/readium/session-123456789");
   targetObj.setName("session-123456789");
   targetObj.setDescription(null);
-  targetObj.setStartedAtTime(1402965614516);
-  targetObj.setEndedAtTime(1402965614516);
+  targetObj.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  targetObj.setEndedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
   targetObj.setDuration(null);
-  targetObj.setDateCreated(1402965614516);
-  targetObj.setDateModified(1402965614516);
+  targetObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  targetObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   var sessionActor = new Person("https://some-university.edu/user/554433");
-  sessionActor.setDateCreated(1402965614516);
-  sessionActor.setDateCreated(1402965614516);
-  sessionActor.setDateModified(1402965614516);
+  sessionActor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  sessionActor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  sessionActor.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   targetObj.setActor(sessionActor);
 
@@ -69,8 +69,8 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setDateCreated(1402965614516);
-  org.setDateModified(1402965614516);
+  org.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  org.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");
@@ -84,8 +84,8 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
   sessionEvent.setGenerated(generatedObj);
   sessionEvent.setEdApp(edApp);
   sessionEvent.setLisOrganization(org);
-  sessionEvent.setStartedAtTime(1402965614516);
-  sessionEvent.setEndedAtTime(1402965614516);
+  sessionEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  sessionEvent.setEndedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   console.log("Session Event = " + util.inspect(sessionEvent));
 

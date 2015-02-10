@@ -6,9 +6,9 @@
  */
 
 var sessionActions = {
-  "LOGGED_IN"  : "loggedIn",
-  "LOGGED_OUT" : "loggedOut",
-  "TIMED_OUT"  : "timedOut"
+  "LOGGED_IN"  : "logged in",
+  "LOGGED_OUT" : "logged out",
+  "TIMED_OUT"  : "timed out"
 }
 
 module.exports = sessionActions;

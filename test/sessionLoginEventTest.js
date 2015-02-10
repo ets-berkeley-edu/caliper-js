@@ -24,9 +24,9 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setDateCreated(1402965614516);
-  actor.setDateCreated(1402965614516);
-  actor.setDateModified(1402965614516);
+  actor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  actor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The Action for the Caliper Event
   var action = SessionActions.LOGGED_IN;
@@ -34,21 +34,21 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   // The Object being interacted with by the Actor
   var eventObj = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   eventObj.setName("Readium");
-  eventObj.setDateCreated(1402965614516);
-  eventObj.setDateModified(1402965614516);
+  eventObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  eventObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   var ePubVolume = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
   ePubVolume.setResourceType("EPUB_VOLUME");
   ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-  ePubVolume.setDateCreated(1402965614516);
-  ePubVolume.setDateModified(1402965614516);
+  ePubVolume.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  ePubVolume.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The target object (frame) within the Event Object
   var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
   targetObj.setResourceType("FRAME");
   targetObj.setName("Key Figures: George Washington");
-  targetObj.setDateCreated(1402965614516);
-  targetObj.setDateModified(1402965614516);
+  targetObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  targetObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   targetObj.setIndex(1);
   targetObj.setIsPartOf(ePubVolume);
 
@@ -56,23 +56,23 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   generatedObj.setName("session-123456789");
   generatedObj.setDescription(null);
   generatedObj.setActor(actor);
-  generatedObj.setStartedAtTime(1402965614516);
-  generatedObj.setEndedAtTime(0);
+  generatedObj.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  generatedObj.setEndedAtTime(null);
   generatedObj.setDuration(null);
-  generatedObj.setDateCreated(1402965614516);
-  generatedObj.setDateModified(1402965614516);
+  generatedObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  generatedObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
   edApp.setName("Readium");
-  edApp.setDateCreated(1402965614516);
-  edApp.setDateModified(1402965614516);
+  edApp.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  edApp.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setDateCreated(1402965614516);
-  org.setDateModified(1402965614516);
+  org.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  org.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");
@@ -86,7 +86,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   sessionEvent.setGenerated(generatedObj);
   sessionEvent.setEdApp(edApp);
   sessionEvent.setLisOrganization(org);
-  sessionEvent.setStartedAtTime(1402965614516);
+  sessionEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   console.log("Session Event = " + util.inspect(sessionEvent));
 

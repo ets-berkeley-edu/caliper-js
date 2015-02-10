@@ -15,8 +15,8 @@ function MediaEvent() {
   this.setType(this.Types.MEDIA);
 
   this.setGenerated(null);
-  this.setStartedAtTime(0);
-  this.setEndedAtTime(0);
+  this.setStartedAtTime(null);
+  this.setEndedAtTime(null);
   this.setDuration(null);
 }
 

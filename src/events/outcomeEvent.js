@@ -15,8 +15,8 @@ function OutcomeEvent() {
   this.setType(this.Types.OUTCOME);
 
   this.setGenerated(null);
-  this.setStartedAtTime(0);
-  this.setEndedAtTime(0);
+  this.setStartedAtTime(null);
+  this.setEndedAtTime(null);
   this.setDuration(null);
 }
 

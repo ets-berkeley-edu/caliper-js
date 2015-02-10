@@ -20,7 +20,7 @@ function DigitalResource(id) {
   this.setAlignedLearningObjective([]);
   this.setKeywords([]);
   this.setIsPartOf(null);
-  this.setDatePublished(0);
+  this.setDatePublished(null);
 }
 
 DigitalResource.prototype = _.create(Entity.prototype);

@@ -24,8 +24,8 @@ test('Create Media Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actor = new Person("https://some-university.edu/user/554433");
-  actor.setDateCreated(1402965614516);
-  actor.setDateModified(1402965614516);
+  actor.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The Action for the Caliper Event
   var action = MediaActions.PAUSED;
@@ -33,22 +33,22 @@ test('Create Media Event and validate attributes', function (t) {
   // The Object being interacted with by the Actor
   var eventObj = new VideoObject("https://com.sat/super-media-tool/video/video1");
   eventObj.setName("American Revolution - Key Figures Video");
-  eventObj.setDateCreated(1402965614516);
-  eventObj.setDateModified(1402965614516);
+  eventObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  eventObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   eventObj.setDuration(1420);
 
   var lo = new LearningObjective("http://americanrevolution.com/personalities/learn");
   lo.setDescription(null);
-  lo.setDateCreated(1402965614516);
-  lo.setDateModified(0);
+  lo.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  lo.setDateModified(null);
   eventObj.setAlignedLearningObjective([lo]);
 
   // The MediaLocation that is part of the MediaEvent
   var mediaLocation = new MediaLocation("https://com.sat/super-media-tool/video/video1");
   mediaLocation.setDescription(null);
-  mediaLocation.setDateCreated(1402965614516);
+  mediaLocation.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
   mediaLocation.setCurrentTime(710);
-  mediaLocation.setDateModified(0);
+  mediaLocation.setDateModified(null);
 
   // The target object within the Event Object
   var targetObj = null;
@@ -59,14 +59,14 @@ test('Create Media Event and validate attributes', function (t) {
   // The edApp that is part of the Learning Context
   var edApp = new SoftwareApplication("https://com.sat/super-media-tool");
   edApp.setName("Super Media Tool");
-  edApp.setDateCreated(1402965614516);
-  edApp.setDateModified(1402965614516);
+  edApp.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  edApp.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   // The LIS Course Section for the Caliper Event
   var org = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
   org.setName("American Revolution 101");
-  org.setDateCreated(1402965614516);
-  org.setDateModified(1402965614516);
+  org.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
+  org.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   org.setCourseNumber("AmRev-101");
   org.setLabel("Am Rev 101");
   org.setSemester("Spring-2014");
@@ -81,7 +81,7 @@ test('Create Media Event and validate attributes', function (t) {
   mediaEvent.setGenerated(generatedObj);
   mediaEvent.setEdApp(edApp);
   mediaEvent.setLisOrganization(org);
-  mediaEvent.setStartedAtTime(1402965614516);
+  mediaEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
 
   console.log("Media Event = " + util.inspect(mediaEvent));
 
