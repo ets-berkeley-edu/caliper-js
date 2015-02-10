@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
@@ -34,6 +34,14 @@ module.exports = function (grunt) {
         output: 'console'
       },
       files: ['test/*.js']
+    },
+    jsdoc: {
+      dist: {
+        src: ['src/**/*.js', 'README-external.md'],
+        options: {
+          destination: 'doc'
+        }
+      }
     }
   });
 
@@ -48,7 +56,10 @@ module.exports = function (grunt) {
   // Load plugin that provides http-server task
   grunt.loadNpmTasks('grunt-http-server');
 
+  // Load jsDoc3 plugin
+  grunt.loadNpmTasks('grunt-jsdoc');
+
   // Default task(s).
-  grunt.registerTask('default', ['test', 'browserify']);
+  grunt.registerTask('default', ['test', 'browserify', 'jsdoc']);
   grunt.registerTask('server', ['http-server']);
 };
