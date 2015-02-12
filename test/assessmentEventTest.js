@@ -38,11 +38,11 @@ test('Create Assessment Event and validate attributes', function (t) {
   eventObj.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101");
   eventObj.setDateModified((new Date("2015-02-02T11:30:00Z")).toISOString());
   eventObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
-  eventObj.setDatePublished((new Date("2015-02-02T11:30:00Z")).toISOString());
-  eventObj.setDateToActivate((new Date("2015-02-02T11:30:00Z")).toISOString());
-  eventObj.setDateToShow((new Date("2015-02-02T11:30:00Z")).toISOString());
-  eventObj.setDateToStartOn((new Date("2015-02-02T11:30:00Z")).toISOString());
-  eventObj.setDateToSubmit((new Date("2015-02-02T11:30:00Z")).toISOString());
+  eventObj.setDatePublished((new Date("2015-01-15T09:30:00Z")).toISOString());
+  eventObj.setDateToActivate((new Date("2015-01-16T05:00:00Z")).toISOString());
+  eventObj.setDateToShow((new Date("2015-01-16T05:00:00Z")).toISOString());
+  eventObj.setDateToStartOn((new Date("2015-01-16T05:00:00Z")).toISOString());
+  eventObj.setDateToSubmit((new Date("2015-02-28T11:59:59Z")).toISOString());
   eventObj.setMaxAttempts(2);
   eventObj.setMaxSubmits(2);
   eventObj.setMaxScore(3.0);
@@ -82,10 +82,12 @@ test('Create Assessment Event and validate attributes', function (t) {
   var generatedObj = new Attempt("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/attempt1");
   generatedObj.setName(null);
   generatedObj.setDescription(null);
+  generatedObj.setActor("https://some-university.edu/user/554433");
+  generatedObj.setAssignable("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
   generatedObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
   generatedObj.setDateModified(null);
   generatedObj.setCount(1);
-  generatedObj.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  generatedObj.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
   generatedObj.setEndedAtTime(null);
   generatedObj.setDuration(null);
 
@@ -113,7 +115,7 @@ test('Create Assessment Event and validate attributes', function (t) {
   assessmentEvent.setGenerated(generatedObj);
   assessmentEvent.setEdApp(edApp);
   assessmentEvent.setLisOrganization(org);
-  assessmentEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  assessmentEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
 
   console.log("Assessment Event = " + util.inspect(assessmentEvent));
 
