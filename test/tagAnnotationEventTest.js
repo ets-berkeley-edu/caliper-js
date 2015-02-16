@@ -77,7 +77,7 @@ test('Create TagAnnotation Event and validate attributes', function (t) {
   tagAnnotationEvent.setTarget(targetObj);
   tagAnnotationEvent.setEdApp(edApp);
   tagAnnotationEvent.setLisOrganization(org);
-  tagAnnotationEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  tagAnnotationEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
 
   console.log("TAGGED_ANNOTATION Annotation Event = " + util.inspect(tagAnnotationEvent));
 

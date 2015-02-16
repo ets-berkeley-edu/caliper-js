@@ -69,7 +69,7 @@ test('Create View Event and validate attributes', function (t) {
   viewEvent.setTarget(targetObj);
   viewEvent.setEdApp(edApp);
   viewEvent.setLisOrganization(org);
-  viewEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  viewEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
 
   console.log("View Event = " + util.inspect(viewEvent));
 

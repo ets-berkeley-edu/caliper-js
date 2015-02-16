@@ -56,7 +56,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   generatedObj.setName("session-123456789");
   generatedObj.setDescription(null);
   generatedObj.setActor(actor);
-  generatedObj.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  generatedObj.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
   generatedObj.setEndedAtTime(null);
   generatedObj.setDuration(null);
   generatedObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
@@ -86,7 +86,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   sessionEvent.setGenerated(generatedObj);
   sessionEvent.setEdApp(edApp);
   sessionEvent.setLisOrganization(org);
-  sessionEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  sessionEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
 
   console.log("Session Event = " + util.inspect(sessionEvent));
 

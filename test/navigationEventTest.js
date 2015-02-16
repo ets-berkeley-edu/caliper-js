@@ -62,7 +62,7 @@ test('Create Navigation Event and validate attributes', function (t) {
   org.setSemester("Spring-2014");
 
   // Specific to the Navigation Event - the location where the user navigated from
-  var navigatedFromObj = new WebPage("AmRev-101-landingPage");
+  var navigatedFromObj = new WebPage("https://some-university.edu/politicalScience/2014/american-revolution-101/index.html");
   navigatedFromObj.setName("American Revolution 101 Landing Page");
   navigatedFromObj.setIsPartOf(org);
   navigatedFromObj.setDateCreated((new Date("2015-01-01T06:00:00Z")).toISOString());
@@ -76,7 +76,7 @@ test('Create Navigation Event and validate attributes', function (t) {
   navigationEvent.setTarget(targetObj);
   navigationEvent.setEdApp(edApp);
   navigationEvent.setLisOrganization(org);
-  navigationEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  navigationEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
   navigationEvent.setNavigatedFrom(navigatedFromObj);
 
   console.log("Navigation Event = " + util.inspect(navigationEvent));

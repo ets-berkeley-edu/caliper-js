@@ -81,7 +81,7 @@ test('Create Media Event and validate attributes', function (t) {
   mediaEvent.setGenerated(generatedObj);
   mediaEvent.setEdApp(edApp);
   mediaEvent.setLisOrganization(org);
-  mediaEvent.setStartedAtTime((new Date("2015-02-02T11:30:00Z")).toISOString());
+  mediaEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
 
   console.log("Media Event = " + util.inspect(mediaEvent));
 
