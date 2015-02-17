@@ -17,7 +17,6 @@ var AssessmentItem = require('../src/entities/assessment/assessmentItem');
 var Attempt = require('../src/entities/assignable/attempt');
 var SoftwareApplication = require('../src/entities/softwareApplication');
 var AssessmentActions = require('../src/actions/assessmentActions');
-var moment = require('moment');
 
 test('Create Assessment Event and validate attributes', function (t) {
 
