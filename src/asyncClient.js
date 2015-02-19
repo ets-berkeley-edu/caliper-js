@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash-node');
-var http = require('http');
+var http = require('https');
 var Q = require('q');
 var logger = require('./logger');
 
@@ -40,7 +40,7 @@ self.post = function (postOptions, postData) {
   var postOptions = _.merge(postOptions, {headers: headers});
 
   var request = http.request(postOptions, function (response) {
-    logger.log('debug', "finished sending " + JSON.stringify(response));
+    logger.log('debug', "finished sending. Response = " + JSON.stringify(response));
   });
 
   request.write(postData);
@@ -60,7 +60,7 @@ self.send = function (caliperEvent) {
     logger.log('debug', "Sending event " + JSON.stringify(caliperEvent));
 
     var postOptions = _.merge(sensorOptions, {
-      method: 'PUT'
+      method: 'POST'
     });
 
     var postData = JSON.stringify(caliperEvent);
@@ -83,7 +83,7 @@ self.describe = function (caliperEntity) {
     logger.log('debug', "Sending describe " + JSON.stringify(caliperEntity));
 
     var postOptions = _.merge(sensorOptions, {
-      method: 'PUT'
+      method: 'POST'
     });
 
     var postData = JSON.stringify(caliperEvent);
