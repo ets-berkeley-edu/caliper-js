@@ -22,7 +22,7 @@ var initialized = function () {
 
 
 /**
- * Initializes the default client to use. Uses the socket consumer by default.
+ * Initializes the default client to use.
  * @param  array $options passed straight to the client
  */
 self.initialize = function (options) {
