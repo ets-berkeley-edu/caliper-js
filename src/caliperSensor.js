@@ -46,22 +46,80 @@ CaliperSensor.describe = function (caliperEntity) {
   client.describe(caliperEntity);
 };
 
-
-// Stick on the modules that need to be exported under the Caliper namespace
+// Stick on the modules that need to be exported under the Intellify namespace
 // You only need to require the top-level modules. Browserify
 // will walk the dependency graph and load everything correctly
-Caliper.ReadingActions = require('./actions/readingActions');
+Caliper.Actions = {};
+Caliper.Entities = {};
+Caliper.Events = {};
 
-Caliper.Entity = require('./entities/caliperEntity');
-Caliper.Person = require('./entities/lis/person');
-Caliper.CourseSection = require('./entities/lis/courseSection');
-Caliper.EPubVolume = require('./entities/reading/ePubVolume');
-Caliper.Frame = require('./entities/reading/frame');
-Caliper.SoftwareApplication = require('./entities/softwareApplication');
-Caliper.WebPage = require('./entities/webPage');
+// ACTIONS
+Caliper.Actions.AnnotationActions = require('./actions/annotationActions');
+Caliper.Actions.AssessmentActions = require('./actions/assessmentActions');
+Caliper.Actions.AssessmentItemActions = require('./actions/assessmentItemActions');
+Caliper.Actions.AssignableActions = require('./actions/assignableActions');
+Caliper.Actions.MediaActions = require('./actions/mediaActions');
+Caliper.Actions.OutcomeActions = require('./actions/outcomeActions');
+Caliper.Actions.ReadingActions = require('./actions/readingActions');
+Caliper.Actions.SessionActions = require('./actions/sessionActions');
 
-Caliper.Event = require('./events/caliperEvent');
-Caliper.NavigationEvent = require('./events/navigationEvent');
+
+// ENTITIES
+Caliper.Entities.Entity = require('./entities/caliperEntity');
+
+// Core entities
+Caliper.Entities.Agent = require('./entities/agent');
+Caliper.Entities.DigitalResource = require('./entities/digitalResource');
+Caliper.Entities.LearningObjective = require('./entities/learningObjective');
+Caliper.Entities.SoftwareApplication = require('./entities/softwareApplication');
+Caliper.Entities.WebPage = require('./entities/webPage');
+
+// LIS entities
+Caliper.Entities.Person = require('./entities/lis/person');
+Caliper.Entities.CourseSection = require('./entities/lis/courseSection');
+Caliper.Entities.Organization = require('./entities/lis/organization');
+
+// Annotation entities
+Caliper.Entities.Annotation = require('./entities/annotation/annotation');
+Caliper.Entities.BookmarkAnnotation = require('./entities/annotation/bookmarkAnnotation');
+Caliper.Entities.HighlightAnnotation = require('./entities/annotation/highlightAnnotation');
+Caliper.Entities.SharedAnnotation = require('./entities/annotation/sharedAnnotation');
+Caliper.Entities.TagAnnotation = require('./entities/annotation/tagAnnotation');
+
+// Assignable and Assessement entities
+Caliper.Entities.AssignableDigitalResource = require('./entities/assignable/assignableDigitalResource');
+Caliper.Entities.Attempt = require('./entities/assignable/attempt');
+Caliper.Entities.Assessment = require('./entities/assessment/assessment');
+Caliper.Entities.AssessmentItem = require('./entities/assessment/assessmentItem');
+
+// Media Entities
+Caliper.Entities.MediaObject = require('./entities/media/mediaObject');
+Caliper.Entities.VideoObject = require('./entities/media/videoObject');
+Caliper.Entities.AudioObject = require('./entities/media/audioObject');
+Caliper.Entities.ImageObject = require('./entities/media/imageObject');
+Caliper.Entities.MediaLocation = require('./entities/media/mediaLocation');
+
+// Reading Entities
+Caliper.Entities.EPubVolume = require('./entities/reading/ePubVolume');
+Caliper.Entities.Frame = require('./entities/reading/frame');
+
+// Session Entities
+Caliper.Entities.Session = require('./entities/session/session');
+
+// Outcome Entities
+Caliper.Entities.Result = require('./entities/outcome/result');
+
+// EVENTS
+Caliper.Events.Event = require('./events/caliperEvent');
+Caliper.Events.AnnotationEvent = require('./events/annotationEvent');
+Caliper.Events.AssessmentEvent = require('./events/assessmentEvent');
+Caliper.Events.AssessmentItemEvent = require('./events/assessmentItemEvent');
+Caliper.Events.AssignableEvent = require('./events/assignableEvent');
+Caliper.Events.MediaEvent = require('./events/mediaEvent');
+Caliper.Events.NavigationEvent = require('./events/navigationEvent');
+Caliper.Events.OutcomeEvent = require('./events/outcomeEvent');
+Caliper.Events.SessionEvent = require('./events/sessionEvent');
+Caliper.Events.ViewEvent = require('./events/viewEvent');
 
 // Replace/Create the global namespace and objects (the sensor) we want there
 Caliper.Sensor = CaliperSensor;
