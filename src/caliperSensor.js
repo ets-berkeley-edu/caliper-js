@@ -46,7 +46,7 @@ CaliperSensor.describe = function (caliperEntity) {
   client.describe(caliperEntity);
 };
 
-// Stick on the modules that need to be exported under the Intellify namespace
+// Stick on the modules that need to be exported under the Caliper namespace
 // You only need to require the top-level modules. Browserify
 // will walk the dependency graph and load everything correctly
 Caliper.Actions = {};
