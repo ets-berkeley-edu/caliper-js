@@ -4,6 +4,11 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+
+/**
+ * Enum representing all assessmentItem actions.
+ * @enum
+ */
 var assessmentItemActions = {
   "STARTED": "started",
   "COMPLETED": "completed",
@@ -11,6 +16,6 @@ var assessmentItemActions = {
   "REVIEWED": "reviewed",
   "VIEWED": "viewed",
   "NAVIGATED_TO": "navigatedTo"
-}
+};
 
 module.exports = assessmentItemActions;

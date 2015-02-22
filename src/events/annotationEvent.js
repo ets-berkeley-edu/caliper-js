@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var Event = require('./caliperEvent');
 
+
+/**
+ * Represents Annotation Event.  
+ * AnnotationEvent's prototype set to Event
+ * @constructor
+ * @extends Event
+ */
 function AnnotationEvent() {
 
   Event.call(this);

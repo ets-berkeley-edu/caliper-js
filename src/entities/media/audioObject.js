@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var MediaObject = require('./mediaObject');
 
+/**
+ * Represents Audio Object.  
+ * AudioObject's prototype set to MediaObject
+ * @constructor
+ * @param {string} id URI
+ * @extends MediaObject 
+ */
 function AudioObject(id) {
 
   MediaObject.call(this);

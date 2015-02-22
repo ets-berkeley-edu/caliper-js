@@ -4,14 +4,20 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+
 var _ = require('lodash-node');
 var http = require('https');
 var Q = require('q');
 var logger = require('./logger');
 
+/**
+ * Represents asynchronous client for the Caliper Sensor. 
+ * @constructor AsynchClient
+ */
 var self = this;
 
 var sensorOptions = {};
+
 
 /*
  * Check if client is properly initialized
@@ -23,6 +29,8 @@ var initialized = function () {
 
 /**
  * Initializes the default client to use.
+ * @memberof AsynchClient
+ * @function initialize
  * @param  array $options passed straight to the client
  */
 self.initialize = function (options) {
@@ -51,6 +59,8 @@ self.post = function (postOptions, postData) {
 
 /**
  * Send learning events
+ * @memberof AsynchClient
+ * @function send
  * @param  CaliperEvent $caliperEvent The Caliper Event
  * @return boolean                   whether the measure call succeeded
  */
@@ -74,6 +84,8 @@ self.send = function (caliperEvent) {
 
 /**
  * Describe an entity
+ * @memberof AsynchClient
+ * @function describe
  * @param  CaliperEntity $caliperEntity The Caliper Entity we are describing
  * @return boolean            whether the describe call succeeded
  */

@@ -7,6 +7,15 @@
 var _ = require('lodash-node');
 var Entity = require('./mediaObject');
 
+/**
+ * Represents Media Location.  
+ * MediaLocation's prototype set to MediaObject
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @property {string} currentTime String representing current time
+ * @extends MediaObject
+ */
 function MediaLocation(id, type) {
 
   Entity.call(this);

@@ -4,6 +4,12 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+
+ /**
+ * Caliper Sensor
+ * @class
+ */
+
 var _ = require('lodash-node');
 var client = require('./asyncClient');
 var logger = require('./logger');
@@ -14,16 +20,21 @@ var logger = require('./logger');
 // so we can attach non-sensor module exports to it
 var Caliper = window.Caliper || {};
 
+/**
+ * Represents Caliper Sensor.  
+ * @constructor
+ */
 // The sensor itself
 var CaliperSensor = {};
 
 /**
  * Initializes the default client to use. Uses the socket consumer by default.
+ * CaliperSensor#initialize
  * @param  array $options passed straight to the client
  */
 CaliperSensor.initialize = function (options) {
   if (!_.isUndefined(options)) {
-  	client.initialize(options);
+    client.initialize(options);
   }
 };
 

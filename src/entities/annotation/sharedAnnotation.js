@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
 
+/**
+ * Represents SharedAnnotation.  
+ * SharedAnnotation's prototype set to Annotation
+ * @constructor
+ * @param {string} id URI
+ * @property {Object[]} withAgents Array of Agents
+ * @extends Annotation
+ */
 function SharedAnnotation(id) {
 
   Annotation.call(this);
@@ -18,6 +26,6 @@ SharedAnnotation.prototype = _.create(Annotation.prototype);
 
 SharedAnnotation.prototype.setWithAgents = function (withAgents) {
   this.withAgents = withAgents;
-}
+};
 
 module.exports = SharedAnnotation;

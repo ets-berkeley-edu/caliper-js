@@ -4,12 +4,16 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+/**
+ * Enum representing all assessment actions.
+ * @enum
+ */
 var assessmentActions = {
   "STARTED": "started",
   "PAUSED": "paused",
   "RESTARTED": "restarted",
   "SUBMITTED": "submitted",
   "NAVIGATED_TO": "navigatedTo"
-}
+};
 
 module.exports = assessmentActions;

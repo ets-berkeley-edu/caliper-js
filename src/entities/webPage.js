@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var DigitalResource = require('./digitalResource');
 
+/**
+ * Represents WebPage.  
+ * WebPage's prototype set to DigitalResource
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @extends DigitalResource
+ */
 function WebPage(id, type) {
 
   DigitalResource.call(this);

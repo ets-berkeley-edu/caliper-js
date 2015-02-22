@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var Agent = require('../agent');
 
+/**
+ * Represents Organization.  
+ * Organization's prototype set to Agent
+ * @constructor
+ * @param {string} id URI
+ * @property {Object} parentOrg Parent Organization Object
+ * @extends Agent
+ */
 function Organization(id) {
 
   Agent.call(this);

@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var Agent = require('./agent');
 
+/**
+ * Represents SoftwareApplication.  
+ * SoftwareApplication's prototype set to Agent
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @extends Agent
+ */
 function SoftwareApplication(id) {
 
   Agent.call(this);

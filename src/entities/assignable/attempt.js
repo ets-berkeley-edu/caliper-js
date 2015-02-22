@@ -7,6 +7,21 @@
 var _ = require('lodash-node');
 var Entity = require('../caliperEntity');
 
+/**
+ * Represents Attempt.  
+ * Attempt's prototype set to Entity
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @property {string} actor URI representing Actor attempted
+ * @property {string} assignable URI representing Assignment being attempted
+ * @property {string} startedAtTime String Representation of Date
+ * @property {string} endedAtTime String Representation of Date
+ * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
+ * @property {Object} assignable Assignable Object
+ * @property {number} count Counter representing attempt
+ * @extends Entity
+ */
 function Attempt(id, type) {
 
   Entity.call(this);

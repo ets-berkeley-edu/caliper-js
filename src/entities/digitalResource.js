@@ -7,6 +7,21 @@
 var _ = require('lodash-node');
 var Entity = require('./caliperEntity');
 
+/**
+ * Represents Digital Resource.  Analogous to a schema.org CreativeWork
+ * DigitalResource's prototype set to Entity
+ * @constructor
+ * @param {string} id URI
+ * @property {string} name Name
+ * @property {string} description Description
+ * @property {Object[]} properties Array of Properties
+ * @property {string[]}  objectType Array of Object Type Strings
+ * @property {{string[]} } alignedLearningObjective Array of Learning Objectives
+ * @property {{string[]} } keywords Array of KeyWord Strings
+ * @property {Object} isPartOf Parent Object
+ * @property {string} datePublished String representing a date
+ * @extends Entity
+ */
 function DigitalResource(id) {
 
   Entity.call(this);

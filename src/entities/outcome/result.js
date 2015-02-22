@@ -7,6 +7,23 @@
 var _ = require('lodash-node');
 var Entity = require('../caliperEntity');
 
+/**
+ * Represents Result.  
+ * Result's prototype set to Entity
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @property {string} assignableId URI of Assignable
+ * @property {number} normalScore Normal Score
+ * @property {number} penaltyScore  Penalty Score
+ * @property {number} extraCreditScore Extra Credit Score
+ * @property {number} totalScore Total Score
+ * @property {number} curvedTotalScore Curved Total Score
+ * @property {number}curveFactor Curve Factor
+ * @property {string} comment Comment
+ * @property {Object} scoredBy Agent Object
+ * @extends Entity
+ */
 function Result(id, type) {
 
   Entity.call(this);

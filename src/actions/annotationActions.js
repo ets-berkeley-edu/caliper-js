@@ -4,7 +4,11 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
-var readingActions = {
+/**
+ * Enum representing all annotation actions.
+ * @enum
+ */
+var annotationActions = {
   "ATTACHED": "attached",
   "BOOKMARKED": "bookmarked",
   "CLASSIFIED": "classified",
@@ -22,6 +26,6 @@ var readingActions = {
   "SUBSCRIBED": "subscribed",
   "TAGGED": "tagged",
   "NAVIGATED_TO": "navigatedTo"
-}
+};
 
-module.exports = readingActions;
+module.exports = annotationActions;

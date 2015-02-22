@@ -7,6 +7,15 @@
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
 
+/**
+ * Represents Media Object.  
+ * MediaObject's prototype set to DigitalResource
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
+ * @extends DigitalResource
+ */
 function MediaObject(id, type) {
 
   DigitalResource.call(this);
