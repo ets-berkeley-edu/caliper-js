@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var Entity = require('../caliperEntity');
 
+/**
+ * Represents Annotation.  
+ * Annotation's prototype set to Entity
+ * @constructor
+ * @param {string} id URI
+ * @extends Entity
+ */
 function Annotation(id) {
 
   Entity.call(this);

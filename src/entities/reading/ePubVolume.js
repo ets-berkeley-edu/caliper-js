@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
 
+/**
+ * Represents EPubVolume.  
+ * EPubVolume's prototype set to DigitalResource
+ * @constructor
+ * @param {string} id URI
+ * @extends DigitalResource
+ */
 function EPubVolume(id) {
 
   DigitalResource.call(this);

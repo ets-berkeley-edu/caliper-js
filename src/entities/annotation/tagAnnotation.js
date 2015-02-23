@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
 
+/**
+ * Represents TagAnnotation.  
+ * TagAnnotation's prototype set to Annotation
+ * @constructor
+ * @param {string} id URI
+ * @property {string[]} tags Array of Strings representing tags
+ * @extends Annotation
+ */
 function TagAnnotation(id) {
 
   Annotation.call(this);
@@ -18,6 +26,6 @@ TagAnnotation.prototype = _.create(Annotation.prototype);
 
 TagAnnotation.prototype.setTags = function (tags) {
   this.tags = tags;
-}
+};
 
 module.exports = TagAnnotation;

@@ -7,6 +7,18 @@
 var _ = require('lodash-node');
 var Entity = require('../caliperEntity');
 
+/**
+ * Represents Session.  
+ * Session's prototype set to Entity
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type
+ * @property {Object} actor
+ * @property {string} startedAtTime String Representation of Date
+ * @property {string} endedAtTime String Representatio of Date
+ * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
+ * @extends Entity
+ */
 function Session(id, type) {
 
     Entity.call(this);

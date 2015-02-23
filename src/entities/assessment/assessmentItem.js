@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var AssignableDigitalResource = require('../assignable/assignableDigitalResource');
 
+/**
+ * Represents AssessmentItem.  
+ * AssessmentItem's prototype set to AssignableDigitalResource
+ * @constructor
+ * @param {String} id URI
+ * @param {String} type Type
+ * @extends AssignableDigitalResource
+ */
 function AssessmentItem(id, type) {
 
   AssignableDigitalResource.call(this);

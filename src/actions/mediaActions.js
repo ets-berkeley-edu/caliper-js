@@ -4,6 +4,11 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+
+/**
+ * Enum representing all media actions.
+ * @enum
+ */
 var mediaActions = {
   "ENABLEDCLOSECAPTIONING": "enabledCloseCaptioning",
   "DISABLEDCLOSEDCAPTIONING": "disabledCloseCaptioning",
@@ -25,6 +30,6 @@ var mediaActions = {
   "EXITEDFULLSCREEN": "exitedFullScreen",
   "OPENEDPOPOUT": "openedPopout",
   "NAVIGATED_TO": "navigatedTo"
-}
+};
 
 module.exports = mediaActions;

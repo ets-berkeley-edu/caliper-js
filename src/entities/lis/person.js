@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var Agent = require('../agent');
 
+/**
+ * Represents Person.  
+ * Person's prototype set to Agent
+ * @constructor
+ * @param {string} id URI
+ * @extends Agent
+ */
 function Person(id) {
 
   Agent.call(this);

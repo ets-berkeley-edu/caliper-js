@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var MediaObject = require('./mediaObject');
 
+/**
+ * Represents Video Object.  
+ * VideoObject's prototype set to MediaObject
+ * @constructor
+ * @param {string} id URI
+ * @extends MediaObject
+ */
 function VideoObject(id) {
 
   MediaObject.call(this);

@@ -4,9 +4,14 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+
+/**
+ * Enum representing all outcome actions.
+ * @enum
+ */
 var outcomeActions = {
   "GRADED" : "graded",
   "NAVIGATED_TO": "navigatedTo"
-}
+};
 
 module.exports = outcomeActions;

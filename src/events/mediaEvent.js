@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var Event = require('./caliperEvent');
 
+/**
+ * Represents Media Event.  
+ * MediaEvent's prototype set to Event
+ * @constructor
+ * @property {Object} mediaLocation Media Location
+ * @extends Event
+ */
 function MediaEvent() {
 
   Event.call(this);

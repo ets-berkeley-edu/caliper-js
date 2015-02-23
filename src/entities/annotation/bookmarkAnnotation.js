@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
 
+/**
+ * Represents BookmarkAnnotation.  
+ * BookmarkAnnotation's prototype set to Annotation
+ * @constructor
+ * @param {string} id URI
+ * @property {string} bookmarkNotes
+ * @extends Annotation
+ */
 function BookmarkAnnotation(id) {
 
   Annotation.call(this);
@@ -18,6 +26,6 @@ BookmarkAnnotation.prototype = _.create(Annotation.prototype);
 
 BookmarkAnnotation.prototype.setBookmarkNotes = function (bookmarkNotes) {
   this.bookmarkNotes = bookmarkNotes;
-}
+};
 
 module.exports = BookmarkAnnotation;

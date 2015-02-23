@@ -7,6 +7,22 @@
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
 
+/**
+ * Represents AssignableDigitalResource.  
+ * AssignableDigitalResource's prototype set to DigitalResource
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @property {string} dateCreated String representation of Date
+ * @property {string} dateToActivate String representation of Date
+ * @property {string} dateToShow String representation of Date
+ * @property {string} dateToStartOn String representation of Date
+ * @property {string} dateToSubmit String representation of Date
+ * @property {number} maxAttempts Maximum attempts
+ * @property {number} maxSubmits  Maximum submits
+ * @property {number} maxScore Maximum scores
+ * @extends DigitalResource
+ */
 function AssignableDigitalResource(id, type) {
 
   DigitalResource.call(this);

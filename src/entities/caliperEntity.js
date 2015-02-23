@@ -4,7 +4,17 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
-
+/**
+ * Represents base Caliper Entity.  Analogous to a schema.org Thing
+ * @constructor
+ * @property {string} @id URI
+ * @property {string} @type Type
+ * @property {string} name Name
+ * @property {string} description Description
+ * @property {Object[]} properties Array of Properties
+ * @property {string} dateCreated String Representation of Date
+ * @property {string} dateModified String Representation of Date
+ */
 function Entity() {
   // Constructor
 }

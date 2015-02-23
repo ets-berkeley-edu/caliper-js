@@ -7,6 +7,12 @@
 var _ = require('lodash-node');
 var Event = require('./caliperEvent');
 
+/**
+ * Represents AssessmentItem Event.  
+ * AssessmentItem's prototype set to Event
+ * @constructor
+ * @extends Event
+ */
 function AssessmentItemEvent() {
 
   Event.call(this);

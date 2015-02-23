@@ -4,7 +4,12 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
-
+/**
+ * Represents Outcome.  
+ * @constructor
+ * @property {Object} attempt Attempt Object
+ * @property {Object} result Result Object
+ */
 function Outcome() {
   // Constructor
 }

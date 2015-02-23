@@ -7,6 +7,12 @@
 var _ = require('lodash-node');
 var Event = require('./caliperEvent');
 
+/**
+ * Represents Session Event.  
+ * SessionEvent's prototype set to Event
+ * @constructor
+ * @extends Event
+ */
 function SessionEvent() {
 
   Event.call(this);

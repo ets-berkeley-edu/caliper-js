@@ -7,6 +7,12 @@
 var _ = require('lodash-node');
 var Event = require('./caliperEvent');
 
+/**
+ * Represents Assignable Event.  
+ * AssignableEvent's prototype set to Event
+ * @constructor
+ * @extends Event
+ */
 function AssignableEvent() {
 
   Event.call(this);

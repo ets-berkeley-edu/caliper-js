@@ -5,10 +5,14 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+/**
+ * Enum representing all session actions.
+ * @enum
+ */
 var sessionActions = {
   "LOGGED_IN"  : "logged in",
   "LOGGED_OUT" : "logged out",
   "TIMED_OUT"  : "timed out"
-}
+};
 
 module.exports = sessionActions;

@@ -7,6 +7,16 @@
 var _ = require('lodash-node');
 var Organization = require('./organization');
 
+/**
+ * Represents Organization.  
+ * CourseSection's prototype set to Organization
+ * @constructor
+ * @param {string} id URI
+ * @property {string} semester String representing the Semester
+ * @property {string} courseNumber String representing the Course Number
+ * @property {string} label String representing the Label
+ * @extends Organization
+ */
 function CourseSection(id) {
 
   Organization.call(this);

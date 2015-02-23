@@ -7,6 +7,13 @@
 var _ = require('lodash-node');
 var Event = require('./caliperEvent');
 
+/**
+ * Represents Navigation Event.  
+ * NavigationEvent's prototype set to Event
+ * @constructor
+ * @property {Object} navigatedFrom Object they navigated from
+ * @extends Event
+ */
 function NavigationEvent() {
 
   Event.call(this);
@@ -24,6 +31,6 @@ NavigationEvent.prototype = _.create(Event.prototype);
 
 NavigationEvent.prototype.setNavigatedFrom = function (navigatedFrom) {
   this.navigatedFrom = navigatedFrom;
-}
+};
 
 module.exports = NavigationEvent;

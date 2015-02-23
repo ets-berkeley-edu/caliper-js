@@ -4,6 +4,11 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+
+/**
+ * Enum representing all assignable actions.
+ * @enum
+ */
 var assignableActions = {
   "ABANDONED": "abandoned",
   "ACTIVATED": "activated",
@@ -15,6 +20,6 @@ var assignableActions = {
   "STARTED": "started",
   "SUBMITTED": "submitted",
   "NAVIGATED_TO": "navigatedTo"
-}
+};
 
 module.exports = assignableActions;

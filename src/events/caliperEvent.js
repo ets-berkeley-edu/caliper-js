@@ -4,6 +4,21 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
+/**
+ * Represents Base Caliper Event.
+ * @constructor
+ * @property {string} context Context
+ * @property {string} type Type
+ * @property {Object} actor Actor Object
+ * @property {string} action String representing the action
+ * @property {Object} target Target
+ * @property {Object} generated Generated
+ * @property {string} startedAtTime String representing Date
+ * @property {string} endedAtTime String representing Date
+ * @property {string} duration duration The format is expected to be PnYnMnDTnHnMnS
+ * @property {Object} lisOrganization LISOrganization Object
+ * @property {Object} edApp EdApp Object
+ */
 function Event() {
   // Constructor
 }

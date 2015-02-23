@@ -7,6 +7,14 @@
 var _ = require('lodash-node');
 var Entity = require('./caliperEntity');
 
+/**
+ * Represents Learning Objective
+ * LearningObjective's prototype set to Entity
+ * @constructor
+ * @param {string} id URI
+ * @param {string} type Type
+ * @extends Entity
+ */
 function LearningObjective(id, type) {
 
   Entity.call(this);
