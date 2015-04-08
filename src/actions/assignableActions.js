@@ -10,16 +10,16 @@
  * @enum
  */
 var assignableActions = {
-  "ABANDONED": "abandoned",
-  "ACTIVATED": "activated",
-  "COMPLETED": "completed",
-  "DEACTIVATED": "deactivated",
-  "HID": "hid",
-  "REVIEWED": "reviewed",
-  "SHOWED": "showed",
-  "STARTED": "started",
-  "SUBMITTED": "submitted",
-  "NAVIGATED_TO": "navigatedTo"
+  "ABANDONED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned",
+  "ACTIVATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Activated",
+  "COMPLETED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed",
+  "DEACTIVATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deactivated",
+  "HID": "http://purl.imsglobal.org/vocab/caliper/v1/action#Hid",
+  "REVIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed",
+  "SHOWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed",
+  "STARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started",
+  "SUBMITTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted",
+  "NAVIGATED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
 };
 
 module.exports = assignableActions;

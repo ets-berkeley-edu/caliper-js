@@ -10,12 +10,12 @@
  * @enum
  */
 var assessmentItemActions = {
-  "STARTED": "started",
-  "COMPLETED": "completed",
-  "SKIPPED": "skipped",
-  "REVIEWED": "reviewed",
-  "VIEWED": "viewed",
-  "NAVIGATED_TO": "navigatedTo"
+  "COMPLETED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed",
+  "REVIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed",
+  "SKIPPED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Skipped",
+  "STARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started",
+  "VIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
+  "NAVIGATED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
 };
 
 module.exports = assessmentItemActions;

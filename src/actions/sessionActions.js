@@ -10,9 +10,9 @@
  * @enum
  */
 var sessionActions = {
-  "LOGGED_IN"  : "logged in",
-  "LOGGED_OUT" : "logged out",
-  "TIMED_OUT"  : "timed out"
+  "LOGGED_IN": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedIn",
+  "LOGGED_OUT": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedOut",
+  "TIMED_OUT": "http://purl.imsglobal.org/vocab/caliper/v1/action#TimedOut"
 };
 
 module.exports = sessionActions;

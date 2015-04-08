@@ -10,9 +10,9 @@
  * @enum
  */
 var readingActions = {
-  "SEARCHED": "searched",
-  "VIEWED": "viewed",
-  "NAVIGATED_TO": "navigated to"
+  "SEARCHED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched",
+  "VIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
+  "NAVIGATED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
 };
 
 module.exports = readingActions;
