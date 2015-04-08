@@ -10,8 +10,8 @@
  * @enum
  */
 var outcomeActions = {
-  "GRADED" : "graded",
-  "NAVIGATED_TO": "navigatedTo"
+  "GRADED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded",
+  "NAVIGATED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo"
 };
 
 module.exports = outcomeActions;
