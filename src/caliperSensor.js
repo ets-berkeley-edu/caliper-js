@@ -82,13 +82,13 @@ Caliper.Entities.Entity = require('./entities/caliperEntity');
 Caliper.Entities.Agent               = require('./entities/agent');
 Caliper.Entities.DigitalResource     = require('./entities/digitalResource');
 Caliper.Entities.LearningObjective   = require('./entities/learningObjective');
-Caliper.Entities.SoftwareApplication = require('./entities/softwareApplication');
+Caliper.Entities.SoftwareApplication = require('./entities/agent/softwareApplication');
 Caliper.Entities.WebPage             = require('./entities/reading/webPage');
 
 // LIS entities
-Caliper.Entities.Person        = require('./entities/lis/person');
+Caliper.Entities.Person        = require('./entities/agent/person');
 Caliper.Entities.CourseSection = require('./entities/lis/courseSection');
-Caliper.Entities.Organization  = require('./entities/lis/organization');
+Caliper.Entities.Organization  = require('./entities/agent/organization');
 
 // Annotation entities
 Caliper.Entities.Annotation          = require('./entities/annotation/annotation');

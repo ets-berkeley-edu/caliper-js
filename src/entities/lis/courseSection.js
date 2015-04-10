@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash-node');
-var Organization = require('./organization');
+var Organization = require('./../agent/organization');
 
 /**
  * Represents Organization.  

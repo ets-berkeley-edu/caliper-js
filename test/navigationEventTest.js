@@ -9,12 +9,12 @@ var _ = require('lodash-node');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 var Event = require('../src/events/navigationEvent');
-var Person = require('../src/entities/lis/person');
+var Person = require('../src/entities/agent/person');
 var CourseSection = require('../src/entities/lis/courseSection');
 var EPubVolume = require('../src/entities/reading/ePubVolume');
 var WebPage = require('../src/entities/reading/webPage');
 var Frame = require('../src/entities/reading/frame');
-var SoftwareApplication = require('../src/entities/softwareApplication');
+var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var ReadingActions = require('../src/actions/readingActions');
 
 test('Create Navigation Event and validate attributes', function (t) {

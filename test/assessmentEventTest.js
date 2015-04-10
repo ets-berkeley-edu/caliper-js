@@ -9,13 +9,13 @@ var _ = require('lodash-node');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 var Event = require('../src/events/assessmentEvent');
-var Person = require('../src/entities/lis/person');
+var Person = require('../src/entities/agent/person');
 var CourseSection = require('../src/entities/lis/courseSection');
 var EPubVolume = require('../src/entities/reading/ePubVolume');
 var Assessment = require('../src/entities/assessment/assessment');
 var AssessmentItem = require('../src/entities/assessment/assessmentItem');
 var Attempt = require('../src/entities/assignable/attempt');
-var SoftwareApplication = require('../src/entities/softwareApplication');
+var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var AssessmentActions = require('../src/actions/assessmentActions');
 
 test('Create Assessment Event and validate attributes', function (t) {

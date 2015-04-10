@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash-node');
-var Agent = require('./agent');
+var Agent = require('./../agent');
 
 /**
  * Represents SoftwareApplication.  

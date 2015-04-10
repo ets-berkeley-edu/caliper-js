@@ -10,11 +10,11 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 var Event = require('../src/events/mediaEvent');
 var LearningObjective = require('../src/entities/learningObjective');
-var Person = require('../src/entities/lis/person');
+var Person = require('../src/entities/agent/person');
 var VideoObject = require('../src/entities/media/videoObject');
 var MediaLocation = require('../src/entities/media/mediaLocation');
 var CourseSection = require('../src/entities/lis/courseSection');
-var SoftwareApplication = require('../src/entities/softwareApplication');
+var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var MediaActions = require('../src/actions/mediaActions');
 
 test('Create Media Event and validate attributes', function (t) {

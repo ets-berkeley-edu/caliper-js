@@ -9,13 +9,13 @@ var _ = require('lodash-node');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 var Event = require('../src/events/annotationEvent');
-var Person = require('../src/entities/lis/person');
+var Person = require('../src/entities/agent/person');
 var CourseSection = require('../src/entities/lis/courseSection');
 var TagAnnotation = require('../src/entities/annotation/tagAnnotation');
 var EPubVolume = require('../src/entities/reading/ePubVolume');
 var WebPage = require('../src/entities/reading/webPage');
 var Frame = require('../src/entities/reading/frame');
-var SoftwareApplication = require('../src/entities/softwareApplication');
+var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var AnnotationActions = require('../src/actions/annotationActions');
 
 test('Create TagAnnotation Event and validate attributes', function (t) {
