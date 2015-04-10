@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('../caliperEntity');
+var EntityType = require('../entityType');
 
 /**
  * Represents Annotation.  
@@ -19,6 +20,7 @@ function Annotation(id) {
   Entity.call(this);
 
   this.setId(id);
+  this.setType(EntityType.type.)
 
   this.setName(null);
   this.setDescription(null);
@@ -27,6 +29,7 @@ function Annotation(id) {
 
 Annotation.prototype = _.create(Entity.prototype);
 
+/**
 Annotation.prototype.setAnnotationType = function (type) {
   switch (type) {
   case "ANNOTATION":
@@ -46,5 +49,6 @@ Annotation.prototype.setAnnotationType = function (type) {
     break;
   }
 };
+ */
 
 module.exports = Annotation;

@@ -5,6 +5,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('../caliperEntity');
+var EntityType = require('../entityType');
 
 /**
  * Represents Response.
@@ -18,8 +19,7 @@ function Response(id) {
     Entity.call(this);
 
     this.setId(id);
-    this.setType("http://purl.imsglobal.org/caliper/v1/Response");
-    this.setType(this.Types.RESPONSE);
+    this.setType(EntityType.type.RESPONSE);
 
     this.setName(null);
     this.setDescription(null);
