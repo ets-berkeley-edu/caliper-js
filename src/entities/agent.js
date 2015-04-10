@@ -38,7 +38,7 @@ function Agent(id, type) {
 
   this.setName(null);
   this.setDescription(null);
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 Agent.prototype = _.create(Entity.prototype);

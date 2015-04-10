@@ -23,7 +23,7 @@ function MediaObject(id, type) {
   this.setId(id);
   this.setType(this.Types.MEDIA_OBJECT);
 
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 MediaObject.prototype = _.create(DigitalResource.prototype);

@@ -24,7 +24,7 @@ function MediaLocation(id, type) {
   this.setType(this.Types.MEDIA_LOCATION);
 
   this.setName(null);
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 MediaLocation.prototype = _.create(Entity.prototype);

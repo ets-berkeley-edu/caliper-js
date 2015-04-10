@@ -22,7 +22,7 @@ function AssessmentItem(id, type) {
   this.setId(id);
   this.setType(this.Types.ASSESSMENT_ITEM);
 
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 AssessmentItem.prototype = _.create(AssignableDigitalResource.prototype);

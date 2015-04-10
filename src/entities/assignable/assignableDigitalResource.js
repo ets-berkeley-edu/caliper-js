@@ -30,7 +30,7 @@ function AssignableDigitalResource(id, type) {
   this.setId(id);
   this.setType(this.Types.ASSIGNABLE_DIGITAL_RESOURCE);
 
-  this.setProperties({});
+  this.setExtensions({});
   this.setDateCreated(null);
   this.setDateToActivate(null);
   this.setDateToShow(null);

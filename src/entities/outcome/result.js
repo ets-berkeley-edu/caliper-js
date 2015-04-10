@@ -31,7 +31,7 @@ function Result(id, type) {
   this.setId(id);
   this.setType(this.Types.RESULT);
 
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 Result.prototype = _.create(Entity.prototype);

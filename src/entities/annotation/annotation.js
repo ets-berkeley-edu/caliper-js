@@ -24,7 +24,7 @@ function Annotation(id) {
 
   this.setName(null);
   this.setDescription(null);
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 Annotation.prototype = _.create(Entity.prototype);

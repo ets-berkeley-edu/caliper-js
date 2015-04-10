@@ -23,7 +23,7 @@ function LearningObjective(id, type) {
   this.setType(this.Types.LEARNING_OBJECTIVE);
 
   this.setName(null);
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 LearningObjective.prototype = _.create(Entity.prototype);

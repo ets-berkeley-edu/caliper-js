@@ -29,7 +29,7 @@ function Attempt(id, type) {
   this.setId(id);
   this.setType(this.Types.ATTEMPT);
 
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 Attempt.prototype = _.create(Entity.prototype);

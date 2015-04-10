@@ -23,7 +23,7 @@ function Assessment(id, type) {
   this.setId(id);
   this.setType(this.Types.ASSESSMENT);
 
-  this.setProperties({});
+  this.setExtensions({});
 }
 
 Assessment.prototype = _.create(AssignableDigitalResource.prototype);

@@ -14,7 +14,7 @@ var Entity = require('./caliperEntity');
  * @param {string} id URI
  * @property {string} name Name
  * @property {string} description Description
- * @property {Object[]} properties Array of Properties
+ * @property {Object[]} properties Array of Extensions
  * @property {string[]}  objectType Array of Object Type Strings
  * @property {{string[]} } alignedLearningObjective Array of Learning Objectives
  * @property {{string[]} } keywords Array of KeyWord Strings
@@ -30,7 +30,7 @@ function DigitalResource(id) {
 
   this.setName(null);
   this.setDescription(null);
-  this.setProperties({});
+  this.setExtensions({});
   this.setObjectType([]);
   this.setAlignedLearningObjective([]);
   this.setKeywords([]);

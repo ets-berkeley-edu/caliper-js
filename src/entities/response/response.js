@@ -23,7 +23,7 @@ function Response(id) {
 
     this.setName(null);
     this.setDescription(null);
-    this.setProperties({});
+    this.setExtensions({});
 }
 
 Response.prototype = _.create(Entity.prototype);
