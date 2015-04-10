@@ -19,6 +19,7 @@ function EPubVolume(id) {
   DigitalResource.call(this);
 
   this.setId(id);
+  this.setType("http://www.idpf.org/epub/vocab/structure/#volume");
 
   this.setName(null);
   this.setObjectType([]);

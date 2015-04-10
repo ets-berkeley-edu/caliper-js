@@ -83,7 +83,7 @@ Caliper.Entities.Agent               = require('./entities/agent');
 Caliper.Entities.DigitalResource     = require('./entities/digitalResource');
 Caliper.Entities.LearningObjective   = require('./entities/learningObjective');
 Caliper.Entities.SoftwareApplication = require('./entities/softwareApplication');
-Caliper.Entities.WebPage             = require('./entities/webPage');
+Caliper.Entities.WebPage             = require('./entities/reading/webPage');
 
 // LIS entities
 Caliper.Entities.Person        = require('./entities/lis/person');

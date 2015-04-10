@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash-node');
-var DigitalResource = require('./digitalResource');
+var DigitalResource = require('./../digitalResource');
 
 /**
  * Represents WebPage.  
@@ -15,7 +15,7 @@ var DigitalResource = require('./digitalResource');
  * @param {string} type Type
  * @extends DigitalResource
  */
-function WebPage(id, type) {
+function WebPage(id) {
 
   DigitalResource.call(this);
 

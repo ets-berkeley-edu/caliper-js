@@ -20,6 +20,7 @@ function Frame(id) {
   DigitalResource.call(this);
 
   this.setId(id);
+  this.setType("http://purl.imsglobal.org/caliper/v1/Frame");
 
   this.setName(null);
   this.setObjectType([]);
