@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
+var AnnotationType = require('./annotationType');
 
 /**
  * Represents BookmarkAnnotation.  
@@ -20,6 +21,8 @@ function BookmarkAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
+  this.setType(AnnotationType.type.BOOKMARK_ANNOTATION);
+
 }
 
 BookmarkAnnotation.prototype = _.create(Annotation.prototype);

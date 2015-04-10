@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
+var AnnotationType = require('./annotationType');
 
 /**
  * Represents HightlightAnnotation.  
@@ -21,6 +22,8 @@ function HighlightAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
+  this.setType(AnnotationType.type.HIGHLIGHT_ANNOTATION);
+
 }
 
 HighlightAnnotation.prototype = _.create(Annotation.prototype);

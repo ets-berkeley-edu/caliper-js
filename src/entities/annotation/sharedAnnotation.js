@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
+var AnnotationType = require('./annotationType');
 
 /**
  * Represents SharedAnnotation.  
@@ -20,6 +21,8 @@ function SharedAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
+  this.setType(AnnotationType.type.SHARED_ANNOTATION);
+
 }
 
 SharedAnnotation.prototype = _.create(Annotation.prototype);

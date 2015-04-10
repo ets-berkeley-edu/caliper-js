@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
+var AnnotationType = require('./annotationType');
 
 /**
  * Represents TagAnnotation.  
@@ -20,6 +21,8 @@ function TagAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
+  this.setType(AnnotationType.type.TAG_ANNOTATION);
+
 }
 
 TagAnnotation.prototype = _.create(Annotation.prototype);
