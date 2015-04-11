@@ -13,7 +13,6 @@ var EntityType = require('../entityType');
  * SoftwareApplication's prototype set to W3COrganization
  * @constructor
  * @param {string} id URI
- * @param {string} type Type
  * @extends W3COrganization
  */
 function SoftwareApplication(id) {

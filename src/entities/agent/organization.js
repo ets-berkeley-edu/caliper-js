@@ -13,8 +13,6 @@ var EntityType = require('../entityType');
  * Organization's prototype set to W3COrganization
  * @constructor
  * @param {string} id URI
- * @property {Object[]} memberships Array of Memberships
- * @property {Object} subOrganizationOf Parent Organization
  * @extends W3COrganization
  */
 function Organization(id) {

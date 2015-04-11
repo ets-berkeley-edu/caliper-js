@@ -22,6 +22,9 @@ function Organization(id) {
 
     this.setId(id);
     this.setType(EntityType.type.ORGANIZATION);
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
 
 }
 

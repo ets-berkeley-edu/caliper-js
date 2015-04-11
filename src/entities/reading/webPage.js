@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var DigitalResource = require('./../digitalResource');
+var DigitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents WebPage.  
@@ -20,7 +21,7 @@ function WebPage(id) {
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/WebPage");
+  this.setType(DigitalResourceType.type.WEB_PAGE);
 
   this.setName(null);
   this.setObjectType([]);

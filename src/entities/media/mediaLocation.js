@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('./mediaObject');
+var MediaObjectType = require('./mediaObjectType');
 
 /**
  * Represents Media Location.  
@@ -21,10 +22,14 @@ function MediaLocation(id, type) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(this.Types.MEDIA_LOCATION);
+  this.setType(MediaObjectType.type.MEDIA_LOCATION);
 
+  /**
   this.setName(null);
+  this.setDescription(null);
   this.setExtensions({});
+   */
+
 }
 
 MediaLocation.prototype = _.create(Entity.prototype);

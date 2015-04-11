@@ -5,6 +5,7 @@
 
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
+var DigitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents ePubChapter.
@@ -18,7 +19,7 @@ function EPubChapter(id) {
     DigitalResource.call(this);
 
     this.setId(id);
-    this.setType("http://www.idpf.org/epub/vocab/structure/#chapter");
+    this.setType(DigitalResourceType.type.EPUB_CHAPTER);
 
     this.setName(null);
     this.setObjectType([]);

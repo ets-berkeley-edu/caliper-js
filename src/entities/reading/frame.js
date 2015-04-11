@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
+var DigitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents Frame.  
@@ -20,7 +21,7 @@ function Frame(id) {
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/Frame");
+  this.setType(DigitalResourceType.type.FRAME);
 
   this.setName(null);
   this.setObjectType([]);

@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('./caliperEntity');
+var EntityType = require('./entityType');
 
 /**
  * Represents Digital Resource.  Analogous to a schema.org CreativeWork
@@ -27,6 +28,7 @@ function DigitalResource(id) {
   Entity.call(this);
 
   this.setId(id);
+  this.setType(EntityType.type.DIGITAL_RESOURCE);
 
   this.setName(null);
   this.setDescription(null);
@@ -40,6 +42,7 @@ function DigitalResource(id) {
 
 DigitalResource.prototype = _.create(Entity.prototype);
 
+/**
 DigitalResource.prototype.setResourceType = function (type) {
   switch (type) {
   case "ASSIGNABLE_DIGITAL_RESOURCE":
@@ -71,6 +74,7 @@ DigitalResource.prototype.setResourceType = function (type) {
     break;
   }
 };
+ */
 
 DigitalResource.prototype.setObjectType = function (objectType) {
   this.objectType = objectType;
@@ -92,6 +96,7 @@ DigitalResource.prototype.setDatePublished = function (datePublished) {
   this.datePublished = datePublished;
 };
 
+/**
 DigitalResource.prototype.Types = {
   "ASSIGNABLE_DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/AssignableDigitalResource",
   "EPUB_CHAPTER": "http://www.idpf.org/epub/vocab/structure/#chapter",
@@ -103,5 +108,6 @@ DigitalResource.prototype.Types = {
   "READING": "http://www.idpf.org/epub/vocab/structure",
   "WEB_PAGE": "http://purl.imsglobal.org/caliper/v1/WebPage"
 };
+ */
 
 module.exports = DigitalResource;

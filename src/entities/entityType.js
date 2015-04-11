@@ -11,6 +11,7 @@ var type = {
     "DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/DigitalResource",
     "ENTITY": "http://purl.imsglobal.org/caliper/v1/Entity",
     "LEARNING_OBJECTIVE": "http://purl.imsglobal.org/caliper/v1/LearningObjective",
+    "MEMBERSHIP": "http://purl.imsglobal.org/caliper/v1/w3c/Membership",
     "ORGANIZATION": "http://purl.imsglobal.org/caliper/v1/w3c/Organization",
     "PERSON": "http://purl.imsglobal.org/caliper/v1/lis/Person",
     "RESPONSE": "http://purl.imsglobal.org/caliper/v1/Response",

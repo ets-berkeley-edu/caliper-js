@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var MediaObject = require('./mediaObject');
+var MediaObjectType = require('./mediaObjectType');
 
 /**
  * Represents Video Object.  
@@ -19,7 +20,8 @@ function VideoObject(id) {
   MediaObject.call(this);
 
   this.setId(id);
-  this.setType(this.Types.VIDEO_OBJECT);
+  this.setType(MediaObjectType.type.VIDEO_OBJECT);
+
 }
 
 VideoObject.prototype = _.create(MediaObject.prototype);

@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
+var DigitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents AssignableDigitalResource.  
@@ -28,7 +29,7 @@ function AssignableDigitalResource(id, type) {
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType(this.Types.ASSIGNABLE_DIGITAL_RESOURCE);
+  this.setType(DigitalResourceType.type.ASSIGNABLE_DIGITAL_RESOURCE);
 
   this.setExtensions({});
   this.setDateCreated(null);
