@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var AssignableDigitalResource = require('../assignable/assignableDigitalResource');
+var AssignableDigitalResourceType = require('../assignable/assignableDigitalResourceType');
 
 /**
  * Represents AssessmentItem.  
@@ -20,7 +21,7 @@ function AssessmentItem(id, type) {
   AssignableDigitalResource.call(this);
 
   this.setId(id);
-  this.setType(this.Types.ASSESSMENT_ITEM);
+  this.setType(AssignableDigitalResourceType.type.ASSESSMENT_ITEM);
 
   this.setExtensions({});
 }
