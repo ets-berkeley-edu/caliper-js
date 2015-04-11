@@ -4,7 +4,7 @@
  */
 
 var _ = require('lodash-node');
-var Entity = require('../caliperEntity');
+var Entity = require('../entity');
 var EntityType = require('../entityType');
 
 /**
