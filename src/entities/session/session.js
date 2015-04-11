@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('../entity');
+var EntityType = require('../entityType');
 
 /**
  * Represents Session.  
@@ -19,12 +20,13 @@ var Entity = require('../entity');
  * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
  * @extends Entity
  */
-function Session(id, type) {
+function Session(id) {
+    // function Session(id, type)
 
     Entity.call(this);
 
     this.setId(id);
-    this.setType(this.Types.SESSION);
+    this.setType(entityType.type.SESSION);
 
     this.setExtensions({});
 }

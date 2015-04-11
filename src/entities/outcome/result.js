@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('../entity');
+var EntityType = require('../entityType');
 
 /**
  * Represents Result.  
@@ -24,12 +25,13 @@ var Entity = require('../entity');
  * @property {Object} scoredBy Agent Object
  * @extends Entity
  */
-function Result(id, type) {
+function Result(id) {
+  // function Result(id, type)
 
   Entity.call(this);
 
   this.setId(id);
-  this.setType(this.Types.RESULT);
+  this.setType(entityType.type.RESULT);
 
   this.setExtensions({});
 }

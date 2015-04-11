@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('../entity');
+var EntityType = require('../entityType');
 
 /**
  * Represents Attempt.  
@@ -22,12 +23,13 @@ var Entity = require('../entity');
  * @property {number} count Counter representing attempt
  * @extends Entity
  */
-function Attempt(id, type) {
+function Attempt(id) {
+    // function Attempt(id, type)
 
   Entity.call(this);
 
   this.setId(id);
-  this.setType(this.Types.ATTEMPT);
+  this.setType(EntityType.type.ATTEMPT);
 
   this.setExtensions({});
 }
