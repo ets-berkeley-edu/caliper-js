@@ -11,10 +11,13 @@ var type = {
     "DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/DigitalResource",
     "ENTITY": "http://purl.imsglobal.org/caliper/v1/Entity",
     "LEARNING_OBJECTIVE": "http://purl.imsglobal.org/caliper/v1/LearningObjective",
+    "ORGANIZATION": "http://purl.imsglobal.org/caliper/v1/w3c/Organization",
+    "PERSON": "http://purl.imsglobal.org/caliper/v1/lis/Person",
     "RESPONSE": "http://purl.imsglobal.org/caliper/v1/Response",
     "RESULT": "http://purl.imsglobal.org/caliper/v1/Result",
-    "VIEW": "http://purl.imsglobal.org/caliper/v1/View",
-    "SESSION": "http://purl.imsglobal.org/caliper/v1/Session"
+    "SESSION": "http://purl.imsglobal.org/caliper/v1/Session",
+    "SOFTWARE_APPLICATION": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication",
+    "VIEW": "http://purl.imsglobal.org/caliper/v1/View"
 };
 
 exports.type = type;

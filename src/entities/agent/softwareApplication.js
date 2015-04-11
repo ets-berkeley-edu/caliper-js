@@ -5,7 +5,8 @@
  */
 
 var _ = require('lodash-node');
-var Agent = require('./../agent');
+var Agent = require('./../foaf/agent');
+var EntityType = require('../entityType');
 
 /**
  * Represents SoftwareApplication.  
@@ -20,7 +21,7 @@ function SoftwareApplication(id) {
   Agent.call(this);
 
   this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/SoftwareApplication");
+  this.setType(EntityType.type.SOFTWARE_APPLICATION);
 
 }
 

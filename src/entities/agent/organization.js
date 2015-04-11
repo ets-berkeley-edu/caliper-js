@@ -5,7 +5,8 @@
  */
 
 var _ = require('lodash-node');
-var Agent = require('../agent');
+var Agent = require('../foaf/agent');
+var EntityType = require('../entityType');
 
 /**
  * Represents Organization.  
@@ -20,9 +21,8 @@ function Organization(id) {
   Agent.call(this);
 
   this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/lis/Organization");
-
-  this.setName(null);
+  this.setType(EntityType.type.ORGANIZATION);
+  // this.setName(null);
 }
 
 Organization.prototype = _.create(Agent.prototype);

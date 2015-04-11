@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash-node');
-var Entity = require('./caliperEntity');
+var Entity = require('./../caliperEntity');
 
 /**
  * Represents Agent.  Analogous to a FOAF Agent
@@ -13,6 +13,7 @@ var Entity = require('./caliperEntity');
  * @constructor
  * @param {string} id URI
  * @param {string} type type
+ * @param {Object[]} hasMemberships array
  * @extends Entity
  */
 function Agent(id, type) {
@@ -39,6 +40,10 @@ function Agent(id, type) {
   this.setName(null);
   this.setDescription(null);
   this.setExtensions({});
+}
+
+Agent.prototype.setHasMemberships = function (hasMemberships) {
+ this.hasMemberships = hasMemberships;
 }
 
 Agent.prototype = _.create(Entity.prototype);
