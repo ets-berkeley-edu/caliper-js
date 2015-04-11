@@ -5,16 +5,16 @@
  */
 
 var _ = require('lodash-node');
-var Agent = require('./../foaf/agent');
+var W3COrganization = require('../w3c/organization');
 var EntityType = require('../entityType');
 
 /**
  * Represents SoftwareApplication.  
- * SoftwareApplication's prototype set to Agent
+ * SoftwareApplication's prototype set to W3COrganization
  * @constructor
  * @param {string} id URI
  * @param {string} type Type
- * @extends Agent
+ * @extends W3COrganization
  */
 function SoftwareApplication(id) {
 

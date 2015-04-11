@@ -6,6 +6,7 @@
 
 var _ = require('lodash-node');
 var Entity = require('./../caliperEntity');
+var EntityType = require('./../entityType');
 
 /**
  * Represents Agent.  Analogous to a FOAF Agent
@@ -16,12 +17,15 @@ var Entity = require('./../caliperEntity');
  * @param {Object[]} hasMemberships array
  * @extends Entity
  */
-function Agent(id, type) {
+function Agent(id) {
+  // function Agent(id, type) {
 
   Entity.call(this);
 
   this.setId(id);
+  this.setType(EntityType.type.AGENT);
 
+  /**
   switch (type) {
   case "LIS_PERSON":
     this.setType("http://purl.imsglobal.org/caliper/v1/lis/Person");
@@ -36,6 +40,7 @@ function Agent(id, type) {
     this.setType("http://purl.imsglobal.org/caliper/v1/SoftwareApplication");
     break;
   }
+   */
 
   this.setName(null);
   this.setDescription(null);
