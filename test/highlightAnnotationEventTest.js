@@ -67,16 +67,6 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     // The Action for the Caliper Event
     var action = AnnotationActions.HIGHLIGHTED;
 
-    // The Object being interacted with by the Actor
-    var eventObj = new HighlightAnnotation("https://someEduApp.edu/highlights/12345");
-    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    eventObj.setSelection({
-    "start": "455",
-    "end": "489"
-    });
-    eventObj.setSelectionText("Life, Liberty and the pursuit of Happiness");
-
     // The Digital Resource that the target (below) belongs to
     var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
@@ -85,13 +75,21 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
-    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
-    target.setName("Key Figures: George Washington");
-    target.setVersion("2nd ed.");
-    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    target.setIndex(1);
-    target.setIsPartOf(ePub);
+    var eventObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
+    eventObj.setName("Key Figures: George Washington");
+    eventObj.setVersion("2nd ed.");
+    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    eventObj.setIndex(1);
+    eventObj.setIsPartOf(ePub);
+
+    // The generated annotation
+    var generated = new HighlightAnnotation("https://someEduApp.edu/highlights/12345");
+    generated.setAnnotatedId(eventObj['@id']);
+    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    generated.setSelection({ "start": "455", "end": "489" });
+    generated.setSelectionText("Life, Liberty and the pursuit of Happiness");
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -134,7 +132,7 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     hilightAnnotationEvent.setActor(actor);
     hilightAnnotationEvent.setAction(action);
     hilightAnnotationEvent.setObject(eventObj);
-    hilightAnnotationEvent.setTarget(target);
+    hilightAnnotationEvent.setGenerated(generated);
     hilightAnnotationEvent.setEdApp(edApp);
     hilightAnnotationEvent.setGroup(group);
     hilightAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

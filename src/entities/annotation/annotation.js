@@ -13,6 +13,7 @@ var EntityType = require('../entityType');
  * Annotation's prototype set to Entity
  * @constructor
  * @param {string} id URI
+ * @property {string} annotationId URI
  * @extends Entity
  */
 function Annotation(id) {
@@ -28,6 +29,10 @@ function Annotation(id) {
 }
 
 Annotation.prototype = _.create(Entity.prototype);
+
+Annotation.prototype.setAnnotatedId = function (annotatedId) {
+  this.annotatedId = annotatedId;
+};
 
 /**
 Annotation.prototype.setAnnotationType = function (type) {
