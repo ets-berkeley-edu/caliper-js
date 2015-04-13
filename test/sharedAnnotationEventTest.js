@@ -88,9 +88,11 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     var share1 = new Person("https://some-university.edu/students/657585");
+    share1.setHasMembership([]);
     share1.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     share1.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     var share2 = new Person("https://some-university.edu/students/667788");
+    share2.setHasMembership([]);
     share2.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     share2.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     generated.setWithAgents([share1, share2]);
