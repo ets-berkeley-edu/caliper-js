@@ -109,6 +109,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     var courseSection = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
+    courseSection.setCategory(null);
     courseSection.setAcademicSession("Fall-2015");
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
