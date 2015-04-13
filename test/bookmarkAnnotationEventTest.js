@@ -99,7 +99,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Section
-    var courseSection = new CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
+    var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setCategory(null);
