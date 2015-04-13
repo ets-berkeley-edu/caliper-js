@@ -28,6 +28,10 @@ function Session(id) {
     this.setId(id);
     this.setType(EntityType.SESSION);
 
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+
 }
 
 Session.prototype = _.create(Entity.prototype);

@@ -30,13 +30,31 @@ var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
 
-test('Create Session LOGOUT Event and validate attributes', function(t) {
+test('Create Session TIMEOUT Event and validate attributes', function(t) {
 
     // Plan for N assertions
     t.plan(1);
 
-    // The Actor for the Caliper Event
-    var actor = new Person("https://some-university.edu/user/554433");
+    // The actor
+    var actor = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
+    actor.setName("Readium");
+    actor.setHasMembership([]);
+    actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+
+    // The Action for the Caliper Event
+    var action = SessionActions.TIMED_OUT;
+
+    // The Object being interacted with by the Actor
+    var eventObj = actor;
+
+    //var ePubVolume = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
+    //ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+    //ePubVolume.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    //ePubVolume.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+
+    // The session actor
+    var sessionActor = new Person("https://some-university.edu/user/554433");
     var membership1 = new Membership("https://some-university.edu/membership/001");
     membership1.setMember("https://some-university.edu/user/554433");
     membership1.setOrganization("https://some-university.edu/politicalScience/2015/american-revolution-101");
@@ -58,42 +76,20 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     membership3.setStatus(Status.ACTIVE);
     membership3.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     membership3.setDateModified(null);
-    actor.setHasMembership([membership1, membership2, membership3]);
-    actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-
-    // The Action for the Caliper Event
-    var action = SessionActions.TIMED_OUT;
-
-    // The Object being interacted with by the Actor
-    var eventObj = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
-    eventObj.setName("Readium");
-    eventObj.setHasMembership([]);
-    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-
-    var ePubVolume = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
-    ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-    ePubVolume.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    ePubVolume.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-
-    // The target object (frame) within the Event Object
-    var target = new Session("https://github.com/readium/session-123456789");
-    target.setName("session-123456789");
-    target.setDescription(null);
-    target.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    target.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
-    target.setDuration(null);
-    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-
-    var sessionActor = new Person("https://some-university.edu/user/554433");
-    sessionActor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    sessionActor.setHasMembership([membership1, membership2, membership3]);
     sessionActor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     sessionActor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
+    // The target session
+    var target = new Session("https://github.com/readium/session-123456789");
+    target.setName("session-123456789");
+    target.setDescription(null);
     target.setActor(sessionActor);
-
+    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    target.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    target.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+    target.setDuration("PT3000S");
 
     var generated = null;
 

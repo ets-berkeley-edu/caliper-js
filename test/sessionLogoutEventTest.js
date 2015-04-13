@@ -68,6 +68,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     // The Object being interacted with by the Actor
     var eventObj = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
     eventObj.setName("Readium");
+    eventObj.setHasMembership([]);
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -81,11 +82,11 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     target.setName("session-123456789");
     target.setDescription(null);
     target.setActor(actor);
-    target.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    target.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
-    target.setDuration(null);
     target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    target.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    target.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+    target.setDuration("PT3000S");
 
     var generated = null;
 
