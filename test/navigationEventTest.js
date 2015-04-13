@@ -107,6 +107,7 @@ test('Create Navigation Event and validate attributes', function (t) {
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
     courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
     var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
@@ -117,11 +118,12 @@ test('Create Navigation Event and validate attributes', function (t) {
     group.setDateModified(null);
 
     // Specific to the Navigation Event - the location where the user navigated from
-    var navigatedFromObj = new WebPage("https://some-university.edu/politicalScience/2014/american-revolution-101/index.html");
-    navigatedFromObj.setName("American Revolution 101 Landing Page");
-    navigatedFromObj.setIsPartOf(courseSection);
-    navigatedFromObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    navigatedFromObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    var navigatedFrom = new WebPage("https://some-university.edu/politicalScience/2015/american-revolution-101/index.html");
+    navigatedFrom.setName("American Revolution 101 Landing Page");
+    navigatedFrom.setVersion("1.0");
+    navigatedFrom.setIsPartOf(courseOffering);
+    navigatedFrom.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    navigatedFrom.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // Assert that key attributes are the same
     var navigationEvent = new Event();
@@ -132,7 +134,7 @@ test('Create Navigation Event and validate attributes', function (t) {
     navigationEvent.setEdApp(edApp);
     navigationEvent.setGroup(group);
     navigationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    navigationEvent.setNavigatedFrom(navigatedFromObj);
+    navigationEvent.setNavigatedFrom(navigatedFrom);
 
     console.log("Navigation Event = " + util.inspect(navigationEvent));
 
