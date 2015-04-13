@@ -66,27 +66,28 @@ test('Create TagAnnotation Event and validate attributes', function (t) {
     // The Action for the Caliper Event
     var action = AnnotationActions.TAGGED;
 
-    // The Object being interacted with by the Actor
-    var eventObj = new TagAnnotation("https://someEduApp.edu/tags/7654");
-    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    eventObj.setTags(["to-read", "1765", "shared-with-project-team"]);
-
-    // The Digital Resource that the target (below) belongs to
+    // The DigitalResource parent
     var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
     ePub.setVersion("2nd ed.");
     ePub.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The target object (frame) within the Event Object
-    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/4)");
-    target.setName("The Stamp Act Crisis");
-    target.setVersion("2nd ed.");
-    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    target.setIndex(4);
-    target.setIsPartOf(ePub);
+    // The Object being interacted with by the Actor
+    var eventObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/4)");
+    eventObj.setName("The Stamp Act Crisis");
+    eventObj.setVersion("2nd ed.");
+    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    eventObj.setIndex(4);
+    eventObj.setIsPartOf(ePub);
+
+    // The generated annotation
+    var generated = new TagAnnotation("https://someEduApp.edu/tags/7654");
+    generated.setAnnotatedId(eventObj['@id']);
+    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    generated.setTags(["to-read", "1765", "shared-with-project-team"]);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -129,7 +130,7 @@ test('Create TagAnnotation Event and validate attributes', function (t) {
     tagAnnotationEvent.setActor(actor);
     tagAnnotationEvent.setAction(action);
     tagAnnotationEvent.setObject(eventObj);
-    tagAnnotationEvent.setTarget(target);
+    tagAnnotationEvent.setGenerated(generated);
     tagAnnotationEvent.setEdApp(edApp);
     tagAnnotationEvent.setGroup(group);
     tagAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

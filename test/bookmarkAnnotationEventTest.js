@@ -65,7 +65,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     // The Action for the Caliper Event
     var action = AnnotationActions.BOOKMARKED;
 
-    // The Digital Resource that the target (below) belongs to
+    // The Digital Resource parent
     var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
     ePub.setVersion("2nd ed.");

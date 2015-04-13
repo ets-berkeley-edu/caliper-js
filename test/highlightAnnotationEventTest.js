@@ -67,14 +67,14 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     // The Action for the Caliper Event
     var action = AnnotationActions.HIGHLIGHTED;
 
-    // The Digital Resource that the target (below) belongs to
+    // The DigitalResource parent
     var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
     ePub.setVersion("2nd ed.");
     ePub.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The target object (frame) within the Event Object
+    // The Object being interacted with by the Actor
     var eventObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
     eventObj.setName("Key Figures: George Washington");
     eventObj.setVersion("2nd ed.");

@@ -66,33 +66,34 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     // The Action for the Caliper Event
     var action = AnnotationActions.SHARED;
 
-    // The Object being interacted with by the Actor
-    var eventObj = new SharedAnnotation("https://someEduApp.edu/shared/9999");
-    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    var sharee1 = new Person("https://some-university.edu/students/657585");
-    sharee1.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    sharee1.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    var sharee2 = new Person("https://some-university.edu/students/667788");
-    sharee2.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    sharee2.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    eventObj.setWithAgents([sharee1, sharee2]);
-
-    // The Digital Resource that the target (below) belongs to
+    // The DigitalResource parent
     var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
     ePub.setVersion("2nd ed.");
     ePub.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The target object (frame) within the Event Object
-    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/3)");
-    target.setName("Key Figures: John Adams");
-    target.setVersion("2nd ed.");
-    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    target.setIndex(3);
-    target.setIsPartOf(ePub);
+    // The Object being interacted with by the Actor
+    var eventObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/3)");
+    eventObj.setName("Key Figures: John Adams");
+    eventObj.setVersion("2nd ed.");
+    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    eventObj.setIndex(3);
+    eventObj.setIsPartOf(ePub);
+
+    // The generated annotation
+    var generated = new SharedAnnotation("https://someEduApp.edu/shared/9999");
+    generated.setAnnotatedId(eventObj['@id']);
+    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    var share1 = new Person("https://some-university.edu/students/657585");
+    share1.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    share1.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    var share2 = new Person("https://some-university.edu/students/667788");
+    share2.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    share2.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    generated.setWithAgents([share1, share2]);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -135,7 +136,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     sharedAnnotationEvent.setActor(actor);
     sharedAnnotationEvent.setAction(action);
     sharedAnnotationEvent.setObject(eventObj);
-    sharedAnnotationEvent.setTarget(target);
+    sharedAnnotationEvent.setGenerated(generated);
     sharedAnnotationEvent.setEdApp(edApp);
     sharedAnnotationEvent.setGroup(group);
     sharedAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
