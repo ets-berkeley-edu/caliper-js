@@ -109,6 +109,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
     courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
     var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");

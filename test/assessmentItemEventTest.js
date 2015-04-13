@@ -104,6 +104,7 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
     courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
     var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
@@ -112,6 +113,7 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     group.setDateModified(null);
+
 
     // Assert that key attributes are the same
     var assessmentItemEvent = new Event();
