@@ -70,6 +70,7 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     eventObj.setMaxSubmits(2);
     eventObj.setMaxScore(1.0);
     eventObj.setDateModified(null);
+    eventObj.setVersion("1.0");
 
     // The target object (frame) within the Event Object
     var targetObj = null;

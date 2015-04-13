@@ -21,23 +21,25 @@ var EntityType = require('./entityType');
  * @property {{string[]} } keywords Array of KeyWord Strings
  * @property {Object} isPartOf Parent Object
  * @property {string} datePublished String representing a date
+ * @property {string} Version String representing the version of the DigitalResource
  * @extends Entity
  */
 function DigitalResource(id) {
 
-  Entity.call(this);
+    Entity.call(this);
 
-  this.setId(id);
-  this.setType(EntityType.DIGITAL_RESOURCE);
+    this.setId(id);
+    this.setType(EntityType.DIGITAL_RESOURCE);
 
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
-  this.setObjectType([]);
-  this.setAlignedLearningObjective([]);
-  this.setKeywords([]);
-  this.setIsPartOf(null);
-  this.setDatePublished(null);
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setObjectType([]);
+    this.setAlignedLearningObjective([]);
+    this.setKeywords([]);
+    this.setIsPartOf(null);
+    this.setDatePublished(null);
+    this.setVersion(null);
 }
 
 DigitalResource.prototype = _.create(Entity.prototype);
@@ -94,6 +96,10 @@ DigitalResource.prototype.setIsPartOf = function (isPartOf) {
 
 DigitalResource.prototype.setDatePublished = function (datePublished) {
   this.datePublished = datePublished;
+};
+
+DigitalResource.prototype.setVersion = function (version) {
+    this.version = version;
 };
 
 /**

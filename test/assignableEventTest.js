@@ -86,6 +86,7 @@ test('Create Assignable Event and validate attributes', function (t) {
     assessmentItem1.setMaxSubmits(2);
     assessmentItem1.setMaxScore(1.0);
     assessmentItem1.setDateModified(null);
+    assessmentItem1.setVersion("1.0");
     var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item2");
     assessmentItem2.setName("Assessment Item 2");
     assessmentItem2.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
@@ -93,6 +94,7 @@ test('Create Assignable Event and validate attributes', function (t) {
     assessmentItem2.setMaxSubmits(2);
     assessmentItem2.setMaxScore(1.0);
     assessmentItem2.setDateModified(null);
+    assessmentItem2.setVersion("1.0");
     var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item3");
     assessmentItem3.setName("Assessment Item 3");
     assessmentItem3.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
@@ -100,6 +102,7 @@ test('Create Assignable Event and validate attributes', function (t) {
     assessmentItem3.setMaxSubmits(2);
     assessmentItem3.setMaxScore(1.0);
     assessmentItem3.setDateModified(null);
+    assessmentItem3.setVersion("1.0");
 
     eventObj.setAssessmentItems([assessmentItem1, assessmentItem2, assessmentItem3]);
 

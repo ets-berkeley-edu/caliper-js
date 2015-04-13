@@ -79,6 +79,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     targetObj.setName("Key Figures: Lord North");
     targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    targetObj.setVersion("2nd ed.");
     targetObj.setIndex(2);
     targetObj.setIsPartOf(ePub);
 

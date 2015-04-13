@@ -73,6 +73,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDatePublished((new Date("2015-01-15T09:30:00Z")).toISOString());
+    eventObj.setVersion("1.0");
     eventObj.setDateToActivate((new Date("2015-01-16T05:00:00Z")).toISOString());
     eventObj.setDateToShow((new Date("2015-01-16T05:00:00Z")).toISOString());
     eventObj.setDateToStartOn((new Date("2015-01-16T05:00:00Z")).toISOString());
@@ -90,6 +91,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     assessmentItem1.setMaxScore(1.0);
     assessmentItem1.setDateCreated(null);
     assessmentItem1.setDateModified(null);
+    assessmentItem1.setVersion("1.0");
     var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item2");
     assessmentItem2.setName("Assessment Item 2");
     assessmentItem2.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
@@ -98,6 +100,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     assessmentItem2.setMaxScore(1.0);
     assessmentItem2.setDateCreated(null);
     assessmentItem2.setDateModified(null);
+    assessmentItem2.setVersion("1.0");
     var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item3");
     assessmentItem3.setName("Assessment Item 3");
     assessmentItem3.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
@@ -106,6 +109,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     assessmentItem3.setMaxScore(1.0);
     assessmentItem3.setDateCreated(null);
     assessmentItem3.setDateModified(null);
+    assessmentItem3.setVersion("1.0");
 
     eventObj.setAssessmentItems([assessmentItem1, assessmentItem2, assessmentItem3]);
 

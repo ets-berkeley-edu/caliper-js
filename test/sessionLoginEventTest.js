@@ -70,12 +70,14 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
 
     var ePubVolume = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+    ePubVolume.setVersion("2nd ed.");
     ePubVolume.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     ePubVolume.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
     var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
     targetObj.setName("Key Figures: George Washington");
+    targetObj.setVersion("2nd ed.");
     targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     targetObj.setIndex(1);

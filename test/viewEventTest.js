@@ -69,12 +69,14 @@ test('Create View Event and validate attributes', function (t) {
     // The Object being interacted with by the Actor
     var eventObj = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+    eventObj.setVersion("2nd ed.");
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
     var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
     targetObj.setName("Key Figures: George Washington");
+    targetObj.setVersion("2nd ed.");
     targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     targetObj.setIndex(1);
