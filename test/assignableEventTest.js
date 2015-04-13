@@ -67,45 +67,49 @@ test('Create Assignable Event and validate attributes', function (t) {
     var action = AssignableActions.ACTIVATED;
 
     // The Object being interacted with by the Actor (Assessment)
-    var eventObj = new Assessment("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+    var eventObj = new Assessment("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     eventObj.setName("American Revolution - Key Figures Assessment");
-    eventObj.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101");
+    eventObj.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101");
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDatePublished((new Date("2015-01-15T09:30:00Z")).toISOString());
-    eventObj.setDateToActivate((new Date("2015-01-16T05:00:00Z")).toISOString());
-    eventObj.setDateToShow((new Date("2015-01-16T05:00:00Z")).toISOString());
-    eventObj.setDateToStartOn((new Date("2015-01-16T05:00:00Z")).toISOString());
-    eventObj.setDateToSubmit((new Date("2015-02-28T11:59:59Z")).toISOString());
+    eventObj.setDatePublished((new Date("2015-08-15T09:30:00.000Z")).toISOString());
+    eventObj.setVersion("1.0");
+    eventObj.setDateToActivate((new Date("2015-08-16T05:00:00.000Z")).toISOString());
+    eventObj.setDateToShow((new Date("2015-08-16T05:00:00.000Z")).toISOString());
+    eventObj.setDateToStartOn((new Date("2015-08-16T05:00:00.000Z")).toISOString());
+    eventObj.setDateToSubmit((new Date("2015-09-28T11:59:59.000Z")).toISOString());
     eventObj.setMaxAttempts(2);
     eventObj.setMaxSubmits(2);
     eventObj.setMaxScore(3.0);
 
     // The Assessment has three items
-    var assessmentItem1 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item1");
+    var assessmentItem1 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1");
     assessmentItem1.setName("Assessment Item 1");
-    assessmentItem1.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+    assessmentItem1.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     assessmentItem1.setMaxAttempts(2);
     assessmentItem1.setMaxSubmits(2);
     assessmentItem1.setMaxScore(1.0);
     assessmentItem1.setDateModified(null);
     assessmentItem1.setVersion("1.0");
-    var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item2");
+    assessmentItem1.isTimeDependent(false);
+    var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item2");
     assessmentItem2.setName("Assessment Item 2");
-    assessmentItem2.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+    assessmentItem2.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     assessmentItem2.setMaxAttempts(2);
     assessmentItem2.setMaxSubmits(2);
     assessmentItem2.setMaxScore(1.0);
     assessmentItem2.setDateModified(null);
     assessmentItem2.setVersion("1.0");
-    var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item3");
+    assessmentItem2.isTimeDependent(false);
+    var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item3");
     assessmentItem3.setName("Assessment Item 3");
-    assessmentItem3.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+    assessmentItem3.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     assessmentItem3.setMaxAttempts(2);
     assessmentItem3.setMaxSubmits(2);
     assessmentItem3.setMaxScore(1.0);
     assessmentItem3.setDateModified(null);
     assessmentItem3.setVersion("1.0");
+    assessmentItem3.isTimeDependent(false);
 
     eventObj.setAssessmentItems([assessmentItem1, assessmentItem2, assessmentItem3]);
 
@@ -113,11 +117,11 @@ test('Create Assignable Event and validate attributes', function (t) {
     var target = null;
 
     // The generated object (Attempt) within the Event Object
-    var generated = new Attempt("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/attempt1");
+    var generated = new Attempt("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/attempt1");
     generated.setName(null);
     generated.setDescription(null);
     generated.setActor("https://some-university.edu/user/554433");
-    generated.setAssignable("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+    generated.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generated.setDateModified(null);
     generated.setCount(1);
