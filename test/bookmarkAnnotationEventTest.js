@@ -43,18 +43,21 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     membership1.setRoles([Role.LEARNER]);
     membership1.setStatus(Status.ACTIVE);
     membership1.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    membership1.setDateModified(null);
     var membership2 = new Membership("https://some-university.edu/membership/002");
     membership2.setMember("https://some-university.edu/user/554433");
     membership2.setOrganization("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
     membership2.setRoles([Role.LEARNER]);
     membership2.setStatus(Status.ACTIVE);
     membership2.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    membership2.setDateModified(null);
     var membership3 = new Membership("https://some-university.edu/membership/003");
     membership3.setMember("https://some-university.edu/user/554433");
     membership3.setOrganization("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
     membership3.setRoles([Role.LEARNER]);
     membership3.setStatus(Status.ACTIVE);
     membership3.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    membership3.setDateModified(null);
     actor.setHasMembership([membership1, membership2, membership3]);
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
@@ -62,26 +65,26 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     // The Action for the Caliper Event
     var action = AnnotationActions.BOOKMARKED;
 
-    // The Object being interacted with by the Actor
-    var eventObj = new BookmarkAnnotation("https://someEduApp.edu/bookmarks/00001");
-    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    eventObj.setBookmarkNotes("The Intolerable Acts (1774)--bad idea Lord North");
-
     // The Digital Resource that the target (below) belongs to
     var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
     ePub.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The target object (frame) within the Event Object
-    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/2)");
-    target.setName("Key Figures: Lord North");
-    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    target.setVersion("2nd ed.");
-    target.setIndex(2);
-    target.setIsPartOf(ePub);
+    // The Object being interacted with by the Actor
+    var eventObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/2)");
+    eventObj.setName("Key Figures: Lord North");
+    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    eventObj.setVersion("2nd ed.");
+    eventObj.setIndex(2);
+    eventObj.setIsPartOf(ePub);
+
+    // The generated annotation
+    var generated = new BookmarkAnnotation("https://someEduApp.edu/bookmarks/00001");
+    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    generated.setBookmarkNotes("The Intolerable Acts (1774)--bad idea Lord North");
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -124,7 +127,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     bookmarkAnnotationEvent.setActor(actor);
     bookmarkAnnotationEvent.setAction(action);
     bookmarkAnnotationEvent.setObject(eventObj);
-    bookmarkAnnotationEvent.setTarget(target);
+    bookmarkAnnotationEvent.setGenerated(generated);
     bookmarkAnnotationEvent.setEdApp(edApp);
     bookmarkAnnotationEvent.setGroup(group);
     bookmarkAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
