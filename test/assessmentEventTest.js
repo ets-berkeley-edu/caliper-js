@@ -132,6 +132,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
     edApp.setName("Super Assessment Tool");
+    edApp.setHasMembership([]);
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     edApp.setDateModified(null);
 
@@ -140,6 +141,8 @@ test('Create Assessment Event and validate attributes', function (t) {
     courseOffering.setName("Political Science 101: The American Revolution");
     courseOffering.setCourseNumber("POL101");
     courseOffering.setAcademicSession("Fall-2015");
+    courseOffering.setMembership(null);
+    courseOffering.setSubOrganizationOf(null);
     courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -151,6 +154,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
     courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    courseSection.setDateModified(null);
 
     // LIS Group
     var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
@@ -158,7 +162,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    group.setDateModified(null);
 
     // Assert that key attributes are the same
     var assessmentEvent = new Event();

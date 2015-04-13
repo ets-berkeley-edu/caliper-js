@@ -65,6 +65,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     // The Object being interacted with by the Actor
     var eventObj = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
     eventObj.setName("Readium");
+    eventObj.setHasMembership([]);
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -119,7 +120,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    group.setDateModified(null);
 
     // Assert that key attributes are the same
     var sessionEvent = new Event();

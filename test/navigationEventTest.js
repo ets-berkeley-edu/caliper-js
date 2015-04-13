@@ -81,6 +81,7 @@ test('Create Navigation Event and validate attributes', function (t) {
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
     edApp.setName("Readium");
+    edApp.setHasMembership([]);
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -107,7 +108,7 @@ test('Create Navigation Event and validate attributes', function (t) {
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    group.setDateModified(null);
 
     // Specific to the Navigation Event - the location where the user navigated from
     var navigatedFromObj = new WebPage("https://some-university.edu/politicalScience/2014/american-revolution-101/index.html");
