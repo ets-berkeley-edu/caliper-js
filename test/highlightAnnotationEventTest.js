@@ -129,7 +129,7 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     hilightAnnotationEvent.setTarget(targetObj);
     hilightAnnotationEvent.setEdApp(edApp);
     hilightAnnotationEvent.setGroup(group);
-    hilightAnnotationEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    hilightAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     console.log("Highlight Annotation Event = " + util.inspect(hilightAnnotationEvent));
 

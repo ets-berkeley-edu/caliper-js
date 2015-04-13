@@ -130,7 +130,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     sharedAnnotationEvent.setTarget(targetObj);
     sharedAnnotationEvent.setEdApp(edApp);
     sharedAnnotationEvent.setGroup(group);
-    sharedAnnotationEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    sharedAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     console.log("Shared Annotation Event = " + util.inspect(sharedAnnotationEvent));
 

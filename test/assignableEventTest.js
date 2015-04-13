@@ -118,7 +118,7 @@ test('Create Assignable Event and validate attributes', function (t) {
     generatedObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generatedObj.setDateModified(null);
     generatedObj.setCount(1);
-    generatedObj.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    generatedObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     generatedObj.setEndedAtTime(null);
     generatedObj.setDuration(null);
 
@@ -162,7 +162,7 @@ test('Create Assignable Event and validate attributes', function (t) {
     assignableEvent.setGenerated(generatedObj);
     assignableEvent.setEdApp(edApp);
     assignableEvent.setGroup(group);
-    assignableEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    assignableEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     console.log("Assignable Event = " + util.inspect(assignableEvent));
 

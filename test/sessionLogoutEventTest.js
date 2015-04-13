@@ -78,8 +78,8 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     targetObj.setName("session-123456789");
     targetObj.setDescription(null);
     targetObj.setActor(actor);
-    targetObj.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
-    targetObj.setEndedAtTime((new Date("2015-02-15T11:05:00Z")).toISOString());
+    targetObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    targetObj.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
     targetObj.setDuration(null);
     targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
@@ -126,8 +126,8 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     sessionEvent.setGenerated(generatedObj);
     sessionEvent.setEdApp(edApp);
     sessionEvent.setGroup(group);
-    sessionEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
-    sessionEvent.setEndedAtTime((new Date("2015-02-15T11:05:00Z")).toISOString());
+    sessionEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    sessionEvent.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
 
     console.log("Session Event = " + util.inspect(sessionEvent));
 

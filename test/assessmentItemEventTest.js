@@ -118,7 +118,7 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     assessmentItemEvent.setGenerated(generatedObj);
     assessmentItemEvent.setEdApp(edApp);
     assessmentItemEvent.setGroup(group);
-    assessmentItemEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    assessmentItemEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     console.log("Assessment Item Event = " + util.inspect(assessmentItemEvent));
 

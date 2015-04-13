@@ -125,7 +125,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     generatedObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generatedObj.setDateModified(null);
     generatedObj.setCount(1);
-    generatedObj.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    generatedObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     generatedObj.setEndedAtTime(null);
     generatedObj.setDuration(null);
 
@@ -169,7 +169,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     assessmentEvent.setGenerated(generatedObj);
     assessmentEvent.setEdApp(edApp);
     assessmentEvent.setGroup(group);
-    assessmentEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    assessmentEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     console.log("Assessment Event = " + util.inspect(assessmentEvent));
 

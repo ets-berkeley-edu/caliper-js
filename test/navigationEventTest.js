@@ -124,7 +124,7 @@ test('Create Navigation Event and validate attributes', function (t) {
     navigationEvent.setTarget(targetObj);
     navigationEvent.setEdApp(edApp);
     navigationEvent.setGroup(group);
-    navigationEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    navigationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     navigationEvent.setNavigatedFrom(navigatedFromObj);
 
     console.log("Navigation Event = " + util.inspect(navigationEvent));

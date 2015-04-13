@@ -122,7 +122,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     bookmarkAnnotationEvent.setTarget(targetObj);
     bookmarkAnnotationEvent.setEdApp(edApp);
     bookmarkAnnotationEvent.setGroup(group);
-    bookmarkAnnotationEvent.setStartedAtTime((new Date("2015-02-15T10:15:00Z")).toISOString());
+    bookmarkAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     console.log("Bookmark Annotation Event = " + util.inspect(bookmarkAnnotationEvent));
 
