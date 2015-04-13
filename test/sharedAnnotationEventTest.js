@@ -103,6 +103,8 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     courseOffering.setName("Political Science 101: The American Revolution");
     courseOffering.setCourseNumber("POL101");
     courseOffering.setAcademicSession("Fall-2015");
+    courseOffering.setMembership([]);
+    courseOffering.setSubOrganizationOf(null);
     courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
