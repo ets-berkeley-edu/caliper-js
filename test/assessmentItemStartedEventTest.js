@@ -14,7 +14,7 @@ var Event = require('../src/events/assessmentItemEvent');
 var Person = require('../src/entities/agent/person');
 
 // Action
-var AssessmentActions = require('../src/actions/assessmentActions');
+var AssessmentItemActions = require('../src/actions/assessmentItemActions');
 
 // Activity Context
 var AssessmentItem = require('../src/entities/assessment/assessmentItem');
@@ -30,7 +30,7 @@ var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
 
-test('Create Assessment Item Event and validate attributes', function (t) {
+test('Create Assessment Item STARTED Event and validate attributes', function (t) {
 
     // Plan for N assertions
     t.plan(1);
@@ -63,23 +63,34 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The Action for the Caliper Event
-    var action = AssessmentActions.STARTED;
+    var action = AssessmentItemActions.STARTED;
 
     // The Object being interacted with by the Actor (AssessmentItem)
-    var eventObj = new AssessmentItem("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/item1");
+    var eventObj = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1");
     eventObj.setName("Assessment Item 1");
-    eventObj.setIsPartOf("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+    eventObj.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     eventObj.setMaxAttempts(2);
     eventObj.setMaxSubmits(2);
     eventObj.setMaxScore(1.0);
     eventObj.setDateModified(null);
     eventObj.setVersion("1.0");
+    eventObj.isTimeDependent(false);
 
     // The target object (frame) within the Event Object
     var target = null;
 
-    // The generated object (Response/Result?) within the Event Object
-    var generated = null; //TODO - fix
+    // The generated object (Attempt) within the Event Object
+    var generated = new Attempt("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1/attempt1");
+    generated.setName(null);
+    generated.setDescription(null);
+    generated.setActor("https://some-university.edu/user/554433");
+    generated.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
+    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    generated.setDateModified(null);
+    generated.setCount(1);
+    generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    generated.setEndedAtTime(null);
+    generated.setDuration(null);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
@@ -132,5 +143,5 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     console.log("Assessment Item Event = " + util.inspect(assessmentItemEvent));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperAssessmentItemEvent', assessmentItemEvent, t);
+    jsonCompare('caliperAssessmentItemStartedEvent', assessmentItemEvent, t);
 })

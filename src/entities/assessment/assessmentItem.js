@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -13,20 +12,23 @@ var AssignableDigitalResourceType = require('../assignable/assignableDigitalReso
  * AssessmentItem's prototype set to AssignableDigitalResource
  * @constructor
  * @param {String} id URI
- * @param {String} type Type
+ * @property {boolean} isTimeDependent boolean true/false
  * @extends AssignableDigitalResource
  */
-function AssessmentItem(id, type) {
+function AssessmentItem(id) {
 
-  AssignableDigitalResource.call(this);
+    AssignableDigitalResource.call(this);
 
-  this.setId(id);
-  this.setType(AssignableDigitalResourceType.ASSESSMENT_ITEM);
+    this.setId(id);
+    this.setType(AssignableDigitalResourceType.ASSESSMENT_ITEM);
 
-  this.setExtensions({});
+    this.setExtensions({});
 }
 
 AssessmentItem.prototype = _.create(AssignableDigitalResource.prototype);
 
+AssessmentItem.prototype.isTimeDependent = function (isTimeDependent) {
+    this.isTimeDependent = isTimeDependent;
+};
 
 module.exports = AssessmentItem;
