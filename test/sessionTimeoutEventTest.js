@@ -136,6 +136,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     sessionEvent.setGroup(group);
     sessionEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     sessionEvent.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+    sessionEvent.setDuration("PT3000S");
 
     console.log("Session Event = " + util.inspect(sessionEvent));
 

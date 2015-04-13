@@ -13,7 +13,6 @@ var EntityType = require('../entityType');
  * Session's prototype set to Entity
  * @constructor
  * @param {string} id URI
- * @param {string} type
  * @property {Object} actor
  * @property {string} startedAtTime String Representation of Date
  * @property {string} endedAtTime String Representatio of Date
@@ -21,16 +20,17 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Session(id) {
-    // function Session(id, type)
 
     Entity.call(this);
 
     this.setId(id);
     this.setType(EntityType.SESSION);
-
     this.setName(null);
     this.setDescription(null);
     this.setExtensions({});
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 
 }
 

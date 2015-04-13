@@ -77,7 +77,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     ePubVolume.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     ePubVolume.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The target object (frame) within the Event Object
+    // The target session
     var target = new Session("https://github.com/readium/session-123456789");
     target.setName("session-123456789");
     target.setDescription(null);
@@ -137,6 +137,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     sessionEvent.setGroup(group);
     sessionEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     sessionEvent.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+    sessionEvent.setDuration("PT3000S");
 
     console.log("Session Event = " + util.inspect(sessionEvent));
 
