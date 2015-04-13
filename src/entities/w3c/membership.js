@@ -22,7 +22,7 @@ function Membership(id) {
     Entity.call(this);
 
     this.setId(id);
-    this.setType(EntityType.type.MEMBERSHIP)
+    this.setType(EntityType.MEMBERSHIP);
     this.setName(null);
     this.setDescription(null);
     this.setExtensions({});
@@ -31,12 +31,12 @@ function Membership(id) {
 
 Membership.prototype = _.create(Entity.prototype);
 
-Membership.prototype.setMemberId = function(memberId) {
-    this.memberId = memberId;
+Membership.prototype.setMember = function(member) {
+    this.member = member;
 };
 
-Membership.prototype.setOrganizationId = function(organizationId) {
-    this.organizationId = organizationId;
+Membership.prototype.setOrganization = function(organization) {
+    this.organization = organization;
 };
 
 Membership.prototype.setRoles = function(roles) {

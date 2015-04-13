@@ -21,10 +21,12 @@ function AnnotationEvent() {
   this.setContext(this.Contexts.ANNOTATION);
   this.setType(this.Types.ANNOTATION);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);
   this.setDuration(null);
+
 }
 
 AnnotationEvent.prototype = _.create(Event.prototype);

@@ -3,7 +3,7 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
-var type = {
+var digitalResourceType = {
     "ASSIGNABLE_DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/AssignableDigitalResource",
     "EPUB_CHAPTER": "http://www.idpf.org/epub/vocab/structure/#chapter",
     "EPUB_PART": "http://www.idpf.org/epub/vocab/structure/#part",
@@ -15,4 +15,4 @@ var type = {
     "WEB_PAGE": "http://purl.imsglobal.org/caliper/v1/WebPage"
 };
 
-exports.type = type;
+module.exports = digitalResourceType;

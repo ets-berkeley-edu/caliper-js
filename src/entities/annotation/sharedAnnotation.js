@@ -21,7 +21,7 @@ function SharedAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
-  this.setType(AnnotationType.type.SHARED_ANNOTATION);
+  this.setType(AnnotationType.SHARED_ANNOTATION);
 
 }
 

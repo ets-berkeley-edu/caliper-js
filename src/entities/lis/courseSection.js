@@ -4,11 +4,12 @@
  */
 
 var _ = require('lodash-node');
-var Course = require('./courseOffering');
+var CourseOffering = require('./courseOffering');
+var EntityType = require('../entityType');
 
 /**
  * Represents Course.  
- * CourseSection's prototype set to Course
+ * CourseSection's prototype set to CourseOffering
  * @constructor
  * @param {string} id URI
  * @property {string} category String representing a Category (lecture, lab, etc.)
@@ -16,24 +17,17 @@ var Course = require('./courseOffering');
  */
 function CourseSection(id) {
 
-  Course.call(this);
+  CourseOffering.call(this);
 
   this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/lis/CourseSection");
-
-  this.setCourseNumber(null);
-  this.setAcademicSession(null);
-
-  this.setSubOrganizationOf(null);
+  this.setType(EntityType.COURSE_SECTION);
 
 }
 
-CourseSection.prototype = _.create(Course.prototype);
+CourseSection.prototype = _.create(CourseOffering.prototype);
 
 CourseSection.prototype.setCategory = function(category) {
   this.category = category;
 };
-
-// TODO add membership, subOrganizationOf
 
 module.exports = CourseSection;

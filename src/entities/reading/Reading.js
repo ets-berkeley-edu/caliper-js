@@ -19,7 +19,7 @@ function Reading(id) {
     DigitalResource.call(this);
 
     this.setId(id);
-    this.setType(DigitalResourceType.type.READING);
+    this.setType(DigitalResourceType.READING);
 
     this.setName(null);
     this.setObjectType([]);

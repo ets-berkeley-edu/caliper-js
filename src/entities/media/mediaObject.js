@@ -22,7 +22,7 @@ function MediaObject(id) {
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType(DigitalResourceType.type.MEDIA_OBJECT);
+  this.setType(DigitalResourceType.MEDIA_OBJECT);
   this.setName(null);
   this.setDescription(null);
   this.setExtensions({});

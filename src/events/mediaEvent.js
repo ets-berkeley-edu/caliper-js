@@ -21,6 +21,7 @@ function MediaEvent() {
   this.setContext(this.Contexts.MEDIA);
   this.setType(this.Types.MEDIA);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);

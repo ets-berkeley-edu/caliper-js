@@ -20,7 +20,7 @@ function FillinBlankResponse(id) {
     Response.call(this);
 
     this.setId(id);
-    this.setType(ResponseType.type.FILLINBLANK);
+    this.setType(ResponseType.FILLINBLANK);
 
 }
 

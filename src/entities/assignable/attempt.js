@@ -29,7 +29,7 @@ function Attempt(id) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(EntityType.type.ATTEMPT);
+  this.setType(EntityType.ATTEMPT);
 
   this.setExtensions({});
 }

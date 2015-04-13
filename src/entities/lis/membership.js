@@ -4,7 +4,7 @@
  */
 
 var _ = require('lodash-node');
-var W3CMembership = require('../membership/membership');
+var W3CMembership = require('../w3c/membership');
 var EntityType = require('../entityType');
 
 /**
@@ -16,13 +16,13 @@ var EntityType = require('../entityType');
  */
 function Membership(id) {
 
-    Entity.call(this);
+    W3CMembership.call(this);
 
     this.setId(id);
-    this.setType(EntityType.type.MEMBERSHIP)
+    this.setType(EntityType.MEMBERSHIP)
 
 }
 
-Membership.prototype = _.create(Entity.prototype);
+Membership.prototype = _.create(W3CMembership.prototype);
 
 module.exports = Membership;

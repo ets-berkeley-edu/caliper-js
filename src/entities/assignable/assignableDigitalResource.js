@@ -24,12 +24,12 @@ var DigitalResourceType = require('../digitalResourceType');
  * @property {number} maxScore Maximum scores
  * @extends DigitalResource
  */
-function AssignableDigitalResource(id, type) {
+function AssignableDigitalResource(id) {
 
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType(DigitalResourceType.type.ASSIGNABLE_DIGITAL_RESOURCE);
+  this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
 
   this.setExtensions({});
   this.setDateCreated(null);

@@ -20,7 +20,7 @@ function MultipleChoiceResponse(id) {
     Response.call(this);
 
     this.setId(id);
-    this.setType(ResponseType.type.MULTIPLECHOICE);
+    this.setType(ResponseType.MULTIPLECHOICE);
 
 }
 

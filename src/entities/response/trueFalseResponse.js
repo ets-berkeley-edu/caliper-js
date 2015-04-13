@@ -20,7 +20,7 @@ function TrueFalseResponse(id) {
     Response.call(this);
 
     this.setId(id);
-    this.setType(ResponseType.type.TRUEFALSE);
+    this.setType(ResponseType.TRUEFALSE);
 
 }
 

@@ -21,13 +21,15 @@ function Frame(id) {
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType(DigitalResourceType.type.FRAME);
+  this.setType(DigitalResourceType.FRAME);
 
+  /**
   this.setName(null);
   this.setObjectType([]);
   this.setAlignedLearningObjective([]);
   this.setKeywords([]);
   this.setIsPartOf(null);
+   */
 }
 
 Frame.prototype = _.create(DigitalResource.prototype);

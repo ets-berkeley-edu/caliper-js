@@ -4,7 +4,8 @@
  */
 
 var _ = require('lodash-node');
-var Organization = require('./../agent/organization');
+var W3COrganization = require('../w3c/organization');
+var EntityType = require('../entityType');
 
 /**
  * Represents Organization.
@@ -17,22 +18,20 @@ var Organization = require('./../agent/organization');
  */
 function CourseOffering(id) {
 
-    Organization.call(this);
+    W3COrganization.call(this);
 
     this.setId(id);
-    this.setType("http://purl.imsglobal.org/caliper/v1/lis/CourseOffering");
-
-    this.setSubOrganizationOf(null);
+    this.setType(EntityType.COURSE_OFFERING);
 
 }
 
-CourseOffering.prototype = _.create(Organization.prototype);
+CourseOffering.prototype = _.create(W3COrganization.prototype);
 
 CourseOffering.prototype.setCourseNumber = function(courseNumber) {
     this.courseNumber = courseNumber;
 };
 
-CourseSection.prototype.setAcademicSession = function(academicSession) {
+CourseOffering.prototype.setAcademicSession = function(academicSession) {
     this.academicSession = academicSession;
 };
 

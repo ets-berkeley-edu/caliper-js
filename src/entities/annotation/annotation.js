@@ -20,7 +20,7 @@ function Annotation(id) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(EntityType.type.ANNOTATION)
+  this.setType(EntityType.ANNOTATION)
 
   this.setName(null);
   this.setDescription(null);

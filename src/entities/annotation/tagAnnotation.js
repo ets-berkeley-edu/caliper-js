@@ -21,7 +21,7 @@ function TagAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
-  this.setType(AnnotationType.type.TAG_ANNOTATION);
+  this.setType(AnnotationType.TAG_ANNOTATION);
 
 }
 

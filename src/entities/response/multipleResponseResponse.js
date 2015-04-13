@@ -20,7 +20,7 @@ function MultipleResponseResponse(id) {
     Response.call(this);
 
     this.setId(id);
-    this.setType(ResponseType.type.MULTIPLERESPONSE);
+    this.setType(ResponseType.MULTIPLERESPONSE);
 
 }
 

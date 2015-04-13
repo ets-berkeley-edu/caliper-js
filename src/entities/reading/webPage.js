@@ -21,7 +21,7 @@ function WebPage(id) {
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType(DigitalResourceType.type.WEB_PAGE);
+  this.setType(DigitalResourceType.WEB_PAGE);
 
   this.setName(null);
   this.setObjectType([]);

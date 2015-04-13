@@ -21,7 +21,7 @@ function Organization(id) {
     Agent.call(this);
 
     this.setId(id);
-    this.setType(EntityType.type.ORGANIZATION);
+    this.setType(EntityType.ORGANIZATION);
     this.setName(null);
     this.setDescription(null);
     this.setExtensions({});
@@ -30,11 +30,11 @@ function Organization(id) {
 
 Organization.prototype = _.create(Agent.prototype);
 
-Organization.prototype.setMemberships = function(memberships) {
-    this.memberships = memberships;
+Organization.prototype.setMembership = function(membership) {
+    this.membership = membership;
 };
 
-Organization.prototype.setsubOrganizationOf = function(subOrganizationOf) {
+Organization.prototype.setSubOrganizationOf = function(subOrganizationOf) {
     this.subOrganizationOf = subOrganizationOf;
 };
 

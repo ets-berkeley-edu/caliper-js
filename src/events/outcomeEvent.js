@@ -20,6 +20,7 @@ function OutcomeEvent() {
   this.setContext(this.Contexts.OUTCOME);
   this.setType(this.Types.OUTCOME);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);

@@ -19,7 +19,7 @@ function Response(id) {
     Entity.call(this);
 
     this.setId(id);
-    this.setType(EntityType.type.RESPONSE);
+    this.setType(EntityType.RESPONSE);
     this.setName(null);
     this.setDescription(null);
     this.setExtensions({});

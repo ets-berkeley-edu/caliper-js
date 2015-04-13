@@ -23,7 +23,7 @@ function Agent(id) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(EntityType.type.AGENT);
+  this.setType(EntityType.AGENT);
 
   /**
   switch (type) {
@@ -47,10 +47,10 @@ function Agent(id) {
   this.setExtensions({});
 }
 
-Agent.prototype.setHasMemberships = function (hasMemberships) {
- this.hasMemberships = hasMemberships;
-}
-
 Agent.prototype = _.create(Entity.prototype);
+
+Agent.prototype.setHasMembership = function (hasMembership) {
+  this.hasMembership = hasMembership;
+}
 
 module.exports = Agent;

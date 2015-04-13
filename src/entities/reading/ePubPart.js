@@ -19,7 +19,7 @@ function EPubPart(id) {
     DigitalResource.call(this);
 
     this.setId(id);
-    this.setType(DigitalResourceType.type.EPUB_PART);
+    this.setType(DigitalResourceType.EPUB_PART);
 
     this.setName(null);
     this.setObjectType([]);

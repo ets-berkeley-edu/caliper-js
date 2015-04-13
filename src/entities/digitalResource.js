@@ -28,7 +28,7 @@ function DigitalResource(id) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(EntityType.type.DIGITAL_RESOURCE);
+  this.setType(EntityType.DIGITAL_RESOURCE);
 
   this.setName(null);
   this.setDescription(null);

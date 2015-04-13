@@ -20,6 +20,7 @@ function ViewEvent() {
   this.setContext(this.Contexts.VIEWED);
   this.setType(this.Types.VIEWED);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);

@@ -3,11 +3,11 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
-var type = {
+var annotationType = {
     "BOOKMARK_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/BookmarkAnnotation",
     "HIGHLIGHT_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/HighlightAnnotation",
     "SHARED_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/SharedAnnotation",
     "TAG_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/TagAnnotation"
 };
 
-exports.type = type;
+module.exports = annotationType;

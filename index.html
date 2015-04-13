@@ -48,12 +48,12 @@
         edApp.setDateModified(1402965614516);
 
         // The LIS Course Section for the Caliper Event
-        var org = new Caliper.CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
-        org.setName("American Revolution 101");
-        org.setDateModified(1402965614516);
-        org.setCourseNumber("AmRev-101");
-        org.setLabel("Am Rev 101");
-        org.setSemester("Spring-2014");
+        var group = new Caliper.CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
+        group.setName("American Revolution 101");
+        group.setDateModified(1402965614516);
+        group.setCourseNumber("AmRev-101");
+        group.setLabel("Am Rev 101");
+        group.setAcademicSession("Fall 2015");
 
         // Specific to the Navigation Event - the location where the user navigated from
         var navigatedFromObj = new Caliper.WebPage("AmRev-101-landingPage");
@@ -68,7 +68,7 @@
         navigationEvent.setObject(eventObj);
         navigationEvent.setTarget(targetObj);
         navigationEvent.setEdApp(edApp);
-        navigationEvent.setLisOrganization(org);
+        navigationEvent.setGroup(group);
         navigationEvent.setStartedAtTime(1402965614516);
         navigationEvent.setNavigatedFrom(navigatedFromObj);
         console.log('created navigation event %O', navigationEvent);

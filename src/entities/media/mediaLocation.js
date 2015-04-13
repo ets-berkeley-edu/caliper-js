@@ -22,7 +22,7 @@ function MediaLocation(id, type) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(MediaObjectType.type.MEDIA_LOCATION);
+  this.setType(MediaObjectType.MEDIA_LOCATION);
 
   /**
   this.setName(null);

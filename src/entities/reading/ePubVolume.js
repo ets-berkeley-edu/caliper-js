@@ -20,7 +20,7 @@ function EPubVolume(id) {
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType(DigitalResourceType.type.EPUB_VOLUME);
+  this.setType(DigitalResourceType.EPUB_VOLUME);
 
   this.setName(null);
   this.setObjectType([]);

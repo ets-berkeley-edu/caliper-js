@@ -20,7 +20,7 @@ function VideoObject(id) {
   MediaObject.call(this);
 
   this.setId(id);
-  this.setType(MediaObjectType.type.VIDEO_OBJECT);
+  this.setType(MediaObjectType.VIDEO_OBJECT);
 
 }
 

@@ -26,9 +26,8 @@ function Session(id) {
     Entity.call(this);
 
     this.setId(id);
-    this.setType(entityType.type.SESSION);
+    this.setType(EntityType.SESSION);
 
-    this.setExtensions({});
 }
 
 Session.prototype = _.create(Entity.prototype);

@@ -21,7 +21,7 @@ function BookmarkAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
-  this.setType(AnnotationType.type.BOOKMARK_ANNOTATION);
+  this.setType(AnnotationType.BOOKMARK_ANNOTATION);
 
 }
 

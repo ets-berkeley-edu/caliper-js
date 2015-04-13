@@ -20,7 +20,7 @@ function Person(id) {
   Agent.call(this);
 
   this.setId(id);
-  this.setType(EntityType.type.PERSON);
+  this.setType(EntityType.PERSON);
 
 }
 

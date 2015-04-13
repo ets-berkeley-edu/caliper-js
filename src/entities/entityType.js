@@ -3,15 +3,18 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
-var type = {
+var entityType = {
     "ACTIVITY_CONTEXT": "http://purl.imsglobal.org/caliper/v1/ActivityContext",
     "AGENT": "http://purl.imsglobal.org/caliper/v1/Agent",
     "ANNOTATION": "http://purl.imsglobal.org/caliper/v1/Annotation",
     "ATTEMPT": "http://purl.imsglobal.org/caliper/v1/Attempt",
+    "COURSE_OFFERING": "http://purl.imsglobal.org/caliper/v1/lis/CourseOffering",
+    "COURSE_SECTION": "http://purl.imsglobal.org/caliper/v1/lis/CourseSection",
     "DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/DigitalResource",
     "ENTITY": "http://purl.imsglobal.org/caliper/v1/Entity",
+    "GROUP": "http://purl.imsglobal.org/caliper/v1/lis/Group",
     "LEARNING_OBJECTIVE": "http://purl.imsglobal.org/caliper/v1/LearningObjective",
-    "MEMBERSHIP": "http://purl.imsglobal.org/caliper/v1/w3c/Membership",
+    "MEMBERSHIP": "http://purl.imsglobal.org/caliper/v1/lis/Membership",
     "ORGANIZATION": "http://purl.imsglobal.org/caliper/v1/w3c/Organization",
     "PERSON": "http://purl.imsglobal.org/caliper/v1/lis/Person",
     "RESPONSE": "http://purl.imsglobal.org/caliper/v1/Response",
@@ -21,4 +24,4 @@ var type = {
     "VIEW": "http://purl.imsglobal.org/caliper/v1/View"
 };
 
-exports.type = type;
+module.exports = entityType;

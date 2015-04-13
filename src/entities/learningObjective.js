@@ -21,7 +21,7 @@ function LearningObjective(id, type) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(EntityType.type.LEARNING_OBJECTIVE);
+  this.setType(EntityType.LEARNING_OBJECTIVE);
 
   /**
   this.setName(null);

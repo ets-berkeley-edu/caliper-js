@@ -21,6 +21,7 @@ function NavigationEvent() {
   this.setContext(this.Contexts.NAVIGATION);
   this.setType(this.Types.NAVIGATION);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);

@@ -17,13 +17,13 @@ var EntityType = require('../entityType');
  */
 function SoftwareApplication(id) {
 
-  Agent.call(this);
+  W3COrganization.call(this);
 
   this.setId(id);
-  this.setType(EntityType.type.SOFTWARE_APPLICATION);
+  this.setType(EntityType.SOFTWARE_APPLICATION);
 
 }
 
-SoftwareApplication.prototype = _.create(Agent.prototype);
+SoftwareApplication.prototype = _.create(W3COrganization.prototype);
 
 module.exports = SoftwareApplication;

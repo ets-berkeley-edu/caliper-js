@@ -20,6 +20,7 @@ function SessionEvent() {
   this.setContext(this.Contexts.SESSION);
   this.setType(this.Types.SESSION);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);

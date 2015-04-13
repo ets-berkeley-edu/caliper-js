@@ -20,7 +20,7 @@ function AudioObject(id) {
   MediaObject.call(this);
 
   this.setId(id);
-  this.setType(MediaObjectType.type.AUDIO_OBJECT);
+  this.setType(MediaObjectType.AUDIO_OBJECT);
 
 }
 

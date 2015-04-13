@@ -16,7 +16,7 @@
  * @property {string} startedAtTime String representing Date
  * @property {string} endedAtTime String representing Date
  * @property {string} duration duration The format is expected to be PnYnMnDTnHnMnS
- * @property {Object} lisOrganization LISOrganization Object
+ * @property {Object} group Group Object
  * @property {Object} edApp EdApp Object
  */
 function Event() {
@@ -65,8 +65,8 @@ Event.prototype.setDuration = function (duration) {
   this.duration = duration;
 };
 
-Event.prototype.setLisOrganization = function (lisOrganization) {
-  this.group = lisOrganization;
+Event.prototype.setGroup = function (group) {
+  this.group = group;
 };
 
 Event.prototype.setEdApp = function (edApp) {

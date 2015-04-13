@@ -31,7 +31,7 @@ function Result(id) {
   Entity.call(this);
 
   this.setId(id);
-  this.setType(entityType.type.RESULT);
+  this.setType(EntityType.RESULT);
 
   this.setExtensions({});
 }

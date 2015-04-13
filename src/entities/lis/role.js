@@ -67,4 +67,4 @@ var role = {
     "TEACHING_ASSISTANT_TEACHING_ASSISTANT_GROUP": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistantGroup"
 };
 
-exports.role = role;
+module.exports = role;

@@ -20,6 +20,7 @@ function AssignableEvent() {
   this.setContext(this.Contexts.ASSIGNABLE);
   this.setType(this.Types.ASSIGNABLE);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);

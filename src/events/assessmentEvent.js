@@ -20,6 +20,7 @@ function AssessmentEvent() {
   this.setContext(this.Contexts.ASSESSMENT);
   this.setType(this.Types.ASSESSMENT);
 
+  this.setTarget(null);
   this.setGenerated(null);
   this.setStartedAtTime(null);
   this.setEndedAtTime(null);

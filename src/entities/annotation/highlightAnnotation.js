@@ -22,7 +22,7 @@ function HighlightAnnotation(id) {
   Annotation.call(this);
 
   this.setId(id);
-  this.setType(AnnotationType.type.HIGHLIGHT_ANNOTATION);
+  this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
 
 }
 

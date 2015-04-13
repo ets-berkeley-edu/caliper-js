@@ -21,7 +21,7 @@ function Assessment(id, type) {
   AssignableDigitalResource.call(this);
 
   this.setId(id);
-  this.setType(AssignableDigitalResourceType.type.ASSESSMENT);
+  this.setType(AssignableDigitalResourceType.ASSESSMENT);
 
   this.setExtensions({});
 }

@@ -3,7 +3,7 @@
  *  @license For license information contact, info@imsglobal.org
  */
 
-var type = {
+var responseType = {
     "FILLINBLANK": "http://purl.imsglobal.org/caliper/v1/Response/FillinBlank",
     "MULTIPLECHOICE": "http://purl.imsglobal.org/caliper/v1/Response/MultipleChoice",
     "MULTIPLERESPONSE": "http://purl.imsglobal.org/caliper/v1/Response/MultipleResponse",
@@ -11,4 +11,4 @@ var type = {
     "TRUEFALSE": "http://purl.imsglobal.org/caliper/v1/Response/TrueFalse"
 };
 
-exports.type = type;
+module.exports = responseType;

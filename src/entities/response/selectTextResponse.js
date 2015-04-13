@@ -20,7 +20,7 @@ function SelectTextResponse(id) {
     Response.call(this);
 
     this.setId(id);
-    this.setType(ResponseType.type.SELECTTEXT);
+    this.setType(ResponseType.SELECTTEXT);
 
 }
 

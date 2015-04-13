@@ -20,7 +20,7 @@ function ImageObject(id) {
   MediaObject.call(this);
 
   this.setId(id);
-  this.setType(MediaObjectType.type.IMAGE_OBJECT);
+  this.setType(MediaObjectType.IMAGE_OBJECT);
 
 }
 
