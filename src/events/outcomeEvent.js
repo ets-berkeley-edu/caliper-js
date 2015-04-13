@@ -5,7 +5,9 @@
  */
 
 var _ = require('lodash-node');
-var Event = require('./caliperEvent');
+var Event = require('./event');
+var EventContext = require('./eventContext');
+var EventType = require('./eventType');
 
 /**
  * Represents Outcome Event.  
@@ -15,16 +17,16 @@ var Event = require('./caliperEvent');
  */
 function OutcomeEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(this.Contexts.OUTCOME);
-  this.setType(this.Types.OUTCOME);
+    this.setContext(EventContext.OUTCOME);
+    this.setType(EventType.OUTCOME);
 
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 }
 
 OutcomeEvent.prototype = _.create(Event.prototype);

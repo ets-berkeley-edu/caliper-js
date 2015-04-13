@@ -133,7 +133,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     group.setDateModified(null);
 
-    // Asser that key attributes are the same
+    // Assert that key attributes are the same
     var sharedAnnotationEvent = new Event();
     sharedAnnotationEvent.setActor(actor);
     sharedAnnotationEvent.setAction(action);

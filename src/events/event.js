@@ -73,30 +73,4 @@ Event.prototype.setEdApp = function (edApp) {
   this.edApp = edApp;
 };
 
-Event.prototype.Contexts = {
-  "ANNOTATION": "http://purl.imsglobal.org/ctx/caliper/v1/AnnotationEvent",
-  "ASSESSMENT": "http://purl.imsglobal.org/ctx/caliper/v1/AssessmentEvent",
-  "ASSESSMENT_ITEM": "http://purl.imsglobal.org/ctx/caliper/v1/AssessmentItemEvent",
-  "ASSIGNABLE": "http://purl.imsglobal.org/ctx/caliper/v1/AssignableEvent",
-  "EVENT": "http://purl.imsglobal.org/ctx/caliper/v1/Event",
-  "MEDIA": "http://purl.imsglobal.org/ctx/caliper/v1/MediaEvent",
-  "NAVIGATION": "http://purl.imsglobal.org/ctx/caliper/v1/NavigationEvent",
-  "OUTCOME": "http://purl.imsglobal.org/ctx/caliper/v1/OutcomeEvent",
-  "VIEWED": "http://purl.imsglobal.org/ctx/caliper/v1/ViewEvent",
-  "SESSION": "http://purl.imsglobal.org/ctx/caliper/v1/SessionEvent"
-};
-
-Event.prototype.Types = {
-  "ANNOTATION": "http://purl.imsglobal.org/caliper/v1/AnnotationEvent",
-  "ASSESSMENT": "http://purl.imsglobal.org/caliper/v1/AssessmentEvent",
-  "ASSESSMENT_ITEM": "http://purl.imsglobal.org/caliper/v1/AssessmentItemEvent",
-  "ASSIGNABLE": "http://purl.imsglobal.org/caliper/v1/AssignableEvent",
-  "EVENT": "http://purl.imsglobal.org/caliper/v1/Event",
-  "MEDIA": "http://purl.imsglobal.org/caliper/v1/MediaEvent",
-  "NAVIGATION": "http://purl.imsglobal.org/caliper/v1/NavigationEvent",
-  "OUTCOME": "http://purl.imsglobal.org/caliper/v1/OutcomeEvent",
-  "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent",
-  "SESSION": "http://purl.imsglobal.org/caliper/v1/SessionEvent"
-};
-
 module.exports = Event;

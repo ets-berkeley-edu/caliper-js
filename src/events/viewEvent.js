@@ -5,7 +5,9 @@
  */
 
 var _ = require('lodash-node');
-var Event = require('./caliperEvent');
+var Event = require('./event');
+var EventContext = require('./eventContext');
+var EventType = require('./eventType');
 
 /**
  * Represents View Event.  
@@ -15,16 +17,16 @@ var Event = require('./caliperEvent');
  */
 function ViewEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(this.Contexts.VIEWED);
-  this.setType(this.Types.VIEWED);
+    this.setContext(EventContext.VIEWED);
+    this.setType(EventType.VIEWED);
 
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 }
 
 ViewEvent.prototype = _.create(Event.prototype);

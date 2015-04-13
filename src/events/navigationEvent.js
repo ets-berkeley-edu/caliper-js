@@ -5,7 +5,9 @@
  */
 
 var _ = require('lodash-node');
-var Event = require('./caliperEvent');
+var Event = require('./event');
+var EventContext = require('./eventContext');
+var EventType = require('./eventType');
 
 /**
  * Represents Navigation Event.  
@@ -16,16 +18,16 @@ var Event = require('./caliperEvent');
  */
 function NavigationEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(this.Contexts.NAVIGATION);
-  this.setType(this.Types.NAVIGATION);
+    this.setContext(EventContext.NAVIGATION);
+    this.setType(EventType.NAVIGATION);
 
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 }
 
 NavigationEvent.prototype = _.create(Event.prototype);

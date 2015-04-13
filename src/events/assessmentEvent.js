@@ -1,11 +1,12 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
-var Event = require('./caliperEvent');
+var Event = require('./event');
+var EventContext = require('./eventContext');
+var EventType = require('./eventType');
 
 /**
  * Represents Assessment Event.  
@@ -15,16 +16,16 @@ var Event = require('./caliperEvent');
  */
 function AssessmentEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(this.Contexts.ASSESSMENT);
-  this.setType(this.Types.ASSESSMENT);
+    this.setContext(EventContext.ASSESSMENT);
+    this.setType(EventType.ASSESSMENT);
 
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 }
 
 AssessmentEvent.prototype = _.create(Event.prototype);

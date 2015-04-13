@@ -5,7 +5,9 @@
  */
 
 var _ = require('lodash-node');
-var Event = require('./caliperEvent');
+var Event = require('./event');
+var EventContext = require('./eventContext');
+var EventType = require('./eventType');
 
 /**
  * Represents Session Event.  
@@ -15,16 +17,16 @@ var Event = require('./caliperEvent');
  */
 function SessionEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(this.Contexts.SESSION);
-  this.setType(this.Types.SESSION);
+    this.setContext(EventContext.SESSION);
+    this.setType(EventType.SESSION);
 
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 }
 
 SessionEvent.prototype = _.create(Event.prototype);

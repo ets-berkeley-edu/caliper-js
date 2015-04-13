@@ -5,7 +5,9 @@
  */
 
 var _ = require('lodash-node');
-var Event = require('./caliperEvent');
+var Event = require('./event');
+var EventContext = require('./eventContext');
+var EventType = require('./eventType');
 
 /**
  * Represents Assignable Event.  
@@ -17,8 +19,8 @@ function AssignableEvent() {
 
   Event.call(this);
 
-  this.setContext(this.Contexts.ASSIGNABLE);
-  this.setType(this.Types.ASSIGNABLE);
+  this.setContext(EventContext.ASSIGNABLE);
+  this.setType(EventType.ASSIGNABLE);
 
   this.setTarget(null);
   this.setGenerated(null);
