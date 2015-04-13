@@ -74,17 +74,17 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     ePubVolume.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
-    var targetObj = new Session("https://github.com/readium/session-123456789");
-    targetObj.setName("session-123456789");
-    targetObj.setDescription(null);
-    targetObj.setActor(actor);
-    targetObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    targetObj.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
-    targetObj.setDuration(null);
-    targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    var target = new Session("https://github.com/readium/session-123456789");
+    target.setName("session-123456789");
+    target.setDescription(null);
+    target.setActor(actor);
+    target.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    target.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+    target.setDuration(null);
+    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    var generatedObj = null;
+    var generated = null;
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -127,8 +127,8 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     sessionEvent.setActor(actor);
     sessionEvent.setAction(action);
     sessionEvent.setObject(eventObj);
-    sessionEvent.setTarget(targetObj);
-    sessionEvent.setGenerated(generatedObj);
+    sessionEvent.setTarget(target);
+    sessionEvent.setGenerated(generated);
     sessionEvent.setEdApp(edApp);
     sessionEvent.setGroup(group);
     sessionEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

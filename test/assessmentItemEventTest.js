@@ -73,10 +73,10 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     eventObj.setVersion("1.0");
 
     // The target object (frame) within the Event Object
-    var targetObj = null;
+    var target = null;
 
     // The generated object (Response/Result?) within the Event Object
-    var generatedObj = null; //TODO - fix
+    var generated = null; //TODO - fix
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
@@ -120,8 +120,8 @@ test('Create Assessment Item Event and validate attributes', function (t) {
     assessmentItemEvent.setActor(actor);
     assessmentItemEvent.setAction(action);
     assessmentItemEvent.setObject(eventObj);
-    assessmentItemEvent.setTarget(targetObj);
-    assessmentItemEvent.setGenerated(generatedObj);
+    assessmentItemEvent.setTarget(target);
+    assessmentItemEvent.setGenerated(generated);
     assessmentItemEvent.setEdApp(edApp);
     assessmentItemEvent.setGroup(group);
     assessmentItemEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

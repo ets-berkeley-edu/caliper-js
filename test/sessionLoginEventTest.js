@@ -75,23 +75,23 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
     ePubVolume.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
-    var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
-    targetObj.setName("Key Figures: George Washington");
-    targetObj.setVersion("2nd ed.");
-    targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    targetObj.setIndex(1);
-    targetObj.setIsPartOf(ePubVolume);
+    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
+    target.setName("Key Figures: George Washington");
+    target.setVersion("2nd ed.");
+    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    target.setIndex(1);
+    target.setIsPartOf(ePubVolume);
 
-    var generatedObj = new Session("https://github.com/readium/session-123456789");
-    generatedObj.setName("session-123456789");
-    generatedObj.setDescription(null);
-    generatedObj.setActor(actor);
-    generatedObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    generatedObj.setEndedAtTime(null);
-    generatedObj.setDuration(null);
-    generatedObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    generatedObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    var generated = new Session("https://github.com/readium/session-123456789");
+    generated.setName("session-123456789");
+    generated.setDescription(null);
+    generated.setActor(actor);
+    generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    generated.setEndedAtTime(null);
+    generated.setDuration(null);
+    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -134,8 +134,8 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
     sessionEvent.setActor(actor);
     sessionEvent.setAction(action);
     sessionEvent.setObject(eventObj);
-    sessionEvent.setTarget(targetObj);
-    sessionEvent.setGenerated(generatedObj);
+    sessionEvent.setTarget(target);
+    sessionEvent.setGenerated(generated);
     sessionEvent.setEdApp(edApp);
     sessionEvent.setGroup(group);
     sessionEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

@@ -74,13 +74,13 @@ test('Create View Event and validate attributes', function (t) {
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
-    var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
-    targetObj.setName("Key Figures: George Washington");
-    targetObj.setVersion("2nd ed.");
-    targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    targetObj.setIndex(1);
-    targetObj.setIsPartOf(eventObj);
+    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
+    target.setName("Key Figures: George Washington");
+    target.setVersion("2nd ed.");
+    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    target.setIndex(1);
+    target.setIsPartOf(eventObj);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -123,7 +123,7 @@ test('Create View Event and validate attributes', function (t) {
     viewEvent.setActor(actor);
     viewEvent.setAction(action);
     viewEvent.setObject(eventObj);
-    viewEvent.setTarget(targetObj);
+    viewEvent.setTarget(target);
     viewEvent.setEdApp(edApp);
     viewEvent.setGroup(group);
     viewEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

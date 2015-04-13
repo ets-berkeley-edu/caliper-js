@@ -68,20 +68,20 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setBookmarkNotes("The Intolerable Acts (1774)--bad idea Lord North");
 
-    // The Digital Resource that the targetObj (below) belongs to
+    // The Digital Resource that the target (below) belongs to
     var ePub = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
     ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
     ePub.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
-    var targetObj = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/2)");
-    targetObj.setName("Key Figures: Lord North");
-    targetObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    targetObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    targetObj.setVersion("2nd ed.");
-    targetObj.setIndex(2);
-    targetObj.setIsPartOf(ePub);
+    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/2)");
+    target.setName("Key Figures: Lord North");
+    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    target.setVersion("2nd ed.");
+    target.setIndex(2);
+    target.setIsPartOf(ePub);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -124,7 +124,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     bookmarkAnnotationEvent.setActor(actor);
     bookmarkAnnotationEvent.setAction(action);
     bookmarkAnnotationEvent.setObject(eventObj);
-    bookmarkAnnotationEvent.setTarget(targetObj);
+    bookmarkAnnotationEvent.setTarget(target);
     bookmarkAnnotationEvent.setEdApp(edApp);
     bookmarkAnnotationEvent.setGroup(group);
     bookmarkAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

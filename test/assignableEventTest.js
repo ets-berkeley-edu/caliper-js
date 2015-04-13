@@ -107,20 +107,20 @@ test('Create Assignable Event and validate attributes', function (t) {
     eventObj.setAssessmentItems([assessmentItem1, assessmentItem2, assessmentItem3]);
 
     // The target object (frame) within the Event Object
-    var targetObj = null;
+    var target = null;
 
     // The generated object (Attempt) within the Event Object
-    var generatedObj = new Attempt("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/attempt1");
-    generatedObj.setName(null);
-    generatedObj.setDescription(null);
-    generatedObj.setActor("https://some-university.edu/user/554433");
-    generatedObj.setAssignable("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
-    generatedObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    generatedObj.setDateModified(null);
-    generatedObj.setCount(1);
-    generatedObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    generatedObj.setEndedAtTime(null);
-    generatedObj.setDuration(null);
+    var generated = new Attempt("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1/attempt1");
+    generated.setName(null);
+    generated.setDescription(null);
+    generated.setActor("https://some-university.edu/user/554433");
+    generated.setAssignable("https://some-university.edu/politicalScience/2014/american-revolution-101/assessment1");
+    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    generated.setDateModified(null);
+    generated.setCount(1);
+    generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    generated.setEndedAtTime(null);
+    generated.setDuration(null);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
@@ -163,8 +163,8 @@ test('Create Assignable Event and validate attributes', function (t) {
     assignableEvent.setActor(actor);
     assignableEvent.setAction(action);
     assignableEvent.setObject(eventObj);
-    assignableEvent.setTarget(targetObj);
-    assignableEvent.setGenerated(generatedObj);
+    assignableEvent.setTarget(target);
+    assignableEvent.setGenerated(generated);
     assignableEvent.setEdApp(edApp);
     assignableEvent.setGroup(group);
     assignableEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());

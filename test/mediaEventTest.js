@@ -83,10 +83,10 @@ test('Create Media Event and validate attributes', function (t) {
     mediaLocation.setDateModified(null);
 
     // The target object within the Event Object
-    var targetObj = null;
+    var target = null;
 
     // The generated object within the Event Object
-    var generatedObj = null;
+    var generated = null;
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-media-tool");
@@ -131,7 +131,7 @@ test('Create Media Event and validate attributes', function (t) {
     mediaEvent.setObject(eventObj);
     // mediaEvent.setMediaLocation(mediaLocation);
     mediaEvent.setTarget(mediaLocation);
-    mediaEvent.setGenerated(generatedObj);
+    mediaEvent.setGenerated(generated);
     mediaEvent.setEdApp(edApp);
     mediaEvent.setGroup(group);
     mediaEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
