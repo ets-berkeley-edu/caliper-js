@@ -17,15 +17,21 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function MediaObject(id) {
- // function MediaObject(id, type)
 
-  DigitalResource.call(this);
+    DigitalResource.call(this);
 
-  this.setId(id);
-  this.setType(DigitalResourceType.MEDIA_OBJECT);
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
+    this.setId(id);
+    this.setType(DigitalResourceType.MEDIA_OBJECT);
+
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setObjectType([]);
+    this.setAlignedLearningObjective([]);
+    this.setKeywords([]);
+    this.setIsPartOf(null);
+    this.setDatePublished(null);
+    this.setVersion(null);
 
 }
 
