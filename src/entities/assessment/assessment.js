@@ -18,12 +18,11 @@ var AssignableDigitalResourceType = require('../assignable/assignableDigitalReso
  */
 function Assessment(id, type) {
 
-  AssignableDigitalResource.call(this);
+    AssignableDigitalResource.call(this);
 
-  this.setId(id);
-  this.setType(AssignableDigitalResourceType.ASSESSMENT);
+    this.setId(id);
+    this.setType(AssignableDigitalResourceType.ASSESSMENT);
 
-  this.setExtensions({});
 }
 
 Assessment.prototype = _.create(AssignableDigitalResource.prototype);

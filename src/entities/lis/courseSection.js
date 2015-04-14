@@ -17,10 +17,17 @@ var EntityType = require('../entityType');
  */
 function CourseSection(id) {
 
-  CourseOffering.call(this);
+    CourseOffering.call(this);
 
-  this.setId(id);
-  this.setType(EntityType.COURSE_SECTION);
+    this.setId(id);
+    this.setType(EntityType.COURSE_SECTION);
+
+    this.setName(null);
+    this.setDescription(null);
+    this.setCategory(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 
 }
 

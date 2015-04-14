@@ -21,12 +21,14 @@ function SessionEvent() {
 
     this.setContext(EventContext.SESSION);
     this.setType(EventType.SESSION);
-
     this.setTarget(null);
     this.setGenerated(null);
+    this.setEdApp(null);
+    this.setGroup(null);
     this.setStartedAtTime(null);
     this.setEndedAtTime(null);
     this.setDuration(null);
+
 }
 
 SessionEvent.prototype = _.create(Event.prototype);

@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -18,33 +17,18 @@ var EntityType = require('./../entityType');
  * @extends Entity
  */
 function Agent(id) {
-  // function Agent(id, type) {
 
-  Entity.call(this);
+    Entity.call(this);
 
-  this.setId(id);
-  this.setType(EntityType.AGENT);
+    this.setId(id);
+    this.setType(EntityType.AGENT);
+    this.setName(null);
+    this.setDescription(null);
+    //this.setHasMembership([]);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 
-  /**
-  switch (type) {
-  case "LIS_PERSON":
-    this.setType("http://purl.imsglobal.org/caliper/v1/lis/Person");
-    break;
-  case "LIS_COURSE_SECTION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/lis/CourseSection");
-    break;
-  case "LIS_ORGANIZATION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/lis/Organization");
-    break;
-  case "SOFTWARE_APPLICATION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/SoftwareApplication");
-    break;
-  }
-   */
-
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
 }
 
 Agent.prototype = _.create(Entity.prototype);

@@ -74,10 +74,7 @@ test('Create Media Event and validate attributes', function (t) {
     eventObj.setDuration(1420);
 
     var lo = new LearningObjective("http://americanrevolution.com/personalities/learn");
-    lo.setName(null);
-    lo.setDescription(null);
     lo.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    lo.setDateModified(null);
     eventObj.setAlignedLearningObjective([lo]);
 
     // The MediaLocation that is part of the MediaEvent
@@ -112,7 +109,6 @@ test('Create Media Event and validate attributes', function (t) {
     var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
-    courseSection.setCategory(null);
     courseSection.setAcademicSession("Fall-2015");
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
@@ -125,7 +121,6 @@ test('Create Media Event and validate attributes', function (t) {
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified(null);
 
     // Asser that key attributes are the same
     var mediaEvent = new Event();

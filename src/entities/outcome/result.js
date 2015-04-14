@@ -26,14 +26,18 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Result(id) {
-  // function Result(id, type)
 
   Entity.call(this);
 
   this.setId(id);
   this.setType(EntityType.RESULT);
 
+  this.setName(null);
+  this.setDescription(null);
   this.setExtensions({});
+  this.setDateCreated(null);
+  this.setDateModified(null);
+
 }
 
 Result.prototype = _.create(Entity.prototype);

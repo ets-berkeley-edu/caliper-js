@@ -21,12 +21,14 @@ function ViewEvent() {
 
     this.setContext(EventContext.VIEWED);
     this.setType(EventType.VIEWED);
-
     this.setTarget(null);
     this.setGenerated(null);
+    this.setEdApp(null);
+    this.setGroup(null);
     this.setStartedAtTime(null);
     this.setEndedAtTime(null);
     this.setDuration(null);
+
 }
 
 ViewEvent.prototype = _.create(Event.prototype);

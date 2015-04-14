@@ -17,16 +17,11 @@ var DigitalResourceType = require('../digitalResourceType');
  */
 function EPubVolume(id) {
 
-  DigitalResource.call(this);
+    DigitalResource.call(this);
 
-  this.setId(id);
-  this.setType(DigitalResourceType.EPUB_VOLUME);
+    this.setId(id);
+    this.setType(DigitalResourceType.EPUB_VOLUME);
 
-  this.setName(null);
-  this.setObjectType([]);
-  this.setAlignedLearningObjective([]);
-  this.setKeywords([]);
-  this.setIsPartOf(null);
 }
 
 EPubVolume.prototype = _.create(DigitalResource.prototype);

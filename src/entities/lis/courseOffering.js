@@ -23,6 +23,12 @@ function CourseOffering(id) {
     this.setId(id);
     this.setType(EntityType.COURSE_OFFERING);
 
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
+
 }
 
 CourseOffering.prototype = _.create(Organization.prototype);

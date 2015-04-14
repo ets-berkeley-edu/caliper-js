@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -23,12 +22,6 @@ function MediaLocation(id, type) {
 
   this.setId(id);
   this.setType(MediaObjectType.MEDIA_LOCATION);
-
-  /**
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
-   */
 
 }
 

@@ -18,13 +18,12 @@ var EntityType = require('../entityType');
  */
 function Organization(id) {
 
-  Agent.call(this);
+    Agent.call(this);
 
-  this.setId(id);
-  this.setType(EntityType.ORGANIZATION);
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
+    this.setId(id);
+    this.setType(EntityType.ORGANIZATION);
+    //this.setMembership([]);
+    //this.setSubOrganizationOf(null);
 
 }
 

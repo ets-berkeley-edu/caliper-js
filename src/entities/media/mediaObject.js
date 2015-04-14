@@ -37,15 +37,6 @@ function MediaObject(id) {
 
 MediaObject.prototype = _.create(DigitalResource.prototype);
 
-/**
-MediaObject.prototype.Types = {
-  "AUDIO_OBJECT": "http://purl.imsglobal.org/caliper/v1/AudioObject",
-  "IMAGE_OBJECT": "http://purl.imsglobal.org/caliper/v1/ImageObject",
-  "VIDEO_OBJECT": "http://purl.imsglobal.org/caliper/v1/VideoObject",
-  "MEDIA_LOCATION": "http://purl.imsglobal.org/caliper/v1/MediaLocation",
-};
- */
-
 MediaObject.prototype.setDuration = function (duration) {
   this.duration = duration;
 };

@@ -102,7 +102,6 @@ test('Create Navigation Event and validate attributes', function (t) {
     var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
-    courseSection.setCategory(null);
     courseSection.setAcademicSession("Fall-2015");
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
@@ -115,7 +114,6 @@ test('Create Navigation Event and validate attributes', function (t) {
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified(null);
 
     // Specific to the Navigation Event - the location where the user navigated from
     var navigatedFrom = new WebPage("https://some-university.edu/politicalScience/2015/american-revolution-101/index.html");

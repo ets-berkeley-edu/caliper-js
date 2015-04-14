@@ -22,12 +22,14 @@ function NavigationEvent() {
 
     this.setContext(EventContext.NAVIGATION);
     this.setType(EventType.NAVIGATION);
-
     this.setTarget(null);
     this.setGenerated(null);
+    this.setEdApp(null);
+    this.setGroup(null);
     this.setStartedAtTime(null);
     this.setEndedAtTime(null);
     this.setDuration(null);
+
 }
 
 NavigationEvent.prototype = _.create(Event.prototype);

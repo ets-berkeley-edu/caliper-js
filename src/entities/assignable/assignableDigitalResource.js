@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -26,20 +25,24 @@ var DigitalResourceType = require('../digitalResourceType');
  */
 function AssignableDigitalResource(id) {
 
-  DigitalResource.call(this);
+    DigitalResource.call(this);
 
-  this.setId(id);
-  this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
+    this.setId(id);
+    this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
 
-  this.setExtensions({});
-  this.setDateCreated(null);
-  this.setDateToActivate(null);
-  this.setDateToShow(null);
-  this.setDateToStartOn(null);
-  this.setDateToSubmit(null);
-  this.setMaxAttempts(null);
-  this.setMaxSubmits(null);
-  this.setMaxScore(null);
+    this.setVersion(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
+    this.setDatePublished(null);
+    this.setDateToActivate(null);
+    this.setDateToShow(null);
+    this.setDateToStartOn(null);
+    this.setDateToSubmit(null);
+    this.setMaxAttempts(null);
+    this.setMaxSubmits(null);
+    this.setMaxScore(null);
+
 }
 
 AssignableDigitalResource.prototype = _.create(DigitalResource.prototype);
@@ -75,12 +78,5 @@ AssignableDigitalResource.prototype.setMaxSubmits = function (maxSubmits) {
 AssignableDigitalResource.prototype.setMaxScore = function (maxScore) {
   this.maxScore = maxScore;
 };
-
-/**
-AssignableDigitalResource.prototype.Types = {
-  "ASSESSMENT": "http://purl.imsglobal.org/caliper/v1/Assessment",
-  "ASSESSMENT_ITEM": "http://purl.imsglobal.org/caliper/v1/AssessmentItem"
-};
- */
 
 module.exports = AssignableDigitalResource;

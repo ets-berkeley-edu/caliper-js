@@ -81,30 +81,20 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
 
     // The attempt (property of the generated response)
     var attempt = new Attempt("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1/attempt1");
-    attempt.setName(null);
-    attempt.setDescription(null);
     attempt.setActor("https://some-university.edu/user/554433");
     attempt.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     attempt.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    attempt.setDateModified(null);
     attempt.setCount(1);
     attempt.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    attempt.setEndedAtTime(null);
-    attempt.setDuration(null);
 
     // The generated response
     var generated = new FillinBlankResponse("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1/response1");
-    generated.setName(null);
-    generated.setDescription(null);
     generated.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     generated.setActor("https://some-university.edu/user/554433");
     generated.setAttempt(attempt);
     generated.setValues(["2 July 1776"]);
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    generated.setDateModified(null);
     generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    generated.setEndedAtTime(null);
-    generated.setDuration(null);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
@@ -127,7 +117,6 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
-    courseSection.setCategory(null);
     courseSection.setAcademicSession("Fall-2015");
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
@@ -140,8 +129,6 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified(null);
-
 
     // Assert that key attributes are the same
     var assessmentItemEvent = new Event();

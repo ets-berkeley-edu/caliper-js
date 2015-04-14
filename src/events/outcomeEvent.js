@@ -21,12 +21,14 @@ function OutcomeEvent() {
 
     this.setContext(EventContext.OUTCOME);
     this.setType(EventType.OUTCOME);
-
     this.setTarget(null);
     this.setGenerated(null);
+    this.setEdApp(null);
+    this.setGroup(null);
     this.setStartedAtTime(null);
     this.setEndedAtTime(null);
     this.setDuration(null);
+
 }
 
 OutcomeEvent.prototype = _.create(Event.prototype);

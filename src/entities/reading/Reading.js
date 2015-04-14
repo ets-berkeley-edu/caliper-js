@@ -21,11 +21,6 @@ function Reading(id) {
     this.setId(id);
     this.setType(DigitalResourceType.READING);
 
-    this.setName(null);
-    this.setObjectType([]);
-    this.setAlignedLearningObjective([]);
-    this.setKeywords([]);
-    this.setIsPartOf(null);
 }
 
 Reading.prototype = _.create(DigitalResource.prototype);

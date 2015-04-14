@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -18,18 +17,11 @@ var DigitalResourceType = require('../digitalResourceType');
  */
 function Frame(id) {
 
-  DigitalResource.call(this);
+    DigitalResource.call(this);
 
-  this.setId(id);
-  this.setType(DigitalResourceType.FRAME);
+    this.setId(id);
+    this.setType(DigitalResourceType.FRAME);
 
-  /**
-  this.setName(null);
-  this.setObjectType([]);
-  this.setAlignedLearningObjective([]);
-  this.setKeywords([]);
-  this.setIsPartOf(null);
-   */
 }
 
 Frame.prototype = _.create(DigitalResource.prototype);

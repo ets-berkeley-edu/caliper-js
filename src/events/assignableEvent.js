@@ -17,16 +17,17 @@ var EventType = require('./eventType');
  */
 function AssignableEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(EventContext.ASSIGNABLE);
-  this.setType(EventType.ASSIGNABLE);
-
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+    this.setContext(EventContext.ASSIGNABLE);
+    this.setType(EventType.ASSIGNABLE);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setEdApp(null);
+    this.setGroup(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 }
 
 AssignableEvent.prototype = _.create(Event.prototype);

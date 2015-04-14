@@ -18,16 +18,18 @@ var EventType = require('./eventType');
  */
 function MediaEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(EventContext.MEDIA);
-  this.setType(EventType.MEDIA);
+    this.setContext(EventContext.MEDIA);
+    this.setType(EventType.MEDIA);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setEdApp(null);
+    this.setGroup(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
 }
 
 MediaEvent.prototype = _.create(Event.prototype);

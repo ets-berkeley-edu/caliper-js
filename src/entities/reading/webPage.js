@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -23,11 +22,6 @@ function WebPage(id) {
   this.setId(id);
   this.setType(DigitalResourceType.WEB_PAGE);
 
-  this.setName(null);
-  this.setObjectType([]);
-  this.setAlignedLearningObjective([]);
-  this.setKeywords([]);
-  this.setIsPartOf(null);
 }
 
 WebPage.prototype = _.create(DigitalResource.prototype);

@@ -21,6 +21,12 @@ function Group(id) {
     this.setId(id);
     this.setType(EntityType.GROUP);
 
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
+
 }
 
 Group.prototype = _.create(Organization.prototype);

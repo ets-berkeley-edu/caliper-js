@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -26,51 +25,51 @@ function Event() {
 // Setters for Caliper Event properties
 
 Event.prototype.setContext = function (context) {
-  this['@context'] = context;
+    this['@context'] = context;
 };
 
 Event.prototype.setType = function (type) {
-  this['@type'] = type;
+    this['@type'] = type;
 };
 
 Event.prototype.setActor = function (actor) {
-  this.actor = actor;
+    this.actor = actor;
 };
 
 Event.prototype.setAction = function (action) {
-  this.action = action;
+    this.action = action;
 };
 
 Event.prototype.setObject = function (object) {
-  this.object = object;
+    this.object = object;
 };
 
 Event.prototype.setTarget = function (target) {
-  this.target = target;
+    this.target = target;
 };
 
 Event.prototype.setGenerated = function (generated) {
-  this.generated = generated;
+    this.generated = generated;
 };
 
 Event.prototype.setStartedAtTime = function (startedAt) {
-  this.startedAtTime = startedAt;
+    this.startedAtTime = startedAt;
 };
 
 Event.prototype.setEndedAtTime = function (endedAt) {
-  this.endedAtTime = endedAt;
+    this.endedAtTime = endedAt;
 };
 
 Event.prototype.setDuration = function (duration) {
-  this.duration = duration;
+    this.duration = duration;
 };
 
 Event.prototype.setGroup = function (group) {
-  this.group = group;
+    this.group = group;
 };
 
 Event.prototype.setEdApp = function (edApp) {
-  this.edApp = edApp;
+    this.edApp = edApp;
 };
 
 module.exports = Event;

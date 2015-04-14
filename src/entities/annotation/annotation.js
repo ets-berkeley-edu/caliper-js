@@ -1,5 +1,4 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
@@ -18,14 +17,17 @@ var EntityType = require('../entityType');
  */
 function Annotation(id) {
 
-  Entity.call(this);
+    Entity.call(this);
 
-  this.setId(id);
-  this.setType(EntityType.ANNOTATION)
+    this.setId(id);
+    this.setType(EntityType.ANNOTATION)
 
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
+
 }
 
 Annotation.prototype = _.create(Entity.prototype);
@@ -33,27 +35,5 @@ Annotation.prototype = _.create(Entity.prototype);
 Annotation.prototype.setAnnotatedId = function (annotatedId) {
   this.annotatedId = annotatedId;
 };
-
-/**
-Annotation.prototype.setAnnotationType = function (type) {
-  switch (type) {
-  case "ANNOTATION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/Annotation");
-    break;
-  case "BOOKMARK_ANNOTATION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/BookmarkAnnotation");
-    break;
-  case "HIGHLIGHT_ANNOTATION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/HighlightAnnotation");
-    break;
-  case "SHARED_ANNOTATION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/SharedAnnotation");
-    break;
-  case "TAG_ANNOTATION":
-    this.setType("http://purl.imsglobal.org/caliper/v1/TagAnnotation");
-    break;
-  }
-};
- */
 
 module.exports = Annotation;

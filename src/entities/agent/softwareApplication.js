@@ -17,10 +17,10 @@ var EntityType = require('../entityType');
  */
 function SoftwareApplication(id) {
 
-  Organization.call(this);
+    Organization.call(this);
 
-  this.setId(id);
-  this.setType(EntityType.SOFTWARE_APPLICATION);
+    this.setId(id);
+    this.setType(EntityType.SOFTWARE_APPLICATION);
 
 }
 

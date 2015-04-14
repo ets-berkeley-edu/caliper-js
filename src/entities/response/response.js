@@ -31,6 +31,11 @@ function Response(id) {
     this.setName(null);
     this.setDescription(null);
     this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 }
 
 Response.prototype = _.create(Entity.prototype);

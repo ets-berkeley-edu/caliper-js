@@ -81,16 +81,11 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
 
     // The generated object (Attempt) within the Event Object
     var generated = new Attempt("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1/attempt1");
-    generated.setName(null);
-    generated.setDescription(null);
     generated.setActor("https://some-university.edu/user/554433");
     generated.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    generated.setDateModified(null);
     generated.setCount(1);
     generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    generated.setEndedAtTime(null);
-    generated.setDuration(null);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
@@ -113,7 +108,6 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
     var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
-    courseSection.setCategory(null);
     courseSection.setAcademicSession("Fall-2015");
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
@@ -126,8 +120,6 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified(null);
-
 
     // Assert that key attributes are the same
     var assessmentItemEvent = new Event();

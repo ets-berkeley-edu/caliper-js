@@ -118,7 +118,6 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
     var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
-    courseSection.setCategory(null);
     courseSection.setAcademicSession("Fall-2015");
     courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
@@ -131,7 +130,6 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
     group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    group.setDateModified(null);
 
     // Assert that key attributes are the same
     var sessionEvent = new Event();

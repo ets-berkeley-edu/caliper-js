@@ -21,11 +21,6 @@ function EPubSubChapter(id) {
     this.setId(id);
     this.setType(DigitalResourceType.EPUB_SUB_CHAPTER);
 
-    this.setName(null);
-    this.setObjectType([]);
-    this.setAlignedLearningObjective([]);
-    this.setKeywords([]);
-    this.setIsPartOf(null);
 }
 
 EPubSubChapter.prototype = _.create(DigitalResource.prototype);
