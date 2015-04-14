@@ -1,11 +1,11 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
-var Entity = require('./caliperEntity');
+var Entity = require('./entity');
+var EntityType = require('./entityType');
 
 /**
  * Represents Learning Objective
@@ -17,13 +17,16 @@ var Entity = require('./caliperEntity');
  */
 function LearningObjective(id, type) {
 
-  Entity.call(this);
+    Entity.call(this);
 
-  this.setId(id);
-  this.setType(this.Types.LEARNING_OBJECTIVE);
+    this.setId(id);
+    this.setType(EntityType.LEARNING_OBJECTIVE);
 
-  this.setName(null);
-  this.setProperties({});
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 }
 
 LearningObjective.prototype = _.create(Entity.prototype);

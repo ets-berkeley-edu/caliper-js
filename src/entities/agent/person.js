@@ -1,11 +1,11 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
-var Agent = require('../agent');
+var Agent = require('./agent');
+var EntityType = require('../entityType');
 
 /**
  * Represents Person.  
@@ -16,10 +16,10 @@ var Agent = require('../agent');
  */
 function Person(id) {
 
-  Agent.call(this);
+    Agent.call(this);
 
-  this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/lis/Person");
+    this.setId(id);
+    this.setType(EntityType.PERSON);
 
 }
 

@@ -1,32 +1,36 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
-var Entity = require('../caliperEntity');
+var Entity = require('../entity');
+var EntityType = require('../entityType');
 
 /**
  * Represents Session.  
  * Session's prototype set to Entity
  * @constructor
  * @param {string} id URI
- * @param {string} type
  * @property {Object} actor
  * @property {string} startedAtTime String Representation of Date
  * @property {string} endedAtTime String Representatio of Date
  * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
  * @extends Entity
  */
-function Session(id, type) {
+function Session(id) {
 
     Entity.call(this);
 
     this.setId(id);
-    this.setType(this.Types.SESSION);
+    this.setType(EntityType.SESSION);
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 
-    this.setProperties({});
 }
 
 Session.prototype = _.create(Entity.prototype);

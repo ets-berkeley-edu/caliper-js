@@ -1,11 +1,11 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
 var Annotation = require('./annotation');
+var AnnotationType = require('./annotationType');
 
 /**
  * Represents HightlightAnnotation.  
@@ -18,9 +18,11 @@ var Annotation = require('./annotation');
  */
 function HighlightAnnotation(id) {
 
-  Annotation.call(this);
+    Annotation.call(this);
 
-  this.setId(id);
+    this.setId(id);
+    this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
+
 }
 
 HighlightAnnotation.prototype = _.create(Annotation.prototype);

@@ -1,11 +1,11 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
-var DigitalResource = require('./digitalResource');
+var DigitalResource = require('./../digitalResource');
+var DigitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents WebPage.  
@@ -15,18 +15,13 @@ var DigitalResource = require('./digitalResource');
  * @param {string} type Type
  * @extends DigitalResource
  */
-function WebPage(id, type) {
+function WebPage(id) {
 
   DigitalResource.call(this);
 
   this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/WebPage");
+  this.setType(DigitalResourceType.WEB_PAGE);
 
-  this.setName(null);
-  this.setObjectType([]);
-  this.setAlignedLearningObjective([]);
-  this.setKeywords([]);
-  this.setIsPartOf(null);
 }
 
 WebPage.prototype = _.create(DigitalResource.prototype);

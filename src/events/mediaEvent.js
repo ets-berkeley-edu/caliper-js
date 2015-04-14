@@ -5,7 +5,9 @@
  */
 
 var _ = require('lodash-node');
-var Event = require('./caliperEvent');
+var Event = require('./event');
+var EventContext = require('./eventContext');
+var EventType = require('./eventType');
 
 /**
  * Represents Media Event.  
@@ -16,15 +18,18 @@ var Event = require('./caliperEvent');
  */
 function MediaEvent() {
 
-  Event.call(this);
+    Event.call(this);
 
-  this.setContext(this.Contexts.MEDIA);
-  this.setType(this.Types.MEDIA);
+    this.setContext(EventContext.MEDIA);
+    this.setType(EventType.MEDIA);
+    this.setTarget(null);
+    this.setGenerated(null);
+    this.setEdApp(null);
+    this.setGroup(null);
+    this.setStartedAtTime(null);
+    this.setEndedAtTime(null);
+    this.setDuration(null);
 
-  this.setGenerated(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
 }
 
 MediaEvent.prototype = _.create(Event.prototype);

@@ -5,7 +5,8 @@
  */
 
 var _ = require('lodash-node');
-var Entity = require('../caliperEntity');
+var Entity = require('../entity');
+var EntityType = require('../entityType');
 
 /**
  * Represents Result.  
@@ -24,14 +25,19 @@ var Entity = require('../caliperEntity');
  * @property {Object} scoredBy Agent Object
  * @extends Entity
  */
-function Result(id, type) {
+function Result(id) {
 
   Entity.call(this);
 
   this.setId(id);
-  this.setType(this.Types.RESULT);
+  this.setType(EntityType.RESULT);
 
-  this.setProperties({});
+  this.setName(null);
+  this.setDescription(null);
+  this.setExtensions({});
+  this.setDateCreated(null);
+  this.setDateModified(null);
+
 }
 
 Result.prototype = _.create(Entity.prototype);

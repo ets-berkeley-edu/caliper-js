@@ -1,11 +1,11 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
+var DigitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents Frame.  
@@ -17,15 +17,11 @@ var DigitalResource = require('../digitalResource');
  */
 function Frame(id) {
 
-  DigitalResource.call(this);
+    DigitalResource.call(this);
 
-  this.setId(id);
+    this.setId(id);
+    this.setType(DigitalResourceType.FRAME);
 
-  this.setName(null);
-  this.setObjectType([]);
-  this.setAlignedLearningObjective([]);
-  this.setKeywords([]);
-  this.setIsPartOf(null);
 }
 
 Frame.prototype = _.create(DigitalResource.prototype);

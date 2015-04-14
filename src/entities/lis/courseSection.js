@@ -1,45 +1,40 @@
 /**
- *  @author Prashant Nayak
  *  @copyright @copyright ©2013 IMS Global Learning Consortium, Inc.  All Rights Reserved.
  *  @license For license information contact, info@imsglobal.org
  */
 
 var _ = require('lodash-node');
-var Organization = require('./organization');
+var CourseOffering = require('./courseOffering');
+var EntityType = require('../entityType');
 
 /**
- * Represents Organization.  
- * CourseSection's prototype set to Organization
+ * Represents Course.  
+ * CourseSection's prototype set to CourseOffering
  * @constructor
  * @param {string} id URI
- * @property {string} semester String representing the Semester
- * @property {string} courseNumber String representing the Course Number
- * @property {string} label String representing the Label
- * @extends Organization
+ * @property {string} category String representing a Category (lecture, lab, etc.)
+ * @extends Course
  */
 function CourseSection(id) {
 
-  Organization.call(this);
+    CourseOffering.call(this);
 
-  this.setId(id);
-  this.setType("http://purl.imsglobal.org/caliper/v1/lis/CourseSection");
+    this.setId(id);
+    this.setType(EntityType.COURSE_SECTION);
 
-  this.setParentOrg(null);
+    this.setName(null);
+    this.setDescription(null);
+    this.setCategory(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 
 }
 
-CourseSection.prototype = _.create(Organization.prototype);
+CourseSection.prototype = _.create(CourseOffering.prototype);
 
-CourseSection.prototype.setSemester = function(semester) {
-  this.semester = semester;
-};
-
-CourseSection.prototype.setCourseNumber = function(courseNumber) {
-  this.courseNumber = courseNumber;
-};
-
-CourseSection.prototype.setLabel = function(label) {
-  this.label = label;
+CourseSection.prototype.setCategory = function(category) {
+  this.category = category;
 };
 
 module.exports = CourseSection;
