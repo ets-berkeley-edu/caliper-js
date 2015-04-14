@@ -4,25 +4,25 @@
  */
 
 var _ = require('lodash-node');
-var W3COrganization = require('../w3c/organization');
+var Organization = require('../agent/organization');
 var EntityType = require('../entityType');
 
 /**
  * Represents Group.
- * Group's prototype set to W3COrganization
+ * Group's prototype set to Organization
  * @constructor
  * @param {string} id URI
  * @extends Entity
  */
 function Group(id) {
 
-    W3COrganization.call(this);
+    Organization.call(this);
 
     this.setId(id);
     this.setType(EntityType.GROUP);
 
 }
 
-Group.prototype = _.create(W3COrganization.prototype);
+Group.prototype = _.create(Organization.prototype);
 
 module.exports = Group;

@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash-node');
-var Agent = require('../foaf/agent');
+var Agent = require('./agent');
 var EntityType = require('../entityType');
 
 /**

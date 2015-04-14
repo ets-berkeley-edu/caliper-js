@@ -5,25 +5,25 @@
  */
 
 var _ = require('lodash-node');
-var W3COrganization = require('../w3c/organization');
+var Organization = require('./organization');
 var EntityType = require('../entityType');
 
 /**
  * Represents SoftwareApplication.  
- * SoftwareApplication's prototype set to W3COrganization
+ * SoftwareApplication's prototype set to Organization
  * @constructor
  * @param {string} id URI
- * @extends W3COrganization
+ * @extends Organization
  */
 function SoftwareApplication(id) {
 
-  W3COrganization.call(this);
+  Organization.call(this);
 
   this.setId(id);
   this.setType(EntityType.SOFTWARE_APPLICATION);
 
 }
 
-SoftwareApplication.prototype = _.create(W3COrganization.prototype);
+SoftwareApplication.prototype = _.create(Organization.prototype);
 
 module.exports = SoftwareApplication;

@@ -4,7 +4,7 @@
  */
 
 var _ = require('lodash-node');
-var W3COrganization = require('../w3c/organization');
+var Organization = require('../agent/organization');
 var EntityType = require('../entityType');
 
 /**
@@ -18,14 +18,14 @@ var EntityType = require('../entityType');
  */
 function CourseOffering(id) {
 
-    W3COrganization.call(this);
+    Organization.call(this);
 
     this.setId(id);
     this.setType(EntityType.COURSE_OFFERING);
 
 }
 
-CourseOffering.prototype = _.create(W3COrganization.prototype);
+CourseOffering.prototype = _.create(Organization.prototype);
 
 CourseOffering.prototype.setCourseNumber = function(courseNumber) {
     this.courseNumber = courseNumber;
