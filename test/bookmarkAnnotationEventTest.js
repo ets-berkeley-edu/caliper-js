@@ -83,7 +83,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
 
     // The generated annotation
     var generated = new BookmarkAnnotation("https://someEduApp.edu/bookmarks/00001");
-    generated.setAnnotatedId(eventObj['@id']);
+    generated.setAnnotated(eventObj['@id']);
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     generated.setBookmarkNotes("The Intolerable Acts (1774)--bad idea Lord North");

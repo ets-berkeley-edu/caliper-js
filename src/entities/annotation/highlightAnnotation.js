@@ -8,7 +8,7 @@ var Annotation = require('./annotation');
 var AnnotationType = require('./annotationType');
 
 /**
- * Represents HightlightAnnotation.  
+ * Represents HighlightAnnotation.
  * HighlightAnnotation's prototype set to Annotation
  * @constructor
  * @param {string} id URI

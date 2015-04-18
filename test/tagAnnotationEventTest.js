@@ -84,7 +84,7 @@ test('Create TagAnnotation Event and validate attributes', function (t) {
 
     // The generated annotation
     var generated = new TagAnnotation("https://someEduApp.edu/tags/7654");
-    generated.setAnnotatedId(eventObj['@id']);
+    generated.setAnnotated(eventObj['@id']);
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     generated.setTags(["to-read", "1765", "shared-with-project-team"]);

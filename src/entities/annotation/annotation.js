@@ -32,8 +32,8 @@ function Annotation(id) {
 
 Annotation.prototype = _.create(Entity.prototype);
 
-Annotation.prototype.setAnnotatedId = function (annotatedId) {
-  this.annotatedId = annotatedId;
+Annotation.prototype.setAnnotated = function (annotated) {
+  this.annotated = annotated;
 };
 
 module.exports = Annotation;
