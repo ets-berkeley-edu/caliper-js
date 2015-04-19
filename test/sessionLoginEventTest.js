@@ -85,7 +85,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
     target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     target.setIndex(1);
-    target.setIsPartOf(ePubVolume);
+    target.setIsPartOf(ePubVolume["@id"]);
 
     var generated = new Session("https://github.com/readium/session-123456789");
     generated.setName("session-123456789");

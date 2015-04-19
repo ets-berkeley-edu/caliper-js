@@ -80,7 +80,7 @@ test('Create View Event and validate attributes', function (t) {
     target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     target.setIndex(1);
-    target.setIsPartOf(eventObj);
+    target.setIsPartOf(eventObj["@id"]);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");

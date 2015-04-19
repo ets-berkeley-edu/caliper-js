@@ -69,7 +69,6 @@ test('Create Assessment Event and validate attributes', function (t) {
     // The Object being interacted with by the Actor (Assessment)
     var eventObj = new Assessment("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
     eventObj.setName("American Revolution - Key Figures Assessment");
-    eventObj.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101");
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDatePublished((new Date("2015-08-15T09:30:00.000Z")).toISOString());

@@ -81,7 +81,7 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setIndex(1);
-    eventObj.setIsPartOf(ePub);
+    eventObj.setIsPartOf(ePub["@id"]);
 
     // The generated annotation
     var generated = new HighlightAnnotation("https://someEduApp.edu/highlights/12345");
