@@ -84,7 +84,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     // The Assessment has three items
     var assessmentItem1 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1");
     assessmentItem1.setName("Assessment Item 1");
-    assessmentItem1.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
+    assessmentItem1.setIsPartOf(eventObj["@id"]);
     assessmentItem1.setMaxAttempts(2);
     assessmentItem1.setMaxSubmits(2);
     assessmentItem1.setMaxScore(1.0);
@@ -94,7 +94,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     assessmentItem1.isTimeDependent(false);
     var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item2");
     assessmentItem2.setName("Assessment Item 2");
-    assessmentItem2.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
+    assessmentItem2.setIsPartOf(eventObj["@id"]);
     assessmentItem2.setMaxAttempts(2);
     assessmentItem2.setMaxSubmits(2);
     assessmentItem2.setMaxScore(1.0);
@@ -104,7 +104,7 @@ test('Create Assessment Event and validate attributes', function (t) {
     assessmentItem2.isTimeDependent(false);
     var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item3");
     assessmentItem3.setName("Assessment Item 3");
-    assessmentItem3.setIsPartOf("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
+    assessmentItem3.setIsPartOf(eventObj["@id"]);
     assessmentItem3.setMaxAttempts(2);
     assessmentItem3.setMaxSubmits(2);
     assessmentItem3.setMaxScore(1.0);
