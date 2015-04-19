@@ -79,7 +79,7 @@ test('Create Navigation Event and validate attributes', function (t) {
     target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     target.setIndex(1);
-    target.setIsPartOf(eventObj);
+    target.setIsPartOf(eventObj["@id"]);
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
@@ -119,7 +119,6 @@ test('Create Navigation Event and validate attributes', function (t) {
     var navigatedFrom = new WebPage("https://some-university.edu/politicalScience/2015/american-revolution-101/index.html");
     navigatedFrom.setName("American Revolution 101 Landing Page");
     navigatedFrom.setVersion("1.0");
-    navigatedFrom.setIsPartOf(courseOffering);
     navigatedFrom.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     navigatedFrom.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 

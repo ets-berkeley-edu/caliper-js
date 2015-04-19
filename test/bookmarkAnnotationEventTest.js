@@ -79,7 +79,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setVersion("2nd ed.");
     eventObj.setIndex(2);
-    eventObj.setIsPartOf(ePub);
+    eventObj.setIsPartOf(ePub["@id"]);
 
     // The generated annotation
     var generated = new BookmarkAnnotation("https://someEduApp.edu/bookmarks/00001");

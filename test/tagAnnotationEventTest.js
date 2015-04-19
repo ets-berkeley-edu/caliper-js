@@ -80,7 +80,7 @@ test('Create TagAnnotation Event and validate attributes', function (t) {
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setIndex(4);
-    eventObj.setIsPartOf(ePub);
+    eventObj.setIsPartOf(ePub["@id"]);
 
     // The generated annotation
     var generated = new TagAnnotation("https://someEduApp.edu/tags/7654");
@@ -123,7 +123,7 @@ test('Create TagAnnotation Event and validate attributes', function (t) {
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // Asser that key attributes are the same
+    // Assert that key attributes are the same
     var tagAnnotationEvent = new Event();
     tagAnnotationEvent.setActor(actor);
     tagAnnotationEvent.setAction(action);

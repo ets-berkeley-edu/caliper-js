@@ -80,7 +80,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setIndex(3);
-    eventObj.setIsPartOf(ePub);
+    eventObj.setIsPartOf(ePub["@id"]);
 
     // The generated annotation
     var generated = new SharedAnnotation("https://someEduApp.edu/shared/9999");
