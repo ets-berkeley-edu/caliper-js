@@ -25,4 +25,4 @@ function Reading(id) {
 
 Reading.prototype = _.create(DigitalResource.prototype);
 
-module.exports = reading;
+module.exports = Reading;
