@@ -25,4 +25,4 @@ function EPubChapter(id) {
 
 EPubChapter.prototype = _.create(DigitalResource.prototype);
 
-module.exports = ePubChapter;
+module.exports = EPubChapter;
