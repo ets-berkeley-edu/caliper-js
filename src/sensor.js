@@ -119,11 +119,11 @@ Caliper.Entities.Attempt                       = require('./entities/assignable/
 
 // LIS entities
 Caliper.Entities.CourseOffering = require('./entities/lis/courseOffering');
-Caliper.Entities.CourseSection = require('./entities/lis/courseSection');
-Caliper.Entities.Group = require('./entities/lis/group');
-Caliper.Entities.Membership = require('./entities/lis/membership');
-Caliper.Entities.Role = require('./entities/lis/role');
-Caliper.Entities.Status = require('./entities/lis/status');
+Caliper.Entities.CourseSection  = require('./entities/lis/courseSection');
+Caliper.Entities.Group          = require('./entities/lis/group');
+Caliper.Entities.Membership     = require('./entities/lis/membership');
+Caliper.Entities.Role           = require('./entities/lis/role');
+Caliper.Entities.Status         = require('./entities/lis/status');
 
 // Media Entities
 Caliper.Entities.MediaObject       = require('./entities/media/mediaObject');
