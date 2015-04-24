@@ -17,25 +17,25 @@
  */
 
 var _ = require('lodash-node');
-var Organization = require('./organization');
+var Agent = require('./agent');
 var EntityType = require('../entityType');
 
 /**
  * Represents SoftwareApplication.  
- * SoftwareApplication's prototype set to Organization
+ * SoftwareApplication's prototype set to Agent
  * @constructor
  * @param {string} id URI
  * @extends Organization
  */
 function SoftwareApplication(id) {
 
-    Organization.call(this);
+    Agent.call(this);
 
     this.setId(id);
     this.setType(EntityType.SOFTWARE_APPLICATION);
 
 }
 
-SoftwareApplication.prototype = _.create(Organization.prototype);
+SoftwareApplication.prototype = _.create(Agent.prototype);
 
 module.exports = SoftwareApplication;
