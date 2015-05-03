@@ -149,4 +149,4 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
 
     // Assert that JSON produced is the same
     jsonCompare('caliperAssessmentItemStartedEvent', assessmentItemEvent, t);
-})
+});

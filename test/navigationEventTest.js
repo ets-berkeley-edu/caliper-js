@@ -150,4 +150,4 @@ test('Create Navigation Event and validate attributes', function (t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperNavigationEvent', navigationEvent, t);
-})
+});

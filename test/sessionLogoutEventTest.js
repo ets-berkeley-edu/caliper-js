@@ -154,4 +154,4 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperSessionLogoutEvent', sessionEvent, t);
-})
+});

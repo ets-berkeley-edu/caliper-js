@@ -158,4 +158,4 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperSharedAnnotationEvent', sharedAnnotationEvent, t);
-})
+});

@@ -151,4 +151,4 @@ test('Create Media Event and validate attributes', function (t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperMediaEvent', mediaEvent, t);
-})
+});
