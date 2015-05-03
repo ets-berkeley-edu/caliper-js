@@ -20,60 +20,71 @@
  * Caliper Sensor
  * @class
  */
-
 var _ = require('lodash-node');
-var client = require('./asyncClient');
+var client = require('./client');
 var logger = require('./logger');
 
-
-// Grab an existing namespace object
-// or create a blank object if it doesn't exist
-// so we can attach non-sensor module exports to it
+/**
+ * Grab an existing namespace object or create a blank object if it doesn't exist
+ * so we can attach non-sensor module exports to it
+ * @type {{}|*|Caliper}
+ */
 var Caliper = window.Caliper || {};
 
 /**
  * Represents Caliper Sensor.  
  * @constructor
  */
-// The sensor itself
-var CaliperSensor = {};
+var Sensor = {};
+
+/**
+ * Sensor Identifier.
+ * @param id
+ */
+Sensor.prototype.setId = function (id) {
+    this.id = id;
+};
 
 /**
  * Initializes the default client to use. Uses the socket consumer by default.
- * CaliperSensor#initialize
- * @param  array $options passed straight to the client
+ * Sensor#initialize
+ * @param id sensor identifier
+ * @param options $options passed straight to the client
  */
-CaliperSensor.initialize = function (options) {
-  if (!_.isUndefined(options)) {
-    client.initialize(options);
-  }
-};
-
-
-/**
- * Send learning events
- * @param  CaliperEvent $caliperEvent The Caliper Event
- * @return boolean                   whether the measure call succeeded
- */
-CaliperSensor.send = function (caliperEvent) {
-  client.send(caliperEvent);
+Sensor.initialize = function (id, options) {
+    this.setId(id);
+    if (!_.isUndefined(options)) {
+        client.initialize(options);
+    }
 };
 
 /**
  * Describe an entity
- * @param  CaliperEntity $caliperEntity The Caliper Entity we are describing
- * @return boolean            whether the describe call succeeded
+ * @param  entity $entity The Caliper Entity we are describing
+ * @return boolean whether the describe call succeeded
  */
-CaliperSensor.describe = function (caliperEntity) {
-  client.describe(caliperEntity);
+Sensor.describe = function (entity) {
+    client.describe(this, entity);
 };
 
-// Stick on the modules that need to be exported under the Caliper namespace
-// You only need to require the top-level modules. Browserify
-// will walk the dependency graph and load everything correctly
+/**
+ * Send learning events
+ * @param  event $event The Caliper Event
+ * @return boolean whether the measure call succeeded
+ */
+Sensor.send = function (event) {
+    client.send(this, event);
+};
+
+/**
+ * Add the modules that need to be exported under the Caliper namespace.
+ * You only need to require the top-level modules. Browserify will walk the
+ * dependency graph and load everything correctly.
+ */
 Caliper.Actions = {};
 Caliper.Entities = {};
 Caliper.Events = {};
+Caliper.Request = {};
 
 // ACTIONS
 Caliper.Actions.AnnotationActions     = require('./actions/annotationActions');
@@ -171,10 +182,15 @@ Caliper.Events.OutcomeEvent        = require('./events/outcomeEvent');
 Caliper.Events.SessionEvent        = require('./events/sessionEvent');
 Caliper.Events.ViewEvent           = require('./events/viewEvent');
 
+// REQUEST
+Caliper.Request.Envelope            = require('./request/envelope');
+Caliper.Request.EventStoreRequestor = require('./request/eventStoreRequestor');
+Caliper.Request.HttpRequestor       = require('./request/httpRequestor');
+
 // Replace/Create the global namespace and objects (the sensor) we want there
-Caliper.Sensor = CaliperSensor;
+Caliper.Sensor = Sensor;
 
 // Replace/create Caliper in global namespace
 window.Caliper = Caliper;
 
-logger.log('debug', "Added sensor to window global %o", window.Sensor);
+logger.log('debug', "Added Sensor to window global %o", window.Sensor);
