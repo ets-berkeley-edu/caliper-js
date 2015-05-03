@@ -143,4 +143,4 @@ test('Create View Event and validate attributes', function (t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperViewEvent', viewEvent, t);
-})
+});

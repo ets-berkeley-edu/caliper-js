@@ -21,19 +21,22 @@ var _ = require('lodash-node');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 
-var Event = require('../src/events/assessmentEvent');
+// Request
+var requestor = require('../src/request/httpRequestor');
+
+// Event
+var Event = require('../src/events/navigationEvent');
 
 // Actor
 var Person = require('../src/entities/agent/person');
 
-// Action
-var AssessmentActions = require('../src/actions/assessmentActions');
+// Actions
+var ReadingActions = require('../src/actions/readingActions');
 
 // Activity Context
-var Assessment = require('../src/entities/assessment/assessment');
-var AssessmentItem = require('../src/entities/assessment/assessmentItem');
-var Attempt = require('../src/entities/assignable/attempt');
-// var EPubVolume = require('../src/entities/reading/ePubVolume');
+var EPubVolume = require('../src/entities/reading/ePubVolume');
+var Frame = require('../src/entities/reading/frame');
+var WebPage = require('../src/entities/reading/webPage');
 
 // Learning Context
 var CourseOffering = require('../src/entities/lis/courseOffering');
@@ -44,7 +47,7 @@ var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
 
-test('Create Assessment Event and validate attributes', function (t) {
+test('Create Envelope containing a single Navigation Event and validate attributes', function (t) {
 
     // Plan for N assertions
     t.plan(1);
@@ -77,74 +80,30 @@ test('Create Assessment Event and validate attributes', function (t) {
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The Action for the Caliper Event
-    var action = AssessmentActions.STARTED;
+    var action = ReadingActions.NAVIGATED_TO;
 
-    // The Object being interacted with by the Actor (Assessment)
-    var eventObj = new Assessment("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
-    eventObj.setName("American Revolution - Key Figures Assessment");
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    // The Object being interacted with by the Actor
+    var eventObj = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
+    eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+    eventObj.setVersion("2nd ed.");
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDatePublished((new Date("2015-08-15T09:30:00.000Z")).toISOString());
-    eventObj.setVersion("1.0");
-    eventObj.setDateToActivate((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-    eventObj.setDateToShow((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-    eventObj.setDateToStartOn((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-    eventObj.setDateToSubmit((new Date("2015-09-28T11:59:59.000Z")).toISOString());
-    eventObj.setMaxAttempts(2);
-    eventObj.setMaxSubmits(2);
-    eventObj.setMaxScore(3.0);
-
-    // The Assessment has three items
-    var assessmentItem1 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1");
-    assessmentItem1.setName("Assessment Item 1");
-    assessmentItem1.setIsPartOf(eventObj["@id"]);
-    assessmentItem1.setMaxAttempts(2);
-    assessmentItem1.setMaxSubmits(2);
-    assessmentItem1.setMaxScore(1.0);
-    assessmentItem1.setDateCreated(null);
-    assessmentItem1.setDateModified(null);
-    assessmentItem1.setVersion("1.0");
-    assessmentItem1.isTimeDependent(false);
-    var assessmentItem2 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item2");
-    assessmentItem2.setName("Assessment Item 2");
-    assessmentItem2.setIsPartOf(eventObj["@id"]);
-    assessmentItem2.setMaxAttempts(2);
-    assessmentItem2.setMaxSubmits(2);
-    assessmentItem2.setMaxScore(1.0);
-    assessmentItem2.setDateCreated(null);
-    assessmentItem2.setDateModified(null);
-    assessmentItem2.setVersion("1.0");
-    assessmentItem2.isTimeDependent(false);
-    var assessmentItem3 = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item3");
-    assessmentItem3.setName("Assessment Item 3");
-    assessmentItem3.setIsPartOf(eventObj["@id"]);
-    assessmentItem3.setMaxAttempts(2);
-    assessmentItem3.setMaxSubmits(2);
-    assessmentItem3.setMaxScore(1.0);
-    assessmentItem3.setDateCreated(null);
-    assessmentItem3.setDateModified(null);
-    assessmentItem3.setVersion("1.0");
-    assessmentItem3.isTimeDependent(false);
-
-    eventObj.setAssessmentItems([assessmentItem1, assessmentItem2, assessmentItem3]);
+    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
-    var target = null;
-
-    // The generated object (Attempt) within the Event Object
-    var generated = new Attempt("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/attempt1");
-    generated.setActor("https://some-university.edu/user/554433");
-    generated.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
-    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    generated.setCount(1);
-    generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
+    target.setName("Key Figures: George Washington");
+    target.setVersion("2nd ed.");
+    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    target.setIndex(1);
+    target.setIsPartOf(eventObj["@id"]);
 
     // The edApp that is part of the Learning Context
-    var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
-    edApp.setName("Super Assessment Tool");
+    var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
+    edApp.setName("Readium");
     edApp.setHasMembership([]);
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    edApp.setDateModified(null);
+    edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Offering
     var courseOffering = new CourseOffering("https://some-university.edu/politicalScience/2015/american-revolution-101");
@@ -173,19 +132,45 @@ test('Create Assessment Event and validate attributes', function (t) {
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // Assert that key attributes are the same
-    var assessmentEvent = new Event();
-    assessmentEvent.setActor(actor);
-    assessmentEvent.setAction(action);
-    assessmentEvent.setObject(eventObj);
-    assessmentEvent.setTarget(target);
-    assessmentEvent.setGenerated(generated);
-    assessmentEvent.setEdApp(edApp);
-    assessmentEvent.setGroup(group);
-    assessmentEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    // Specific to the Navigation Event - the location where the user navigated from
+    var navigatedFrom = new WebPage("https://some-university.edu/politicalScience/2015/american-revolution-101/index.html");
+    navigatedFrom.setName("American Revolution 101 Landing Page");
+    navigatedFrom.setVersion("1.0");
+    navigatedFrom.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    navigatedFrom.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    console.log("Assessment Event = " + util.inspect(assessmentEvent));
+    // Assert that key attributes are the same
+    var navigationEvent = new Event();
+    navigationEvent.setActor(actor);
+    navigationEvent.setAction(action);
+    navigationEvent.setObject(eventObj);
+    navigationEvent.setTarget(target);
+    navigationEvent.setEdApp(edApp);
+    navigationEvent.setGroup(group);
+    navigationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    navigationEvent.setNavigatedFrom(navigatedFrom);
+
+    // Initialize faux sensor and default options
+    var sensor = createFauxSensor("http://learning-app.some-university.edu/sensor");
+    var options = {};
+
+    // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
+    requestor.initialize(options);
+    var payload = requestor.createEnvelope(sensor, navigationEvent);
+    payload.setSendTime((new Date("2015-09-15T11:05:01.000Z")).toISOString());
+
+    console.log("Envelope payload = " + util.inspect(payload));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperAssessmentEvent', assessmentEvent, t);
+    jsonCompare('eventStorePayload', payload, t);
 });
+
+/**
+ * Create a fake sensor object in order to avoid generating a "window is not defined"
+ * reference error since we are not running tests in the browser but on the server.
+ * @param id
+ * @returns {{id: *}}
+ */
+function createFauxSensor(id) {
+    return {id: id};
+}

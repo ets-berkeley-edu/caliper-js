@@ -190,4 +190,4 @@ test('Create Assignable Event and validate attributes', function (t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperAssignableEvent', assignableEvent, t);
-})
+});

@@ -64,10 +64,10 @@ var jsonCompare = function (expectedJsonFile, JsonToCompare, t, filterCallback) 
 
 var defaultDateCreatedStr = function(){
 
-}
+};
 
 var defaultDateModifiedStr = function(){
 
-}
+};
 
 module.exports = jsonCompare;

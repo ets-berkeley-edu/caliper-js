@@ -149,4 +149,4 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperBookmarkAnnotationEvent', bookmarkAnnotationEvent, t);
-})
+});

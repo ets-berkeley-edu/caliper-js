@@ -152,4 +152,4 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperHighlightAnnotationEvent', hilightAnnotationEvent, t);
-})
+});

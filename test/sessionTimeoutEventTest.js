@@ -153,4 +153,4 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
 
     // Assert that JSON produced is the same
     jsonCompare('caliperSessionTimeoutEvent', sessionEvent, t);
-})
+});
