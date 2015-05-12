@@ -26,7 +26,6 @@ var EntityType = require('./../entityType');
  * @constructor
  * @param {string} id URI
  * @param {string} type type
- * @param {Object[]} hasMemberships array
  * @extends Entity
  */
 function Agent(id) {
@@ -37,7 +36,6 @@ function Agent(id) {
     this.setType(EntityType.AGENT);
     this.setName(null);
     this.setDescription(null);
-    //this.setHasMembership([]);
     this.setExtensions({});
     this.setDateCreated(null);
     this.setDateModified(null);
@@ -46,8 +44,8 @@ function Agent(id) {
 
 Agent.prototype = _.create(Entity.prototype);
 
-Agent.prototype.setHasMembership = function (hasMembership) {
-  this.hasMembership = hasMembership;
+Agent.prototype.setRoles = function (roles) {
+  this.roles = roles;
 }
 
 module.exports = Agent;

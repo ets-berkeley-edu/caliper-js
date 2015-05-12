@@ -32,7 +32,7 @@ test('Validate JSON with different attribute order', function (t) {
 
   var rhs = {
     description: 'bar',
-    name: 'foo',
+    name: 'foo'
   };
 
   var differences = diff(lhs, rhs);

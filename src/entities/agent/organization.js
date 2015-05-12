@@ -17,7 +17,7 @@
  */
 
 var _ = require('lodash-node');
-var Entity = require('../entity');
+var Agent = require('./Agent');
 var EntityType = require('../entityType');
 
 /**
@@ -25,24 +25,19 @@ var EntityType = require('../entityType');
  * Organization's prototype set to Entity.
  * @constructor
  * @param {string} id URI
- * @property {Object[]} memberships Array of Memberships
  * @property {Object} subOrganizationOf Parent Organization Object
  * @extends Agent
  */
 function Organization(id) {
 
-    Entity.call(this);
+    Agent.call(this);
 
     this.setId(id);
     this.setType(EntityType.ORGANIZATION);
 
 }
 
-Organization.prototype = _.create(Entity.prototype);
-
-Organization.prototype.setMembership = function(membership) {
-  this.membership = membership;
-};
+Organization.prototype = _.create(Agent.prototype);
 
 Organization.prototype.setSubOrganizationOf = function(subOrganizationOf) {
   this.subOrganizationOf = subOrganizationOf;
