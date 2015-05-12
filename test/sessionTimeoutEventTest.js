@@ -51,7 +51,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     // The actor
     var actor = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
     actor.setName("Readium");
-    actor.setHasMembership([]);
+    actor.setRoles([]);
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -61,35 +61,9 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     // The Object being interacted with by the Actor
     var eventObj = actor;
 
-    //var ePubVolume = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
-    //ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-    //ePubVolume.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    //ePubVolume.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-
     // The session actor
     var sessionActor = new Person("https://some-university.edu/user/554433");
-    var membership1 = new Membership("https://some-university.edu/membership/001");
-    membership1.setMember("https://some-university.edu/user/554433");
-    membership1.setOrganization("https://some-university.edu/politicalScience/2015/american-revolution-101");
-    membership1.setRoles([Role.LEARNER]);
-    membership1.setStatus(Status.ACTIVE);
-    membership1.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    membership1.setDateModified(null);
-    var membership2 = new Membership("https://some-university.edu/membership/002");
-    membership2.setMember("https://some-university.edu/user/554433");
-    membership2.setOrganization("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
-    membership2.setRoles([Role.LEARNER]);
-    membership2.setStatus(Status.ACTIVE);
-    membership2.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    membership2.setDateModified(null);
-    var membership3 = new Membership("https://some-university.edu/membership/003");
-    membership3.setMember("https://some-university.edu/user/554433");
-    membership3.setOrganization("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
-    membership3.setRoles([Role.LEARNER]);
-    membership3.setStatus(Status.ACTIVE);
-    membership3.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    membership3.setDateModified(null);
-    sessionActor.setHasMembership([membership1, membership2, membership3]);
+    sessionActor.setRoles([Role.LEARNER]);
     sessionActor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     sessionActor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -114,7 +88,6 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     courseOffering.setName("Political Science 101: The American Revolution");
     courseOffering.setCourseNumber("POL101");
     courseOffering.setAcademicSession("Fall-2015");
-    courseOffering.setMembership([]);
     courseOffering.setSubOrganizationOf(null);
     courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
@@ -124,7 +97,6 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setAcademicSession("Fall-2015");
-    courseSection.setMembership([membership2]);
     courseSection.setSubOrganizationOf(courseOffering);
     courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
@@ -132,7 +104,6 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     // LIS Group
     var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
     group.setName("Discussion Group 001");
-    group.setMembership([membership3]);
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
