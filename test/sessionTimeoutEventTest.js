@@ -39,6 +39,7 @@ var CourseOffering = require('../src/entities/lis/courseOffering');
 var CourseSection = require('../src/entities/lis/courseSection');
 var Group = require('../src/entities/lis/group');
 var Membership = require('../src/entities/lis/membership');
+var Membership = require ('../src/entities/lis/membership');
 var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
@@ -51,7 +52,6 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     // The actor
     var actor = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
     actor.setName("Readium");
-    actor.setRoles([]);
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -63,7 +63,6 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
 
     // The session actor
     var sessionActor = new Person("https://some-university.edu/user/554433");
-    sessionActor.setRoles([Role.LEARNER]);
     sessionActor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     sessionActor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -108,20 +107,21 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
     // Assert that key attributes are the same
-    var sessionEvent = new Event();
-    sessionEvent.setActor(actor);
-    sessionEvent.setAction(action);
-    sessionEvent.setObject(eventObj);
-    sessionEvent.setTarget(target);
-    sessionEvent.setGenerated(generated);
-    sessionEvent.setEdApp(edApp);
-    sessionEvent.setGroup(group);
-    sessionEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    sessionEvent.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
-    sessionEvent.setDuration("PT3000S");
+    var event = new Event();
+    event.setActor(actor);
+    event.setAction(action);
+    event.setObject(eventObj);
+    event.setTarget(target);
+    event.setGenerated(generated);
+    event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    event.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+    event.setDuration("PT3000S");
+    event.setEdApp(edApp);
+    event.setGroup(group);
+    event.setMembership(null);
 
-    console.log("Session Event = " + util.inspect(sessionEvent));
+    console.log("Session Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperSessionTimeoutEvent', sessionEvent, t);
+    jsonCompare('caliperSessionTimeoutEvent', event, t);
 });

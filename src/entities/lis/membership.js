@@ -39,6 +39,8 @@ function Membership(id) {
     this.setName(null);
     this.setDescription(null);
     this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 
 }
 

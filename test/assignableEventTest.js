@@ -39,6 +39,7 @@ var Attempt = require('../src/entities/assignable/attempt');
 var CourseOffering = require('../src/entities/lis/courseOffering');
 var CourseSection = require('../src/entities/lis/courseSection');
 var Group = require('../src/entities/lis/group');
+var Membership = require ('../src/entities/lis/membership');
 var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
@@ -50,7 +51,6 @@ test('Create Assignable Event and validate attributes', function (t) {
 
     // The Actor for the Caliper Event
     var actor = new Person("https://some-university.edu/user/554433");
-    actor.setRoles([Role.LEARNER]);
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -91,7 +91,6 @@ test('Create Assignable Event and validate attributes', function (t) {
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
     edApp.setName("Super Assessment Tool");
-    edApp.setRoles([]);
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     edApp.setDateModified(null);
 
@@ -119,19 +118,30 @@ test('Create Assignable Event and validate attributes', function (t) {
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // Assert that key attributes are the same
-    var assignableEvent = new Event();
-    assignableEvent.setActor(actor);
-    assignableEvent.setAction(action);
-    assignableEvent.setObject(eventObj);
-    assignableEvent.setTarget(target);
-    assignableEvent.setGenerated(generated);
-    assignableEvent.setEdApp(edApp);
-    assignableEvent.setGroup(group);
-    assignableEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    // The Actor's Membership
+    var membership = new Membership("https://some-university.edu/politicalScience/2015/american-revolution-101/roster/554433");
+    membership.setName("American Revolution 101");
+    membership.setDescription("Roster entry");
+    membership.setMember(actor['@id']);
+    membership.setOrganization(courseSection['@id']);
+    membership.setRoles([Role.LEARNER]);
+    membership.setStatus(Status.ACTIVE);
+    membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    console.log("Assignable Event = " + util.inspect(assignableEvent));
+    // Assert that key attributes are the same
+    var event = new Event();
+    event.setActor(actor);
+    event.setAction(action);
+    event.setObject(eventObj);
+    event.setTarget(target);
+    event.setGenerated(generated);
+    event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    event.setEdApp(edApp);
+    event.setGroup(group);
+    event.setMembership(membership);
+
+    console.log("Assignable Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperAssignableEvent', assignableEvent, t);
+    jsonCompare('caliperAssignableEvent', event, t);
 });

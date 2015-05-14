@@ -17,7 +17,7 @@
  */
 
 var _ = require('lodash-node');
-var Agent = require('./agent');
+var Entity = require('../entity');
 var EntityType = require('../entityType');
 
 /**
@@ -29,13 +29,18 @@ var EntityType = require('../entityType');
  */
 function SoftwareApplication(id) {
 
-    Agent.call(this);
+    Entity.call(this);
 
     this.setId(id);
     this.setType(EntityType.SOFTWARE_APPLICATION);
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 
 }
 
-SoftwareApplication.prototype = _.create(Agent.prototype);
+SoftwareApplication.prototype = _.create(Entity.prototype);
 
 module.exports = SoftwareApplication;

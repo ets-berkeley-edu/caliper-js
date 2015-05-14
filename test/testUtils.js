@@ -22,15 +22,11 @@ var jf = require('jsonfile')
 var util = require('util')
 
 /**
- * Utility function to compare JSON (represented by a object) to JSON fixture
- *
- *   expectedJsonFile: filename (relative to test/resources directory) without .json extension
- *   JsonToCompare: Object representing JSON that will be compared to expectedJson
- *   t: The Tape test object
- *   filterCallback: callback function to filter out JSON attributes, paths that should not be
- *    compared. Callback shouldreturn TRUE for any key + path combination that should not be
- *    analyzed for differences
- *
+ * Utility function to compare JSON (represented by a object) to JSON fixture expectedJsonFile: filename
+ * (relative to test/resources directory) without .json extension JsonToCompare: Object representing JSON
+ * that will be compared to expectedJson t: The Tape test object filterCallback: callback function to filter
+ * out JSON attributes, paths that should not be compared. Callback shouldreturn TRUE for any key + path
+ * combination that should not be analyzed for differences.
  **/
 var jsonCompare = function (expectedJsonFile, JsonToCompare, t, filterCallback) {
 
