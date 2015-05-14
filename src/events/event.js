@@ -77,12 +77,16 @@ Event.prototype.setDuration = function (duration) {
     this.duration = duration;
 };
 
+Event.prototype.setEdApp = function (edApp) {
+    this.edApp = edApp;
+};
+
 Event.prototype.setGroup = function (group) {
     this.group = group;
 };
 
-Event.prototype.setEdApp = function (edApp) {
-    this.edApp = edApp;
+Event.prototype.setMembership = function (membership) {
+    this.membership = membership;
 };
 
 module.exports = Event;

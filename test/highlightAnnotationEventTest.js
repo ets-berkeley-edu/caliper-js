@@ -39,6 +39,7 @@ var EPubVolume = require('../src/entities/reading/ePubVolume');
 var CourseOffering = require('../src/entities/lis/courseOffering');
 var CourseSection = require('../src/entities/lis/courseSection');
 var Group = require('../src/entities/lis/group');
+var Membership = require ('../src/entities/lis/membership');
 var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
@@ -51,7 +52,6 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
 
     // The Actor for the Caliper Event
     var actor = new Person("https://some-university.edu/user/554433");
-    actor.setRoles([Role.LEARNER]);
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -85,7 +85,6 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
     edApp.setName("Readium");
-    edApp.setRoles([]);
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -113,18 +112,29 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // Asser that key attributes are the same
-    var hilightAnnotationEvent = new Event();
-    hilightAnnotationEvent.setActor(actor);
-    hilightAnnotationEvent.setAction(action);
-    hilightAnnotationEvent.setObject(eventObj);
-    hilightAnnotationEvent.setGenerated(generated);
-    hilightAnnotationEvent.setEdApp(edApp);
-    hilightAnnotationEvent.setGroup(group);
-    hilightAnnotationEvent.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    // The Actor's Membership
+    var membership = new Membership("https://some-university.edu/politicalScience/2015/american-revolution-101/roster/554433");
+    membership.setName("American Revolution 101");
+    membership.setDescription("Roster entry");
+    membership.setMember(actor['@id']);
+    membership.setOrganization(courseSection['@id']);
+    membership.setRoles([Role.LEARNER]);
+    membership.setStatus(Status.ACTIVE);
+    membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    console.log("Highlight Annotation Event = " + util.inspect(hilightAnnotationEvent));
+    // Assert that key attributes are the same
+    var event = new Event();
+    event.setActor(actor);
+    event.setAction(action);
+    event.setObject(eventObj);
+    event.setGenerated(generated);
+    event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    event.setEdApp(edApp);
+    event.setGroup(group);
+    event.setMembership(membership);
+
+    console.log("Highlight Annotation Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperHighlightAnnotationEvent', hilightAnnotationEvent, t);
+    jsonCompare('caliperHighlightAnnotationEvent', event, t);
 });
