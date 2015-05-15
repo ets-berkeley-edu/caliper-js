@@ -39,7 +39,6 @@ var CourseOffering = require('../src/entities/lis/courseOffering');
 var CourseSection = require('../src/entities/lis/courseSection');
 var Group = require('../src/entities/lis/group');
 var Membership = require('../src/entities/lis/membership');
-var Membership = require ('../src/entities/lis/membership');
 var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
@@ -58,24 +57,21 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     // The Action for the Caliper Event
     var action = SessionActions.TIMED_OUT;
 
-    // The Object being interacted with by the Actor
-    var eventObj = actor;
-
     // The session actor
     var sessionActor = new Person("https://some-university.edu/user/554433");
     sessionActor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     sessionActor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target session
-    var target = new Session("https://github.com/readium/session-123456789");
-    target.setName("session-123456789");
-    target.setDescription(null);
-    target.setActor(sessionActor);
-    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    target.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    target.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
-    target.setDuration("PT3000S");
+    var eventObj = new Session("https://github.com/readium/session-123456789");
+    eventObj.setName("session-123456789");
+    eventObj.setDescription(null);
+    eventObj.setActor(sessionActor);
+    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    eventObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    eventObj.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+    eventObj.setDuration("PT3000S");
 
     var generated = null;
 
@@ -111,7 +107,6 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     event.setActor(actor);
     event.setAction(action);
     event.setObject(eventObj);
-    event.setTarget(target);
     event.setGenerated(generated);
     event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     event.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
