@@ -44,6 +44,7 @@ var CourseSection = require('../src/entities/lis/courseSection');
 var Group = require('../src/entities/lis/group');
 var Membership = require ('../src/entities/lis/membership');
 var Role = require('../src/entities/lis/role');
+var Session = require('../src/entities/session/session');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 var Status = require('../src/entities/lis/status');
 
@@ -56,6 +57,14 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     var actor = new Person("https://some-university.edu/user/554433");
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+
+    // Federated Session
+    var session = new Session("https://learning-platform.some-university.edu/federatedSession/123456789");
+    session.setActor(actor);
+    session.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    session.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    session.setEndedAtTime(null);
+    session.setDuration(null);
 
     // The Action for the Caliper Event
     var action = ReadingActions.NAVIGATED_TO;
@@ -134,6 +143,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     event.setEdApp(edApp);
     event.setGroup(group);
     event.setMembership(membership);
+    event.setFederatedSession(session['@id']);
 
     // Initialize faux sensor and default options
     var sensor = createFauxSensor("http://learning-app.some-university.edu/sensor");

@@ -89,4 +89,8 @@ Event.prototype.setMembership = function (membership) {
     this.membership = membership;
 };
 
+Event.prototype.setFederatedSession = function (federatedSession) {
+    this.federatedSession = federatedSession;
+};
+
 module.exports = Event;
