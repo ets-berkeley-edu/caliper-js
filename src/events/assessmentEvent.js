@@ -41,6 +41,7 @@ function AssessmentEvent() {
     this.setEdApp(null);
     this.setGroup(null);
     this.setMembership(null);
+    this.setFederatedSession(null);
 }
 
 AssessmentEvent.prototype = _.create(Event.prototype);
