@@ -41,7 +41,7 @@ var Sensor = {};
  * Sensor Identifier.
  * @param id
  */
-Sensor.prototype.setId = function (id) {
+Sensor.setId = function (id) {
     this.id = id;
 };
 
