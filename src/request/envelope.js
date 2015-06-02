@@ -16,6 +16,8 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var Context = require('../context/context');
+
 /**
  * Represents Caliper Envelope.
  * @constructor
@@ -24,8 +26,10 @@
  * @property {string} sendTime String representing Date
  * @property {Object[]} array of events/entities
  */
+
+// Constructor
 function Envelope() {
-    this.setContext("http://purl.imsglobal.org/caliper/ctx/v1/Envelope");
+    this.setContext(Context.CONTEXT)
 }
 
 // Setters for Caliper Envelope properties

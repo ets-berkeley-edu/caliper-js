@@ -16,6 +16,8 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var Context = require('../context/context');
+
 /**
  * Represents Base Caliper Event.
  * @constructor
@@ -31,12 +33,13 @@
  * @property {Object} group Group Object
  * @property {Object} edApp EdApp Object
  */
+
+// constructor
 function Event() {
-  // Constructor
+  this.setContext(Context.CONTEXT)
 }
 
 // Setters for Caliper Event properties
-
 Event.prototype.setContext = function (context) {
     this['@context'] = context;
 };

@@ -18,7 +18,6 @@
 
 var _ = require('lodash-node');
 var Event = require('./event');
-var EventContext = require('./eventContext');
 var EventType = require('./eventType');
 
 /**
@@ -32,7 +31,6 @@ function MediaEvent() {
 
     Event.call(this);
 
-    this.setContext(EventContext.MEDIA);
     this.setType(EventType.MEDIA);
     this.setTarget(null);
     this.setGenerated(null);

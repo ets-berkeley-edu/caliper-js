@@ -16,17 +16,11 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var eventContexts = {
-    "ANNOTATION": "http://purl.imsglobal.org/ctx/caliper/v1/AnnotationEvent",
-    "ASSESSMENT": "http://purl.imsglobal.org/ctx/caliper/v1/AssessmentEvent",
-    "ASSESSMENT_ITEM": "http://purl.imsglobal.org/ctx/caliper/v1/AssessmentItemEvent",
-    "ASSIGNABLE": "http://purl.imsglobal.org/ctx/caliper/v1/AssignableEvent",
-    "EVENT": "http://purl.imsglobal.org/ctx/caliper/v1/Event",
-    "MEDIA": "http://purl.imsglobal.org/ctx/caliper/v1/MediaEvent",
-    "NAVIGATION": "http://purl.imsglobal.org/ctx/caliper/v1/NavigationEvent",
-    "OUTCOME": "http://purl.imsglobal.org/ctx/caliper/v1/OutcomeEvent",
-    "VIEWED": "http://purl.imsglobal.org/ctx/caliper/v1/ViewEvent",
-    "SESSION": "http://purl.imsglobal.org/ctx/caliper/v1/SessionEvent"
+var Context = {
+    "CONTEXT": "http://purl.imsglobal.org/ctx/caliper/v1/Context"
+    // "ENTITY": "http://purl.imsglobal.org/ctx/caliper/v1/Entity",
+    // "ENVELOPE": "http://purl.imsglobal.org/caliper/ctx/v1/Envelope",
+    // "EVENT": "http://purl.imsglobal.org/ctx/caliper/v1/Event"
 };
 
-module.exports = eventContexts;
+module.exports = Context;
