@@ -18,7 +18,6 @@
 
 var _ = require('lodash-node');
 var Event = require('./event');
-var EventContext = require('./eventContext');
 var EventType = require('./eventType');
 
 /**
@@ -31,7 +30,6 @@ function AssessmentEvent() {
 
     Event.call(this);
 
-    this.setContext(EventContext.ASSESSMENT);
     this.setType(EventType.ASSESSMENT);
     this.setTarget(null);
     this.setGenerated(null);

@@ -82,6 +82,7 @@ Sensor.send = function (event) {
  * dependency graph and load everything correctly.
  */
 Caliper.Actions = {};
+Caliper.Context = {};
 Caliper.Entities = {};
 Caliper.Events = {};
 Caliper.Request = {};
@@ -95,6 +96,9 @@ Caliper.Actions.MediaActions          = require('./actions/mediaActions');
 Caliper.Actions.OutcomeActions        = require('./actions/outcomeActions');
 Caliper.Actions.ReadingActions        = require('./actions/readingActions');
 Caliper.Actions.SessionActions        = require('./actions/sessionActions');
+
+// CONTEXT
+Caliper.Context.Context = require('./context/Context');
 
 // ENTITIES
 Caliper.Entities.Entity     = require('./entities/entity');
@@ -170,7 +174,6 @@ Caliper.Entities.Session = require('./entities/session/session');
 // EVENTS
 Caliper.Events.Event               = require('./events/event');
 Caliper.Events.EventType           = require('./events/eventType');
-Caliper.Events.EventContext        = require('./events/eventContext');
 Caliper.Events.AnnotationEvent     = require('./events/annotationEvent');
 Caliper.Events.AssessmentEvent     = require('./events/assessmentEvent');
 Caliper.Events.AssessmentItemEvent = require('./events/assessmentItemEvent');

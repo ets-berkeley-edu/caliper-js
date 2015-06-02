@@ -18,7 +18,6 @@
 
 var _ = require('lodash-node');
 var Event = require('./event');
-var EventContext = require('./eventContext');
 var EventType = require('./eventType');
 
 /**
@@ -31,7 +30,6 @@ function AssignableEvent() {
 
     Event.call(this);
 
-    this.setContext(EventContext.ASSIGNABLE);
     this.setType(EventType.ASSIGNABLE);
     this.setTarget(null);
     this.setGenerated(null);
