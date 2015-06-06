@@ -27,20 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function OutcomeEvent() {
-
     Event.call(this);
-
     this.setType(EventType.OUTCOME);
-    this.setTarget(null);
-    this.setGenerated(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
-    this.setEdApp(null);
-    this.setGroup(null);
-    this.setMembership(null);
-    this.setFederatedSession(null);
-
 }
 
 OutcomeEvent.prototype = _.create(Event.prototype);

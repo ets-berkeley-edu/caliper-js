@@ -28,17 +28,9 @@ var EntityType = require('../entityType');
  * @extends Organization
  */
 function SoftwareApplication(id) {
-
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.SOFTWARE_APPLICATION);
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
-
 }
 
 SoftwareApplication.prototype = _.create(Entity.prototype);

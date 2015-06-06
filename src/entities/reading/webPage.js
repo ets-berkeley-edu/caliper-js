@@ -29,12 +29,9 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function WebPage(id) {
-
   DigitalResource.call(this);
-
   this.setId(id);
   this.setType(DigitalResourceType.WEB_PAGE);
-
 }
 
 WebPage.prototype = _.create(DigitalResource.prototype);

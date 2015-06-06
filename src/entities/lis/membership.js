@@ -31,17 +31,13 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Membership(id) {
-
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.MEMBERSHIP);
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
-
+    this.setMember(null);
+    this.setOrganization(null);
+    this.setRoles(null);
+    this.setStatus(null);
 }
 
 Membership.prototype = _.create(Entity.prototype);

@@ -28,12 +28,9 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function Reading(id) {
-
     DigitalResource.call(this);
-
     this.setId(id);
     this.setType(DigitalResourceType.READING);
-
 }
 
 Reading.prototype = _.create(DigitalResource.prototype);

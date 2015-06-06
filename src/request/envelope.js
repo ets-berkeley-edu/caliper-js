@@ -29,15 +29,15 @@ function Envelope() {
 }
 
 // Setters for Caliper Envelope properties
-Envelope.prototype.setSensor = function (sensor) {
+Envelope.prototype.setSensor = function(sensor) {
     this.sensor = sensor;
 };
 
-Envelope.prototype.setSendTime = function (sendTime) {
+Envelope.prototype.setSendTime = function(sendTime) {
     this.sendTime = sendTime;
 };
 
-Envelope.prototype.setData = function (data) {
+Envelope.prototype.setData = function(data) {
     this.data = data;
 };
 

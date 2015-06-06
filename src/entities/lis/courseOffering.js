@@ -30,18 +30,11 @@ var EntityType = require('../entityType');
  * @extends Organization
  */
 function CourseOffering(id) {
-
     Organization.call(this);
-
     this.setId(id);
     this.setType(EntityType.COURSE_OFFERING);
-
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
-
+    this.setCourseNumber(null);
+    this.setAcademicSession(null);
 }
 
 CourseOffering.prototype = _.create(Organization.prototype);
@@ -53,7 +46,5 @@ CourseOffering.prototype.setCourseNumber = function(courseNumber) {
 CourseOffering.prototype.setAcademicSession = function(academicSession) {
     this.academicSession = academicSession;
 };
-
-// TODO add membership, subOrganizationOf
 
 module.exports = CourseOffering;

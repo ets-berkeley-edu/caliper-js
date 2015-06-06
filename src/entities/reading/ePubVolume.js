@@ -28,12 +28,9 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function EPubVolume(id) {
-
     DigitalResource.call(this);
-
     this.setId(id);
     this.setType(DigitalResourceType.EPUB_VOLUME);
-
 }
 
 EPubVolume.prototype = _.create(DigitalResource.prototype);

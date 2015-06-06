@@ -37,15 +37,9 @@ var EntityType = require('./entityType');
  * @extends Entity
  */
 function DigitalResource(id) {
-
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.DIGITAL_RESOURCE);
-
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
     this.setObjectType([]);
     this.setAlignedLearningObjective([]);
     this.setKeywords([]);

@@ -81,7 +81,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     eventObj.setMaxScore(1.0);
     eventObj.setDateModified(null);
     eventObj.setVersion("1.0");
-    eventObj.isTimeDependent(false);
+    eventObj.setIsTimeDependent(false);
 
     // The target object (frame) within the Event Object
     var target = null;

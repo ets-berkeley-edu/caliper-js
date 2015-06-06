@@ -41,7 +41,7 @@ var Sensor = {};
  * Sensor Identifier.
  * @param id
  */
-Sensor.setId = function (id) {
+Sensor.setId = function(id) {
     this.id = id;
 };
 
@@ -51,7 +51,7 @@ Sensor.setId = function (id) {
  * @param id sensor identifier
  * @param options $options passed straight to the client
  */
-Sensor.initialize = function (id, options) {
+Sensor.initialize = function(id, options) {
     this.setId(id);
     if (!_.isUndefined(options)) {
         client.initialize(options);
@@ -63,7 +63,7 @@ Sensor.initialize = function (id, options) {
  * @param  entity $entity The Caliper Entity we are describing
  * @return boolean whether the describe call succeeded
  */
-Sensor.describe = function (entity) {
+Sensor.describe = function(entity) {
     client.describe(this, entity);
 };
 
@@ -72,7 +72,7 @@ Sensor.describe = function (entity) {
  * @param  event $event The Caliper Event
  * @return boolean whether the measure call succeeded
  */
-Sensor.send = function (event) {
+Sensor.send = function(event) {
     client.send(this, event);
 };
 

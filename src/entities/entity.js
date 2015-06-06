@@ -17,6 +17,7 @@
  */
 
 var Context = require('../context/context');
+var Type = require('./entityType');
 
 /**
  * Represents base Caliper Entity.  Analogous to a schema.org Thing
@@ -31,7 +32,13 @@ var Context = require('../context/context');
  * @property {string} dateModified String Representation of Date
  */
 function Entity() {
-  this.setContext(Context.CONTEXT);
+    this.setContext(Context.CONTEXT);
+    this.setType(Type.ENTITY);
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 }
 
 // Setters for base properties of all Caliper Entities

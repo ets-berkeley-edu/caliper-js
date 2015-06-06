@@ -28,12 +28,9 @@ var MediaObjectType = require('./mediaObjectType');
  * @extends MediaObject
  */
 function ImageObject(id) {
-
-  MediaObject.call(this);
-
-  this.setId(id);
-  this.setType(MediaObjectType.IMAGE_OBJECT);
-
+    MediaObject.call(this);
+    this.setId(id);
+    this.setType(MediaObjectType.IMAGE_OBJECT);
 }
 
 ImageObject.prototype = _.create(MediaObject.prototype);

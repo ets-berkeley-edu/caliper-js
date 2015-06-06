@@ -37,17 +37,9 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function AssignableDigitalResource(id) {
-
     DigitalResource.call(this);
-
     this.setId(id);
     this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
-
-    this.setVersion(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
-    this.setDatePublished(null);
     this.setDateToActivate(null);
     this.setDateToShow(null);
     this.setDateToStartOn(null);
@@ -55,40 +47,39 @@ function AssignableDigitalResource(id) {
     this.setMaxAttempts(null);
     this.setMaxSubmits(null);
     this.setMaxScore(null);
-
 }
 
 AssignableDigitalResource.prototype = _.create(DigitalResource.prototype);
 
-AssignableDigitalResource.prototype.setDateCreated = function (dateCreated) {
+AssignableDigitalResource.prototype.setDateCreated = function(dateCreated) {
   this.dateCreated = dateCreated;
 };
 
-AssignableDigitalResource.prototype.setDateToActivate = function (dateToActivate) {
+AssignableDigitalResource.prototype.setDateToActivate = function(dateToActivate) {
   this.dateToActivate = dateToActivate;
 };
 
-AssignableDigitalResource.prototype.setDateToShow = function (dateToShow) {
+AssignableDigitalResource.prototype.setDateToShow = function(dateToShow) {
   this.dateToShow = dateToShow;
 };
 
-AssignableDigitalResource.prototype.setDateToStartOn = function (dateToStartOn) {
+AssignableDigitalResource.prototype.setDateToStartOn = function(dateToStartOn) {
   this.dateToStartOn = dateToStartOn;
 };
 
-AssignableDigitalResource.prototype.setDateToSubmit = function (dateToSubmit) {
+AssignableDigitalResource.prototype.setDateToSubmit = function(dateToSubmit) {
   this.dateToSubmit = dateToSubmit;
 };
 
-AssignableDigitalResource.prototype.setMaxAttempts = function (maxAttempts) {
+AssignableDigitalResource.prototype.setMaxAttempts = function(maxAttempts) {
   this.maxAttempts = maxAttempts;
 };
 
-AssignableDigitalResource.prototype.setMaxSubmits = function (maxSubmits) {
+AssignableDigitalResource.prototype.setMaxSubmits = function(maxSubmits) {
   this.maxSubmits = maxSubmits;
 };
 
-AssignableDigitalResource.prototype.setMaxScore = function (maxScore) {
+AssignableDigitalResource.prototype.setMaxScore = function(maxScore) {
   this.maxScore = maxScore;
 };
 

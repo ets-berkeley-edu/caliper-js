@@ -35,17 +35,12 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Response(id) {
-
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.RESPONSE);
-
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
+    this.setActor(null);
+    this.setAssignable(null);
+    this.setAttempt(null);
     this.setStartedAtTime(null);
     this.setEndedAtTime(null);
     this.setDuration(null);
@@ -53,27 +48,27 @@ function Response(id) {
 
 Response.prototype = _.create(Entity.prototype);
 
-Response.prototype.setAssignable = function (assignableId) {
+Response.prototype.setAssignable = function(assignableId) {
     this.assignable = assignableId;
 };
 
-Response.prototype.setActor = function (actorId) {
+Response.prototype.setActor = function(actorId) {
     this.actor = actorId;
 };
 
-Response.prototype.setAttempt = function (attempt) {
+Response.prototype.setAttempt = function(attempt) {
     this.attempt = attempt;
 };
 
-Response.prototype.setStartedAtTime = function (startedAt) {
-    this.startedAtTime = startedAt;
+Response.prototype.setStartedAtTime = function(startedAtTime) {
+    this.startedAtTime = startedAtTime;
 };
 
-Response.prototype.setEndedAtTime = function (endedAt) {
-    this.endedAtTime = endedAt;
+Response.prototype.setEndedAtTime = function(endedAtTime) {
+    this.endedAtTime = endedAtTime;
 };
 
-Response.prototype.setDuration = function (duration) {
+Response.prototype.setDuration = function(duration) {
     this.duration = duration;
 };
 

@@ -32,18 +32,13 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Session(id) {
-
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.SESSION);
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
+    this.setActor(null);
     this.setStartedAtTime(null);
     this.setEndedAtTime(null);
     this.setDuration(null);
-
 }
 
 Session.prototype = _.create(Entity.prototype);

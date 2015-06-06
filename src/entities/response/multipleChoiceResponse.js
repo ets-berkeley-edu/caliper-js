@@ -29,17 +29,15 @@ var ResponseType = require('./responseType');
  * @extends Response
  */
 function MultipleChoiceResponse(id) {
-
     Response.call(this);
-
     this.setId(id);
     this.setType(ResponseType.MULTIPLECHOICE);
-
+    this.setValue(null);
 }
 
 MultipleChoiceResponse.prototype = _.create(Response.prototype);
 
-MultipleChoiceResponse.prototype.setValue = function (value) {
+MultipleChoiceResponse.prototype.setValue = function(value) {
     this.value = value;
 };
 

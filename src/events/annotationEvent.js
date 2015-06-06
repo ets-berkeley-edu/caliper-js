@@ -27,20 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function AnnotationEvent() {
-
     Event.call(this);
-
     this.setType(EventType.ANNOTATION);
-    this.setTarget(null);
-    this.setGenerated(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
-    this.setEdApp(null);
-    this.setGroup(null);
-    this.setMembership(null);
-    this.setFederatedSession(null);
-
 }
 
 AnnotationEvent.prototype = _.create(Event.prototype);
