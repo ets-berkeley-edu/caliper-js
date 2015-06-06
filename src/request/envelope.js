@@ -16,12 +16,9 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var Context = require('../context/context');
-
 /**
  * Represents Caliper Envelope.
  * @constructor
- * @property {string} context Context
  * @property {string} sensor Sensor identifier
  * @property {string} sendTime String representing Date
  * @property {Object[]} array of events/entities
@@ -29,14 +26,9 @@ var Context = require('../context/context');
 
 // Constructor
 function Envelope() {
-    this.setContext(Context.CONTEXT)
 }
 
 // Setters for Caliper Envelope properties
-Envelope.prototype.setContext = function (context) {
-    this['@context'] = context;
-};
-
 Envelope.prototype.setSensor = function (sensor) {
     this.sensor = sensor;
 };
