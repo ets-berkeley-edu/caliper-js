@@ -27,19 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function AssignableEvent() {
-
     Event.call(this);
-
     this.setType(EventType.ASSIGNABLE);
-    this.setTarget(null);
-    this.setGenerated(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
-    this.setEdApp(null);
-    this.setGroup(null);
-    this.setMembership(null);
-    this.setFederatedSession(null);
 }
 
 AssignableEvent.prototype = _.create(Event.prototype);

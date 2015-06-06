@@ -28,18 +28,10 @@ var EntityType = require('./entityType');
  * @param {string} type Type
  * @extends Entity
  */
-function LearningObjective(id, type) {
-
+function LearningObjective(id) {
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.LEARNING_OBJECTIVE);
-
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
 }
 
 LearningObjective.prototype = _.create(Entity.prototype);

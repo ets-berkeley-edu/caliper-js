@@ -54,12 +54,12 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     t.plan(1);
 
     // The Actor for the Caliper Event
-    var actor = new Person("https://some-university.edu/user/554433");
+    var actor = new Person("https://example.edu/user/554433");
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // Federated Session
-    var session = new Session("https://learning-platform.some-university.edu/federatedSession/123456789");
+    var session = new Session("https://example.edu/lms/federatedSession/123456789");
     session.setActor(actor);
     session.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     session.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
@@ -70,14 +70,14 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     var action = ReadingActions.NAVIGATED_TO;
 
     // The Object being interacted with by the Actor
-    var eventObj = new EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
+    var eventObj = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
     eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
     eventObj.setVersion("2nd ed.");
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target object (frame) within the Event Object
-    var target = new Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
+    var target = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
     target.setName("Key Figures: George Washington");
     target.setIsPartOf(eventObj)
     target.setVersion(eventObj.version);
@@ -86,20 +86,20 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // Specific to the Navigation Event - the location where the user navigated from
-    var navigatedFrom = new WebPage("https://some-university.edu/politicalScience/2015/american-revolution-101/index.html");
+    var navigatedFrom = new WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
     navigatedFrom.setName("American Revolution 101 Landing Page");
     navigatedFrom.setVersion("1.0");
     navigatedFrom.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     navigatedFrom.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The edApp that is part of the Learning Context
-    var edApp = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
-    edApp.setName("Readium");
+    var edApp = new SoftwareApplication("https://example.com/viewer");
+    edApp.setName("ePub");
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Offering
-    var courseOffering = new CourseOffering("https://some-university.edu/politicalScience/2015/american-revolution-101");
+    var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
     courseOffering.setName("Political Science 101: The American Revolution");
     courseOffering.setCourseNumber("POL101");
     courseOffering.setAcademicSession("Fall-2015");
@@ -108,7 +108,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Section
-    var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
+    var courseSection = new CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setAcademicSession("Fall-2015");
@@ -117,13 +117,13 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
-    var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+    var group = new Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
     group.setName("Discussion Group 001");
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
     // The Actor's Membership
-    var membership = new Membership("https://some-university.edu/politicalScience/2015/american-revolution-101/roster/554433");
+    var membership = new Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
     membership.setName("American Revolution 101");
     membership.setDescription("Roster entry");
     membership.setMember(actor['@id']);
@@ -146,7 +146,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     event.setFederatedSession(session['@id']);
 
     // Initialize faux sensor and default options
-    var sensor = createFauxSensor("http://learning-app.some-university.edu/sensor");
+    var sensor = createFauxSensor("https://example.edu/sensor/001");
     var options = {};
 
     // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).

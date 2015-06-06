@@ -17,12 +17,12 @@
  */
 
 var _ = require('lodash-node');
-var Entity = require('./mediaObject');
+var DigitalResource = require('../digitalResource');
 var MediaObjectType = require('./mediaObjectType');
 
 /**
  * Represents Media Location.  
- * MediaLocation's prototype set to MediaObject
+ * MediaLocation's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
  * @param {string} type Type
@@ -30,18 +30,16 @@ var MediaObjectType = require('./mediaObjectType');
  * @extends MediaObject
  */
 function MediaLocation(id, type) {
-
-  Entity.call(this);
-
-  this.setId(id);
-  this.setType(MediaObjectType.MEDIA_LOCATION);
-
+    DigitalResource.call(this);
+    this.setId(id);
+    this.setType(MediaObjectType.MEDIA_LOCATION);
+    this.setCurrentTime(null);
 }
 
-MediaLocation.prototype = _.create(Entity.prototype);
+MediaLocation.prototype = _.create(DigitalResource.prototype);
 
 MediaLocation.prototype.setCurrentTime = function (currentTime) {
-  this.currentTime = currentTime;
+    this.currentTime = currentTime;
 };
 
 module.exports = MediaLocation;

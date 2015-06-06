@@ -29,23 +29,15 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Annotation(id) {
-
     Entity.call(this);
-
     this.setId(id);
-    this.setType(EntityType.ANNOTATION)
-
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
-
+    this.setType(EntityType.ANNOTATION);
+    this.setAnnotated(null);
 }
 
 Annotation.prototype = _.create(Entity.prototype);
 
-Annotation.prototype.setAnnotated = function (annotated) {
+Annotation.prototype.setAnnotated = function(annotated) {
   this.annotated = annotated;
 };
 

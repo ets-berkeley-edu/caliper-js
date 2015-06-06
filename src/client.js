@@ -32,7 +32,7 @@ var options = {};
  * @function initialize
  * @param options $options passed straight to the self
  */
-self.initialize = function (sensorOptions) {
+self.initialize = function(sensorOptions) {
     options = sensorOptions;
     // logger.log('info', "Initializing Client with options " + JSON.stringify(options));
 };
@@ -44,7 +44,7 @@ self.initialize = function (sensorOptions) {
  * @param sensor
  * @param entity
  */
-self.describe = function (sensor, entity) {
+self.describe = function(sensor, entity) {
     requestor(options).send(sensor, entity);
 };
 
@@ -55,7 +55,7 @@ self.describe = function (sensor, entity) {
  * @param sensor
  * @param event
  */
-self.send = function (sensor, event) {
+self.send = function(sensor, event) {
     requestor(options).send(sensor, entity);
 };
 

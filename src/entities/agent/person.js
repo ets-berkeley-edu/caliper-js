@@ -28,17 +28,9 @@ var EntityType = require('../entityType');
  * @extends Agent
  */
 function Person(id) {
-
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.PERSON);
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
-
 }
 
 Person.prototype = _.create(Entity.prototype);

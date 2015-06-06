@@ -29,17 +29,15 @@ var AnnotationType = require('./annotationType');
  * @extends Annotation
  */
 function BookmarkAnnotation(id) {
-
     Annotation.call(this);
-
     this.setId(id);
     this.setType(AnnotationType.BOOKMARK_ANNOTATION);
-
+    this.setBookmarkNotes(null);
 }
 
 BookmarkAnnotation.prototype = _.create(Annotation.prototype);
 
-BookmarkAnnotation.prototype.setBookmarkNotes = function (bookmarkNotes) {
+BookmarkAnnotation.prototype.setBookmarkNotes = function(bookmarkNotes) {
   this.bookmarkNotes = bookmarkNotes;
 };
 

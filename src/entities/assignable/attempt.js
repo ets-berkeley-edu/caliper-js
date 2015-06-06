@@ -35,46 +35,40 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Attempt(id) {
-
     Entity.call(this);
-
     this.setId(id);
     this.setType(EntityType.ATTEMPT);
-
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
+    this.setActor(null);
+    this.setAssignable(null);
+    this.setCount(null);
     this.setStartedAtTime(null);
     this.setEndedAtTime(null);
     this.setDuration(null);
-
 }
 
 Attempt.prototype = _.create(Entity.prototype);
 
-Attempt.prototype.setAssignable = function (assignableId) {
+Attempt.prototype.setAssignable = function(assignableId) {
     this.assignable = assignableId;
 };
 
-Attempt.prototype.setActor = function (actorId) {
+Attempt.prototype.setActor = function(actorId) {
     this.actor = actorId;
 };
 
-Attempt.prototype.setCount = function (count) {
+Attempt.prototype.setCount = function(count) {
     this.count = count;
 };
 
-Attempt.prototype.setStartedAtTime = function (startedAt) {
+Attempt.prototype.setStartedAtTime = function(startedAt) {
     this.startedAtTime = startedAt;
 };
 
-Attempt.prototype.setEndedAtTime = function (endedAt) {
+Attempt.prototype.setEndedAtTime = function(endedAt) {
     this.endedAtTime = endedAt;
 };
 
-Attempt.prototype.setDuration = function (duration) {
+Attempt.prototype.setDuration = function(duration) {
     this.duration = duration;
 };
 

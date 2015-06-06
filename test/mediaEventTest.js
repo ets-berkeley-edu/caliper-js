@@ -49,7 +49,7 @@ test('Create Media Event and validate attributes', function (t) {
     t.plan(1);
 
     // The Actor for the Caliper Event
-    var actor = new Person("https://some-university.edu/user/554433");
+    var actor = new Person("https://example.edu/user/554433");
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -57,19 +57,19 @@ test('Create Media Event and validate attributes', function (t) {
     var action = MediaActions.PAUSED;
 
     // The Object being interacted with by the Actor
-    var eventObj = new VideoObject("https://com.sat/super-media-tool/video/video1");
+    var eventObj = new VideoObject("https://example.com/super-media-tool/video/1225");
     eventObj.setName("American Revolution - Key Figures Video");
     eventObj.setVersion("1.0");
     eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     eventObj.setDuration(1420);
 
-    var lo = new LearningObjective("http://americanrevolution.com/personalities/learn");
+    var lo = new LearningObjective("https://example.edu/american-revolution-101/personalities/learn");
     lo.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     eventObj.setAlignedLearningObjective([lo]);
 
     // The MediaLocation that is part of the MediaEvent
-    var target = new MediaLocation("https://com.sat/super-media-tool/video/video1");
+    var target = new MediaLocation("https://example.com/super-media-tool/video/1225");
     target.setDescription(null);
     target.setVersion("1.0");
     target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
@@ -80,13 +80,13 @@ test('Create Media Event and validate attributes', function (t) {
     var generated = null;
 
     // The edApp that is part of the Learning Context
-    var edApp = new SoftwareApplication("https://com.sat/super-media-tool");
+    var edApp = new SoftwareApplication("https://example.com/super-media-tool");
     edApp.setName("Super Media Tool");
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Offering
-    var courseOffering = new CourseOffering("https://some-university.edu/politicalScience/2015/american-revolution-101");
+    var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
     courseOffering.setName("Political Science 101: The American Revolution");
     courseOffering.setCourseNumber("POL101");
     courseOffering.setAcademicSession("Fall-2015");
@@ -95,7 +95,7 @@ test('Create Media Event and validate attributes', function (t) {
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Section
-    var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
+    var courseSection = new CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setAcademicSession("Fall-2015");
@@ -104,13 +104,13 @@ test('Create Media Event and validate attributes', function (t) {
     courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
-    var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+    var group = new Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
     group.setName("Discussion Group 001");
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
     // The Actor's Membership
-    var membership = new Membership("https://some-university.edu/politicalScience/2015/american-revolution-101/roster/554433");
+    var membership = new Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
     membership.setName("American Revolution 101");
     membership.setDescription("Roster entry");
     membership.setMember(actor['@id']);

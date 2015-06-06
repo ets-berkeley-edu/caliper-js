@@ -38,39 +38,40 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Result(id) {
-
-  Entity.call(this);
-
-  this.setId(id);
-  this.setType(EntityType.RESULT);
-
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
-  this.setDateCreated(null);
-  this.setDateModified(null);
-
+    Entity.call(this);
+    this.setId(id);
+    this.setType(EntityType.RESULT);
+    this.setActorId(null);
+    this.setAssignableId(null);
+    this.setNormalScore(null);
+    this.setPenaltyScore(null);
+    this.setExtraCreditScore(null);
+    this.setTotalScore(null);
+    this.setCurvedTotalScore(null);
+    this.setCurveFactor(null);
+    this.setComment(null);
+    this.setScoredBy(null);
 }
 
 Result.prototype = _.create(Entity.prototype);
 
-Result.prototype.setActorId = function (actorId) {
+Result.prototype.setActorId = function(actorId) {
   this.actorId = actorId;
 };
 
-Result.prototype.setAssignableId = function (assignableId) {
+Result.prototype.setAssignableId = function(assignableId) {
   this.assignableId = assignableId;
 };
 
-Result.prototype.setNormalScore = function (normalScore) {
+Result.prototype.setNormalScore = function(normalScore) {
   this.normalScore = normalScore;
 };
 
-Result.prototype.setPenaltyScore = function (penaltyScore) {
+Result.prototype.setPenaltyScore = function(penaltyScore) {
   this.penaltyScore = penaltyScore;
 };
 
-Result.prototype.setExtraCreditScore = function (extraCreditScore) {
+Result.prototype.setExtraCreditScore = function(extraCreditScore) {
   this.extraCreditScore = extraCreditScore;
 };
 

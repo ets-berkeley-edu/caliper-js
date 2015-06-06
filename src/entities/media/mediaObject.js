@@ -30,27 +30,15 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function MediaObject(id) {
-
     DigitalResource.call(this);
-
     this.setId(id);
     this.setType(DigitalResourceType.MEDIA_OBJECT);
-
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setObjectType([]);
-    this.setAlignedLearningObjective([]);
-    this.setKeywords([]);
-    this.setIsPartOf(null);
-    this.setDatePublished(null);
-    this.setVersion(null);
-
+    this.setDuration(null);
 }
 
 MediaObject.prototype = _.create(DigitalResource.prototype);
 
-MediaObject.prototype.setDuration = function (duration) {
+MediaObject.prototype.setDuration = function(duration) {
   this.duration = duration;
 };
 

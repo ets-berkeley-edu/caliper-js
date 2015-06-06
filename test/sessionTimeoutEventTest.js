@@ -49,8 +49,8 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     t.plan(1);
 
     // The actor
-    var actor = new SoftwareApplication("https://github.com/readium/readium-js-viewer");
-    actor.setName("Readium");
+    var actor = new SoftwareApplication("https://example.com/viewer");
+    actor.setName("ePub");
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -58,12 +58,12 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     var action = SessionActions.TIMED_OUT;
 
     // The session actor
-    var sessionActor = new Person("https://some-university.edu/user/554433");
+    var sessionActor = new Person("https://example.edu/user/554433");
     sessionActor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     sessionActor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The target session
-    var eventObj = new Session("https://github.com/readium/session-123456789");
+    var eventObj = new Session("https://example.com/viewer/session-123456789");
     eventObj.setName("session-123456789");
     eventObj.setDescription(null);
     eventObj.setActor(sessionActor);
@@ -79,7 +79,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     var edApp = actor;
 
     // LIS Course Offering
-    var courseOffering = new CourseOffering("https://some-university.edu/politicalScience/2015/american-revolution-101");
+    var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
     courseOffering.setName("Political Science 101: The American Revolution");
     courseOffering.setCourseNumber("POL101");
     courseOffering.setAcademicSession("Fall-2015");
@@ -88,7 +88,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Section
-    var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
+    var courseSection = new CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setAcademicSession("Fall-2015");
@@ -97,7 +97,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
-    var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+    var group = new Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
     group.setName("Discussion Group 001");
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());

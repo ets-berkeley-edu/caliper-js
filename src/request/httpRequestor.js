@@ -33,7 +33,7 @@ var options = {};
 /*
  * Check if self is properly initialized
  */
-var initialized = function () {
+var initialized = function() {
     return true; //TODO
 };
 
@@ -42,7 +42,7 @@ var initialized = function () {
  * @function initialize
  * @param options $options passed straight to the self
  */
-self.initialize = function (sensorOptions) {
+self.initialize = function(sensorOptions) {
     if (!_.isUndefined(sensorOptions)) {
         options = sensorOptions;
     }
@@ -54,7 +54,7 @@ self.initialize = function (sensorOptions) {
  * @param sensor
  * @param data
  */
-self.createEnvelope = function (sensor, data) {
+self.createEnvelope = function(sensor, data) {
     return requestor.createEnvelope(sensor, data);
 };
 
@@ -64,7 +64,7 @@ self.createEnvelope = function (sensor, data) {
  * @param data
  * @returns payload
  */
-self.getJsonPayload = function (sensor, data) {
+self.getJsonPayload = function(sensor, data) {
     return requestor.getJsonPayload(sensor, data);
 };
 
@@ -73,7 +73,7 @@ self.getJsonPayload = function (sensor, data) {
  * @param sensor
  * @param data
  */
-self.send = function (sensor, data) {
+self.send = function(sensor, data) {
     if (initialized()) {
         logger.log('debug', "Sending envelope " + JSON.stringify(data));
 

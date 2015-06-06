@@ -29,17 +29,15 @@ var AssignableDigitalResourceType = require('../assignable/assignableDigitalReso
  * @extends AssignableDigitalResource
  */
 function AssessmentItem(id) {
-
     AssignableDigitalResource.call(this);
-
     this.setId(id);
     this.setType(AssignableDigitalResourceType.ASSESSMENT_ITEM);
-
+    this.setIsTimeDependent(null);
 }
 
 AssessmentItem.prototype = _.create(AssignableDigitalResource.prototype);
 
-AssessmentItem.prototype.isTimeDependent = function (isTimeDependent) {
+AssessmentItem.prototype.setIsTimeDependent = function(isTimeDependent) {
     this.isTimeDependent = isTimeDependent;
 };
 

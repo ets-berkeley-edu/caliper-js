@@ -16,11 +16,15 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var Context = require('../context/context');
+var Type = require('./entityType');
+
 /**
  * Represents base Caliper Entity.  Analogous to a schema.org Thing
  * @constructor
+ * @property {string} @context URI
  * @property {string} @id URI
- * @property {string} @type Type
+ * @property {string} @type URI
  * @property {string} name Name
  * @property {string} description Description
  * @property {Object[]} properties Array of Extensions
@@ -28,10 +32,20 @@
  * @property {string} dateModified String Representation of Date
  */
 function Entity() {
-  // Constructor
+    this.setContext(Context.CONTEXT);
+    this.setType(Type.ENTITY);
+    this.setName(null);
+    this.setDescription(null);
+    this.setExtensions({});
+    this.setDateCreated(null);
+    this.setDateModified(null);
 }
 
 // Setters for base properties of all Caliper Entities
+Entity.prototype.setContext = function (context) {
+    this['@context'] = context;
+};
+
 Entity.prototype.setId = function (id) {
     this['@id'] = id;
 };

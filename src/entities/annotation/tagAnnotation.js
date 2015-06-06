@@ -29,17 +29,15 @@ var AnnotationType = require('./annotationType');
  * @extends Annotation
  */
 function TagAnnotation(id) {
-
     Annotation.call(this);
-
     this.setId(id);
     this.setType(AnnotationType.TAG_ANNOTATION);
-
+    this.setTags(null);
 }
 
 TagAnnotation.prototype = _.create(Annotation.prototype);
 
-TagAnnotation.prototype.setTags = function (tags) {
+TagAnnotation.prototype.setTags = function(tags) {
   this.tags = tags;
 };
 
