@@ -59,7 +59,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // Federated Session
-    var session = new Session("https://example.edu/federatedSession/123456789");
+    var session = new Session("https://example.edu/lms/federatedSession/123456789");
     session.setActor(actor);
     session.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     session.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
