@@ -22,64 +22,104 @@
         });
 
         // The Actor for the Caliper Event
-        var actor = new Caliper.Person("https://some-university.edu/user/554433");
-        actor.setDateModified(1402965614516);
+        var actor = new Caliper.Person("https://example.edu/user/554433");
+        actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+        actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // The Action for the Caliper Event
         var action = Caliper.ReadingActions.NAVIGATED_TO;
 
         // The Object being interacted with by the Actor
-        var eventObj = new Caliper.EPubVolume("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3)");
+        var eventObj = new Caliper.EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
         eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-        eventObj.setDateModified(1402965614516);
+        eventObj.setVersion("2nd ed.");
+        eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+        eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // The target object (frame) within the Event Object
-        var target = new Caliper.Frame("https://github.com/readium/readium-js-viewer/book/34843#epubcfi(/4/3/1)");
+        var target = new Caliper.Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
         target.setName("Key Figures: George Washington");
-        target.setDateModified(1402965614516);
+        target.setIsPartOf(eventObj)
+        target.setVersion(eventObj.version);
         target.setIndex(1);
-        target.setIsPartOf(eventObj);
-
-        // The edApp that is part of the Learning Context
-        var edApp = new Caliper.SoftwareApplication("https://github.com/readium/readium-js-viewer");
-        edApp.setName("Readium");
-        edApp.setDateModified(1402965614516);
-
-        // The LIS Course Section for the Caliper Event
-        var group = new Caliper.CourseSection("https://some-university.edu/politicalScience/2014/american-revolution-101");
-        group.setName("American Revolution 101");
-        group.setDateModified(1402965614516);
-        group.setCourseNumber("AmRev-101");
-        group.setLabel("Am Rev 101");
-        group.setAcademicSession("Fall 2015");
+        target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+        target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // Specific to the Navigation Event - the location where the user navigated from
-        var navigatedFromObj = new Caliper.WebPage("AmRev-101-landingPage");
-        navigatedFromObj.setName("American Revolution 101 Landing Page");
-        navigatedFromObj.setIsPartOf(org);
-        navigatedFromObj.setDateModified(1402965614516);
+        var navigatedFrom = new Caliper.WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
+        navigatedFrom.setName("American Revolution 101 Landing Page");
+        navigatedFrom.setVersion("1.0");
+        navigatedFrom.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+        navigatedFrom.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-        // Create the Event
-        var navigationEvent = new Caliper.NavigationEvent();
-        navigationEvent.setActor(actor);
-        navigationEvent.setAction(action);
-        navigationEvent.setObject(eventObj);
-        navigationEvent.setTarget(target);
-        navigationEvent.setEdApp(edApp);
-        navigationEvent.setGroup(group);
-        navigationEvent.setStartedAtTime(1402965614516);
-        navigationEvent.setNavigatedFrom(navigatedFromObj);
-        console.log('created navigation event %O', navigationEvent);
+        // The edApp that is part of the Learning Context
+        var edApp = new Caliper.SoftwareApplication("https://example.com/viewer");
+        edApp.setName("ePub");
+        edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+        edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-        var currentTimeMillis = (new Date()).getTime();
+        // LIS Course Offering
+        var courseOffering = new Caliper.CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
+        courseOffering.setName("Political Science 101: The American Revolution");
+        courseOffering.setCourseNumber("POL101");
+        courseOffering.setAcademicSession("Fall-2015");
+        courseOffering.setSubOrganizationOf(null);
+        courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+        courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+
+        // LIS Course Section
+        var courseSection = new Caliper.CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
+        courseSection.setName("American Revolution 101");
+        courseSection.setCourseNumber("POL101");
+        courseSection.setAcademicSession("Fall-2015");
+        courseSection.setSubOrganizationOf(courseOffering);
+        courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+        courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+
+        // LIS Group
+        var group = new Caliper.Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+        group.setName("Discussion Group 001");
+        group.setSubOrganizationOf(courseSection);
+        group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+
+        // The Actor's Membership
+        var membership = new Caliper.Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
+        membership.setName("American Revolution 101");
+        membership.setDescription("Roster entry");
+        membership.setMember(actor['@id']);
+        membership.setOrganization(courseSection['@id']);
+        membership.setRoles([Caliper.Role.LEARNER]);
+        membership.setStatus(Caliper.Status.ACTIVE);
+        membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+
+        // Event
+        var event = new Caliper.Event();
+        event.setActor(actor);
+        event.setAction(action);
+        event.setObject(eventObj);
+        event.setTarget(target);
+        event.setNavigatedFrom(navigatedFrom);
+        event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+        event.setEdApp(edApp);
+        event.setGroup(group);
+        event.setMembership(membership);
+        event.setFederatedSession("https://example.edu/federatedSession/123456789");
+
+        console.log('created navigation event %O', event);
+
+        var currentTimeMillis = (new Date()).getTime().toISOString;
 
         // Send the Event
-        var eventEnvelope = {};
-        eventEnvelope['_id'] = 'caliper-js' + currentTimeMillis;
-        eventEnvelope.d = navigationEvent;
-        console.log('created event envelope %O', eventEnvelope);
+        var envelope = new Caliper.Envelope();
+        envelope.setSensor("https://example.edu/sensor/001");
+        envelope.setSendTime(currentTimeMillis);
+        envelope.setData(event);
 
-        sensor.send(eventEnvelope);
+        //envelope['_id'] = 'caliper-js' + currentTimeMillis;
+        //envelope.d = event;
+        console.log('created event envelope %O', envelope);
+
+        sensor.send(envelope);
 
     });
     </script>
