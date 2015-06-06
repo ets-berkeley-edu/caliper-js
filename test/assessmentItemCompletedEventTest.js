@@ -50,7 +50,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     t.plan(1);
 
     // The Actor for the Caliper Event
-    var actor = new Person("https://some-university.edu/user/554433");
+    var actor = new Person("https://example.edu/user/554433");
     actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
@@ -58,7 +58,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     var action = AssessmentItemActions.COMPLETED;
 
     // Parent assessment
-    var parent = new Assessment("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
+    var parent = new Assessment("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
     parent.setName("American Revolution - Key Figures Assessment");
     parent.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
     parent.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
@@ -73,7 +73,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     parent.setMaxScore(3.0);
 
     // The Object being interacted with by the Actor (AssessmentItem)
-    var eventObj = new AssessmentItem("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1");
+    var eventObj = new AssessmentItem("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001");
     eventObj.setName("Assessment Item 1");
     eventObj.setIsPartOf(parent);
     eventObj.setMaxAttempts(2);
@@ -87,30 +87,30 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     var target = null;
 
     // The attempt (property of the generated response)
-    var attempt = new Attempt("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1/attempt1");
-    attempt.setActor("https://some-university.edu/user/554433");
-    attempt.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
+    var attempt = new Attempt("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/attempt/789");
+    attempt.setActor("https://example.edu/user/554433");
+    attempt.setAssignable("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
     attempt.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     attempt.setCount(1);
     attempt.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     // The generated response
-    var generated = new FillinBlankResponse("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1/item1/response1");
-    generated.setAssignable("https://some-university.edu/politicalScience/2015/american-revolution-101/assessment1");
-    generated.setActor("https://some-university.edu/user/554433");
+    var generated = new FillinBlankResponse("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/response/001");
+    generated.setAssignable("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
+    generated.setActor("https://example.edu/user/554433");
     generated.setAttempt(attempt);
     generated.setValues(["2 July 1776"]);
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
     // The edApp that is part of the Learning Context
-    var edApp = new SoftwareApplication("https://com.sat/super-assessment-tool");
+    var edApp = new SoftwareApplication("https://example.com/super-assessment-tool");
     edApp.setName("Super Assessment Tool");
     edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     edApp.setDateModified(null);
 
     // LIS Course Offering
-    var courseOffering = new CourseOffering("https://some-university.edu/politicalScience/2015/american-revolution-101");
+    var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
     courseOffering.setName("Political Science 101: The American Revolution");
     courseOffering.setCourseNumber("POL101");
     courseOffering.setAcademicSession("Fall-2015");
@@ -119,7 +119,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Section
-    var courseSection = new CourseSection("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001");
+    var courseSection = new CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setAcademicSession("Fall-2015");
@@ -128,13 +128,13 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
-    var group = new Group("https://some-university.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+    var group = new Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
     group.setName("Discussion Group 001");
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
     // The Actor's Membership
-    var membership = new Membership("https://some-university.edu/politicalScience/2015/american-revolution-101/roster/554433");
+    var membership = new Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
     membership.setName("American Revolution 101");
     membership.setDescription("Roster entry");
     membership.setMember(actor['@id']);
