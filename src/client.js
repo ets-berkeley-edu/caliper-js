@@ -34,7 +34,8 @@ var options = {};
  */
 self.initialize = function(sensorOptions) {
     options = sensorOptions;
-    // logger.log('info', "Initializing Client with options " + JSON.stringify(options));
+    requestor.initialize(sensorOptions);
+    logger.log('info', "Initialized Client with options " + JSON.stringify(options));
 };
 
 /**
@@ -45,7 +46,7 @@ self.initialize = function(sensorOptions) {
  * @param entity
  */
 self.describe = function(sensor, entity) {
-    requestor(options).send(sensor, entity);
+    requestor.send(sensor, entity);
 };
 
 /**
@@ -56,7 +57,7 @@ self.describe = function(sensor, entity) {
  * @param event
  */
 self.send = function(sensor, event) {
-    requestor(options).send(sensor, entity);
+    requestor.send(sensor, event);
 };
 
 module.exports = {

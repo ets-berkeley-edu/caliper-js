@@ -46,7 +46,8 @@ self.initialize = function(sensorOptions) {
     if (!_.isUndefined(sensorOptions)) {
         options = sensorOptions;
     }
-    // logger.log('info', "Initializing httpRequestor with options " + JSON.stringify(options));
+    requestor.initialize(sensorOptions);
+    logger.log('info', "Initialized httpRequestor with options " + JSON.stringify(options));
 };
 
 /**

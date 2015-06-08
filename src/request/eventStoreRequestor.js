@@ -80,7 +80,7 @@ self.generateJsonPayload = function generateJsonPayload(payload) {
  * @returns payload
  */
 self.getJsonPayload = function(sensor, data) {
-    return generateJsonPayload(createEnvelope(sensor, data));
+    return self.generateJsonPayload(self.createEnvelope(sensor, data));
 };
 
 /**
