@@ -18,7 +18,7 @@
 
 var _ = require('lodash-node');
 var DigitalResource = require('../digitalResource');
-var MediaObjectType = require('./mediaObjectType');
+var DigitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents Media Location.  
@@ -32,7 +32,7 @@ var MediaObjectType = require('./mediaObjectType');
 function MediaLocation(id, type) {
     DigitalResource.call(this);
     this.setId(id);
-    this.setType(MediaObjectType.MEDIA_LOCATION);
+    this.setType(DigitalResourceType.MEDIA_LOCATION);
     this.setCurrentTime(null);
 }
 

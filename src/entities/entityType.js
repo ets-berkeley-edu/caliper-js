@@ -18,7 +18,6 @@
 
 var entityType = {
     "ACTIVITY_CONTEXT": "http://purl.imsglobal.org/caliper/v1/ActivityContext",
-    "AGENT": "http://purl.imsglobal.org/caliper/v1/Agent",
     "ANNOTATION": "http://purl.imsglobal.org/caliper/v1/Annotation",
     "ATTEMPT": "http://purl.imsglobal.org/caliper/v1/Attempt",
     "COURSE_OFFERING": "http://purl.imsglobal.org/caliper/v1/lis/CourseOffering",
