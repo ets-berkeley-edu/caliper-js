@@ -18,6 +18,7 @@
 
 var _ = require('lodash-node');
 var requestor = require('./request/httpRequestor');
+var logger = require('./logger');
 
 /**
  * Represents asynchronous self for the Caliper Sensor.

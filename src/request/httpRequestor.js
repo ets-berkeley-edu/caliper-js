@@ -47,7 +47,7 @@ self.initialize = function(sensorOptions) {
         options = sensorOptions;
     }
     requestor.initialize(sensorOptions);
-    logger.log('info', "Initialized httpRequestor with options " + JSON.stringify(options));
+    logger.log('debug', "Initialized httpRequestor with options " + JSON.stringify(options));
 };
 
 /**
@@ -76,25 +76,29 @@ self.getJsonPayload = function(sensor, data) {
  */
 self.send = function(sensor, data) {
     if (initialized()) {
-        logger.log('debug', "Sending envelope " + JSON.stringify(data));
+        logger.log('debug', "Sending data " + JSON.stringify(data));
 
         // Create the Envelope payload
         var jsonPayload = requestor.getJsonPayload(sensor, data);
 
+        logger.log('debug', "Added data to envelope " + JSON.stringify(jsonPayload));
+
         // Add Headers
         var headers = {
-            method: 'POST',
-            // 'method': 'POST',
             'Content-Type': 'application/json',
             'Content-Length': jsonPayload.length
         };
 
         // Merge headers
-        var sendOptions = _.merge(options, {headers: headers});
+        var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
+
+        logger.log('debug', 'httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
 
         // Create request
         var request = http.request(sendOptions, function (response) {
-            logger.log('debug', "finished sending. Response = " + JSON.stringify(response));
+            logger.log('info', "finished sending. Response = " + JSON.stringify(response));
+        }, function(error){
+            logger.log('error', "ERROR sending event = " + ERROR);
         });
 
         // Write request
