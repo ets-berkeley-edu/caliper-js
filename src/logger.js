@@ -17,7 +17,7 @@
  */
  
 var logger = require('caterpillar').createLogger({
-  level: 7
+  level: 6
 });
 
 var output = logger
