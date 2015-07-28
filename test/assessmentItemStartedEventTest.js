@@ -149,5 +149,5 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
     console.log("Assessment Item Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperAssessmentItemStartedEvent', event, t);
+    jsonCompare('caliperEventAssessmentItemStarted', event, t);
 });

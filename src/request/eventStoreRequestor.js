@@ -20,6 +20,7 @@ var _ = require('lodash-node');
 var logger = require('../logger');
 var moment = require('moment');
 var Envelope = require('./envelope');
+var requestUtils = require('./requestUtils')
 
 /**
  * Represents eventStoreRequestor self.
@@ -70,7 +71,7 @@ self.createEnvelope = function(sensor, data) {
  * @param envelope
  */
 self.generateJsonPayload = function generateJsonPayload(payload) {
-    return JSON.stringify(payload);
+    return requestUtils.serialize(payload);
 }
 
 /**

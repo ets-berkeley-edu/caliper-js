@@ -142,5 +142,5 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
     console.log("Session Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperSessionLoginEvent', event, t);
+    jsonCompare('caliperEventSessionLoggedIn', event, t);
 });

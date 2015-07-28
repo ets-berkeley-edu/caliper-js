@@ -134,5 +134,5 @@ test('Create Navigation Event and validate attributes', function (t) {
     console.log("Navigation Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperNavigationEvent', event, t);
+    jsonCompare('caliperEventNavigationNavigatedTo', event, t);
 });
