@@ -20,6 +20,7 @@ var _ = require('lodash-node');
 var diff = require('deep-diff').diff;
 var jf = require('jsonfile')
 var util = require('util')
+var requestUtils = require('../src/request/requestUtils')
 
 /**
  * Utility function to compare JSON (represented by a object) to JSON fixture expectedJsonFile: filename
@@ -28,13 +29,17 @@ var util = require('util')
  * out JSON attributes, paths that should not be compared. Callback shouldreturn TRUE for any key + path
  * combination that should not be analyzed for differences.
  **/
-var jsonCompare = function (expectedJsonFile, JsonToCompare, t, filterCallback) {
+var jsonCompare = function(expectedJsonFile, JsonToCompare, t, filterCallback) {
 
   var differences;
 
+  var processedJsonToCompare = requestUtils.parseForNullsAndEmtpy(JsonToCompare);
+  // console.log("Processed JSON = " + JSON.stringify(processedJsonToCompare));
+  JsonToCompare = processedJsonToCompare;
+
   var FIXTURES_BASE_DIR = '../caliper-common-fixtures/src/test/resources/fixtures/';
   var file = FIXTURES_BASE_DIR + expectedJsonFile + '.json';
-  jf.readFile(file, function (err, expectedJson) {
+  jf.readFile(file, function(err, expectedJson) {
     // console.log("INFO: Loaded JSON from file: " + util.inspect(expectedJson));
     if (_.isNull(expectedJson)) {
       var errMsg = "ERROR: Unable to load specified JSON fixture: " + file;
@@ -58,11 +63,11 @@ var jsonCompare = function (expectedJsonFile, JsonToCompare, t, filterCallback) 
   })
 };
 
-var defaultDateCreatedStr = function(){
+var defaultDateCreatedStr = function() {
 
 };
 
-var defaultDateModifiedStr = function(){
+var defaultDateModifiedStr = function() {
 
 };
 
