@@ -139,7 +139,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     event.setObject(eventObj);
     event.setTarget(target);
     event.setNavigatedFrom(navigatedFrom);
-    event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     event.setEdApp(edApp);
     event.setGroup(group);
     event.setMembership(membership);
