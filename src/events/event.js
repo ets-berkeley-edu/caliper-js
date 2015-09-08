@@ -27,9 +27,7 @@ var Context = require('../context/context');
  * @property {string} action String representing the action
  * @property {Object} target Target
  * @property {Object} generated Generated
- * @property {string} startedAtTime String representing Date
- * @property {string} endedAtTime String representing Date
- * @property {string} duration duration The format is expected to be PnYnMnDTnHnMnS
+ * @property {string} eventTime String representing Date (ISO 8601 format)
  * @property {Object} group Group Object
  * @property {Object} edApp EdApp Object
  */
@@ -43,9 +41,7 @@ function Event() {
     this.setObject(null);
     this.setTarget(null);
     this.setGenerated(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
+    this.setEventTime(null);
     this.setEdApp(null);
     this.setGroup(null);
     this.setMembership(null);
@@ -81,16 +77,8 @@ Event.prototype.setGenerated = function(generated) {
     this.generated = generated;
 };
 
-Event.prototype.setStartedAtTime = function(startedAt) {
-    this.startedAtTime = startedAt;
-};
-
-Event.prototype.setEndedAtTime = function(endedAt) {
-    this.endedAtTime = endedAt;
-};
-
-Event.prototype.setDuration = function(duration) {
-    this.duration = duration;
+Event.prototype.setEventTime = function(eventTime) {
+    this.eventTime = eventTime;
 };
 
 Event.prototype.setEdApp = function(edApp) {

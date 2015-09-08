@@ -141,7 +141,7 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
     event.setObject(eventObj);
     event.setTarget(target);
     event.setGenerated(generated);
-    event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+    event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     event.setEdApp(edApp);
     event.setGroup(group);
     event.setMembership(membership);
