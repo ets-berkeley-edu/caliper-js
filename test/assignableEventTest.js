@@ -31,9 +31,7 @@ var AssignableActions = require('../src/actions/assignableActions');
 
 // Activity Context
 var Assessment = require('../src/entities/assessment/assessment');
-var AssessmentItem = require('../src/entities/assessment/assessmentItem');
 var Attempt = require('../src/entities/assignable/attempt');
-// var EPubVolume = require('../src/entities/reading/ePubVolume');
 
 // Learning Context
 var CourseOffering = require('../src/entities/lis/courseOffering');
@@ -76,11 +74,11 @@ test('Create Assignable Event and validate attributes', function (t) {
     var target = null;
 
     // The generated object (Attempt) within the Event Object
-    var generated = new Attempt("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/attempt/5678");
+    var generated = new Attempt(eventObj['@id'] + "/attempt/5678");
     generated.setName(null);
     generated.setDescription(null);
-    generated.setActor("https://example.edu/user/554433");
-    generated.setAssignable("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
+    generated.setActor(actor['@id']);
+    generated.setAssignable(eventObj['@id']);
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generated.setDateModified(null);
     generated.setCount(1);
@@ -104,7 +102,7 @@ test('Create Assignable Event and validate attributes', function (t) {
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Section
-    var courseSection = new CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
+    var courseSection = new CourseSection(courseOffering['@id'] + "/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setAcademicSession("Fall-2015");
@@ -113,13 +111,13 @@ test('Create Assignable Event and validate attributes', function (t) {
     courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
-    var group = new Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+    var group = new Group(courseSection['@id'] + "/group/001");
     group.setName("Discussion Group 001");
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
     // The Actor's Membership
-    var membership = new Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
+    var membership = new Membership(courseOffering['@id'] + "/roster/554433");
     membership.setName("American Revolution 101");
     membership.setDescription("Roster entry");
     membership.setMember(actor['@id']);
