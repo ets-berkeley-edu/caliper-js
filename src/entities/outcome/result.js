@@ -41,8 +41,8 @@ function Result(id) {
     Entity.call(this);
     this.setId(id);
     this.setType(EntityType.RESULT);
-    this.setActorId(null);
-    this.setAssignableId(null);
+    this.setActor(null);
+    this.setAssignable(null);
     this.setNormalScore(null);
     this.setPenaltyScore(null);
     this.setExtraCreditScore(null);
@@ -55,12 +55,12 @@ function Result(id) {
 
 Result.prototype = _.create(Entity.prototype);
 
-Result.prototype.setActorId = function(actorId) {
-  this.actorId = actorId;
+Result.prototype.setActor = function(actorId) {
+  this.actor = actorId;
 };
 
-Result.prototype.setAssignableId = function(assignableId) {
-  this.assignableId = assignableId;
+Result.prototype.setAssignable = function(assignableId) {
+  this.assignable = assignableId;
 };
 
 Result.prototype.setNormalScore = function(normalScore) {

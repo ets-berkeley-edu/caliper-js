@@ -33,7 +33,6 @@ var AssessmentItemActions = require('../src/actions/assessmentItemActions');
 var Assessment = require('../src/entities/assessment/assessment');
 var AssessmentItem = require('../src/entities/assessment/assessmentItem');
 var Attempt = require('../src/entities/assignable/attempt');
-// var EPubVolume = require('../src/entities/reading/ePubVolume');
 
 // Learning Context
 var CourseOffering = require('../src/entities/lis/courseOffering');
@@ -73,7 +72,7 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
     parent.setMaxScore(3.0);
 
     // The Object being interacted with by the Actor (AssessmentItem)
-    var eventObj = new AssessmentItem("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001");
+    var eventObj = new AssessmentItem(parent['@id'] + "/item/001");
     eventObj.setName("Assessment Item 1");
     eventObj.setIsPartOf(parent);
     eventObj.setMaxAttempts(2);
@@ -88,8 +87,8 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
 
     // The generated object (Attempt) within the Event Object
     var generated = new Attempt("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001/item/001/attempt/789");
-    generated.setActor("https://example.edu/user/554433");
-    generated.setAssignable("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
+    generated.setActor(actor['@id']);
+    generated.setAssignable(parent['@id']);
     generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
     generated.setCount(1);
     generated.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
@@ -110,7 +109,7 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
     courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Course Section
-    var courseSection = new CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
+    var courseSection = new CourseSection(courseOffering['@id'] + "/section/001");
     courseSection.setName("American Revolution 101");
     courseSection.setCourseNumber("POL101");
     courseSection.setAcademicSession("Fall-2015");
@@ -119,13 +118,13 @@ test('Create Assessment Item STARTED Event and validate attributes', function (t
     courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // LIS Group
-    var group = new Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+    var group = new Group(courseSection['@id'] + "/group/001");
     group.setName("Discussion Group 001");
     group.setSubOrganizationOf(courseSection);
     group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
     // The Actor's Membership
-    var membership = new Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
+    var membership = new Membership(courseOffering['@id'] + "/roster/554433");
     membership.setName("American Revolution 101");
     membership.setDescription("Roster entry");
     membership.setMember(actor['@id']);
