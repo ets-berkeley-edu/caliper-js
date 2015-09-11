@@ -32,7 +32,7 @@ var logger = require('./logger');
 var Caliper = window.Caliper || {};
 
 /**
- * Represents Caliper Sensor.  
+ * Represents Caliper Sensor.
  * @constructor
  */
 var Sensor = {};
@@ -99,7 +99,7 @@ Caliper.Actions.ReadingActions        = require('./actions/readingActions');
 Caliper.Actions.SessionActions        = require('./actions/sessionActions');
 
 // CONTEXT
-Caliper.Context.Context = require('./context/Context');
+Caliper.Context.Context = require('./context/context');
 
 // ENTITIES
 Caliper.Entities.Entity     = require('./entities/entity');
