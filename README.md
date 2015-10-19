@@ -1,8 +1,7 @@
-caliper-js
+IMS Global caliper-js
 ================
-NOTE: THESE MATERIALS ARE FOR IMS CONTRIBUTING MEMBERS ONLY. THEY MAY NOT BE RELEASED UNTIL APPROVED BY IMS GLOBAL.
 
-caliper-js is a Javascript client for [Caliper](http://www.imsglobal.org) that provides an implementation of the Caliper Sensor API.
+caliper-js is a Javascript client for [Caliper](http://www.imsglobal.org) that provides an implementation of the Caliper SensorAPI™.
 
 ## Documentation
 
@@ -36,16 +35,10 @@ Install and build the library using the steps above.
 Then, add the following to your Javascript script:
 
 ```
-<script src="dist/caliperSensor-0.1.0.js"></script>
+<script src="dist/caliperSensor-1.0.0.js"></script>
 ```
 
-Now, you're ready to initialize the Caliper sensor as follows:
-
-```
-TBD
-```
-
-©2014 IMS Global Learning Consortium, Inc. All Rights Reserved.
+©2015 IMS Global Learning Consortium, Inc. All Rights Reserved.
 Trademark Information- http://www.imsglobal.org/copyright.html
 
-For license information contact, info@imsglobal.org
+For license information contact, info@imsglobal.org and read the license file contained in the repository.
