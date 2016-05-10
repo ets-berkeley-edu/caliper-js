@@ -63,7 +63,7 @@ test('Create Media Event and validate attributes', function (t) {
   eventObj.setVersion("1.0");
   eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-  eventObj.setDuration(1420);
+  eventObj.setDuration("PT1H12M27S");
 
   var lo = new LearningObjective("https://example.edu/american-revolution-101/personalities/learn");
   lo.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
