@@ -29,6 +29,7 @@ var EntityType = require('./entityType');
  * @property {string} description Description
  * @property {Object[]} properties Array of Extensions
  * @property {string[]}  objectType Array of Object Type Strings
+ * @property {string}  mediaType valid Media Type string
  * @property {{string[]} } alignedLearningObjective Array of Learning Objectives
  * @property {{string[]} } keywords Array of KeyWord Strings
  * @property {Object} isPartOf Parent Object
@@ -37,21 +38,26 @@ var EntityType = require('./entityType');
  * @extends Entity
  */
 function DigitalResource(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.DIGITAL_RESOURCE);
-    this.setObjectType([]);
-    this.setAlignedLearningObjective([]);
-    this.setKeywords([]);
-    this.setIsPartOf(null);
-    this.setDatePublished(null);
-    this.setVersion(null);
+  Entity.call(this);
+  this.setId(id);
+  this.setType(EntityType.DIGITAL_RESOURCE);
+  this.setObjectType([]);
+  this.setMediaType(null);
+  this.setAlignedLearningObjective([]);
+  this.setKeywords([]);
+  this.setIsPartOf(null);
+  this.setDatePublished(null);
+  this.setVersion(null);
 }
 
 DigitalResource.prototype = _.create(Entity.prototype);
 
 DigitalResource.prototype.setObjectType = function (objectType) {
   this.objectType = objectType;
+};
+
+DigitalResource.prototype.setMediaType = function (mediaType) {
+  this.mediaType = mediaType;
 };
 
 DigitalResource.prototype.setAlignedLearningObjective = function (alignedLearningObjective) {
