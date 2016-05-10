@@ -57,7 +57,7 @@ DigitalResource.prototype.setObjectType = function (objectType) {
 };
 
 DigitalResource.prototype.setMediaType = function (mediaType) {
-  this.objectType = mediaType;
+  this.mediaType = mediaType;
 };
 
 DigitalResource.prototype.setAlignedLearningObjective = function (alignedLearningObjective) {
