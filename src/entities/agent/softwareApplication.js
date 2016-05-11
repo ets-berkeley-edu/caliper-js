@@ -26,13 +26,19 @@ var EntityType = require('../entityType');
  * @constructor
  * @param {string} id URI
  * @extends Organization
+ * @property {string} Version String representing the version of the SoftwareApplication
  */
 function SoftwareApplication(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.SOFTWARE_APPLICATION);
+  Entity.call(this);
+  this.setId(id);
+  this.setType(EntityType.SOFTWARE_APPLICATION);
+  this.setVersion(null);
 }
 
 SoftwareApplication.prototype = _.create(Entity.prototype);
+
+SoftwareApplication.prototype.setVersion = function (version) {
+    this.version = version;
+};
 
 module.exports = SoftwareApplication;
