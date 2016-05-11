@@ -30,7 +30,7 @@ Install and build the library using the steps above.
 Then, add the following to your Javascript script:
 
 ```
-<script src="dist/caliperSensor-1.0.0.js"></script>
+<script src="dist/caliperSensor-1.1.0.js"></script>
 ```
 
 ## Documentation
