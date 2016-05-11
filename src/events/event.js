@@ -23,6 +23,7 @@ var Context = require('../context/context');
  * @constructor
  * @property {string} context Context
  * @property {string} type Type
+ * @property {string} sourcedId Event identifier
  * @property {Object} actor Actor Object
  * @property {string} action String representing the action
  * @property {Object} target Target
@@ -34,67 +35,72 @@ var Context = require('../context/context');
 
 // constructor
 function Event() {
-    this.setContext(Context.CONTEXT);
-    this.setType(null);
-    this.setActor(null);
-    this.setAction(null);
-    this.setObject(null);
-    this.setTarget(null);
-    this.setGenerated(null);
-    this.setEventTime(null);
-    this.setEdApp(null);
-    this.setGroup(null);
-    this.setMembership(null);
-    this.setFederatedSession(null);
+  this.setContext(Context.CONTEXT);
+  this.setType(null);
+  this.setSourcedId(null);
+  this.setActor(null);
+  this.setAction(null);
+  this.setObject(null);
+  this.setTarget(null);
+  this.setGenerated(null);
+  this.setEventTime(null);
+  this.setEdApp(null);
+  this.setGroup(null);
+  this.setMembership(null);
+  this.setFederatedSession(null);
 }
 
 // Setters for Caliper Event properties
 Event.prototype.setContext = function(context) {
-    this['@context'] = context;
+  this['@context'] = context;
 };
 
 Event.prototype.setType = function(type) {
-    this['@type'] = type;
+  this['@type'] = type;
+};
+
+Event.prototype.setSourcedId = function(sourcedId) {
+  this.sourcedId = sourcedId;
 };
 
 Event.prototype.setActor = function(actor) {
-    this.actor = actor;
+  this.actor = actor;
 };
 
 Event.prototype.setAction = function(action) {
-    this.action = action;
+  this.action = action;
 };
 
 Event.prototype.setObject = function(object) {
-    this.object = object;
+  this.object = object;
 };
 
 Event.prototype.setTarget = function(target) {
-    this.target = target;
+  this.target = target;
 };
 
 Event.prototype.setGenerated = function(generated) {
-    this.generated = generated;
+  this.generated = generated;
 };
 
 Event.prototype.setEventTime = function(eventTime) {
-    this.eventTime = eventTime;
+  this.eventTime = eventTime;
 };
 
 Event.prototype.setEdApp = function(edApp) {
-    this.edApp = edApp;
+  this.edApp = edApp;
 };
 
 Event.prototype.setGroup = function(group) {
-    this.group = group;
+  this.group = group;
 };
 
 Event.prototype.setMembership = function(membership) {
-    this.membership = membership;
+  this.membership = membership;
 };
 
 Event.prototype.setFederatedSession = function(federatedSession) {
-    this.federatedSession = federatedSession;
+  this.federatedSession = federatedSession;
 };
 
 module.exports = Event;
