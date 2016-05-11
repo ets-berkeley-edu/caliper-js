@@ -29,8 +29,11 @@ var Context = require('../context/context');
  * @property {Object} target Target
  * @property {Object} generated Generated
  * @property {string} eventTime String representing Date (ISO 8601 format)
- * @property {Object} group Group Object
  * @property {Object} edApp EdApp Object
+ * @property {Object} group Group Object
+ * @property {Object} membership Membership Object
+ * @property {Object} federatedSession Session Object
+ * @property {Object} extensions Extensions Object
  */
 
 // constructor
@@ -41,13 +44,14 @@ function Event() {
   this.setActor(null);
   this.setAction(null);
   this.setObject(null);
+  this.setEventTime(null);
   this.setTarget(null);
   this.setGenerated(null);
-  this.setEventTime(null);
   this.setEdApp(null);
   this.setGroup(null);
   this.setMembership(null);
   this.setFederatedSession(null);
+  this.setExtensions(null);
 }
 
 // Setters for Caliper Event properties
@@ -75,16 +79,16 @@ Event.prototype.setObject = function(object) {
   this.object = object;
 };
 
+Event.prototype.setEventTime = function(eventTime) {
+  this.eventTime = eventTime;
+};
+
 Event.prototype.setTarget = function(target) {
   this.target = target;
 };
 
 Event.prototype.setGenerated = function(generated) {
   this.generated = generated;
-};
-
-Event.prototype.setEventTime = function(eventTime) {
-  this.eventTime = eventTime;
 };
 
 Event.prototype.setEdApp = function(edApp) {
@@ -101,6 +105,10 @@ Event.prototype.setMembership = function(membership) {
 
 Event.prototype.setFederatedSession = function(federatedSession) {
   this.federatedSession = federatedSession;
+};
+
+Event.prototype.setExtensions = function(extensions) {
+  this.extensions = extensions;
 };
 
 module.exports = Event;
