@@ -129,6 +129,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
 
     // Assert that key attributes are the same
     var event = new Event();
+    event.setSourcedId("15128c13-ca75-4952-8cce-72a513ec337d");
     event.setActor(actor);
     event.setAction(action);
     event.setObject(eventObj);
