@@ -3,7 +3,7 @@
 <head>
     <title>Caliper JS Sensor Test Page</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
-    <script src="dist/caliperSensor-1.0.0.js"></script>
+    <script src="dist/caliperSensor-1.1.0.js"></script>
 </head>
 
 <body>
@@ -22,22 +22,22 @@
         });
 
         // The Actor for the Caliper Event
-        var actor = new Caliper.Person("https://example.edu/user/554433");
+        var actor = new Caliper.Entities.Person("https://example.edu/user/554433");
         actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
         actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // The Action for the Caliper Event
-        var action = Caliper.NavigationActions.NAVIGATED_TO;
+        var action = Caliper.Actions.NavigationActions.NAVIGATED_TO;
 
         // The Object being interacted with by the Actor
-        var eventObj = new Caliper.EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
+        var eventObj = new Caliper.Entities.EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
         eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
         eventObj.setVersion("2nd ed.");
         eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
         eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // The target object (frame) within the Event Object
-        var target = new Caliper.Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
+        var target = new Caliper.Entities.Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
         target.setName("Key Figures: George Washington");
         target.setIsPartOf(eventObj)
         target.setVersion(eventObj.version);
@@ -46,20 +46,20 @@
         target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // Specific to the Navigation Event - the location where the user navigated from
-        var navigatedFrom = new Caliper.WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
+        var navigatedFrom = new Caliper.Entities.WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
         navigatedFrom.setName("American Revolution 101 Landing Page");
         navigatedFrom.setVersion("1.0");
         navigatedFrom.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
         navigatedFrom.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // The edApp that is part of the Learning Context
-        var edApp = new Caliper.SoftwareApplication("https://example.com/viewer");
+        var edApp = new Caliper.Entities.SoftwareApplication("https://example.com/viewer");
         edApp.setName("ePub");
         edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
         edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // LIS Course Offering
-        var courseOffering = new Caliper.CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
+        var courseOffering = new Caliper.Entities.CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
         courseOffering.setName("Political Science 101: The American Revolution");
         courseOffering.setCourseNumber("POL101");
         courseOffering.setAcademicSession("Fall-2015");
@@ -68,7 +68,7 @@
         courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // LIS Course Section
-        var courseSection = new Caliper.CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
+        var courseSection = new Caliper.Entities.CourseSection("https://example.edu/politicalScience/2015/american-revolution-101/section/001");
         courseSection.setName("American Revolution 101");
         courseSection.setCourseNumber("POL101");
         courseSection.setAcademicSession("Fall-2015");
@@ -77,13 +77,13 @@
         courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
         // LIS Group
-        var group = new Caliper.Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
+        var group = new Caliper.Entities.Group("https://example.edu/politicalScience/2015/american-revolution-101/section/001/group/001");
         group.setName("Discussion Group 001");
         group.setSubOrganizationOf(courseSection);
         group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
         // The Actor's Membership
-        var membership = new Caliper.Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
+        var membership = new Caliper.Entities.Membership("https://example.edu/politicalScience/2015/american-revolution-101/roster/554433");
         membership.setName("American Revolution 101");
         membership.setDescription("Roster entry");
         membership.setMember(actor['@id']);
@@ -93,13 +93,13 @@
         membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
         // Event
-        var event = new Caliper.Event();
+        var event = new Caliper.Events.NavigationEvent();
         event.setActor(actor);
         event.setAction(action);
         event.setObject(eventObj);
+        event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
         event.setTarget(target);
         event.setNavigatedFrom(navigatedFrom);
-        event.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
         event.setEdApp(edApp);
         event.setGroup(group);
         event.setMembership(membership);
@@ -110,7 +110,7 @@
         var currentTimeMillis = (new Date()).getTime().toISOString;
 
         // Send the Event
-        var envelope = new Caliper.Envelope();
+        var envelope = new Caliper.Request.Envelope();
         envelope.setSensor("https://example.edu/sensor/001");
         envelope.setSendTime(currentTimeMillis);
         envelope.setData(event);
