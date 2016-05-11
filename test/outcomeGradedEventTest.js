@@ -150,5 +150,5 @@ test('Create Outcome Event and validate attributes', function (t) {
   console.log("Outcome Event = " + util.inspect(event));
 
   // Assert that JSON produced is the same
-  jsonCompare('caliperAssessmentOutcomeEvent', event, t);
+  jsonCompare('caliperEventOutcomeGraded', event, t);
 });
