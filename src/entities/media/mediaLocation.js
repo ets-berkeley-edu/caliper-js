@@ -26,7 +26,7 @@ var DigitalResourceType = require('../digitalResourceType');
  * @constructor
  * @param {string} id URI
  * @property {string} type Type
- * @property {string} currentTime String representing current time
+ * @property {string} currentTime String representing the current time (ISO 8601 format)
  * @extends MediaObject
  */
 function MediaLocation(id) {

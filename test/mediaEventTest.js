@@ -75,7 +75,7 @@ test('Create Media Event and validate attributes', function (t) {
   target.setVersion("1.0");
   target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   target.setDateModified(null);
-  target.setCurrentTime(710);
+  target.setCurrentTime("PT30M54S");
 
   // The generated object within the Event Object
   var generated = null;
