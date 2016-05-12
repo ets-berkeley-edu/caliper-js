@@ -34,8 +34,4 @@ function NavigationEvent() {
 
 NavigationEvent.prototype = _.create(Event.prototype);
 
-NavigationEvent.prototype.setNavigatedFrom = function (navigatedFrom) {
-  this.navigatedFrom = navigatedFrom;
-};
-
 module.exports = NavigationEvent;
