@@ -20,7 +20,7 @@
  * Caliper Sensor
  * @class
  */
-var _ = require('lodash-node');
+var _ = require('lodash');
 var client = require('./client');
 var logger = require('./logger');
 

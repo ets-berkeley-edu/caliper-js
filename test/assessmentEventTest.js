@@ -17,7 +17,7 @@
  */
 
 var test = require('tape');
-var _ = require('lodash-node');
+var _ = require('lodash');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 

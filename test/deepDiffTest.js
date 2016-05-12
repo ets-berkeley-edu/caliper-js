@@ -17,7 +17,7 @@
  */
 
 var test = require('tape');
-var _ = require('lodash-node');
+var _ = require('lodash');
 var diff = require('deep-diff').diff;
 
 test('Validate JSON with different attribute order', function (t) {

@@ -16,7 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
+var _ = require('lodash');
 var DigitalResource = require('./../digitalResource');
 var DigitalResourceType = require('../digitalResourceType');
 
