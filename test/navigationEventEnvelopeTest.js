@@ -86,11 +86,11 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // Specific to the Navigation Event - the location where the user navigated from
-    var navigatedFrom = new WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
-    navigatedFrom.setName("American Revolution 101 Landing Page");
-    navigatedFrom.setVersion("1.0");
-    navigatedFrom.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    navigatedFrom.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+    var referrer = new WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
+    referrer.setName("American Revolution 101 Landing Page");
+    referrer.setVersion("1.0");
+    referrer.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+    referrer.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
     // The edApp that is part of the Learning Context
     var edApp = new SoftwareApplication("https://example.com/viewer");
@@ -138,7 +138,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     event.setAction(action);
     event.setObject(eventObj);
     event.setTarget(target);
-    event.setNavigatedFrom(navigatedFrom);
+    event.setReferrer(referrer);
     event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
     event.setEdApp(edApp);
     event.setGroup(group);

@@ -24,11 +24,13 @@ var Context = require('../context/context');
  * @property {string} context Context
  * @property {string} type Type
  * @property {string} sourcedId Event identifier
- * @property {Object} actor Actor Object
+ * @property {Object} actor Actor initiating the action
  * @property {string} action String representing the action
+ * @property {Object} object Object of the interaction
+ * @property {string} eventTime String representing Date (ISO 8601 format)
  * @property {Object} target Target
  * @property {Object} generated Generated
- * @property {string} eventTime String representing Date (ISO 8601 format)
+ * @property {Object} referrer Referrer
  * @property {Object} edApp EdApp Object
  * @property {Object} group Group Object
  * @property {Object} membership Membership Object
@@ -47,6 +49,7 @@ function Event() {
   this.setEventTime(null);
   this.setTarget(null);
   this.setGenerated(null);
+  this.setReferrer(null);
   this.setEdApp(null);
   this.setGroup(null);
   this.setMembership(null);
@@ -89,6 +92,10 @@ Event.prototype.setTarget = function(target) {
 
 Event.prototype.setGenerated = function(generated) {
   this.generated = generated;
+};
+
+Event.prototype.setReferrer = function(referrer) {
+  this.referrer = referrer;
 };
 
 Event.prototype.setEdApp = function(edApp) {
