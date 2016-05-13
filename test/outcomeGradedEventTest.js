@@ -53,6 +53,7 @@ test('Create Outcome Event and validate attributes', function (t) {
   edApp.setName("Super Assessment Tool");
   edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   edApp.setDateModified(null);
+  edApp.setVersion("v2");
 
   // The Actor for the Caliper Event
   var actor = new Person("https://example.edu/user/554433");
