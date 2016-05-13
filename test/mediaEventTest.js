@@ -85,6 +85,7 @@ test('Create Media Event and validate attributes', function (t) {
   edApp.setName("Super Media Tool");
   edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  edApp.setVersion("Version 2");
 
   // LIS Course Offering
   var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");

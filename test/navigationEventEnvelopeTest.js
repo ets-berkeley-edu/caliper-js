@@ -50,114 +50,115 @@ var Status = require('../src/entities/lis/status');
 
 test('Create Envelope containing a single Navigation Event and validate attributes', function (t) {
 
-    // Plan for N assertions
-    t.plan(1);
+  // Plan for N assertions
+  t.plan(1);
 
-    // The Actor for the Caliper Event
-    var actor = new Person("https://example.edu/user/554433");
-    actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The Actor for the Caliper Event
+  var actor = new Person("https://example.edu/user/554433");
+  actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // Federated Session
-    var session = new Session("https://example.edu/lms/federatedSession/123456789");
-    session.setActor(actor);
-    session.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    session.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    session.setEndedAtTime(null);
-    session.setDuration(null);
+  // Federated Session
+  var session = new Session("https://example.edu/lms/federatedSession/123456789");
+  session.setActor(actor);
+  session.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  session.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+  session.setEndedAtTime(null);
+  session.setDuration(null);
 
-    // The Action for the Caliper Event
-    var action = NavigationActions.NAVIGATED_TO;
+  // The Action for the Caliper Event
+  var action = NavigationActions.NAVIGATED_TO;
 
-    // The Object being interacted with by the Actor
-    var eventObj = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
-    eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-    eventObj.setVersion("2nd ed.");
-    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The Object being interacted with by the Actor
+  var eventObj = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
+  eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+  eventObj.setVersion("2nd ed.");
+  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The target object (frame) within the Event Object
-    var target = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
-    target.setName("Key Figures: George Washington");
-    target.setIsPartOf(eventObj)
-    target.setVersion(eventObj.version);
-    target.setIndex(1);
-    target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The target object (frame) within the Event Object
+  var target = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
+  target.setName("Key Figures: George Washington");
+  target.setIsPartOf(eventObj)
+  target.setVersion(eventObj.version);
+  target.setIndex(1);
+  target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // Specific to the Navigation Event - the location where the user navigated from
-    var referrer = new WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
-    referrer.setName("American Revolution 101 Landing Page");
-    referrer.setVersion("1.0");
-    referrer.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    referrer.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // Specific to the Navigation Event - the location where the user navigated from
+  var referrer = new WebPage("https://example.edu/politicalScience/2015/american-revolution-101/index.html");
+  referrer.setName("American Revolution 101 Landing Page");
+  referrer.setVersion("1.0");
+  referrer.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  referrer.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The edApp that is part of the Learning Context
-    var edApp = new SoftwareApplication("https://example.com/viewer");
-    edApp.setName("ePub");
-    edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The edApp that is part of the Learning Context
+  var edApp = new SoftwareApplication("https://example.com/viewer");
+  edApp.setName("ePub");
+  edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  edApp.setVersion("1.2.3");
 
-    // LIS Course Offering
-    var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
-    courseOffering.setName("Political Science 101: The American Revolution");
-    courseOffering.setCourseNumber("POL101");
-    courseOffering.setAcademicSession("Fall-2015");
-    courseOffering.setSubOrganizationOf(null);
-    courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // LIS Course Offering
+  var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
+  courseOffering.setName("Political Science 101: The American Revolution");
+  courseOffering.setCourseNumber("POL101");
+  courseOffering.setAcademicSession("Fall-2015");
+  courseOffering.setSubOrganizationOf(null);
+  courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // LIS Course Section
-    var courseSection = new CourseSection(courseOffering['@id'] + "/section/001");
-    courseSection.setName("American Revolution 101");
-    courseSection.setCourseNumber("POL101");
-    courseSection.setAcademicSession("Fall-2015");
-    courseSection.setSubOrganizationOf(courseOffering);
-    courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // LIS Course Section
+  var courseSection = new CourseSection(courseOffering['@id'] + "/section/001");
+  courseSection.setName("American Revolution 101");
+  courseSection.setCourseNumber("POL101");
+  courseSection.setAcademicSession("Fall-2015");
+  courseSection.setSubOrganizationOf(courseOffering);
+  courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // LIS Group
-    var group = new Group(courseSection['@id'] + "/group/001");
-    group.setName("Discussion Group 001");
-    group.setSubOrganizationOf(courseSection);
-    group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  // LIS Group
+  var group = new Group(courseSection['@id'] + "/group/001");
+  group.setName("Discussion Group 001");
+  group.setSubOrganizationOf(courseSection);
+  group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // The Actor's Membership
-    var membership = new Membership(courseOffering['@id'] + "/roster/554433");
-    membership.setName("American Revolution 101");
-    membership.setDescription("Roster entry");
-    membership.setMember(actor['@id']);
-    membership.setOrganization(courseSection['@id']);
-    membership.setRoles([Role.LEARNER]);
-    membership.setStatus(Status.ACTIVE);
-    membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  // The Actor's Membership
+  var membership = new Membership(courseOffering['@id'] + "/roster/554433");
+  membership.setName("American Revolution 101");
+  membership.setDescription("Roster entry");
+  membership.setMember(actor['@id']);
+  membership.setOrganization(courseSection['@id']);
+  membership.setRoles([Role.LEARNER]);
+  membership.setStatus(Status.ACTIVE);
+  membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // Assert that key attributes are the same
-    var event = new Event();
-    event.setActor(actor);
-    event.setAction(action);
-    event.setObject(eventObj);
-    event.setTarget(target);
-    event.setReferrer(referrer);
-    event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    event.setEdApp(edApp);
-    event.setGroup(group);
-    event.setMembership(membership);
-    event.setFederatedSession(session['@id']);
+  // Assert that key attributes are the same
+  var event = new Event();
+  event.setActor(actor);
+  event.setAction(action);
+  event.setObject(eventObj);
+  event.setTarget(target);
+  event.setReferrer(referrer);
+  event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+  event.setEdApp(edApp);
+  event.setGroup(group);
+  event.setMembership(membership);
+  event.setFederatedSession(session['@id']);
 
-    // Initialize faux sensor and default options
-    var sensor = createFauxSensor("https://example.edu/sensor/001");
-    var options = {};
+  // Initialize faux sensor and default options
+  var sensor = createFauxSensor("https://example.edu/sensor/001");
+  var options = {};
 
-    // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
-    requestor.initialize(options);
-    var payload = requestor.createEnvelope(sensor, event);
-    payload.setSendTime((new Date("2015-09-15T11:05:01.000Z")).toISOString());
+  // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
+  requestor.initialize(options);
+  var payload = requestor.createEnvelope(sensor, event);
+  payload.setSendTime((new Date("2015-09-15T11:05:01.000Z")).toISOString());
 
-    console.log("Envelope payload = " + util.inspect(payload));
+  console.log("Envelope payload = " + util.inspect(payload));
 
-    // Assert that JSON produced is the same
-    jsonCompare('caliperEnvelopeEventSingle', payload, t);
+  // Assert that JSON produced is the same
+  jsonCompare('caliperEnvelopeEventSingle', payload, t);
 });
 
 /**

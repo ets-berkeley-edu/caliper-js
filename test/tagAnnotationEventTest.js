@@ -46,93 +46,94 @@ var Status = require('../src/entities/lis/status');
 
 test('Create TagAnnotation Event and validate attributes', function (t) {
 
-    // Plan for N assertions
-    t.plan(1);
+  // Plan for N assertions
+  t.plan(1);
 
-    // The Actor for the Caliper Event
-    var actor = new Person("https://example.edu/user/554433");
-    actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The Actor for the Caliper Event
+  var actor = new Person("https://example.edu/user/554433");
+  actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The Action for the Caliper Event
-    var action = AnnotationActions.TAGGED;
+  // The Action for the Caliper Event
+  var action = AnnotationActions.TAGGED;
 
-    // The DigitalResource parent
-    var ePub = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
-    ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-    ePub.setVersion("2nd ed.");
-    ePub.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The DigitalResource parent
+  var ePub = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
+  ePub.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+  ePub.setVersion("2nd ed.");
+  ePub.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  ePub.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The Object being interacted with by the Actor
-    var eventObj = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/4)");
-    eventObj.setName("The Stamp Act Crisis");
-    eventObj.setIsPartOf(ePub);
-    eventObj.setVersion(ePub.version);
-    eventObj.setIndex(4);
-    eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The Object being interacted with by the Actor
+  var eventObj = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/4)");
+  eventObj.setName("The Stamp Act Crisis");
+  eventObj.setIsPartOf(ePub);
+  eventObj.setVersion(ePub.version);
+  eventObj.setIndex(4);
+  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // The generated annotation
-    var generated = new TagAnnotation("https://example.edu/tags/7654");
-    generated.setAnnotated(eventObj['@id']);
-    generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-    generated.setTags(["to-read", "1765", "shared-with-project-team"]);
+  // The generated annotation
+  var generated = new TagAnnotation("https://example.edu/tags/7654");
+  generated.setAnnotated(eventObj['@id']);
+  generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  generated.setTags(["to-read", "1765", "shared-with-project-team"]);
 
-    // The edApp that is part of the Learning Context
-    var edApp = new SoftwareApplication("https://example.com/viewer");
-    edApp.setName("ePub");
-    edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // The edApp that is part of the Learning Context
+  var edApp = new SoftwareApplication("https://example.com/viewer");
+  edApp.setName("ePub");
+  edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  edApp.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  edApp.setVersion("1.2.3");
 
-    // LIS Course Offering
-    var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
-    courseOffering.setName("Political Science 101: The American Revolution");
-    courseOffering.setCourseNumber("POL101");
-    courseOffering.setAcademicSession("Fall-2015");
-    courseOffering.setSubOrganizationOf(null);
-    courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // LIS Course Offering
+  var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
+  courseOffering.setName("Political Science 101: The American Revolution");
+  courseOffering.setCourseNumber("POL101");
+  courseOffering.setAcademicSession("Fall-2015");
+  courseOffering.setSubOrganizationOf(null);
+  courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // LIS Course Section
-    var courseSection = new CourseSection(courseOffering['@id'] + "/section/001");
-    courseSection.setName("American Revolution 101");
-    courseSection.setCourseNumber("POL101");
-    courseSection.setAcademicSession("Fall-2015");
-    courseSection.setSubOrganizationOf(courseOffering);
-    courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-    courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  // LIS Course Section
+  var courseSection = new CourseSection(courseOffering['@id'] + "/section/001");
+  courseSection.setName("American Revolution 101");
+  courseSection.setCourseNumber("POL101");
+  courseSection.setAcademicSession("Fall-2015");
+  courseSection.setSubOrganizationOf(courseOffering);
+  courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
-    // LIS Group
-    var group = new Group(courseSection['@id'] + "/group/001");
-    group.setName("Discussion Group 001");
-    group.setSubOrganizationOf(courseSection);
-    group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  // LIS Group
+  var group = new Group(courseSection['@id'] + "/group/001");
+  group.setName("Discussion Group 001");
+  group.setSubOrganizationOf(courseSection);
+  group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // The Actor's Membership
-    var membership = new Membership(courseOffering['@id'] + "/roster/554433");
-    membership.setName("American Revolution 101");
-    membership.setDescription("Roster entry");
-    membership.setMember(actor['@id']);
-    membership.setOrganization(courseSection['@id']);
-    membership.setRoles([Role.LEARNER]);
-    membership.setStatus(Status.ACTIVE);
-    membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  // The Actor's Membership
+  var membership = new Membership(courseOffering['@id'] + "/roster/554433");
+  membership.setName("American Revolution 101");
+  membership.setDescription("Roster entry");
+  membership.setMember(actor['@id']);
+  membership.setOrganization(courseSection['@id']);
+  membership.setRoles([Role.LEARNER]);
+  membership.setStatus(Status.ACTIVE);
+  membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-    // Assert that key attributes are the same
-    var event = new Event();
-    event.setActor(actor);
-    event.setAction(action);
-    event.setObject(eventObj);
-    event.setGenerated(generated);
-    event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-    event.setEdApp(edApp);
-    event.setGroup(group);
-    event.setMembership(membership);
+  // Assert that key attributes are the same
+  var event = new Event();
+  event.setActor(actor);
+  event.setAction(action);
+  event.setObject(eventObj);
+  event.setGenerated(generated);
+  event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+  event.setEdApp(edApp);
+  event.setGroup(group);
+  event.setMembership(membership);
 
-    console.log("TAGGED_ANNOTATION Annotation Event = " + util.inspect(event));
+  console.log("TAGGED_ANNOTATION Annotation Event = " + util.inspect(event));
 
-    // Assert that JSON produced is the same
-    jsonCompare('caliperEventAnnotationTagged', event, t);
+  // Assert that JSON produced is the same
+  jsonCompare('caliperEventAnnotationTagged', event, t);
 });
