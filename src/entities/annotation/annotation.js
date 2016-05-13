@@ -25,20 +25,26 @@ var EntityType = require('../entityType');
  * Annotation's prototype set to Entity
  * @constructor
  * @param {string} id URI
- * @property {string} annotationId URI
+ * @property {string} annotated Annotated Object identifier
+ * @property {string} actor Actor identifier
  * @extends Entity
  */
 function Annotation(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.ANNOTATION);
-    this.setAnnotated(null);
+  Entity.call(this);
+  this.setId(id);
+  this.setType(EntityType.ANNOTATION);
+  this.setActor(null);
+  this.setAnnotated(null);
 }
 
 Annotation.prototype = _.create(Entity.prototype);
 
 Annotation.prototype.setAnnotated = function(annotated) {
   this.annotated = annotated;
+};
+
+Annotation.prototype.setActor = function(actor) {
+  this.actor = actor;
 };
 
 module.exports = Annotation;
