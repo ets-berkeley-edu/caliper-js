@@ -77,6 +77,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   // The generated annotation
   var generated = new SharedAnnotation("https://example.edu/shared/9999");
   generated.setAnnotated(eventObj['@id']);
+  generated.setActor(actor['@id']);
   generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
   var share1 = new Person("https://example.edu/user/657585");

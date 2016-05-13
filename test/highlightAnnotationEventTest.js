@@ -78,6 +78,7 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
   // The generated annotation
   var generated = new HighlightAnnotation("https://example.edu/highlights/12345");
   generated.setAnnotated(eventObj['@id']);
+  generated.setActor(actor['@id']);
   generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
   generated.setSelection({ "start": "455", "end": "489" });
