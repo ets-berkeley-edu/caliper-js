@@ -38,27 +38,21 @@ var Result = require('../src/entities/outcome/result');
 var CourseOffering = require('../src/entities/lis/courseOffering');
 var CourseSection = require('../src/entities/lis/courseSection');
 var Group = require('../src/entities/lis/group');
-var Membership = require ('../src/entities/lis/membership');
-var Role = require('../src/entities/lis/role');
 var SoftwareApplication = require('../src/entities/agent/softwareApplication');
-var Status = require('../src/entities/lis/status');
 
 test('Create Outcome Event and validate attributes', function (t) {
 
   // Plan for N assertions
   t.plan(1);
 
-  // The edApp scorer
-  var edApp = new SoftwareApplication("https://example.com/super-assessment-tool");
-  edApp.setName("Super Assessment Tool");
-  edApp.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  edApp.setDateModified(null);
-  edApp.setVersion("v2");
-
-  // The Actor for the Caliper Event
-  var actor = new Person("https://example.edu/user/554433");
+  // actor: edApp scorer
+  var actor = new SoftwareApplication("https://example.com/super-assessment-tool");
+  actor.setName("Super Assessment Tool");
   actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  actor.setVersion("v2");
+
+  // learner
+  var learner = new Person("https://example.edu/user/554433");
 
   // The Action for the Caliper Event
   var action = OutcomeActions.GRADED;
@@ -80,7 +74,7 @@ test('Create Outcome Event and validate attributes', function (t) {
 
   // The generated object (Attempt) within the Event Object
   var eventObj = new Attempt(assignable['@id'] + "/attempt/5678");
-  eventObj.setActor(actor['@id']);
+  eventObj.setActor(learner['@id']);
   eventObj.setAssignable(assignable['@id']);
   eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   eventObj.setCount(1);
@@ -90,7 +84,7 @@ test('Create Outcome Event and validate attributes', function (t) {
   var target = null;
 
   var generated = new Result(eventObj['@id'] + "/result");
-  generated.setActor(actor['@id']);
+  generated.setActor(learner['@id']);
   generated.setAssignable(assignable['@id']);
   generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   generated.setNormalScore(3.0);
@@ -100,7 +94,7 @@ test('Create Outcome Event and validate attributes', function (t) {
   generated.setCurvedTotalScore(3.0);
   generated.setCurveFactor(0.0);
   generated.setComment("Well done.");
-  generated.setScoredBy(edApp);
+  generated.setScoredBy(actor);
 
   // LIS Course Offering
   var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
@@ -126,27 +120,15 @@ test('Create Outcome Event and validate attributes', function (t) {
   group.setSubOrganizationOf(courseSection);
   group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
-  // The Actor's Membership
-  var membership = new Membership(courseOffering['@id'] + "/roster/554433");
-  membership.setName("American Revolution 101");
-  membership.setDescription("Roster entry");
-  membership.setMember(actor['@id']);
-  membership.setOrganization(courseSection['@id']);
-  membership.setRoles([Role.LEARNER]);
-  membership.setStatus(Status.ACTIVE);
-  membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-
   // Assert that key attributes are the same
   var event = new Event();
   event.setActor(actor);
   event.setAction(action);
   event.setObject(eventObj);
+  event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
   event.setTarget(target);
   event.setGenerated(generated);
-  event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-  event.setEdApp(edApp);
   event.setGroup(group);
-  event.setMembership(membership);
 
   console.log("Outcome Event = " + util.inspect(event));
 
