@@ -27,12 +27,11 @@ var Event = require('../src/events/viewEvent');
 var Person = require('../src/entities/agent/person');
 
 // Action
-var ReadingActions = require('../src/actions/readingActions');
+var ViewActions = require('../src/actions/viewActions');
 
 // Frame
 var EPubVolume = require('../src/entities/reading/ePubVolume');
 var Frame = require('../src/entities/reading/frame');
-var WebPage = require('../src/entities/reading/webPage');
 
 // Learning Context
 var CourseOffering = require('../src/entities/lis/courseOffering');
@@ -54,7 +53,7 @@ test('Create View Event and validate attributes', function (t) {
   actor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
   // The Action for the Caliper Event
-  var action = ReadingActions.VIEWED;
+  var action = ViewActions.VIEWED;
 
   // The Object being interacted with by the Actor
   var eventObj = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
