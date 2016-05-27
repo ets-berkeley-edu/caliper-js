@@ -18,11 +18,9 @@
 
 var _ = require('lodash');
 var http = require('https');
-// var Q = require('q');
 var logger = require('../logger');
 var moment = require('moment');
 var requestor = require('./eventStoreRequestor');
-var requestUtils = require('./requestUtils')
 
 /**
  * Represents httpRequestor self.
@@ -41,7 +39,7 @@ var initialized = function() {
 /**
  * Initializes the default self to use.
  * @function initialize
- * @param options $options passed straight to the self
+ * @param sensorOptions $options passed straight to the self
  */
 self.initialize = function(sensorOptions) {
     if (!_.isUndefined(sensorOptions)) {
@@ -99,7 +97,7 @@ self.send = function(sensor, data) {
         var request = http.request(sendOptions, function (response) {
             logger.log('info', "finished sending. Response = " + JSON.stringify(response));
         }, function(error){
-            logger.log('error', "ERROR sending event = " + ERROR);
+            logger.log('error', "ERROR sending event = " + error);
         });
 
         // Write request
