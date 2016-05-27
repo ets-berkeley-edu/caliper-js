@@ -29,10 +29,10 @@ var AnnotationType = require('./annotationType');
  * @extends Annotation
  */
 function SharedAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.SHARED_ANNOTATION);
-    this.setWithAgents(null);
+  Annotation.call(this);
+  this.setId(id);
+  this.setType(AnnotationType.SHARED_ANNOTATION);
+  this.setWithAgents(null);
 }
 
 SharedAnnotation.prototype = _.create(Annotation.prototype);

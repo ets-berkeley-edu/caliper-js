@@ -30,11 +30,11 @@ var AnnotationType = require('./annotationType');
  * @extends Annotation
  */
 function HighlightAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
-    this.setSelection(null);
-    this.setSelectionText(null);
+  Annotation.call(this);
+  this.setId(id);
+  this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
+  this.setSelection(null);
+  this.setSelectionText(null);
 }
 
 HighlightAnnotation.prototype = _.create(Annotation.prototype);
