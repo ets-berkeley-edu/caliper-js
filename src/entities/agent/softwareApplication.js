@@ -17,7 +17,7 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
+var Agent = require('./agent');
 var EntityType = require('../entityType');
 
 /**
@@ -25,17 +25,17 @@ var EntityType = require('../entityType');
  * SoftwareApplication's prototype set to Agent
  * @constructor
  * @param {string} id URI
- * @extends Organization
+ * @extends Agent
  * @property {string} Version String representing the version of the SoftwareApplication
  */
 function SoftwareApplication(id) {
-  Entity.call(this);
+  Agent.call(this);
   this.setId(id);
   this.setType(EntityType.SOFTWARE_APPLICATION);
   this.setVersion(null);
 }
 
-SoftwareApplication.prototype = _.create(Entity.prototype);
+SoftwareApplication.prototype = _.create(Agent.prototype);
 
 SoftwareApplication.prototype.setVersion = function (version) {
     this.version = version;

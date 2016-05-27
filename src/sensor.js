@@ -111,6 +111,7 @@ Caliper.Entities.DigitalResourceType = require('./entities/digitalResourceType')
 Caliper.Entities.LearningObjective   = require('./entities/learningObjective');
 
 // Agent entities
+Caliper.Entities.Agent               = require('./entities/agent/agent');
 Caliper.Entities.Organization        = require('./entities/agent/organization');
 Caliper.Entities.Person              = require('./entities/agent/person');
 Caliper.Entities.SoftwareApplication = require('./entities/agent/softwareApplication');

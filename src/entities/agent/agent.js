@@ -17,28 +17,22 @@
  */
 
 var _ = require('lodash');
-var Agent = require('./agent');
+var Entity = require('../entity');
 var EntityType = require('../entityType');
 
 /**
- * Represents an LTI W3C Organization.
- * Organization's prototype set to Entity.
+ * Represents Agent.
+ * Agent's prototype set to Entity
  * @constructor
  * @param {string} id URI
- * @property {Object} subOrganizationOf Parent Organization Object
- * @extends Agent
+ * @extends Entity
  */
-function Organization(id) {
-  Agent.call(this);
+function Agent(id) {
+  Entity.call(this);
   this.setId(id);
-  this.setType(EntityType.ORGANIZATION);
-  this.setSubOrganizationOf(null);
+  this.setType(EntityType.AGENT);
 }
 
-Organization.prototype = _.create(Agent.prototype);
+Agent.prototype = _.create(Entity.prototype);
 
-Organization.prototype.setSubOrganizationOf = function(subOrganizationOf) {
-  this.subOrganizationOf = subOrganizationOf;
-};
-
-module.exports = Organization;
+module.exports = Agent;
