@@ -39,7 +39,7 @@ var mediaActions = {
   "RESUMED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Resumed",
   "REWOUND": "http://purl.imsglobal.org/vocab/caliper/v1/action#Rewound",
   "STARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started",
-  "UNMUTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted",
+  "UNMUTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted"
 };
 
 module.exports = mediaActions;
