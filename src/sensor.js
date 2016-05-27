@@ -175,6 +175,7 @@ Caliper.Entities.Session = require('./entities/session/session');
 
 // EVENTS
 Caliper.Events.Event               = require('./events/event');
+Caliper.Events.EventFactory        = require('./events/eventFactory');
 Caliper.Events.EventType           = require('./events/eventType');
 Caliper.Events.AnnotationEvent     = require('./events/annotationEvent');
 Caliper.Events.AssessmentEvent     = require('./events/assessmentEvent');

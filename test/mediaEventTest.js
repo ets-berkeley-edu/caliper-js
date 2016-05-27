@@ -21,7 +21,9 @@ var _ = require('lodash');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 
-var Event = require('../src/events/mediaEvent');
+// Event
+var EventFactory = require('../src/events/eventFactory');
+var EventType = require('../src/events/eventType');
 
 // Actor
 var Person = require('../src/entities/agent/person');
@@ -122,7 +124,7 @@ test('Create Media Event and validate attributes', function (t) {
   membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
   // Assert that key attributes are the same
-  var event = new Event();
+  var event = new EventFactory().create(EventType.MEDIA);
   event.setActor(actor);
   event.setAction(action);
   event.setObject(eventObj);

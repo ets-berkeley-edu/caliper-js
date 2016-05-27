@@ -21,7 +21,9 @@ var _ = require('lodash');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 
-var Event = require('../src/events/sessionEvent');
+// Event
+var EventFactory = require('../src/events/eventFactory');
+var EventType = require('../src/events/eventType');
 
 // Actor
 var Person = require('../src/entities/agent/person');
@@ -130,7 +132,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
   // Assert that key attributes are the same
-  var event = new Event();
+  var event = new EventFactory().create(EventType.SESSION);
   event.setSourcedId("15128c13-ca75-4952-8cce-72a513ec337d");
   event.setActor(actor);
   event.setAction(action);

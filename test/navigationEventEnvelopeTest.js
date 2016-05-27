@@ -25,7 +25,8 @@ var jsonCompare = require('./testUtils');
 var requestor = require('../src/request/httpRequestor');
 
 // Event
-var Event = require('../src/events/navigationEvent');
+var EventFactory = require('../src/events/eventFactory');
+var EventType = require('../src/events/eventType');
 
 // Actor
 var Person = require('../src/entities/agent/person');
@@ -134,7 +135,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
   membership.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
 
   // Assert that key attributes are the same
-  var event = new Event();
+  var event = new EventFactory().create(EventType.NAVIGATION);
   event.setActor(actor);
   event.setAction(action);
   event.setObject(eventObj);
