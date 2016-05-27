@@ -25,8 +25,8 @@ var eventType = {
     "MEDIA": "http://purl.imsglobal.org/caliper/v1/MediaEvent",
     "NAVIGATION": "http://purl.imsglobal.org/caliper/v1/NavigationEvent",
     "OUTCOME": "http://purl.imsglobal.org/caliper/v1/OutcomeEvent",
-    "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent",
-    "SESSION": "http://purl.imsglobal.org/caliper/v1/SessionEvent"
+    "SESSION": "http://purl.imsglobal.org/caliper/v1/SessionEvent",
+    "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent"
 };
 
 module.exports = eventType;
