@@ -37,7 +37,7 @@ var annotationActions = {
   "REPLIED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Replied",
   "SHARED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Shared",
   "SUBSCRIBED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed",
-  "TAGGED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged",
+  "TAGGED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged"
 };
 
 module.exports = annotationActions;
