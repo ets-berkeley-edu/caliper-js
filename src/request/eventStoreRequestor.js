@@ -39,7 +39,7 @@ var initialized = function() {
 /**
  * Initializes the default self to use.
  * @function initialize
- * @param options $options passed straight to the self
+ * @param sensorOptions $options passed straight to the self
  */
 self.initialize = function(sensorOptions) {
     if (!_.isUndefined(sensorOptions)) {
@@ -68,7 +68,7 @@ self.createEnvelope = function(sensor, data) {
 
 /**
  * Generate JSON. Private method that is not exported.
- * @param envelope
+ * @param payload
  */
 self.generateJsonPayload = function generateJsonPayload(payload) {
     return requestUtils.serialize(payload);
