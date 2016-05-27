@@ -27,8 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function AssessmentEvent() {
-    Event.call(this);
-    this.setType(EventType.ASSESSMENT);
+  Event.call(this);
+  this.setType(EventType.ASSESSMENT);
 }
 
 AssessmentEvent.prototype = _.create(Event.prototype);

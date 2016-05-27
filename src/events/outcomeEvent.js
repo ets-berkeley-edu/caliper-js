@@ -27,8 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function OutcomeEvent() {
-    Event.call(this);
-    this.setType(EventType.OUTCOME);
+  Event.call(this);
+  this.setType(EventType.OUTCOME);
 }
 
 OutcomeEvent.prototype = _.create(Event.prototype);

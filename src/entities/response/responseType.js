@@ -17,11 +17,11 @@
  */
 
 var responseType = {
-    "FILLINBLANK": "http://purl.imsglobal.org/caliper/v1/FillinBlankResponse",
-    "MULTIPLECHOICE": "http://purl.imsglobal.org/caliper/v1/MultipleChoiceResponse",
-    "MULTIPLERESPONSE": "http://purl.imsglobal.org/caliper/v1/MultipleResponseResponse",
-    "SELECTTEXT": "http://purl.imsglobal.org/caliper/v1/SelectTextResponse",
-    "TRUEFALSE": "http://purl.imsglobal.org/caliper/v1/TrueFalseResponse"
+  "FILLINBLANK": "http://purl.imsglobal.org/caliper/v1/FillinBlankResponse",
+  "MULTIPLECHOICE": "http://purl.imsglobal.org/caliper/v1/MultipleChoiceResponse",
+  "MULTIPLERESPONSE": "http://purl.imsglobal.org/caliper/v1/MultipleResponseResponse",
+  "SELECTTEXT": "http://purl.imsglobal.org/caliper/v1/SelectTextResponse",
+  "TRUEFALSE": "http://purl.imsglobal.org/caliper/v1/TrueFalseResponse"
 };
 
 module.exports = responseType;

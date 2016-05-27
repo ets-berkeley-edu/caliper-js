@@ -27,8 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function ViewEvent() {
-    Event.call(this);
-    this.setType(EventType.VIEWED);
+  Event.call(this);
+  this.setType(EventType.VIEWED);
 }
 
 ViewEvent.prototype = _.create(Event.prototype);

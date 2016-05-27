@@ -31,31 +31,31 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Membership(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.MEMBERSHIP);
-    this.setMember(null);
-    this.setOrganization(null);
-    this.setRoles(null);
-    this.setStatus(null);
+  Entity.call(this);
+  this.setId(id);
+  this.setType(EntityType.MEMBERSHIP);
+  this.setMember(null);
+  this.setOrganization(null);
+  this.setRoles(null);
+  this.setStatus(null);
 }
 
 Membership.prototype = _.create(Entity.prototype);
 
 Membership.prototype.setMember = function(member) {
-    this.member = member;
+  this.member = member;
 };
 
 Membership.prototype.setOrganization = function(organization) {
-    this.organization = organization;
+  this.organization = organization;
 };
 
 Membership.prototype.setRoles = function(roles) {
-    this.roles = roles;
+  this.roles = roles;
 };
 
 Membership.prototype.setStatus = function(status) {
-    this.status = status;
+  this.status = status;
 };
 
 module.exports = Membership;

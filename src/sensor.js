@@ -52,10 +52,10 @@ Sensor.setId = function(id) {
  * @param options $options passed straight to the client
  */
 Sensor.initialize = function(id, options) {
-    this.setId(id);
-    if (!_.isUndefined(options)) {
-        client.initialize(options);
-    }
+  this.setId(id);
+  if (!_.isUndefined(options)) {
+      client.initialize(options);
+  }
 };
 
 /**
@@ -64,7 +64,7 @@ Sensor.initialize = function(id, options) {
  * @return boolean whether the describe call succeeded
  */
 Sensor.describe = function(entity) {
-    client.describe(this, entity);
+  client.describe(this, entity);
 };
 
 /**
@@ -73,7 +73,7 @@ Sensor.describe = function(entity) {
  * @return boolean whether the measure call succeeded
  */
 Sensor.send = function(event) {
-    client.send(this, event);
+  client.send(this, event);
 };
 
 /**

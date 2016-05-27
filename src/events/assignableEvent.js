@@ -27,8 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function AssignableEvent() {
-    Event.call(this);
-    this.setType(EventType.ASSIGNABLE);
+  Event.call(this);
+  this.setType(EventType.ASSIGNABLE);
 }
 
 AssignableEvent.prototype = _.create(Event.prototype);

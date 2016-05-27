@@ -29,16 +29,16 @@ var ResponseType = require('./responseType');
  * @extends Response
  */
 function TrueFalseResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.TRUEFALSE);
-    this.setValue(null);
+  Response.call(this);
+  this.setId(id);
+  this.setType(ResponseType.TRUEFALSE);
+  this.setValue(null);
 }
 
 TrueFalseResponse.prototype = _.create(Response.prototype);
 
 TrueFalseResponse.prototype.setValue = function(value) {
-    this.value = value;
+  this.value = value;
 };
 
 module.exports = TrueFalseResponse;

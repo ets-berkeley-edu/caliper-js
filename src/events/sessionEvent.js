@@ -27,8 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function SessionEvent() {
-    Event.call(this);
-    this.setType(EventType.SESSION);
+  Event.call(this);
+  this.setType(EventType.SESSION);
 }
 
 SessionEvent.prototype = _.create(Event.prototype);

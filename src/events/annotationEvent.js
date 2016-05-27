@@ -27,8 +27,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function AnnotationEvent() {
-    Event.call(this);
-    this.setType(EventType.ANNOTATION);
+  Event.call(this);
+  this.setType(EventType.ANNOTATION);
 }
 
 AnnotationEvent.prototype = _.create(Event.prototype);

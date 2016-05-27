@@ -37,16 +37,16 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function AssignableDigitalResource(id) {
-    DigitalResource.call(this);
-    this.setId(id);
-    this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
-    this.setDateToActivate(null);
-    this.setDateToShow(null);
-    this.setDateToStartOn(null);
-    this.setDateToSubmit(null);
-    this.setMaxAttempts(null);
-    this.setMaxSubmits(null);
-    this.setMaxScore(null);
+  DigitalResource.call(this);
+  this.setId(id);
+  this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
+  this.setDateToActivate(null);
+  this.setDateToShow(null);
+  this.setDateToStartOn(null);
+  this.setDateToSubmit(null);
+  this.setMaxAttempts(null);
+  this.setMaxSubmits(null);
+  this.setMaxScore(null);
 }
 
 AssignableDigitalResource.prototype = _.create(DigitalResource.prototype);

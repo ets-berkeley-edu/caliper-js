@@ -28,9 +28,9 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function EPubChapter(id) {
-    DigitalResource.call(this);
-    this.setId(id);
-    this.setType(DigitalResourceType.EPUB_CHAPTER);
+  DigitalResource.call(this);
+  this.setId(id);
+  this.setType(DigitalResourceType.EPUB_CHAPTER);
 }
 
 EPubChapter.prototype = _.create(DigitalResource.prototype);

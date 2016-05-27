@@ -17,9 +17,9 @@
  */
 
 var mediaObjectType = {
-    "AUDIO_OBJECT": "http://purl.imsglobal.org/caliper/v1/AudioObject",
-    "IMAGE_OBJECT": "http://purl.imsglobal.org/caliper/v1/ImageObject",
-    "VIDEO_OBJECT": "http://purl.imsglobal.org/caliper/v1/VideoObject"
+  "AUDIO_OBJECT": "http://purl.imsglobal.org/caliper/v1/AudioObject",
+  "IMAGE_OBJECT": "http://purl.imsglobal.org/caliper/v1/ImageObject",
+  "VIDEO_OBJECT": "http://purl.imsglobal.org/caliper/v1/VideoObject"
 };
 
 module.exports = mediaObjectType;

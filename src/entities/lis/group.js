@@ -28,9 +28,9 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Group(id) {
-    Organization.call(this);
-    this.setId(id);
-    this.setType(EntityType.GROUP);
+  Organization.call(this);
+  this.setId(id);
+  this.setType(EntityType.GROUP);
 }
 
 Group.prototype = _.create(Organization.prototype);

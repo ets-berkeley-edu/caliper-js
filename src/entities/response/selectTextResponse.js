@@ -29,16 +29,16 @@ var ResponseType = require('./responseType');
  * @extends Response
  */
 function SelectTextResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.SELECTTEXT);
-    this.setValues(null);
+  Response.call(this);
+  this.setId(id);
+  this.setType(ResponseType.SELECTTEXT);
+  this.setValues(null);
 }
 
 SelectTextResponse.prototype = _.create(Response.prototype);
 
 SelectTextResponse.prototype.setValues = function(values) {
-    this.values = values;
+  this.values = values;
 };
 
 module.exports = SelectTextResponse;

@@ -29,16 +29,16 @@ var ResponseType = require ('./responseType');
  * @extends Response
  */
 function FillinBlankResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.FILLINBLANK);
-    this.setValues(null);
+  Response.call(this);
+  this.setId(id);
+  this.setType(ResponseType.FILLINBLANK);
+  this.setValues(null);
 }
 
 FillinBlankResponse.prototype = _.create(Response.prototype);
 
 FillinBlankResponse.prototype.setValues = function(values) {
-    this.values = values;
+  this.values = values;
 };
 
 module.exports = FillinBlankResponse;

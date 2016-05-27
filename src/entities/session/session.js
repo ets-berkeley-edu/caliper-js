@@ -32,31 +32,31 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Session(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.SESSION);
-    this.setActor(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
+  Entity.call(this);
+  this.setId(id);
+  this.setType(EntityType.SESSION);
+  this.setActor(null);
+  this.setStartedAtTime(null);
+  this.setEndedAtTime(null);
+  this.setDuration(null);
 }
 
 Session.prototype = _.create(Entity.prototype);
 
 Session.prototype.setActor = function(actor) {
-    this.actor = actor;
+  this.actor = actor;
 };
 
 Session.prototype.setStartedAtTime = function(startedAt) {
-    this.startedAtTime = startedAt;
+  this.startedAtTime = startedAt;
 };
 
 Session.prototype.setEndedAtTime = function(endedAt) {
-    this.endedAtTime = endedAt;
+  this.endedAtTime = endedAt;
 };
 
 Session.prototype.setDuration = function(duration) {
-    this.duration = duration;
+  this.duration = duration;
 };
 
 module.exports = Session;

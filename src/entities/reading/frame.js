@@ -29,16 +29,16 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function Frame(id) {
-    DigitalResource.call(this);
-    this.setId(id);
-    this.setType(DigitalResourceType.FRAME);
-    this.setIndex(null);
+  DigitalResource.call(this);
+  this.setId(id);
+  this.setType(DigitalResourceType.FRAME);
+  this.setIndex(null);
 }
 
 Frame.prototype = _.create(DigitalResource.prototype);
 
 Frame.prototype.setIndex = function(index) {
-    this.index = index;
+  this.index = index;
 };
 
 module.exports = Frame;

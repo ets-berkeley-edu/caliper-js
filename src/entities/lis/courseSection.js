@@ -29,10 +29,10 @@ var EntityType = require('../entityType');
  * @extends Course
  */
 function CourseSection(id) {
-    CourseOffering.call(this);
-    this.setId(id);
-    this.setType(EntityType.COURSE_SECTION);
-    this.setCategory(null);
+  CourseOffering.call(this);
+  this.setId(id);
+  this.setType(EntityType.COURSE_SECTION);
+  this.setCategory(null);
 }
 
 CourseSection.prototype = _.create(CourseOffering.prototype);

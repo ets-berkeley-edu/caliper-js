@@ -28,8 +28,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function MediaEvent() {
-    Event.call(this);
-    this.setType(EventType.MEDIA);
+  Event.call(this);
+  this.setType(EventType.MEDIA);
 }
 
 MediaEvent.prototype = _.create(Event.prototype);

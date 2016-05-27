@@ -29,16 +29,16 @@ var ResponseType = require('./responseType');
  * @extends Response
  */
 function MultipleResponseResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.MULTIPLERESPONSE);
-    this.setValues(null);
+  Response.call(this);
+  this.setId(id);
+  this.setType(ResponseType.MULTIPLERESPONSE);
+  this.setValues(null);
 }
 
 MultipleResponseResponse.prototype = _.create(Response.prototype);
 
 MultipleResponseResponse.prototype.setValues = function(values) {
-    this.values = values;
+  this.values = values;
 };
 
 module.exports = MultipleResponseResponse;

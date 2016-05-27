@@ -28,8 +28,8 @@ var EventType = require('./eventType');
  * @extends Event
  */
 function NavigationEvent() {
-    Event.call(this);
-    this.setType(EventType.NAVIGATION);
+  Event.call(this);
+  this.setType(EventType.NAVIGATION);
 }
 
 NavigationEvent.prototype = _.create(Event.prototype);

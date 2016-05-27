@@ -30,10 +30,10 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends DigitalResource
  */
 function MediaObject(id) {
-    DigitalResource.call(this);
-    this.setId(id);
-    this.setType(DigitalResourceType.MEDIA_OBJECT);
-    this.setDuration(null);
+  DigitalResource.call(this);
+  this.setId(id);
+  this.setType(DigitalResourceType.MEDIA_OBJECT);
+  this.setDuration(null);
 }
 
 MediaObject.prototype = _.create(DigitalResource.prototype);

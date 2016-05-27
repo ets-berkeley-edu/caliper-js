@@ -28,9 +28,9 @@ var MediaObjectType = require('./mediaObjectType');
  * @extends MediaObject
  */
 function VideoObject(id) {
-    MediaObject.call(this);
-    this.setId(id);
-    this.setType(MediaObjectType.VIDEO_OBJECT);
+  MediaObject.call(this);
+  this.setId(id);
+  this.setType(MediaObjectType.VIDEO_OBJECT);
 }
 
 VideoObject.prototype = _.create(MediaObject.prototype);

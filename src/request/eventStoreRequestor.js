@@ -42,10 +42,10 @@ var initialized = function() {
  * @param sensorOptions $options passed straight to the self
  */
 self.initialize = function(sensorOptions) {
-    if (!_.isUndefined(sensorOptions)) {
-        options = sensorOptions;
-    }
-    // logger.log('info', "Initializing Requestor with options " + JSON.stringify(options));
+  if (!_.isUndefined(sensorOptions)) {
+      options = sensorOptions;
+  }
+  // logger.log('info', "Initializing Requestor with options " + JSON.stringify(options));
 };
 
 /**
@@ -54,16 +54,16 @@ self.initialize = function(sensorOptions) {
  * @param data
  */
 self.createEnvelope = function(sensor, data) {
-    var envelope = new Envelope();
-    envelope.sensor = sensor.id;
-    envelope.sendTime = moment().utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-    if (Array.isArray(data)) {
-        envelope.data = data;
-    } else {
-        envelope.data = [data];
-    }
+  var envelope = new Envelope();
+  envelope.sensor = sensor.id;
+  envelope.sendTime = moment().utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  if (Array.isArray(data)) {
+      envelope.data = data;
+  } else {
+      envelope.data = [data];
+  }
 
-    return envelope;
+  return envelope;
 };
 
 /**
@@ -71,7 +71,7 @@ self.createEnvelope = function(sensor, data) {
  * @param payload
  */
 self.generateJsonPayload = function generateJsonPayload(payload) {
-    return requestUtils.serialize(payload);
+  return requestUtils.serialize(payload);
 }
 
 /**
@@ -81,7 +81,7 @@ self.generateJsonPayload = function generateJsonPayload(payload) {
  * @returns payload
  */
 self.getJsonPayload = function(sensor, data) {
-    return self.generateJsonPayload(self.createEnvelope(sensor, data));
+  return self.generateJsonPayload(self.createEnvelope(sensor, data));
 };
 
 /**
@@ -90,12 +90,12 @@ self.getJsonPayload = function(sensor, data) {
  * @param data
  */
 self.send = function(sensor, data) {
-    throw new Error('Method `eventStoreRequestor::send()` must be implemented in a sub-module.');
+  throw new Error('Method `eventStoreRequestor::send()` must be implemented in a sub-module.');
 };
 
 module.exports = {
-    initialize: self.initialize,
-    createEnvelope: self.createEnvelope,
-    getJsonPayload: self.getJsonPayload,
-    send: self.send
+  initialize: self.initialize,
+  createEnvelope: self.createEnvelope,
+  getJsonPayload: self.getJsonPayload,
+  send: self.send
 };

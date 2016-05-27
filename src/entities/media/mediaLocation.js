@@ -30,16 +30,16 @@ var DigitalResourceType = require('../digitalResourceType');
  * @extends MediaObject
  */
 function MediaLocation(id) {
-    DigitalResource.call(this);
-    this.setId(id);
-    this.setType(DigitalResourceType.MEDIA_LOCATION);
-    this.setCurrentTime(null);
+  DigitalResource.call(this);
+  this.setId(id);
+  this.setType(DigitalResourceType.MEDIA_LOCATION);
+  this.setCurrentTime(null);
 }
 
 MediaLocation.prototype = _.create(DigitalResource.prototype);
 
 MediaLocation.prototype.setCurrentTime = function (currentTime) {
-    this.currentTime = currentTime;
+  this.currentTime = currentTime;
 };
 
 module.exports = MediaLocation;

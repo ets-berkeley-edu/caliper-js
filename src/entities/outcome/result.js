@@ -38,19 +38,19 @@ var EntityType = require('../entityType');
  * @extends Entity
  */
 function Result(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.RESULT);
-    this.setActor(null);
-    this.setAssignable(null);
-    this.setNormalScore(null);
-    this.setPenaltyScore(null);
-    this.setExtraCreditScore(null);
-    this.setTotalScore(null);
-    this.setCurvedTotalScore(null);
-    this.setCurveFactor(null);
-    this.setComment(null);
-    this.setScoredBy(null);
+  Entity.call(this);
+  this.setId(id);
+  this.setType(EntityType.RESULT);
+  this.setActor(null);
+  this.setAssignable(null);
+  this.setNormalScore(null);
+  this.setPenaltyScore(null);
+  this.setExtraCreditScore(null);
+  this.setTotalScore(null);
+  this.setCurvedTotalScore(null);
+  this.setCurveFactor(null);
+  this.setComment(null);
+  this.setScoredBy(null);
 }
 
 Result.prototype = _.create(Entity.prototype);
