@@ -32,8 +32,7 @@ var entityType = {
   "RESPONSE": "http://purl.imsglobal.org/caliper/v1/Response",
   "RESULT": "http://purl.imsglobal.org/caliper/v1/Result",
   "SESSION": "http://purl.imsglobal.org/caliper/v1/Session",
-  "SOFTWARE_APPLICATION": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication",
-  "VIEW": "http://purl.imsglobal.org/caliper/v1/View"
+  "SOFTWARE_APPLICATION": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication"
 };
 
 module.exports = entityType;
