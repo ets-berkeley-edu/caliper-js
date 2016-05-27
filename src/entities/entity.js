@@ -27,10 +27,11 @@ var Type = require('./entityType');
  * @property {string} @type URI
  * @property {string} name Name
  * @property {string} description Description
- * @property {Object[]} properties Array of Extensions
+ * @property {Object[]} extensions Array of custom extension properties
  * @property {string} dateCreated String Representation of Date
  * @property {string} dateModified String Representation of Date
  */
+
 function Entity() {
   // this.setContext(Context.CONTEXT);
   this.setType(Type.ENTITY);
@@ -68,41 +69,5 @@ Entity.prototype = {
     this.dateModified = dateModified;
   }
 };
-
-// Setters for base properties of all Caliper Entities
-
-/*
-Entity.prototype.setContext = function (context) {
-    this['@context'] = context;
-};
-
-Entity.prototype.setId = function (id) {
-    this['@id'] = id;
-};
-
-Entity.prototype.setType = function (type) {
-    this['@type'] = type;
-};
-
-Entity.prototype.setName = function (name) {
-    this.name = name;
-};
-
-Entity.prototype.setDescription = function (description) {
-    this.description = description;
-};
-
-Entity.prototype.setExtensions = function (extensions) {
-    this.extensions = extensions;
-};
-
-Entity.prototype.setDateCreated = function (dateCreated) {
-    this.dateCreated = dateCreated;
-};
-
-Entity.prototype.setDateModified = function (dateModified) {
-    this.dateModified = dateModified;
-};
-*/
 
 module.exports = Entity;
