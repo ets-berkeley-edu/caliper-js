@@ -32,16 +32,46 @@ var Type = require('./entityType');
  * @property {string} dateModified String Representation of Date
  */
 function Entity() {
-    // this.setContext(Context.CONTEXT);
-    this.setType(Type.ENTITY);
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
+  // this.setContext(Context.CONTEXT);
+  this.setType(Type.ENTITY);
+  this.setName(null);
+  this.setDescription(null);
+  this.setExtensions({});
+  this.setDateCreated(null);
+  this.setDateModified(null);
 }
 
 // Setters for base properties of all Caliper Entities
+Entity.prototype = {
+  setContext: function(context) {
+    this['@context'] = context;
+  },
+  setId: function(id) {
+    this['@id'] = id;
+  },
+  setType: function(type) {
+    this['@type'] = type;
+  },
+  setName: function(name) {
+    this.name = name;
+  },
+  setDescription: function(description) {
+    this.description = description;
+  },
+  setExtensions: function(extensions) {
+    this.extensions = extensions;
+  },
+  setDateCreated: function(dateCreated) {
+    this.dateCreated = dateCreated;
+  },
+  setDateModified: function(dateModified) {
+    this.dateModified = dateModified;
+  }
+};
+
+// Setters for base properties of all Caliper Entities
+
+/*
 Entity.prototype.setContext = function (context) {
     this['@context'] = context;
 };
@@ -73,5 +103,6 @@ Entity.prototype.setDateCreated = function (dateCreated) {
 Entity.prototype.setDateModified = function (dateModified) {
     this.dateModified = dateModified;
 };
+*/
 
 module.exports = Entity;
