@@ -25,20 +25,25 @@ var EntityType = require('../entityType');
  * CourseSection's prototype set to CourseOffering
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {string} category String representing a Category (lecture, lab, etc.)
  * @extends Course
  */
-function CourseSection(id) {
-  CourseOffering.call(this);
-  this.setId(id);
+function CourseSection(id, props) {
+  props = props || {};
+
+  CourseOffering.call(this, id, props);
   this.setType(EntityType.COURSE_SECTION);
-  this.setCategory(null);
+  if (props.hasOwnProperty("category")) {
+    this.setCategory(props.category);
+  }
 }
 
-CourseSection.prototype = _.create(CourseOffering.prototype);
-
-CourseSection.prototype.setCategory = function(category) {
-  this.category = category;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+CourseSection.prototype = _.create(CourseOffering.prototype, {
+  setCategory: function(category) {
+    this.category = category;
+  }
+});
 
 module.exports = CourseSection;

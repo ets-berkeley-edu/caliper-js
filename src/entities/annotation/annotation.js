@@ -25,26 +25,32 @@ var EntityType = require('../entityType');
  * Annotation's prototype set to Entity
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {string} annotated Annotated Object identifier
  * @property {string} actor Actor identifier
  * @extends Entity
  */
-function Annotation(id) {
-  Entity.call(this);
-  this.setId(id);
+function Annotation(id, props) {
+  props = props || {};
+
+  Entity.call(this, id, props);
   this.setType(EntityType.ANNOTATION);
-  this.setActor(null);
-  this.setAnnotated(null);
+  if (props.hasOwnProperty("actor")) {
+    this.setActor(props.actor);
+  }
+  if (props.hasOwnProperty("annotated")) {
+    this.setAnnotated(props.annotated);
+  }
 }
 
-Annotation.prototype = _.create(Entity.prototype);
-
-Annotation.prototype.setAnnotated = function(annotated) {
-  this.annotated = annotated;
-};
-
-Annotation.prototype.setActor = function(actor) {
-  this.actor = actor;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+Annotation.prototype = _.create(Entity.prototype, {
+  setAnnotated: function(annotated) {
+    this.annotated = annotated;
+  },
+  setActor: function(actor) {
+    this.actor = actor;
+  }
+});
 
 module.exports = Annotation;

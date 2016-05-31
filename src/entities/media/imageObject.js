@@ -25,14 +25,17 @@ var MediaObjectType = require('./mediaObjectType');
  * ImageObject's prototype set to MediaObject
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends MediaObject
  */
-function ImageObject(id) {
-  MediaObject.call(this);
-  this.setId(id);
+function ImageObject(id, props) {
+  props = props || {};
+  
+  MediaObject.call(this, id , props);
   this.setType(MediaObjectType.IMAGE_OBJECT);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 ImageObject.prototype = _.create(MediaObject.prototype);
 
 module.exports = ImageObject;

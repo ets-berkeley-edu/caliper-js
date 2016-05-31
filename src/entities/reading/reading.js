@@ -25,14 +25,51 @@ var DigitalResourceType = require('../digitalResourceType');
  * Reading's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends DigitalResource
  */
-function Reading(id) {
+function Reading(id, props) {
+  props = props || {};
+  
   DigitalResource.call(this);
   this.setId(id);
   this.setType(DigitalResourceType.READING);
+  if (props.hasOwnProperty("name")) {
+    this.setName(props.name);
+  }
+  if (props.hasOwnProperty("description")) {
+    this.setDescription(props.description);
+  }
+  if (props.hasOwnProperty("mediaType")) {
+    this.setMediaType(props.mediaType);
+  }
+  if (props.hasOwnProperty("keywords")) {
+    this.setKeywords(props.keywords);
+  }
+  if (props.hasOwnProperty("isPartOf")) {
+    this.setIsPartOf(props.isPartOf);
+  }
+  if (props.hasOwnProperty("alignedLearningObjective")) {
+    this.setAlignedLearningObjective(props.alignedLearningObjective);
+  }
+  if (props.hasOwnProperty("dateCreated")) {
+    this.setDateCreated(props.dateCreated);
+  }
+  if (props.hasOwnProperty("dateModified")) {
+    this.setDateModified(props.dateModified);
+  }
+  if (props.hasOwnProperty("datePublished")) {
+    this.setDatePublished(props.datePublished);
+  }
+  if (props.hasOwnProperty("version")) {
+    this.setVersion(props.version);
+  }
+  if (props.hasOwnProperty("extensions")) {
+    this.setExtensions(props.extensions);
+  }
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 Reading.prototype = _.create(DigitalResource.prototype);
 
 module.exports = Reading;

@@ -25,20 +25,25 @@ var DigitalResourceType = require('../digitalResourceType');
  * Frame's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {number} index Index
  * @extends DigitalResource
  */
-function Frame(id) {
-  DigitalResource.call(this);
-  this.setId(id);
+function Frame(id, props) {
+  props = props || {};
+
+  DigitalResource.call(this, id, props);
   this.setType(DigitalResourceType.FRAME);
-  this.setIndex(null);
+  if (props.hasOwnProperty("index")) {
+    this.setIndex(props.index);
+  }
 }
 
-Frame.prototype = _.create(DigitalResource.prototype);
-
-Frame.prototype.setIndex = function(index) {
-  this.index = index;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+Frame.prototype = _.create(DigitalResource.prototype, {
+  setIndex: function(index) {
+    this.index = index;
+  }
+});
 
 module.exports = Frame;

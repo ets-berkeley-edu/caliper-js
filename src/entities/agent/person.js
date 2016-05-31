@@ -25,11 +25,13 @@ var EntityType = require('../entityType');
  * Person's prototype set to Agent
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends Agent
  */
-function Person(id) {
-  Agent.call(this);
-  this.setId(id);
+function Person(id, props) {
+  props = props || {};
+  
+  Agent.call(this, id, props);
   this.setType(EntityType.PERSON);
 }
 

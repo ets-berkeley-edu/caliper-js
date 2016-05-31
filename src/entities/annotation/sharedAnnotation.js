@@ -25,20 +25,26 @@ var AnnotationType = require('./annotationType');
  * SharedAnnotation's prototype set to Annotation
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {Object[]} withAgents Array of Agents
  * @extends Annotation
  */
-function SharedAnnotation(id) {
-  Annotation.call(this);
-  this.setId(id);
+function SharedAnnotation(id, props) {
+  props = props || {};
+
+  Annotation.call(this, id, props);
   this.setType(AnnotationType.SHARED_ANNOTATION);
-  this.setWithAgents(null);
+  if (props.hasOwnProperty("withAgents")) {
+    this.setWithAgents(props.withAgents);
+  }
 }
 
-SharedAnnotation.prototype = _.create(Annotation.prototype);
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+SharedAnnotation.prototype = _.create(Annotation.prototype, {
+  setWithAgents: function(withAgents) {
+    this.withAgents = withAgents;
+  }
 
-SharedAnnotation.prototype.setWithAgents = function(withAgents) {
-  this.withAgents = withAgents;
-};
+});
 
 module.exports = SharedAnnotation;

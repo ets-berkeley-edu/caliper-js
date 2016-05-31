@@ -25,20 +25,25 @@ var ResponseType = require ('./responseType');
  * FillinBlankResponse's prototype set to Response
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {Object[]} values Array of response values
  * @extends Response
  */
-function FillinBlankResponse(id) {
-  Response.call(this);
-  this.setId(id);
+function FillinBlankResponse(id, props) {
+  props = props || {};
+
+  Response.call(this, id, props);
   this.setType(ResponseType.FILLINBLANK);
-  this.setValues(null);
+  if (props.hasOwnProperty("values")) {
+    this.setValues(props.values);
+  }
 }
 
-FillinBlankResponse.prototype = _.create(Response.prototype);
-
-FillinBlankResponse.prototype.setValues = function(values) {
-  this.values = values;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+FillinBlankResponse.prototype = _.create(Response.prototype, {
+  setValues: function(values) {
+    this.values = values;
+  }
+});
 
 module.exports = FillinBlankResponse;

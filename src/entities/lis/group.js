@@ -21,18 +21,21 @@ var Organization = require('../agent/organization');
 var EntityType = require('../entityType');
 
 /**
- * Represents Group.
- * Group's prototype set to Organization
+ * Represents a Group.
+ * Group's prototype is set to Organization.
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends Entity
  */
-function Group(id) {
-  Organization.call(this);
-  this.setId(id);
+function Group(id, props) {
+  props = props || {};
+
+  Organization.call(this, id, props);
   this.setType(EntityType.GROUP);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 Group.prototype = _.create(Organization.prototype);
 
 module.exports = Group;

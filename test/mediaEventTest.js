@@ -59,17 +59,17 @@ test('Create Media Event and validate attributes', function (t) {
   var action = MediaActions.PAUSED;
 
   // The Object being interacted with by the Actor
-  var eventObj = new VideoObject("https://example.com/super-media-tool/video/1225");
-  eventObj.setName("American Revolution - Key Figures Video");
-  eventObj.setMediaType("video/ogg");
-  eventObj.setVersion("1.0");
-  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-  eventObj.setDuration("PT1H12M27S");
+  var obj = new VideoObject("https://example.com/super-media-tool/video/1225");
+  obj.setName("American Revolution - Key Figures Video");
+  obj.setMediaType("video/ogg");
+  obj.setVersion("1.0");
+  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  obj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  obj.setDuration("PT1H12M27S");
 
   var lo = new LearningObjective("https://example.edu/american-revolution-101/personalities/learn");
   lo.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setAlignedLearningObjective([lo]);
+  obj.setAlignedLearningObjective([lo]);
 
   // The MediaLocation that is part of the MediaEvent
   var target = new MediaLocation("https://example.com/super-media-tool/video/1225");
@@ -127,7 +127,7 @@ test('Create Media Event and validate attributes', function (t) {
   var event = new EventFactory().create(EventType.MEDIA);
   event.setActor(actor);
   event.setAction(action);
-  event.setObject(eventObj);
+  event.setObject(obj);
   event.setTarget(target);
   event.setGenerated(generated);
   event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());

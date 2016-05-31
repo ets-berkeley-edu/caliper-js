@@ -21,20 +21,21 @@ var AssignableDigitalResource = require('../assignable/assignableDigitalResource
 var AssignableDigitalResourceType = require('../assignable/assignableDigitalResourceType');
 
 /**
- * Represents AssessmentItem.  
+ * Represents an Assessment.
  * AssessmentItem's prototype set to AssignableDigitalResource
  * @constructor
  * @param {string} id URI
- * @param {string} type Type
- * @property assessmentItems
+ * @param {Object} props Optional property settings
  * @extends AssignableDigitalResource
  */
-function Assessment(id, type) {
-  AssignableDigitalResource.call(this);
-  this.setId(id);
+function Assessment(id, props) {
+  props = props || {};
+
+  AssignableDigitalResource.call(this, id, props);
   this.setType(AssignableDigitalResourceType.ASSESSMENT);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 Assessment.prototype = _.create(AssignableDigitalResource.prototype);
 
 module.exports = Assessment;

@@ -25,15 +25,17 @@ var DigitalResourceType = require('../digitalResourceType');
  * WebPage's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
- * @param {string} type Type
+ * @param {Object} props Optional property settings
  * @extends DigitalResource
  */
-function WebPage(id) {
-  DigitalResource.call(this);
-  this.setId(id);
+function WebPage(id, props) {
+  props = props || {};
+  
+  DigitalResource.call(this, id, props);
   this.setType(DigitalResourceType.WEB_PAGE);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 WebPage.prototype = _.create(DigitalResource.prototype);
 
 module.exports = WebPage;

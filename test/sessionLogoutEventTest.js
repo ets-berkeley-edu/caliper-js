@@ -59,11 +59,11 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
   var action = SessionActions.LOGGED_OUT;
 
   // The Object being interacted with by the Actor
-  var eventObj = new SoftwareApplication("https://example.com/viewer");
-  eventObj.setName("ePub");
-  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-  eventObj.setVersion("1.2.3");
+  var obj = new SoftwareApplication("https://example.com/viewer");
+  obj.setName("ePub");
+  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  obj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  obj.setVersion("1.2.3");
 
   var ePubVolume = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
   ePubVolume.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
@@ -129,7 +129,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
   event.setSourcedId("15128c13-ca75-4952-8cce-72a513ec337d");
   event.setActor(actor);
   event.setAction(action);
-  event.setObject(eventObj);
+  event.setObject(obj);
   event.setTarget(target);
   event.setGenerated(generated);
   event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());

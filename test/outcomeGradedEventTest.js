@@ -75,17 +75,17 @@ test('Create Outcome Event and validate attributes', function (t) {
   assignable.setMaxScore(3.0);
 
   // The generated object (Attempt) within the Event Object
-  var eventObj = new Attempt(assignable['@id'] + "/attempt/5678");
-  eventObj.setActor(learner['@id']);
-  eventObj.setAssignable(assignable['@id']);
-  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setCount(1);
-  eventObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+  var obj = new Attempt(assignable['@id'] + "/attempt/5678");
+  obj.setActor(learner['@id']);
+  obj.setAssignable(assignable['@id']);
+  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  obj.setCount(1);
+  obj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
 
   // The target object (frame) within the Event Object
   var target = null;
 
-  var generated = new Result(eventObj['@id'] + "/result");
+  var generated = new Result(obj['@id'] + "/result");
   generated.setActor(learner['@id']);
   generated.setAssignable(assignable['@id']);
   generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
@@ -126,7 +126,7 @@ test('Create Outcome Event and validate attributes', function (t) {
   var event = new EventFactory().create(EventType.OUTCOME);
   event.setActor(actor);
   event.setAction(action);
-  event.setObject(eventObj);
+  event.setObject(obj);
   event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
   event.setTarget(target);
   event.setGenerated(generated);

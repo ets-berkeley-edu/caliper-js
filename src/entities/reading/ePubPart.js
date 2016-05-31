@@ -25,14 +25,17 @@ var DigitalResourceType = require('../digitalResourceType');
  * ePubPart's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends DigitalResource
  */
-function EPubPart(id) {
-  DigitalResource.call(this);
-  this.setId(id);
+function EPubPart(id, props) {
+  props = props || {};
+  
+  DigitalResource.call(this, id, props);
   this.setType(DigitalResourceType.EPUB_PART);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 EPubPart.prototype = _.create(DigitalResource.prototype);
 
 module.exports = EPubPart;

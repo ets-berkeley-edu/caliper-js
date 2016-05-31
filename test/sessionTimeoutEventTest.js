@@ -66,15 +66,15 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
   sessionActor.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
   // The target session
-  var eventObj = new Session("https://example.com/viewer/session-123456789");
-  eventObj.setName("session-123456789");
-  eventObj.setDescription(null);
-  eventObj.setActor(sessionActor);
-  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-  eventObj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-  eventObj.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
-  eventObj.setDuration("PT3000S");
+  var obj = new Session("https://example.com/viewer/session-123456789");
+  obj.setName("session-123456789");
+  obj.setDescription(null);
+  obj.setActor(sessionActor);
+  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  obj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  obj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+  obj.setEndedAtTime((new Date("2015-09-15T11:05:00Z")).toISOString());
+  obj.setDuration("PT3000S");
 
   var generated = null;
 
@@ -110,7 +110,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
   event.setSourcedId("15128c13-ca75-4952-8cce-72a513ec337d");
   event.setActor(actor);
   event.setAction(action);
-  event.setObject(eventObj);
+  event.setObject(obj);
   event.setGenerated(generated);
   event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
   event.setEdApp(edApp);

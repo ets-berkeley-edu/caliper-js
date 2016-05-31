@@ -25,14 +25,15 @@ var EntityType = require('./entityType');
  * LearningObjective's prototype set to Entity
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends Entity
  */
-function LearningObjective(id) {
-  Entity.call(this);
-  this.setId(id);
+function LearningObjective(id, props) {
+  Entity.call(this, id, props);
   this.setType(EntityType.LEARNING_OBJECTIVE);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 LearningObjective.prototype = _.create(Entity.prototype);
 
 module.exports = LearningObjective;

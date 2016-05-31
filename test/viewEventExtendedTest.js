@@ -58,17 +58,17 @@ test('Create View Event and validate attributes', function (t) {
   var action = ViewActions.VIEWED;
 
   // The Object being interacted with by the Actor
-  var eventObj = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
-  eventObj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
-  eventObj.setVersion("2nd ed.");
-  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  var obj = new EPubVolume("https://example.com/viewer/book/34843#epubcfi(/4/3)");
+  obj.setName("The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)");
+  obj.setVersion("2nd ed.");
+  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  obj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
   // The target object (frame) within the Event Object
   var target = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
   target.setName("Key Figures: George Washington");
-  target.setIsPartOf(eventObj)
-  target.setVersion(eventObj.version);
+  target.setIsPartOf(obj)
+  target.setVersion(obj.version);
   target.setIndex(1);
   target.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   target.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
@@ -129,7 +129,7 @@ test('Create View Event and validate attributes', function (t) {
   var event = new EventFactory().create(EventType.VIEWED);
   event.setActor(actor);
   event.setAction(action);
-  event.setObject(eventObj);
+  event.setObject(obj);
   event.setTarget(target);
   event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
   event.setEdApp(edApp);

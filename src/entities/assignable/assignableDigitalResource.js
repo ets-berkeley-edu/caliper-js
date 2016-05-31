@@ -25,8 +25,7 @@ var DigitalResourceType = require('../digitalResourceType');
  * AssignableDigitalResource's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
- * @param {string} type Type
- * @property {string} dateCreated String representation of Date
+ * @param {Object} props Optional property settings
  * @property {string} dateToActivate String representation of Date
  * @property {string} dateToShow String representation of Date
  * @property {string} dateToStartOn String representation of Date
@@ -36,51 +35,57 @@ var DigitalResourceType = require('../digitalResourceType');
  * @property {number} maxScore Maximum scores
  * @extends DigitalResource
  */
-function AssignableDigitalResource(id) {
-  DigitalResource.call(this);
-  this.setId(id);
+function AssignableDigitalResource(id, props) {
+  props = props || {};
+
+  DigitalResource.call(this, id, props);
   this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
-  this.setDateToActivate(null);
-  this.setDateToShow(null);
-  this.setDateToStartOn(null);
-  this.setDateToSubmit(null);
-  this.setMaxAttempts(null);
-  this.setMaxSubmits(null);
-  this.setMaxScore(null);
+  if (props.hasOwnProperty("dateToActivate")) {
+    this.setDateToActivate(props.dateToActivate);
+  }
+  if (props.hasOwnProperty("dateToShow")) {
+    this.setDateToShow(props.dateToShow);
+  }
+  if (props.hasOwnProperty("dateToStartOn")) {
+    this.setDateToStartOn(props.dateToStartOn);
+  }
+  if (props.hasOwnProperty("dateToSubmit")) {
+    this.setDateToSubmit(props.dateToSubmit);
+  }
+  if (props.hasOwnProperty("maxAttempts")) {
+    this.setMaxAttempts(props.maxAttempts);
+  }
+  if (props.hasOwnProperty("maxSubmits")) {
+    this.setMaxSubmits(props.maxSubmits);
+  }
+  if (props.hasOwnProperty("maxScore")) {
+    this.setMaxScore(props.maxScore);
+  }
 }
 
-AssignableDigitalResource.prototype = _.create(DigitalResource.prototype);
-
-AssignableDigitalResource.prototype.setDateCreated = function(dateCreated) {
-  this.dateCreated = dateCreated;
-};
-
-AssignableDigitalResource.prototype.setDateToActivate = function(dateToActivate) {
-  this.dateToActivate = dateToActivate;
-};
-
-AssignableDigitalResource.prototype.setDateToShow = function(dateToShow) {
-  this.dateToShow = dateToShow;
-};
-
-AssignableDigitalResource.prototype.setDateToStartOn = function(dateToStartOn) {
-  this.dateToStartOn = dateToStartOn;
-};
-
-AssignableDigitalResource.prototype.setDateToSubmit = function(dateToSubmit) {
-  this.dateToSubmit = dateToSubmit;
-};
-
-AssignableDigitalResource.prototype.setMaxAttempts = function(maxAttempts) {
-  this.maxAttempts = maxAttempts;
-};
-
-AssignableDigitalResource.prototype.setMaxSubmits = function(maxSubmits) {
-  this.maxSubmits = maxSubmits;
-};
-
-AssignableDigitalResource.prototype.setMaxScore = function(maxScore) {
-  this.maxScore = maxScore;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+AssignableDigitalResource.prototype = _.create(DigitalResource.prototype, {
+  setDateToActivate: function(dateToActivate) {
+    this.dateToActivate = dateToActivate;
+  },
+  setDateToShow: function(dateToShow) {
+    this.dateToShow = dateToShow;
+  },
+  setDateToStartOn: function(dateToStartOn) {
+    this.dateToStartOn = dateToStartOn;
+  },
+  setDateToSubmit: function(dateToSubmit) {
+    this.dateToSubmit = dateToSubmit;
+  },
+  setMaxAttempts: function(maxAttempts) {
+    this.maxAttempts = maxAttempts;
+  },
+  setMaxSubmits: function(maxSubmits) {
+    this.maxSubmits = maxSubmits;
+  },
+  setMaxScore: function(maxScore) {
+    this.maxScore = maxScore;
+  }
+});
 
 module.exports = AssignableDigitalResource;

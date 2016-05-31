@@ -25,21 +25,25 @@ var DigitalResourceType = require('../digitalResourceType');
  * MediaObject's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
- * @param {string} type Type
+ * @param {Object} props Optional property settings
  * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
  * @extends DigitalResource
  */
-function MediaObject(id) {
-  DigitalResource.call(this);
-  this.setId(id);
+function MediaObject(id, props) {
+  props = props || {};
+
+  DigitalResource.call(this, id, props);
   this.setType(DigitalResourceType.MEDIA_OBJECT);
-  this.setDuration(null);
+  if (props.hasOwnProperty("duration")) {
+    this.setDuration(props.duration);
+  }
 }
 
-MediaObject.prototype = _.create(DigitalResource.prototype);
-
-MediaObject.prototype.setDuration = function(duration) {
-  this.duration = duration;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+MediaObject.prototype = _.create(DigitalResource.prototype, {
+  setDuration: function(duration) {
+    this.duration = duration;
+  }
+});
 
 module.exports = MediaObject;

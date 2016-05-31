@@ -21,24 +21,28 @@ var AssignableDigitalResource = require('../assignable/assignableDigitalResource
 var AssignableDigitalResourceType = require('../assignable/assignableDigitalResourceType');
 
 /**
- * Represents AssessmentItem.  
+ * Represents an AssessmentItem.
  * AssessmentItem's prototype set to AssignableDigitalResource
  * @constructor
  * @param {String} id URI
  * @property {boolean} isTimeDependent boolean true/false
  * @extends AssignableDigitalResource
  */
-function AssessmentItem(id) {
-  AssignableDigitalResource.call(this);
-  this.setId(id);
+function AssessmentItem(id, props) {
+  props = props || {};
+
+  AssignableDigitalResource.call(this, id, props);
   this.setType(AssignableDigitalResourceType.ASSESSMENT_ITEM);
-  this.setIsTimeDependent(null);
+  if (props.hasOwnProperty("isTimeDependent")) {
+    this.setIsTimeDependent(props.isTimeDependent);
+  }
 }
 
-AssessmentItem.prototype = _.create(AssignableDigitalResource.prototype);
-
-AssessmentItem.prototype.setIsTimeDependent = function(isTimeDependent) {
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+AssessmentItem.prototype = _.create(AssignableDigitalResource.prototype, {
+  setIsTimeDependent: function(isTimeDependent) {
     this.isTimeDependent = isTimeDependent;
-};
+  }
+});
 
 module.exports = AssessmentItem;

@@ -25,20 +25,25 @@ var AnnotationType = require('./annotationType');
  * BookmarkAnnotation's prototype set to Annotation
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {string} bookmarkNotes
  * @extends Annotation
  */
-function BookmarkAnnotation(id) {
-  Annotation.call(this);
-  this.setId(id);
+function BookmarkAnnotation(id, props) {
+  props = props || {};
+
+  Annotation.call(this, id, props);
   this.setType(AnnotationType.BOOKMARK_ANNOTATION);
-  this.setBookmarkNotes(null);
+  if (props.hasOwnProperty("bookmarkNotes")) {
+    this.setBookmarkNotes(props.bookmarkNotes);
+  }
 }
 
-BookmarkAnnotation.prototype = _.create(Annotation.prototype);
-
-BookmarkAnnotation.prototype.setBookmarkNotes = function(bookmarkNotes) {
-  this.bookmarkNotes = bookmarkNotes;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+BookmarkAnnotation.prototype = _.create(Annotation.prototype, {
+  setBookmarkNotes: function(bookmarkNotes) {
+    this.bookmarkNotes = bookmarkNotes;
+  }
+});
 
 module.exports = BookmarkAnnotation;

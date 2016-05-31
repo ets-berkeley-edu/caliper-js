@@ -25,7 +25,7 @@ var EntityType = require('../entityType');
  * Result's prototype set to Entity
  * @constructor
  * @param {string} id URI
- * @param {string} type Type
+ * @param {Object} props Optional property settings
  * @property {string} assignableId URI of Assignable
  * @property {number} normalScore Normal Score
  * @property {number} penaltyScore  Penalty Score
@@ -37,62 +37,75 @@ var EntityType = require('../entityType');
  * @property {Object} scoredBy Agent Object
  * @extends Entity
  */
-function Result(id) {
-  Entity.call(this);
-  this.setId(id);
+function Result(id, props) {
+  props = props || {};
+
+  Entity.call(this,id, props);
   this.setType(EntityType.RESULT);
-  this.setActor(null);
-  this.setAssignable(null);
-  this.setNormalScore(null);
-  this.setPenaltyScore(null);
-  this.setExtraCreditScore(null);
-  this.setTotalScore(null);
-  this.setCurvedTotalScore(null);
-  this.setCurveFactor(null);
-  this.setComment(null);
-  this.setScoredBy(null);
+  if (props.hasOwnProperty("actor")) {
+    this.setActor(props.actor);
+  }
+  if (props.hasOwnProperty("assignable")) {
+    this.setAssignable(props.assignable);
+  }
+  if (props.hasOwnProperty("normalScore")) {
+    this.setNormalScore(props.normalScore);
+  }
+  if (props.hasOwnProperty("penaltyScore")) {
+    this.setPenaltyScore(props.penaltyScore);
+  }
+  if (props.hasOwnProperty("extraCreditScore")) {
+    this.setExtraCreditScore(props.extraCreditScore);
+  }
+  if (props.hasOwnProperty("totalScore")) {
+    this.setTotalScore(props.totalScore);
+  }
+  if (props.hasOwnProperty("curvedTotalScore")) {
+    this.setCurvedTotalScore(props.curvedTotalScore);
+  }
+  if (props.hasOwnProperty("curveFactor")) {
+    this.setCurveFactor(props.curveFactor);
+  }
+  if (props.hasOwnProperty("comment")) {
+    this.setComment(props.comment);
+  }
+  if (props.hasOwnProperty("scoredBy")) {
+    this.setScoredBy(props.scoredBy);
+  }
 }
 
-Result.prototype = _.create(Entity.prototype);
-
-Result.prototype.setActor = function(actorId) {
-  this.actor = actorId;
-};
-
-Result.prototype.setAssignable = function(assignableId) {
-  this.assignable = assignableId;
-};
-
-Result.prototype.setNormalScore = function(normalScore) {
-  this.normalScore = normalScore;
-};
-
-Result.prototype.setPenaltyScore = function(penaltyScore) {
-  this.penaltyScore = penaltyScore;
-};
-
-Result.prototype.setExtraCreditScore = function(extraCreditScore) {
-  this.extraCreditScore = extraCreditScore;
-};
-
-Result.prototype.setTotalScore = function (totalScore) {
-  this.totalScore = totalScore;
-};
-
-Result.prototype.setCurvedTotalScore = function (curvedTotalScore) {
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+Result.prototype = _.create(Entity.prototype, {
+  setActor: function(actorId) {
+    this.actor = actorId;
+  },
+  setAssignable: function(assignableId) {
+    this.assignable = assignableId;
+  },
+  setNormalScore: function(normalScore) {
+    this.normalScore = normalScore;
+  },
+  setPenaltyScore: function(penaltyScore) {
+    this.penaltyScore = penaltyScore;
+  },
+  setExtraCreditScore: function(extraCreditScore) {
+    this.extraCreditScore = extraCreditScore;
+  },
+  setTotalScore: function (totalScore) {
+    this.totalScore = totalScore;
+  },
+  setCurvedTotalScore: function (curvedTotalScore) {
   this.curvedTotalScore = curvedTotalScore;
-};
-
-Result.prototype.setCurveFactor = function (curveFactor) {
-  this.curveFactor = curveFactor;
-};
-
-Result.prototype.setComment = function (comment) {
-  this.comment = comment;
-};
-
-Result.prototype.setScoredBy = function (scoredBy) {
-  this.scoredBy = scoredBy;
-};
+  },
+  setCurveFactor: function (curveFactor) {
+    this.curveFactor = curveFactor;
+  },
+  setComment: function (comment) {
+    this.comment = comment;
+  },
+  setScoredBy: function (scoredBy) {
+    this.scoredBy = scoredBy;
+  }
+});
 
 module.exports = Result;

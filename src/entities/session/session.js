@@ -25,38 +25,46 @@ var EntityType = require('../entityType');
  * Session's prototype set to Entity
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {Object} actor
  * @property {string} startedAtTime String Representation of Date
  * @property {string} endedAtTime String Representatio of Date
  * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
  * @extends Entity
  */
-function Session(id) {
-  Entity.call(this);
-  this.setId(id);
+function Session(id, props) {
+  props = props || {};
+
+  Entity.call(this, id, props);
   this.setType(EntityType.SESSION);
-  this.setActor(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+  if (props.hasOwnProperty("actor")) {
+    this.setActor(props.actor);
+  }
+  if (props.hasOwnProperty("startedAtTime")) {
+    this.setStartedAtTime(props.startedAtTime);
+  }
+  if (props.hasOwnProperty("endedAtTime")) {
+    this.setEndedAtTime(props.endedAtTime);
+  }
+  if (props.hasOwnProperty("duration")) {
+    this.setDuration(duration);
+  }
 }
 
-Session.prototype = _.create(Entity.prototype);
-
-Session.prototype.setActor = function(actor) {
-  this.actor = actor;
-};
-
-Session.prototype.setStartedAtTime = function(startedAt) {
-  this.startedAtTime = startedAt;
-};
-
-Session.prototype.setEndedAtTime = function(endedAt) {
-  this.endedAtTime = endedAt;
-};
-
-Session.prototype.setDuration = function(duration) {
-  this.duration = duration;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+Session.prototype = _.create(Entity.prototype, {
+  setActor: function(actorId) {
+    this.actor = actorId;
+  },
+  setStartedAtTime: function(startedAt) {
+    this.startedAtTime = startedAt;
+  },
+  setEndedAtTime: function(endedAt) {
+    this.endedAtTime = endedAt;
+  },
+  setDuration: function(duration) {
+    this.duration = duration;
+  }
+});
 
 module.exports = Session;

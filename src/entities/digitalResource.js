@@ -21,57 +21,64 @@ var Entity = require('./entity');
 var EntityType = require('./entityType');
 
 /**
- * Represents Digital Resource.  Analogous to a schema.org CreativeWork
+ * Represents a Digital Resource.  Analogous to a schema.org CreativeWork
  * DigitalResource's prototype set to Entity
  * @constructor
  * @param {string} id URI
- * @property {string} name Name
- * @property {string} description Description
- * @property {Object[]} properties Array of Extensions
+ * @param {Object} props Optional property settings
  * @property {string}  mediaType valid Media Type string
- * @property {{string[]} } alignedLearningObjective Array of Learning Objectives
  * @property {{string[]} } keywords Array of KeyWord Strings
+ * @property {{string[]} } alignedLearningObjective Array of Learning Objectives
  * @property {Object} isPartOf Parent Object
  * @property {string} datePublished String representing a date
  * @property {string} Version String representing the version of the DigitalResource
  * @extends Entity
  */
-function DigitalResource(id) {
-  Entity.call(this);
-  this.setId(id);
+function DigitalResource(id, props) {
+  props = props || {};
+
+  Entity.call(this, id, props);
   this.setType(EntityType.DIGITAL_RESOURCE);
-  this.setMediaType(null);
-  this.setAlignedLearningObjective([]);
-  this.setKeywords([]);
-  this.setIsPartOf(null);
-  this.setDatePublished(null);
-  this.setVersion(null);
+  if (props.hasOwnProperty("mediaType")) {
+    this.setMediaType(props.mediaType);
+  }
+  if (props.hasOwnProperty("keywords")) {
+    this.setKeywords(props.keywords);
+  }
+  if (props.hasOwnProperty("isPartOf")) {
+    this.setIsPartOf(props.isPartOf);
+  }
+  if (props.hasOwnProperty("alignedLearningObjective")) {
+    this.setAlignedLearningObjective(props.alignedLearningObjective);
+  }
+  if (props.hasOwnProperty("datePublished")) {
+    this.setDatePublished(props.datePublished);
+  }
+  if (props.hasOwnProperty("version")) {
+    this.setVersion(props.version);
+  }
 }
 
-DigitalResource.prototype = _.create(Entity.prototype);
-
-DigitalResource.prototype.setMediaType = function (mediaType) {
-  this.mediaType = mediaType;
-};
-
-DigitalResource.prototype.setAlignedLearningObjective = function (alignedLearningObjective) {
-  this.alignedLearningObjective = alignedLearningObjective;
-};
-
-DigitalResource.prototype.setKeywords = function (keywords) {
-  this.keywords = keywords;
-};
-
-DigitalResource.prototype.setIsPartOf = function (isPartOf) {
-  this.isPartOf = isPartOf;
-};
-
-DigitalResource.prototype.setDatePublished = function (datePublished) {
-  this.datePublished = datePublished;
-};
-
-DigitalResource.prototype.setVersion = function (version) {
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+DigitalResource.prototype = _.create(Entity.prototype, {
+  setMediaType: function (mediaType) {
+    this.mediaType = mediaType;
+  },
+  setKeywords: function (keywords) {
+    this.keywords = keywords;
+  },
+  setIsPartOf: function (isPartOf) {
+    this.isPartOf = isPartOf;
+  },
+  setAlignedLearningObjective: function (alignedLearningObjective) {
+    this.alignedLearningObjective = alignedLearningObjective;
+  },
+  setDatePublished: function (datePublished) {
+    this.datePublished = datePublished;
+  },
+  setVersion: function (version) {
     this.version = version;
-};
+  }
+});
 
 module.exports = DigitalResource;

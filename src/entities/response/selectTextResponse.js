@@ -25,20 +25,25 @@ var ResponseType = require('./responseType');
  * SelectTextResponse's prototype set to Response
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {Object[]} values Array of response values
  * @extends Response
  */
-function SelectTextResponse(id) {
-  Response.call(this);
-  this.setId(id);
+function SelectTextResponse(id, props) {
+  props = props || {};
+
+  Response.call(this, id, props);
   this.setType(ResponseType.SELECTTEXT);
-  this.setValues(null);
+  if (props.hasOwnProperty("values")) {
+    this.setValues(props.values);
+  }
 }
 
-SelectTextResponse.prototype = _.create(Response.prototype);
-
-SelectTextResponse.prototype.setValues = function(values) {
-  this.values = values;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+SelectTextResponse.prototype = _.create(Response.prototype, {
+  setValues: function(values) {
+    this.values = values;
+  }
+});
 
 module.exports = SelectTextResponse;

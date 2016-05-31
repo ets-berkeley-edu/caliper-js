@@ -25,14 +25,17 @@ var EntityType = require('../entityType');
  * Agent's prototype set to Entity
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends Entity
  */
-function Agent(id) {
-  Entity.call(this);
-  this.setId(id);
+function Agent(id, props) {
+  props = props || {};
+  
+  Entity.call(this, id, props);
   this.setType(EntityType.AGENT);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 Agent.prototype = _.create(Entity.prototype);
 
 module.exports = Agent;

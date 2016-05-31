@@ -25,20 +25,25 @@ var EntityType = require('../entityType');
  * SoftwareApplication's prototype set to Agent
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
+ * @property {string} version String representing the version of the SoftwareApplication
  * @extends Agent
- * @property {string} Version String representing the version of the SoftwareApplication
  */
-function SoftwareApplication(id) {
-  Agent.call(this);
-  this.setId(id);
+function SoftwareApplication(id, props) {
+  props = props || {};
+
+  Agent.call(this, id, props);
   this.setType(EntityType.SOFTWARE_APPLICATION);
-  this.setVersion(null);
+  if (props.hasOwnProperty("version")) {
+    this.setVersion(props.version);
+  }
 }
 
-SoftwareApplication.prototype = _.create(Agent.prototype);
-
-SoftwareApplication.prototype.setVersion = function (version) {
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+SoftwareApplication.prototype = _.create(Agent.prototype, {
+  setVersion: function(version) {
     this.version = version;
-};
+  }
+});
 
 module.exports = SoftwareApplication;

@@ -25,14 +25,17 @@ var MediaObjectType = require('./mediaObjectType');
  * AudioObject's prototype set to MediaObject
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @extends MediaObject 
  */
-function AudioObject(id) {
-  MediaObject.call(this);
-  this.setId(id);
+function AudioObject(id, props) {
+  props = props || {};
+  
+  MediaObject.call(this, id, props);
   this.setType(MediaObjectType.AUDIO_OBJECT);
 }
 
+// Inherit from the prototype and assign additional properties to the object per the model as required.
 AudioObject.prototype = _.create(MediaObject.prototype);
 
 module.exports = AudioObject;

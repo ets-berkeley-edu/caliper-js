@@ -25,20 +25,25 @@ var ResponseType = require('./responseType');
  * TrueFalseResponse's prototype set to Response
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {string} response value
  * @extends Response
  */
-function TrueFalseResponse(id) {
-  Response.call(this);
-  this.setId(id);
+function TrueFalseResponse(id, props) {
+  props = props || {};
+
+  Response.call(this, id, props);
   this.setType(ResponseType.TRUEFALSE);
-  this.setValue(null);
+  if (props.hasOwnProperty("value")) {
+    this.setValue(props.value);
+  }
 }
 
-TrueFalseResponse.prototype = _.create(Response.prototype);
-
-TrueFalseResponse.prototype.setValue = function(value) {
-  this.value = value;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+TrueFalseResponse.prototype = _.create(Response.prototype, {
+  setValue: function(value) {
+    this.value = value;
+  }
+});
 
 module.exports = TrueFalseResponse;

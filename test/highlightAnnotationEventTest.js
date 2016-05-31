@@ -69,17 +69,17 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
   ePub.setVersion("2nd ed.");
 
   // The Object being interacted with by the Actor
-  var eventObj = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
-  eventObj.setName("Key Figures: George Washington");
-  eventObj.setIsPartOf(ePub);
-  eventObj.setVersion(ePub.version);
-  eventObj.setIndex(1);
-  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  var obj = new Frame("https://example.com/viewer/book/34843#epubcfi(/4/3/1)");
+  obj.setName("Key Figures: George Washington");
+  obj.setIsPartOf(ePub);
+  obj.setVersion(ePub.version);
+  obj.setIndex(1);
+  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  obj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
 
   // The generated annotation
   var generated = new HighlightAnnotation("https://example.edu/highlights/12345");
-  generated.setAnnotated(eventObj['@id']);
+  generated.setAnnotated(obj['@id']);
   generated.setActor(actor['@id']);
   generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   generated.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
@@ -131,7 +131,7 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
   var event = new EventFactory().create(EventType.ANNOTATION);
   event.setActor(actor);
   event.setAction(action);
-  event.setObject(eventObj);
+  event.setObject(obj);
   event.setGenerated(generated);
   event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
   event.setEdApp(edApp);

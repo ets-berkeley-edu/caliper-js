@@ -102,8 +102,9 @@ Caliper.Actions.SessionActions        = require('./actions/sessionActions');
 Caliper.Context.Context = require('./context/context');
 
 // ENTITIES
-Caliper.Entities.Entity     = require('./entities/entity');
-Caliper.Entities.EntityType = require('./entities/entityType');
+Caliper.Entities.Entity        = require('./entities/entity');
+Caliper.Entities.EntityFactory = require('./entities/entityFactory');
+Caliper.Entities.EntityType    = require('./entities/entityType');
 
 // Core entities
 Caliper.Entities.DigitalResource     = require('./entities/digitalResource');

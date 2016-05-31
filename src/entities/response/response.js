@@ -25,7 +25,7 @@ var EntityType = require('../entityType');
  * Response's prototype set to Entity
  * @constructor
  * @param {string} id URI
- * @param {string} type Type
+ * @param {Object} props Optional property settings
  * @property {string} assignable URI representing Assignment being attempted
  * @property {string} actor URI representing Actor attempted
  * @property {Object} attempt representing attempt
@@ -34,42 +34,54 @@ var EntityType = require('../entityType');
  * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
  * @extends Entity
  */
-function Response(id) {
-  Entity.call(this);
-  this.setId(id);
+function Response(id, props) {
+  props = props || {};
+
+  Entity.call(this, id, props);
   this.setType(EntityType.RESPONSE);
-  this.setActor(null);
-  this.setAssignable(null);
-  this.setAttempt(null);
-  this.setStartedAtTime(null);
-  this.setEndedAtTime(null);
-  this.setDuration(null);
+  if (props.hasOwnProperty("actor")) {
+    this.setActor(props.actor);
+  }
+  if (props.hasOwnProperty("assignable")) {
+    this.setAssignable(props.assignable);
+  }
+  if (props.hasOwnProperty("attempt")) {
+    this.setAttempt(props.attempt);
+  }
+  if (props.hasOwnProperty("startedAtTime")) {
+    this.setStartedAtTime(props.startedAtTime);
+  }
+  if (props.hasOwnProperty("endedAtTime")) {
+    this.setendedAtTime(props.endedAtTime);
+  }
+  if (props.hasOwnProperty("duration")) {
+    this.setDuration(duration);
+  }
 }
 
-Response.prototype = _.create(Entity.prototype);
-
-Response.prototype.setAssignable = function(assignableId) {
-  this.assignable = assignableId;
-};
-
-Response.prototype.setActor = function(actorId) {
-  this.actor = actorId;
-};
-
-Response.prototype.setAttempt = function(attempt) {
-  this.attempt = attempt;
-};
-
-Response.prototype.setStartedAtTime = function(startedAtTime) {
-  this.startedAtTime = startedAtTime;
-};
-
-Response.prototype.setEndedAtTime = function(endedAtTime) {
-  this.endedAtTime = endedAtTime;
-};
-
-Response.prototype.setDuration = function(duration) {
-  this.duration = duration;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+Response.prototype = _.create(Entity.prototype, {
+  setAssignable: function(assignableId) {
+    this.assignable = assignableId;
+  },
+  setActor: function(actorId) {
+    this.actor = actorId;
+  },
+  setAttempt: function(attempt) {
+    this.attempt = attempt;
+  },
+  setCount: function(count) {
+    this.count = count;
+  },
+  setStartedAtTime: function(startedAt) {
+    this.startedAtTime = startedAt;
+  },
+  setEndedAtTime: function(endedAt) {
+    this.endedAtTime = endedAt;
+  },
+  setDuration: function(duration) {
+    this.duration = duration;
+  }
+});
 
 module.exports = Response;

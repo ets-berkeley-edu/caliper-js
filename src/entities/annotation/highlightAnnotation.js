@@ -25,26 +25,32 @@ var AnnotationType = require('./annotationType');
  * HighlightAnnotation's prototype set to Annotation
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {Object} selection {startPosition, endPosition
  * @property {string} selectionText Text that was Selected 
  * @extends Annotation
  */
-function HighlightAnnotation(id) {
-  Annotation.call(this);
-  this.setId(id);
+function HighlightAnnotation(id, props) {
+  props = props || {};
+
+  Annotation.call(this, id, props);
   this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
-  this.setSelection(null);
-  this.setSelectionText(null);
+  if (props.hasOwnProperty("selection")) {
+    this.setSelection(props.selection);
+  }
+  if (props.hasOwnProperty("selectionText")) {
+    this.setSelectionText(props.selectionText);
+  }
 }
 
-HighlightAnnotation.prototype = _.create(Annotation.prototype);
-
-HighlightAnnotation.prototype.setSelection = function(selection) {
-  this.selection = selection;
-};
-
-HighlightAnnotation.prototype.setSelectionText = function(selectionText) {
-  this.selectionText = selectionText;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+HighlightAnnotation.prototype = _.create(Annotation.prototype, {
+  setSelection: function(selection) {
+    this.selection = selection;
+  },
+  setSelectionText: function(selectionText) {
+    this.selectionText = selectionText;
+  }
+});
 
 module.exports = HighlightAnnotation;

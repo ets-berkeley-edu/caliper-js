@@ -25,20 +25,25 @@ var EntityType = require('../entityType');
  * Organization's prototype set to Entity.
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {Object} subOrganizationOf Parent Organization Object
  * @extends Agent
  */
-function Organization(id) {
-  Agent.call(this);
-  this.setId(id);
+function Organization(id, props) {
+  props = props || {};
+
+  Agent.call(this, id, props);
   this.setType(EntityType.ORGANIZATION);
-  this.setSubOrganizationOf(null);
+  if (props.hasOwnProperty("subOrganizationOf")) {
+    this.setSubOrganizationOf(props.subOrganizationOf);
+  }
 }
 
-Organization.prototype = _.create(Agent.prototype);
-
-Organization.prototype.setSubOrganizationOf = function(subOrganizationOf) {
-  this.subOrganizationOf = subOrganizationOf;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+Organization.prototype = _.create(Agent.prototype, {
+  setSubOrganizationOf: function(subOrganizationOf) {
+    this.subOrganizationOf = subOrganizationOf;
+  }
+});
 
 module.exports = Organization;

@@ -22,24 +22,39 @@ var Type = require('./entityType');
 /**
  * Represents base Caliper Entity.  Analogous to a schema.org Thing
  * @constructor
+ * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {string} @context URI
  * @property {string} @id URI
  * @property {string} @type URI
  * @property {string} name Name
  * @property {string} description Description
- * @property {Object[]} extensions Array of custom extension properties
  * @property {string} dateCreated String Representation of Date
  * @property {string} dateModified String Representation of Date
+ * @property {Object[]} extensions Array of custom extension properties
  */
 
-function Entity() {
-  // this.setContext(Context.CONTEXT);
+function Entity(id, props) {
+  props = props || {};
+
+  //this.setContext(Context.CONTEXT);
+  this.setId(id);
   this.setType(Type.ENTITY);
-  this.setName(null);
-  this.setDescription(null);
-  this.setExtensions({});
-  this.setDateCreated(null);
-  this.setDateModified(null);
+  if (props.hasOwnProperty("name")) {
+    this.setName(props.name);
+  }
+  if (props.hasOwnProperty("description")) {
+    this.setDescription(props.description);
+  }
+  if (props.hasOwnProperty("dateCreated")) {
+    this.setDateCreated(props.dateCreated);
+  }
+  if (props.hasOwnProperty("dateModified")) {
+    this.setDateModified(props.dateModified);
+  }
+  if (props.hasOwnProperty("extensions")) {
+    this.setExtensions(props.extensions);
+  }
 }
 
 // Setters for base properties of all Caliper Entities
@@ -59,14 +74,14 @@ Entity.prototype = {
   setDescription: function(description) {
     this.description = description;
   },
-  setExtensions: function(extensions) {
-    this.extensions = extensions;
-  },
   setDateCreated: function(dateCreated) {
     this.dateCreated = dateCreated;
   },
   setDateModified: function(dateModified) {
     this.dateModified = dateModified;
+  },
+  setExtensions: function(extensions) {
+    this.extensions = extensions;
   }
 };
 

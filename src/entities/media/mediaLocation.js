@@ -25,21 +25,25 @@ var DigitalResourceType = require('../digitalResourceType');
  * MediaLocation's prototype set to DigitalResource
  * @constructor
  * @param {string} id URI
- * @property {string} type Type
+ * @param {Object} props Optional property settings
  * @property {string} currentTime String representing the current time (ISO 8601 format)
  * @extends MediaObject
  */
-function MediaLocation(id) {
-  DigitalResource.call(this);
-  this.setId(id);
+function MediaLocation(id, props) {
+  props = props || {};
+
+  DigitalResource.call(this, id, props);
   this.setType(DigitalResourceType.MEDIA_LOCATION);
-  this.setCurrentTime(null);
+  if (props.hasOwnProperty("currentTime")) {
+    this.setCurrentTime(props.currentTime);
+  }
 }
 
-MediaLocation.prototype = _.create(DigitalResource.prototype);
-
-MediaLocation.prototype.setCurrentTime = function (currentTime) {
-  this.currentTime = currentTime;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+MediaLocation.prototype = _.create(DigitalResource.prototype, {
+  setCurrentTime: function (currentTime) {
+    this.currentTime = currentTime;
+  }
+});
 
 module.exports = MediaLocation;

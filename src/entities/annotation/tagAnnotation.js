@@ -25,20 +25,25 @@ var AnnotationType = require('./annotationType');
  * TagAnnotation's prototype set to Annotation
  * @constructor
  * @param {string} id URI
+ * @param {Object} props Optional property settings
  * @property {string[]} tags Array of Strings representing tags
  * @extends Annotation
  */
-function TagAnnotation(id) {
-  Annotation.call(this);
-  this.setId(id);
+function TagAnnotation(id, props) {
+  props = props || {};
+
+  Annotation.call(this, id, props);
   this.setType(AnnotationType.TAG_ANNOTATION);
-  this.setTags(null);
+  if (props.hasOwnProperty("tags")) {
+    this.setTags(props.tags);
+  }
 }
 
-TagAnnotation.prototype = _.create(Annotation.prototype);
-
-TagAnnotation.prototype.setTags = function(tags) {
-  this.tags = tags;
-};
+// Inherit from the prototype and assign additional properties to the object per the model as required.
+TagAnnotation.prototype = _.create(Annotation.prototype, {
+  setTags: function(tags) {
+    this.tags = tags;
+  }
+});
 
 module.exports = TagAnnotation;

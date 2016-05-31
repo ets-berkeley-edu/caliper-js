@@ -58,29 +58,29 @@ test('Create Assignable Event and validate attributes', function (t) {
   var action = AssignableActions.ACTIVATED;
 
   // The Object being interacted with by the Actor (Assessment)
-  var eventObj = new Assessment("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
-  eventObj.setName("American Revolution - Key Figures Assessment");
-  eventObj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-  eventObj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  eventObj.setDatePublished((new Date("2015-08-15T09:30:00.000Z")).toISOString());
-  eventObj.setVersion("1.0");
-  eventObj.setDateToActivate((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-  eventObj.setDateToShow((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-  eventObj.setDateToStartOn((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-  eventObj.setDateToSubmit((new Date("2015-09-28T11:59:59.000Z")).toISOString());
-  eventObj.setMaxAttempts(2);
-  eventObj.setMaxSubmits(2);
-  eventObj.setMaxScore(3.0);
+  var obj = new Assessment("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
+  obj.setName("American Revolution - Key Figures Assessment");
+  obj.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  obj.setDatePublished((new Date("2015-08-15T09:30:00.000Z")).toISOString());
+  obj.setVersion("1.0");
+  obj.setDateToActivate((new Date("2015-08-16T05:00:00.000Z")).toISOString());
+  obj.setDateToShow((new Date("2015-08-16T05:00:00.000Z")).toISOString());
+  obj.setDateToStartOn((new Date("2015-08-16T05:00:00.000Z")).toISOString());
+  obj.setDateToSubmit((new Date("2015-09-28T11:59:59.000Z")).toISOString());
+  obj.setMaxAttempts(2);
+  obj.setMaxSubmits(2);
+  obj.setMaxScore(3.0);
 
   // The target object (frame) within the Event Object
   var target = null;
 
   // The generated object (Attempt) within the Event Object
-  var generated = new Attempt(eventObj['@id'] + "/attempt/5678");
+  var generated = new Attempt(obj['@id'] + "/attempt/5678");
   generated.setName(null);
   generated.setDescription(null);
   generated.setActor(actor['@id']);
-  generated.setAssignable(eventObj['@id']);
+  generated.setAssignable(obj['@id']);
   generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
   generated.setDateModified(null);
   generated.setCount(1);
@@ -133,7 +133,7 @@ test('Create Assignable Event and validate attributes', function (t) {
   var event = new EventFactory().create(EventType.ASSIGNABLE);
   event.setActor(actor);
   event.setAction(action);
-  event.setObject(eventObj);
+  event.setObject(obj);
   event.setTarget(target);
   event.setGenerated(generated);
   event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
