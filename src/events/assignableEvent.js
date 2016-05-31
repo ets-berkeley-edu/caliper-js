@@ -24,13 +24,17 @@ var EventType = require('./eventType');
  * Represents Assignable Event.  
  * AssignableEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @extends Event
  */
-function AssignableEvent() {
-  Event.call(this);
+function AssignableEvent(props) {
+  props = props || {};
+  
+  Event.call(this, props);
   this.setType(EventType.ASSIGNABLE);
 }
 
+// Inherit from the prototype.
 AssignableEvent.prototype = _.create(Event.prototype);
 
 module.exports = AssignableEvent;

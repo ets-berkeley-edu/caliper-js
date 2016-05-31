@@ -39,30 +39,30 @@ var ViewEvent = require('./viewEvent');
 function EventFactory() {}
 
 EventFactory.prototype = {
-  create: function(type, required, optional) {
+  create: function(type, props) {
     switch(type) {
       case EventType.ANNOTATION:
-        return new AnnotationEvent();
+        return new AnnotationEvent(props);
       case EventType.ASSESSMENT:
-        return new AssessmentEvent(required, optional);
+        return new AssessmentEvent(props);
       case EventType.ASSESSMENT_ITEM:
-        return new AssessmentItemEvent();
+        return new AssessmentItemEvent(props);
       case EventType.ASSIGNABLE:
-        return new AssignableEvent();
+        return new AssignableEvent(props);
       case EventType.MEDIA:
-        return new MediaEvent();
+        return new MediaEvent(props);
       case EventType.NAVIGATION:
-        return new NavigationEvent();
+        return new NavigationEvent(props);
       case EventType.OUTCOME:
-        return new OutcomeEvent();
+        return new OutcomeEvent(props);
       case EventType.READING:
-        return new ReadingEvent();
+        return new ReadingEvent(props);
       case EventType.SESSION:
-        return new SessionEvent();
+        return new SessionEvent(props);
       case EventType.VIEWED:
-        return new ViewEvent();
+        return new ViewEvent(props);
       default:
-        return new Event(required, optional);
+        return new Event(props);
     }
   }
 };

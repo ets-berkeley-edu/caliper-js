@@ -24,13 +24,17 @@ var EventType = require('./eventType');
  * Represents Reading Event.
  * ReadingEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @extends Event
  */
-function ReadingEvent() {
-  Event.call(this);
+function ReadingEvent(props) {
+  props = props || {};
+
+  Event.call(this, props);
   this.setType(EventType.READING);
 }
 
+// Inherit from the prototype.
 ReadingEvent.prototype = _.create(Event.prototype);
 
 module.exports = ReadingEvent;

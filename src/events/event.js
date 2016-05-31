@@ -22,10 +22,7 @@ var EventType = require('./eventType');
 /**
  * Represents Base Caliper Event.
  * @constructor
- * @param {Object} actor The Agent initiating the action
- * @param {string} action The action
- * @param {Object} obj Object of the interaction
- * @param {Object} optional Optional property settings
+ * @param {Object} props Optional property settings
  * @property {string} context Context
  * @property {string} type Type
  * @property {string} sourcedId Event identifier
@@ -45,46 +42,60 @@ var EventType = require('./eventType');
  */
 
 // constructor
-function Event(required, optional) {
-  // TODO VALIDATE REQUIRED. THROUGH ERROR IF INCOMPLETE
-  required = required || {};
-  optional = optional || {};
+function Event(props) {
+  props = props || {};
 
   this.setContext(Context.CONTEXT);
   this.setType(EventType.EVENT);
-  if (optional.hasOwnProperty("sourcedId")) {
-    this.setSourcedId(optional.sourcedId);
+  if (props.hasOwnProperty("sourcedId")) {
+    this.setSourcedId(props.sourcedId);
   }
-  this.setActor(required.actor);
-  this.setAction(required.action);
-  this.setObject(required.obj);
-  this.setEventTime(required.eventTime);
-  if (optional.hasOwnProperty("generated")) {
-    this.setGenerated(optional.generated);
+  if (props.hasOwnProperty("actor")) {
+    this.setActor(props.actor);
+  } else {
+    // TODO raise error via callback
   }
-  if (optional.hasOwnProperty("target")) {
-    this.setTarget(optional.target);
+  if (props.hasOwnProperty("action")) {
+    this.setAction(props.action);
+  } else {
+    // TODO raise error via callback
   }
-  if (optional.hasOwnProperty("referrer")) {
-    this.setReferrer(optional.referrer);
+  if (props.hasOwnProperty("obj")) {
+    this.setObject(props.obj);
+  } else {
+    // TODO raise error via callback
   }
-  if (optional.hasOwnProperty("edApp")) {
-    this.setEdApp(optional.edApp);
+  if (props.hasOwnProperty("eventTime")) {
+    this.setEventTime(props.eventTime);
+  } else {
+    // TODO raise error via callback
   }
-  if (optional.hasOwnProperty("group")) {
-    this.setGroup(optional.group);
+  if (props.hasOwnProperty("generated")) {
+    this.setGenerated(props.generated);
   }
-  if (optional.hasOwnProperty("membership")) {
-    this.setMembership(optional.membership);
+  if (props.hasOwnProperty("target")) {
+    this.setTarget(props.target);
   }
-  if (optional.hasOwnProperty("session")) {
-    this.setSession(optional.session);
+  if (props.hasOwnProperty("referrer")) {
+    this.setReferrer(props.referrer);
   }
-  if (optional.hasOwnProperty("federatedSession")) {
-    this.setFederatedSession(optional.federatedSession);
+  if (props.hasOwnProperty("edApp")) {
+    this.setEdApp(props.edApp);
   }
-  if (optional.hasOwnProperty("extensions")) {
-    this.setExtensions(optional.extensions);
+  if (props.hasOwnProperty("group")) {
+    this.setGroup(props.group);
+  }
+  if (props.hasOwnProperty("membership")) {
+    this.setMembership(props.membership);
+  }
+  if (props.hasOwnProperty("session")) {
+    this.setSession(props.session);
+  }
+  if (props.hasOwnProperty("federatedSession")) {
+    this.setFederatedSession(props.federatedSession);
+  }
+  if (props.hasOwnProperty("extensions")) {
+    this.setExtensions(props.extensions);
   }
 }
 

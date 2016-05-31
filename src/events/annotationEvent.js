@@ -24,13 +24,17 @@ var EventType = require('./eventType');
  * Represents Annotation Event.  
  * AnnotationEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @extends Event
  */
-function AnnotationEvent() {
-  Event.call(this);
+function AnnotationEvent(props) {
+  props = props || {};
+
+  Event.call(this, props);
   this.setType(EventType.ANNOTATION);
 }
 
+// Inherit from the prototype.
 AnnotationEvent.prototype = _.create(Event.prototype);
 
 module.exports = AnnotationEvent;

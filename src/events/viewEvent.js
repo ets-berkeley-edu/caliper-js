@@ -24,13 +24,17 @@ var EventType = require('./eventType');
  * Represents View Event.  
  * ViewEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @extends Event
  */
-function ViewEvent() {
-  Event.call(this);
+function ViewEvent(props) {
+  props = props || {};
+  
+  Event.call(this, props);
   this.setType(EventType.VIEWED);
 }
 
+// Inherit from the prototype.
 ViewEvent.prototype = _.create(Event.prototype);
 
 module.exports = ViewEvent;

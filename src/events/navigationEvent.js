@@ -24,14 +24,18 @@ var EventType = require('./eventType');
  * Represents Navigation Event.  
  * NavigationEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @property {Object} navigatedFrom Object they navigated from
  * @extends Event
  */
-function NavigationEvent() {
-  Event.call(this);
+function NavigationEvent(props) {
+  props = props || {};
+  
+  Event.call(this, props);
   this.setType(EventType.NAVIGATION);
 }
 
+// Inherit from the prototype.
 NavigationEvent.prototype = _.create(Event.prototype);
 
 module.exports = NavigationEvent;

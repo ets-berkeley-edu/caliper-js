@@ -24,13 +24,17 @@ var EventType = require('./eventType');
  * Represents Session Event.  
  * SessionEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @extends Event
  */
-function SessionEvent() {
+function SessionEvent(props) {
+  props = props || {};
+  
   Event.call(this);
   this.setType(EventType.SESSION);
 }
 
+// Inherit from the prototype.
 SessionEvent.prototype = _.create(Event.prototype);
 
 module.exports = SessionEvent;

@@ -24,14 +24,18 @@ var EventType = require('./eventType');
  * Represents Media Event.  
  * MediaEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @property {Object} mediaLocation Media Location
  * @extends Event
  */
-function MediaEvent() {
-  Event.call(this);
+function MediaEvent(props) {
+  props = props || {};
+
+  Event.call(this, props);
   this.setType(EventType.MEDIA);
 }
 
+// Inherit from the prototype.
 MediaEvent.prototype = _.create(Event.prototype);
 
 MediaEvent.prototype.setMediaLocation = function (mediaLocation) {

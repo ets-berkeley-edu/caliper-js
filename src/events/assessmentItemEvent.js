@@ -24,13 +24,17 @@ var EventType = require('./eventType');
  * Represents AssessmentItem Event.  
  * AssessmentItem's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @extends Event
  */
-function AssessmentItemEvent() {
-  Event.call(this);
+function AssessmentItemEvent(props) {
+  props = props || {};
+
+  Event.call(this, props);
   this.setType(EventType.ASSESSMENT_ITEM);
 }
 
+// Inherit from the prototype.
 AssessmentItemEvent.prototype = _.create(Event.prototype);
 
 module.exports = AssessmentItemEvent;

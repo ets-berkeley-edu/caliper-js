@@ -24,13 +24,17 @@ var EventType = require('./eventType');
  * Represents Outcome Event.  
  * OutcomeEvent's prototype set to Event
  * @constructor
+ * @param {Object} props Optional property settings
  * @extends Event
  */
-function OutcomeEvent() {
-  Event.call(this);
+function OutcomeEvent(props) {
+  props = props || {};
+
+  Event.call(this, props);
   this.setType(EventType.OUTCOME);
 }
 
+// Inherit from the prototype.
 OutcomeEvent.prototype = _.create(Event.prototype);
 
 module.exports = OutcomeEvent;
