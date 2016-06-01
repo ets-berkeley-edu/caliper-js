@@ -30,7 +30,7 @@ var EventType = require('./eventType');
 function SessionEvent(props) {
   props = props || {};
   
-  Event.call(this);
+  Event.call(this, props);
   this.setType(EventType.SESSION);
 }
 

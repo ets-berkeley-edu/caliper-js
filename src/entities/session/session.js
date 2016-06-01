@@ -47,7 +47,7 @@ function Session(id, props) {
     this.setEndedAtTime(props.endedAtTime);
   }
   if (props.hasOwnProperty("duration")) {
-    this.setDuration(duration);
+    this.setDuration(props.duration);
   }
 }
 
