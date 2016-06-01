@@ -55,6 +55,7 @@ var EpubSubChapter = require('./reading/ePubSubChapter');
 var EpubVolume = require('./reading/ePubVolume');
 var Frame = require('./reading/frame');
 var Reading = require('./reading/reading');
+var WebPage = require('./reading/webPage');
 
 var MediaLocation = require('./media/mediaLocation');
 var MediaObject = require('./media/mediaObject');
