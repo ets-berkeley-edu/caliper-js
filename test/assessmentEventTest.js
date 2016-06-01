@@ -33,7 +33,6 @@ var AssignableType = require('../src/entities/assignable/assignableDigitalResour
 // Action
 var AssessmentActions = require('../src/actions/assessmentActions');
 
-// Learning Context
 var Role = require('../src/entities/lis/role');
 var Status = require('../src/entities/lis/status');
 
@@ -131,13 +130,11 @@ test('Create Assessment Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var eventTime = new Date("2015-09-15T10:15:00Z").toISOString();
   var event = new EventFactory().create(EventType.ASSESSMENT, {
     actor: actor,
     action: action,
     obj: obj,
-    eventTime: eventTime
-  }, {
+    eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
     generated: generated,
     edApp: edApp,
     group: group,
@@ -146,6 +143,6 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   console.log("Assessment Event = " + util.inspect(event));
 
-  // Assert that JSON produced is the same
+  // Assert that the JSON produced is the same
   jsonCompare('caliperEventAssessmentStarted', event, t);
 });

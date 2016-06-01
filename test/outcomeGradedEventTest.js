@@ -25,115 +25,121 @@ var jsonCompare = require('./testUtils');
 var EventFactory = require('../src/events/eventFactory');
 var EventType = require('../src/events/eventType');
 
-// Actor
-var Person = require('../src/entities/agent/person');
+// Entity
+var EntityFactory = require('../src/entities/entityFactory');
+var EntityType = require('../src/entities/entityType');
+var AssignableType = require('../src/entities/assignable/assignableDigitalResourceType');
 
 // Action
 var OutcomeActions = require('../src/actions/outcomeActions');
-
-// Activity Context
-var Assessment = require('../src/entities/assessment/assessment');
-var Attempt = require('../src/entities/assignable/attempt');
-var Result = require('../src/entities/outcome/result');
-
-// Learning Context
-var CourseOffering = require('../src/entities/lis/courseOffering');
-var CourseSection = require('../src/entities/lis/courseSection');
-var Group = require('../src/entities/lis/group');
-var SoftwareApplication = require('../src/entities/agent/softwareApplication');
 
 test('Create Outcome Event and validate attributes', function (t) {
 
   // Plan for N assertions
   t.plan(1);
 
-  // actor: edApp scorer
-  var actor = new SoftwareApplication("https://example.com/super-assessment-tool");
-  actor.setName("Super Assessment Tool");
-  actor.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  actor.setVersion("v2");
+  var entityFactory = new EntityFactory();
 
-  // learner
-  var learner = new Person("https://example.edu/user/554433");
+  // The Actor for the Caliper Event (as well as the edApp)
+  var actorId = "https://example.com/super-assessment-tool";
+  var actor = entityFactory.create(EntityType.SOFTWARE_APPLICATION, actorId, {
+    name: "Super Assessment Tool",
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    version: "v2"
+  });
+
+  // The learner
+  var learner = entityFactory.create(EntityType.PERSON, "https://example.edu/user/554433");
 
   // The Action for the Caliper Event
   var action = OutcomeActions.GRADED;
 
   // The Object being interacted with by the Actor (Assessment)
-  var assignable = new Assessment("https://example.edu/politicalScience/2015/american-revolution-101/assessment/001");
-  assignable.setName("American Revolution - Key Figures Assessment");
-  assignable.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
-  assignable.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  assignable.setDatePublished((new Date("2015-08-15T09:30:00.000Z")).toISOString());
-  assignable.setVersion("1.0");
-  assignable.setDateToActivate((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-  assignable.setDateToShow((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-  assignable.setDateToStartOn((new Date("2015-08-16T05:00:00.000Z")).toISOString());
-  assignable.setDateToSubmit((new Date("2015-09-28T11:59:59.000Z")).toISOString());
-  assignable.setMaxAttempts(2);
-  assignable.setMaxSubmits(2);
-  assignable.setMaxScore(3.0);
+  var assignableId = "https://example.edu/politicalScience/2015/american-revolution-101/assessment/001";
+  var assignable = entityFactory.create(AssignableType.ASSESSMENT, assignableId, {
+    name: "American Revolution - Key Figures Assessment",
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    datePublished: new Date("2015-08-15T09:30:00.000Z").toISOString(),
+    version: "1.0",
+    dateToActivate: new Date("2015-08-16T05:00:00.000Z").toISOString(),
+    dateToShow: new Date("2015-08-16T05:00:00.000Z").toISOString(),
+    dateToStartOn: new Date("2015-08-16T05:00:00.000Z").toISOString(),
+    dateToSubmit: new Date("2015-09-28T11:59:59.000Z").toISOString(),
+    maxAttempts: 2,
+    maxSubmits: 2,
+    maxScore: 3.0
+  });
 
   // The generated object (Attempt) within the Event Object
-  var obj = new Attempt(assignable['@id'] + "/attempt/5678");
-  obj.setActor(learner['@id']);
-  obj.setAssignable(assignable['@id']);
-  obj.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  obj.setCount(1);
-  obj.setStartedAtTime((new Date("2015-09-15T10:15:00Z")).toISOString());
+  var objId = assignable['@id'] + "/attempt/5678";
+  var obj = entityFactory.create(EntityType.ATTEMPT, objId, {
+    actor: learner['@id'],
+    assignable: assignable['@id'],
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    count: 1
+  });
 
-  // The target object (frame) within the Event Object
-  var target = null;
-
-  var generated = new Result(obj['@id'] + "/result");
-  generated.setActor(learner['@id']);
-  generated.setAssignable(assignable['@id']);
-  generated.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  generated.setNormalScore(3.0);
-  generated.setPenaltyScore(0.0);
-  generated.setExtraCreditScore(0.0);
-  generated.setTotalScore(3.0);
-  generated.setCurvedTotalScore(3.0);
-  generated.setCurveFactor(0.0);
-  generated.setComment("Well done.");
-  generated.setScoredBy(actor);
+  // Generated result
+  var generatedId = obj['@id'] + "/result";
+  var generated = entityFactory.create(EntityType.RESULT, generatedId, {
+    actor: learner['@id'],
+    assignable: assignable['@id'],
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    normalScore: 3.0,
+    penaltyScore: 0.0,
+    extraCreditScore: 0.0,
+    totalScore: 3.0,
+    curvedTotalScore: 3.0,
+    curveFactor: 0.0,
+    comment: "Well done.",
+    scoredBy: actor
+  });
 
   // LIS Course Offering
-  var courseOffering = new CourseOffering("https://example.edu/politicalScience/2015/american-revolution-101");
-  courseOffering.setName("Political Science 101: The American Revolution");
-  courseOffering.setCourseNumber("POL101");
-  courseOffering.setAcademicSession("Fall-2015");
-  courseOffering.setSubOrganizationOf(null);
-  courseOffering.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  courseOffering.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
+  var courseOffering = entityFactory.create(EntityType.COURSE_OFFERING, courseId, {
+    name: "Political Science 101: The American Revolution",
+    courseNumber: "POL101",
+    academicSession: "Fall-2015",
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+  });
 
   // LIS Course Section
-  var courseSection = new CourseSection(courseOffering['@id'] + "/section/001");
-  courseSection.setName("American Revolution 101");
-  courseSection.setCourseNumber("POL101");
-  courseSection.setAcademicSession("Fall-2015");
-  courseSection.setSubOrganizationOf(courseOffering);
-  courseSection.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
-  courseSection.setDateModified((new Date("2015-09-02T11:30:00Z")).toISOString());
+  var courseSectionId = courseOffering['@id'] + "/section/001";
+  var courseSection = entityFactory.create(EntityType.COURSE_SECTION, courseSectionId, {
+    name: "American Revolution 101",
+    courseNumber: "POL101",
+    academicSession: "Fall-2015",
+    subOrganizationOf: courseOffering,
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+  });
 
   // LIS Group
-  var group = new Group(courseSection['@id'] + "/group/001");
-  group.setName("Discussion Group 001");
-  group.setSubOrganizationOf(courseSection);
-  group.setDateCreated((new Date("2015-08-01T06:00:00Z")).toISOString());
+  var groupId = courseSection['@id'] + "/group/001";
+  var group = entityFactory.create(EntityType.GROUP, groupId, {
+    name: "Discussion Group 001",
+    subOrganizationOf: courseSection,
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+  });
 
   // Assert that key attributes are the same
-  var event = new EventFactory().create(EventType.OUTCOME);
-  event.setActor(actor);
-  event.setAction(action);
-  event.setObject(obj);
-  event.setEventTime((new Date("2015-09-15T10:15:00Z")).toISOString());
-  event.setTarget(target);
-  event.setGenerated(generated);
-  event.setGroup(group);
+
+  // Assert that key attributes are the same
+  var event = new EventFactory().create(EventType.OUTCOME, {
+    actor: actor,
+    action: action,
+    obj: obj,
+    eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    generated: generated,
+    group: group
+  });
 
   console.log("Outcome Event = " + util.inspect(event));
 
-  // Assert that JSON produced is the same
+  // Assert that the JSON produced is the same
   jsonCompare('caliperEventOutcomeGraded', event, t);
 });
