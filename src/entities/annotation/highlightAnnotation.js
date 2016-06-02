@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var annotationType = require('./annotationType');
 
 /**
  * Represents HighlightAnnotation.
@@ -34,7 +34,7 @@ function HighlightAnnotation(id, props) {
   props = props || {};
 
   Annotation.call(this, id, props);
-  this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
+  this.setType(annotationType.HIGHLIGHT_ANNOTATION);
   if (props.hasOwnProperty("selection")) {
     this.setSelection(props.selection);
   }

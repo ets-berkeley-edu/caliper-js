@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Response = require('./response');
-var ResponseType = require('./responseType');
+var responseType = require('./responseType');
 
 /**
  * Represents TrueFalseResponse.
@@ -33,7 +33,7 @@ function TrueFalseResponse(id, props) {
   props = props || {};
 
   Response.call(this, id, props);
-  this.setType(ResponseType.TRUEFALSE);
+  this.setType(responseType.TRUEFALSE);
   if (props.hasOwnProperty("value")) {
     this.setValue(props.value);
   }

@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var CourseOffering = require('./courseOffering');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Course.  
@@ -33,7 +33,7 @@ function CourseSection(id, props) {
   props = props || {};
 
   CourseOffering.call(this, id, props);
-  this.setType(EntityType.COURSE_SECTION);
+  this.setType(entityType.COURSE_SECTION);
   if (props.hasOwnProperty("category")) {
     this.setCategory(props.category);
   }

@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var AssignableDigitalResource = require('../assignable/assignableDigitalResource');
-var AssignableDigitalResourceType = require('../assignable/assignableDigitalResourceType');
+var assignableType = require('../assignable/assignableDigitalResourceType');
 
 /**
  * Represents an AssessmentItem.
@@ -32,7 +32,7 @@ function AssessmentItem(id, props) {
   props = props || {};
 
   AssignableDigitalResource.call(this, id, props);
-  this.setType(AssignableDigitalResourceType.ASSESSMENT_ITEM);
+  this.setType(assignableType.ASSESSMENT_ITEM);
   if (props.hasOwnProperty("isTimeDependent")) {
     this.setIsTimeDependent(props.isTimeDependent);
   }

@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var annotationType = require('./annotationType');
 
 /**
  * Represents TagAnnotation.  
@@ -33,7 +33,7 @@ function TagAnnotation(id, props) {
   props = props || {};
 
   Annotation.call(this, id, props);
-  this.setType(AnnotationType.TAG_ANNOTATION);
+  this.setType(annotationType.TAG_ANNOTATION);
   if (props.hasOwnProperty("tags")) {
     this.setTags(props.tags);
   }

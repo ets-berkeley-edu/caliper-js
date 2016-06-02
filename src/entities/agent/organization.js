@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Agent = require('./agent');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents an LTI W3C Organization.
@@ -33,7 +33,7 @@ function Organization(id, props) {
   props = props || {};
 
   Agent.call(this, id, props);
-  this.setType(EntityType.ORGANIZATION);
+  this.setType(entityType.ORGANIZATION);
   if (props.hasOwnProperty("subOrganizationOf")) {
     this.setSubOrganizationOf(props.subOrganizationOf);
   }

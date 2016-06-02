@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Agent = require('./agent');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents SoftwareApplication.  
@@ -33,7 +33,7 @@ function SoftwareApplication(id, props) {
   props = props || {};
 
   Agent.call(this, id, props);
-  this.setType(EntityType.SOFTWARE_APPLICATION);
+  this.setType(entityType.SOFTWARE_APPLICATION);
   if (props.hasOwnProperty("version")) {
     this.setVersion(props.version);
   }

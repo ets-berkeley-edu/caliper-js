@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('../entity');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Attempt.  
@@ -38,7 +38,7 @@ function Attempt(id, props) {
   props = props || {};
 
   Entity.call(this, id, props);
-  this.setType(EntityType.ATTEMPT);
+  this.setType(entityType.ATTEMPT);
   if (props.hasOwnProperty("actor")) {
     this.setActor(props.actor);
   }

@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var DigitalResource = require('./../digitalResource');
-var DigitalResourceType = require('../digitalResourceType');
+var digitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents WebPage.  
@@ -32,7 +32,7 @@ function WebPage(id, props) {
   props = props || {};
   
   DigitalResource.call(this, id, props);
-  this.setType(DigitalResourceType.WEB_PAGE);
+  this.setType(digitalResourceType.WEB_PAGE);
 }
 
 // Inherit from the prototype and assign additional properties to the object per the model as required.

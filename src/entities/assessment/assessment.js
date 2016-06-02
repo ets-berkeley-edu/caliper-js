@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var AssignableDigitalResource = require('../assignable/assignableDigitalResource');
-var AssignableDigitalResourceType = require('../assignable/assignableDigitalResourceType');
+var assignableType = require('../assignable/assignableDigitalResourceType');
 
 /**
  * Represents an Assessment.
@@ -32,7 +32,7 @@ function Assessment(id, props) {
   props = props || {};
 
   AssignableDigitalResource.call(this, id, props);
-  this.setType(AssignableDigitalResourceType.ASSESSMENT);
+  this.setType(assignableType.ASSESSMENT);
 }
 
 // Inherit from the prototype and assign additional properties to the object per the model as required.

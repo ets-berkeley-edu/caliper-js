@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var annotationType = require('./annotationType');
 
 /**
  * Represents BookmarkAnnotation.  
@@ -33,7 +33,7 @@ function BookmarkAnnotation(id, props) {
   props = props || {};
 
   Annotation.call(this, id, props);
-  this.setType(AnnotationType.BOOKMARK_ANNOTATION);
+  this.setType(annotationType.BOOKMARK_ANNOTATION);
   if (props.hasOwnProperty("bookmarkNotes")) {
     this.setBookmarkNotes(props.bookmarkNotes);
   }

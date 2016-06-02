@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('../entity');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Annotation.  
@@ -34,7 +34,7 @@ function Annotation(id, props) {
   props = props || {};
 
   Entity.call(this, id, props);
-  this.setType(EntityType.ANNOTATION);
+  this.setType(entityType.ANNOTATION);
   if (props.hasOwnProperty("actor")) {
     this.setActor(props.actor);
   }

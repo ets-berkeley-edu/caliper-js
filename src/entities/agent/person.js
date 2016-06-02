@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Agent = require('./agent');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Person.  
@@ -32,7 +32,7 @@ function Person(id, props) {
   props = props || {};
   
   Agent.call(this, id, props);
-  this.setType(EntityType.PERSON);
+  this.setType(entityType.PERSON);
 }
 
 Person.prototype = _.create(Agent.prototype);

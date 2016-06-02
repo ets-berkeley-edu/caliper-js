@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('../entity');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Response.
@@ -38,7 +38,7 @@ function Response(id, props) {
   props = props || {};
 
   Entity.call(this, id, props);
-  this.setType(EntityType.RESPONSE);
+  this.setType(entityType.RESPONSE);
   if (props.hasOwnProperty("actor")) {
     this.setActor(props.actor);
   }

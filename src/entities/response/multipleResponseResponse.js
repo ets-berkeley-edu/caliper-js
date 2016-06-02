@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Response = require('./response');
-var ResponseType = require('./responseType');
+var responseType = require('./responseType');
 
 /**
  * Represents MultipleResponseResponse.
@@ -33,7 +33,7 @@ function MultipleResponseResponse(id, props) {
   props = props || {};
 
   Response.call(this, id, props);
-  this.setType(ResponseType.MULTIPLERESPONSE);
+  this.setType(responseType.MULTIPLERESPONSE);
   if (props.hasOwnProperty("values")) {
     this.setValues(props.values);
   }

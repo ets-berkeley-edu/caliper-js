@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var DigitalResource = require('../digitalResource');
-var DigitalResourceType = require('../digitalResourceType');
+var digitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents ePubPart.
@@ -32,7 +32,7 @@ function EPubPart(id, props) {
   props = props || {};
   
   DigitalResource.call(this, id, props);
-  this.setType(DigitalResourceType.EPUB_PART);
+  this.setType(digitalResourceType.EPUB_PART);
 }
 
 // Inherit from the prototype and assign additional properties to the object per the model as required.

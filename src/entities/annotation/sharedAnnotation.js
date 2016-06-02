@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var annotationType = require('./annotationType');
 
 /**
  * Represents SharedAnnotation.  
@@ -33,7 +33,7 @@ function SharedAnnotation(id, props) {
   props = props || {};
 
   Annotation.call(this, id, props);
-  this.setType(AnnotationType.SHARED_ANNOTATION);
+  this.setType(annotationType.SHARED_ANNOTATION);
   if (props.hasOwnProperty("withAgents")) {
     this.setWithAgents(props.withAgents);
   }

@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var MediaObject = require('./mediaObject');
-var MediaObjectType = require('./mediaObjectType');
+var mediaObjectType = require('./mediaObjectType');
 
 /**
  * Represents Video Object.  
@@ -32,7 +32,7 @@ function VideoObject(id, props) {
   props = props || {};
 
   MediaObject.call(this, id, props);
-  this.setType(MediaObjectType.VIDEO_OBJECT);
+  this.setType(mediaObjectType.VIDEO_OBJECT);
 }
 
 // Inherit from the prototype and assign additional properties to the object per the model as required.

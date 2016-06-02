@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Organization = require('../agent/organization');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Organization.
@@ -34,7 +34,7 @@ function CourseOffering(id, props) {
   props = props || {};
 
   Organization.call(this, id, props);
-  this.setType(EntityType.COURSE_OFFERING);
+  this.setType(entityType.COURSE_OFFERING);
   if (props.hasOwnProperty("courseNumber")) {
     this.setCourseNumber(props.courseNumber);
   }

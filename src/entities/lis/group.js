@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Organization = require('../agent/organization');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents a Group.
@@ -32,7 +32,7 @@ function Group(id, props) {
   props = props || {};
 
   Organization.call(this, id, props);
-  this.setType(EntityType.GROUP);
+  this.setType(entityType.GROUP);
 }
 
 // Inherit from the prototype and assign additional properties to the object per the model as required.

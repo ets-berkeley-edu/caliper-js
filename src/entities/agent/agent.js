@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('../entity');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Agent.
@@ -32,7 +32,7 @@ function Agent(id, props) {
   props = props || {};
   
   Entity.call(this, id, props);
-  this.setType(EntityType.AGENT);
+  this.setType(entityType.AGENT);
 }
 
 // Inherit from the prototype and assign additional properties to the object per the model as required.

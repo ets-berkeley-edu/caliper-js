@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var DigitalResource = require('../digitalResource');
-var DigitalResourceType = require('../digitalResourceType');
+var digitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents Media Object.  
@@ -33,7 +33,7 @@ function MediaObject(id, props) {
   props = props || {};
 
   DigitalResource.call(this, id, props);
-  this.setType(DigitalResourceType.MEDIA_OBJECT);
+  this.setType(digitalResourceType.MEDIA_OBJECT);
   if (props.hasOwnProperty("duration")) {
     this.setDuration(props.duration);
   }

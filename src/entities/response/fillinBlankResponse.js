@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Response = require('./response');
-var ResponseType = require ('./responseType');
+var responseType = require ('./responseType');
 
 /**
  * Represents FillinBlankResponse.
@@ -33,7 +33,7 @@ function FillinBlankResponse(id, props) {
   props = props || {};
 
   Response.call(this, id, props);
-  this.setType(ResponseType.FILLINBLANK);
+  this.setType(responseType.FILLINBLANK);
   if (props.hasOwnProperty("values")) {
     this.setValues(props.values);
   }

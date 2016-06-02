@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('../entity');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents Session.  
@@ -36,7 +36,7 @@ function Session(id, props) {
   props = props || {};
 
   Entity.call(this, id, props);
-  this.setType(EntityType.SESSION);
+  this.setType(entityType.SESSION);
   if (props.hasOwnProperty("actor")) {
     this.setActor(props.actor);
   }

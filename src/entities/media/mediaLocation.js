@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var DigitalResource = require('../digitalResource');
-var DigitalResourceType = require('../digitalResourceType');
+var digitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents Media Location.  
@@ -33,7 +33,7 @@ function MediaLocation(id, props) {
   props = props || {};
 
   DigitalResource.call(this, id, props);
-  this.setType(DigitalResourceType.MEDIA_LOCATION);
+  this.setType(digitalResourceType.MEDIA_LOCATION);
   if (props.hasOwnProperty("currentTime")) {
     this.setCurrentTime(props.currentTime);
   }

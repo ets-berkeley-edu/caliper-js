@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Response = require('./response');
-var ResponseType = require('./responseType');
+var responseType = require('./responseType');
 
 /**
  * Represents SelectTextResponse.
@@ -33,7 +33,7 @@ function SelectTextResponse(id, props) {
   props = props || {};
 
   Response.call(this, id, props);
-  this.setType(ResponseType.SELECTTEXT);
+  this.setType(responseType.SELECTTEXT);
   if (props.hasOwnProperty("values")) {
     this.setValues(props.values);
   }

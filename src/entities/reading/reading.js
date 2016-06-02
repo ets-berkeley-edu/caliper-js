@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var DigitalResource = require('../digitalResource');
-var DigitalResourceType = require('../digitalResourceType');
+var digitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents a reading.
@@ -33,7 +33,7 @@ function Reading(id, props) {
   
   DigitalResource.call(this);
   this.setId(id);
-  this.setType(DigitalResourceType.READING);
+  this.setType(digitalResourceType.READING);
   if (props.hasOwnProperty("name")) {
     this.setName(props.name);
   }

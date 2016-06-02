@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var DigitalResource = require('../digitalResource');
-var DigitalResourceType = require('../digitalResourceType');
+var digitalResourceType = require('../digitalResourceType');
 
 /**
  * Represents AssignableDigitalResource.  
@@ -39,7 +39,7 @@ function AssignableDigitalResource(id, props) {
   props = props || {};
 
   DigitalResource.call(this, id, props);
-  this.setType(DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
+  this.setType(digitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE);
   if (props.hasOwnProperty("dateToActivate")) {
     this.setDateToActivate(props.dateToActivate);
   }

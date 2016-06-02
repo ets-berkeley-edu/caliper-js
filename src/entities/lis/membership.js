@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('../entity');
-var EntityType = require('../entityType');
+var entityType = require('../entityType');
 
 /**
  * Represents a W3C Membership.
@@ -36,7 +36,7 @@ function Membership(id, props) {
   props = props || {};
 
   Entity.call(this, id, props);
-  this.setType(EntityType.MEMBERSHIP);
+  this.setType(entityType.MEMBERSHIP);
   if (props.hasOwnProperty("member")) {
     this.setMember(props.member);
   }
