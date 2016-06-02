@@ -28,7 +28,7 @@ var EventType = require('../src/events/eventType');
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
 var EntityType = require('../src/entities/entityType');
-var AssignableType = require('../src/entities/assignable/AssignableDigitalResourceType');
+var assignableType = require('../src/entities/assignable/AssignableDigitalResourceType');
 var DigitalResourceType = require('../src/entities/digitalResourceType');
 
 // Action
@@ -54,7 +54,7 @@ test('Create Assignable Event and validate attributes', function (t) {
 
   // The Object being interacted with by the Actor (Assessment)
   var objId = "https://example.edu/politicalScience/2015/american-revolution-101/assessment/001";
-  var obj = entityFactory().create(AssignableType.ASSESSMENT, objId, {
+  var obj = entityFactory().create(assignableType.ASSESSMENT, objId, {
     name: "American Revolution - Key Figures Assessment",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),

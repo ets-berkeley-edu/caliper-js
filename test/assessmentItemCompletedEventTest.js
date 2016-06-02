@@ -28,7 +28,7 @@ var EventType = require('../src/events/eventType');
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
 var EntityType = require('../src/entities/entityType');
-var AssignableType = require('../src/entities/assignable/assignableDigitalResourceType');
+var assignableType = require('../src/entities/assignable/assignableDigitalResourceType');
 var ResponseType = require('../src/entities/response/responseType');
 
 // Action
@@ -54,7 +54,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
 
   // The Object being interacted with by the Actor (Assessment)
   var parentId = "https://example.edu/politicalScience/2015/american-revolution-101/assessment/001";
-  var parent = entityFactory().create(AssignableType.ASSESSMENT, parentId, {
+  var parent = entityFactory().create(assignableType.ASSESSMENT, parentId, {
     name: "American Revolution - Key Figures Assessment",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -71,7 +71,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
 
   // The Object being interacted with by the Actor (AssessmentItem)
   var objId = parent['@id'] + "/item/001";
-  var obj = entityFactory().create(AssignableType.ASSESSMENT_ITEM, objId, {
+  var obj = entityFactory().create(assignableType.ASSESSMENT_ITEM, objId, {
     name: "Assessment Item 1",
     isPartOf: parent,
     maxAttempts: 2,
