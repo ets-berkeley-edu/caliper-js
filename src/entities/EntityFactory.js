@@ -17,12 +17,12 @@
  */
 
 var _ = require('lodash');
-var EntityType = require('./entityType');
-var AnnotationType = require('./annotation/annotationType');
-var AssignableType = require('./assignable/assignableDigitalResourceType');
-var DigitalResourceType = require('./digitalResourceType');
-var MediaObjectType = require('./media/mediaObjectType');
-var ResponseType = require('./response/responseType');
+var entityType = require('./entityType');
+var annotationType = require('./annotation/annotationType');
+var assignableType = require('./assignable/assignableDigitalResourceType');
+var digitalResourceType = require('./digitalResourceType');
+var mediaObjectType = require('./media/mediaObjectType');
+var responseType = require('./response/responseType');
 
 var Entity = require('./entity');
 var DigitalResource = require('./digitalResource');
@@ -93,88 +93,88 @@ entityFactory.proto = {
     props = props || {};
 
     switch(type) {
-      case EntityType.AGENT:
+      case entityType.AGENT:
         return new Agent(id, props);
-      case EntityType.ANNOTATION:
+      case entityType.ANNOTATION:
         return new Annotation(id, props);
-      case EntityType.ATTEMPT:
+      case entityType.ATTEMPT:
         return new Attempt(id, props);
-      case EntityType.COURSE_OFFERING:
+      case entityType.COURSE_OFFERING:
         return new CourseOffering(id, props);
-      case EntityType.COURSE_SECTION:
+      case entityType.COURSE_SECTION:
         return new CourseSection(id, props);
-      case EntityType.DIGITAL_RESOURCE:
+      case entityType.DIGITAL_RESOURCE:
         return new DigitalResource(id, props);
-      case EntityType.GROUP:
+      case entityType.GROUP:
         return new Group(id, props);
-      case EntityType.LEARNING_OBJECTIVE:
+      case entityType.LEARNING_OBJECTIVE:
         return new LearningObjective(id, props);
-      case EntityType.MEMBERSHIP:
+      case entityType.MEMBERSHIP:
         return new Membership(id, props);
-      case EntityType.ORGANIZATION:
+      case entityType.ORGANIZATION:
         return new Organization(id, props);
-      case EntityType.PERSON:
+      case entityType.PERSON:
         return new Person(id, props);
-      case EntityType.RESPONSE:
+      case entityType.RESPONSE:
         return new Response(id, props);
-      case EntityType.RESULT:
+      case entityType.RESULT:
         return new Result(id, props);
-      case EntityType.SESSION:
+      case entityType.SESSION:
         return new Session(id, props);
-      case EntityType.SOFTWARE_APPLICATION:
+      case entityType.SOFTWARE_APPLICATION:
         return new SoftwareApplication(id, props);
 
-      case AnnotationType.BOOKMARK_ANNOTATION:
+      case annotationType.BOOKMARK_ANNOTATION:
         return new BookmarkAnnotation(id, props);
-      case AnnotationType.HIGHLIGHT_ANNOTATION:
+      case annotationType.HIGHLIGHT_ANNOTATION:
         return new HighlightAnnotation(id, props);
-      case AnnotationType.SHARED_ANNOTATION:
+      case annotationType.SHARED_ANNOTATION:
         return new SharedAnnotation(id, props);
-      case AnnotationType.TAG_ANNOTATION:
+      case annotationType.TAG_ANNOTATION:
         return new TagAnnotation(id, props);
 
-      case AssignableType.ASSESSMENT:
+      case assignableType.ASSESSMENT:
         return new Assessment(id, props);
-      case AssignableType.ASSESSMENT_ITEM:
+      case assignableType.ASSESSMENT_ITEM:
         return new AssessmentItem(id, props);
 
-      case DigitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE:
+      case digitalResourceType.ASSIGNABLE_DIGITAL_RESOURCE:
         return new AssignableDigitalResource(id, props);
-      case DigitalResourceType.EPUB_CHAPTER:
+      case digitalResourceType.EPUB_CHAPTER:
         return new EpubChapter(id, props);
-      case DigitalResourceType.EPUB_PART:
+      case digitalResourceType.EPUB_PART:
         return new EpubPart(id, props);
-      case DigitalResourceType.EPUB_SUB_CHAPTER:
+      case digitalResourceType.EPUB_SUB_CHAPTER:
         return new EpubSubChapter(id, props);
-      case DigitalResourceType.EPUB_VOLUME:
+      case digitalResourceType.EPUB_VOLUME:
         return new EpubVolume(id, props);
-      case DigitalResourceType.FRAME:
+      case digitalResourceType.FRAME:
         return new Frame(id, props);
-      case DigitalResourceType.MEDIA_LOCATION:
+      case digitalResourceType.MEDIA_LOCATION:
         return new MediaLocation(id, props);
-      case DigitalResourceType.MEDIA_OBJECT:
+      case digitalResourceType.MEDIA_OBJECT:
         return new MediaObject(id, props);
-      case DigitalResourceType.READING:
+      case digitalResourceType.READING:
         return new Reading(id, props);
-      case DigitalResourceType.WEB_PAGE:
+      case digitalResourceType.WEB_PAGE:
         return new WebPage(id, props);
 
-      case MediaObjectType.AUDIO_OBJECT:
+      case mediaObjectType.AUDIO_OBJECT:
         return new AudioObject(id, props);
-      case MediaObjectType.IMAGE_OBJECT:
+      case mediaObjectType.IMAGE_OBJECT:
         return new ImageObject(id, props);
-      case MediaObjectType.VIDEO_OBJECT:
+      case mediaObjectType.VIDEO_OBJECT:
         return new VideoObject(id, props);
 
-      case ResponseType.FILLINBLANK:
+      case responseType.FILLINBLANK:
         return new FillinBlankResponse(id, props);
-      case ResponseType.MULTIPLECHOICE:
+      case responseType.MULTIPLECHOICE:
         return new multipleChoiceResponse(id, props);
-      case ResponseType.MULTIPLERESPONSE:
+      case responseType.MULTIPLERESPONSE:
         return new multipleResponseResponse(id, props);
-      case ResponseType.SELECTTEXT:
+      case responseType.SELECTTEXT:
         return new selectTextResponse(id, props);
-      case ResponseType.TRUEFALSE:
+      case responseType.TRUEFALSE:
         return new trueFalseResponse(id, props);
 
       default:
