@@ -16,9 +16,9 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
+var eventType = require('./eventType');
 var Event = require('./event');
-var EventType = require('./eventType');
-
 var AnnotationEvent = require('./annotationEvent');
 var AssessmentEvent = require('./assessmentEvent');
 var AssessmentItemEvent = require('./assessmentItemEvent');
@@ -30,36 +30,43 @@ var ReadingEvent = require('./readingEvent');
 var SessionEvent = require('./sessionEvent');
 var ViewEvent = require('./viewEvent');
 
-/**
- * Factory for creating events.
- * @constructor
- */
+/*
+Factory function designed to mint new Caliper Event objects.  This is a regular function that does NOT require
+use of the "new" keyword in order to instantiate.  As we want no instanceOf link established between the
+factory function and the objects it creates the prototype property is not utilized.
 
-// Constructor
-function EventFactory() {}
+To create a Caliper Event, simply select the appropriate eventType constant and provide a properties object to
+assign to the Event object, e.g., var event = entityFactory.create(eventType.EVENT, properties);
+*/
+function eventFactory() {
+  var factory = _.create(eventFactory.proto);
+  return factory;
+}
 
-EventFactory.prototype = {
+eventFactory.proto = {
   create: function(type, props) {
+    props = props || {};
+
     switch(type) {
-      case EventType.ANNOTATION:
+      case eventType.ANNOTATION:
         return new AnnotationEvent(props);
-      case EventType.ASSESSMENT:
+      case eventType.ASSESSMENT:
         return new AssessmentEvent(props);
-      case EventType.ASSESSMENT_ITEM:
+      case eventType.ASSESSMENT_ITEM:
         return new AssessmentItemEvent(props);
-      case EventType.ASSIGNABLE:
+      case eventType.ASSIGNABLE:
         return new AssignableEvent(props);
-      case EventType.MEDIA:
+      case eventType.MEDIA:
         return new MediaEvent(props);
-      case EventType.NAVIGATION:
+      case eventType.NAVIGATION:
         return new NavigationEvent(props);
-      case EventType.OUTCOME:
+      case eventType.OUTCOME:
         return new OutcomeEvent(props);
-      case EventType.READING:
+      case eventType.READING:
         return new ReadingEvent(props);
-      case EventType.SESSION:
+      case eventType.SESSION:
         return new SessionEvent(props);
-      case EventType.VIEWED:
+      case eventType.VIEWED:
         return new ViewEvent(props);
       default:
         return new Event(props);
@@ -67,4 +74,4 @@ EventFactory.prototype = {
   }
 };
 
-module.exports = EventFactory;
+module.exports = eventFactory;

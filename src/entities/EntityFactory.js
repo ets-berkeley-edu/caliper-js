@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var EntityType = require('./entityType');
 var AnnotationType = require('./annotation/annotationType');
 var AssignableType = require('./assignable/assignableDigitalResourceType');
@@ -73,16 +74,24 @@ var trueFalseResponse = require('./response/trueFalseresponse');
 var Result = require('./outcome/result');
 var Session = require('./session/session');
 
-/**
- * Factory for creating entities.
- * @constructor
+
+/*
+ Factory function designed to mint new Caliper Entity objects.  This is a regular function that does NOT require
+ use of the "new" keyword in order to instantiate.  As we want no instanceOf link established between the
+ factory function and the objects it creates the prototype property is not utilized.
+
+ To create a Caliper Entity, simply select the appropriate entityType constant and provide a properties object to
+ assign to the Entity object, e.g., var entity = entityFactory.create(entityType.ENTITY, properties);
  */
+function entityFactory() {
+  var factory = _.create(entityFactory.proto);
+  return factory;
+}
 
-// Constructor
-function EntityFactory() {}
-
-EntityFactory.prototype = {
+entityFactory.proto = {
   create: function(type, id, props) {
+    props = props || {};
+
     switch(type) {
       case EntityType.AGENT:
         return new Agent(id, props);
@@ -174,4 +183,4 @@ EntityFactory.prototype = {
   }
 };
 
-module.exports = EntityFactory;
+module.exports = entityFactory;
