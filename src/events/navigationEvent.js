@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Event = require('./event');
-var EventType = require('./eventType');
+var eventType = require('./eventType');
 
 /**
  * Represents Navigation Event.  
@@ -32,7 +32,7 @@ function NavigationEvent(props) {
   props = props || {};
   
   Event.call(this, props);
-  this.setType(EventType.NAVIGATION);
+  this.setType(eventType.NAVIGATION);
 }
 
 // Inherit from the prototype.

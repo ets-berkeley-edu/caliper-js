@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Event = require('./event');
-var EventType = require('./eventType');
+var eventType = require('./eventType');
 
 /**
  * Represents Reading Event.
@@ -31,7 +31,7 @@ function ReadingEvent(props) {
   props = props || {};
 
   Event.call(this, props);
-  this.setType(EventType.READING);
+  this.setType(eventType.READING);
 }
 
 // Inherit from the prototype.

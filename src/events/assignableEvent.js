@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Event = require('./event');
-var EventType = require('./eventType');
+var eventType = require('./eventType');
 
 /**
  * Represents Assignable Event.  
@@ -31,7 +31,7 @@ function AssignableEvent(props) {
   props = props || {};
   
   Event.call(this, props);
-  this.setType(EventType.ASSIGNABLE);
+  this.setType(eventType.ASSIGNABLE);
 }
 
 // Inherit from the prototype.

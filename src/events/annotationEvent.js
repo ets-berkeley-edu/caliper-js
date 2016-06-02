@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Event = require('./event');
-var EventType = require('./eventType');
+var eventType = require('./eventType');
 
 /**
  * Represents Annotation Event.  
@@ -31,7 +31,7 @@ function AnnotationEvent(props) {
   props = props || {};
 
   Event.call(this, props);
-  this.setType(EventType.ANNOTATION);
+  this.setType(eventType.ANNOTATION);
 }
 
 // Inherit from the prototype.

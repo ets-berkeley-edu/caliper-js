@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Event = require('./event');
-var EventType = require('./eventType');
+var eventType = require('./eventType');
 
 /**
  * Represents Session Event.  
@@ -31,7 +31,7 @@ function SessionEvent(props) {
   props = props || {};
   
   Event.call(this, props);
-  this.setType(EventType.SESSION);
+  this.setType(eventType.SESSION);
 }
 
 // Inherit from the prototype.

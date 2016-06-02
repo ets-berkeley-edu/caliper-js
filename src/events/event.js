@@ -17,7 +17,7 @@
  */
 
 var Context = require('../context/context');
-var EventType = require('./eventType');
+var eventType = require('./eventType');
 
 /**
  * Represents Base Caliper Event.
@@ -46,7 +46,7 @@ function Event(props) {
   props = props || {};
 
   this.setContext(Context.CONTEXT);
-  this.setType(EventType.EVENT);
+  this.setType(eventType.EVENT);
   if (props.hasOwnProperty("sourcedId")) {
     this.setSourcedId(props.sourcedId);
   }

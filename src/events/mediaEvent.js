@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Event = require('./event');
-var EventType = require('./eventType');
+var eventType = require('./eventType');
 
 /**
  * Represents Media Event.  
@@ -32,7 +32,7 @@ function MediaEvent(props) {
   props = props || {};
 
   Event.call(this, props);
-  this.setType(EventType.MEDIA);
+  this.setType(eventType.MEDIA);
 }
 
 // Inherit from the prototype.
