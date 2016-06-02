@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('./entity');
-var EntityType = require('./entityType');
+var entityType = require('./entityType');
 
 /**
  * Represents Learning Objective
@@ -30,7 +30,7 @@ var EntityType = require('./entityType');
  */
 function LearningObjective(id, props) {
   Entity.call(this, id, props);
-  this.setType(EntityType.LEARNING_OBJECTIVE);
+  this.setType(entityType.LEARNING_OBJECTIVE);
 }
 
 // Inherit from the prototype and assign additional properties to the object per the model as required.

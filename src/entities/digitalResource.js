@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('./entity');
-var EntityType = require('./entityType');
+var entityType = require('./entityType');
 
 /**
  * Represents a Digital Resource.  Analogous to a schema.org CreativeWork
@@ -38,7 +38,7 @@ function DigitalResource(id, props) {
   props = props || {};
 
   Entity.call(this, id, props);
-  this.setType(EntityType.DIGITAL_RESOURCE);
+  this.setType(entityType.DIGITAL_RESOURCE);
   if (props.hasOwnProperty("mediaType")) {
     this.setMediaType(props.mediaType);
   }
