@@ -22,7 +22,7 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var eventFactory = require('../src/events/eventFactory');
+var outcomeEvent = require('../src/events/outcomeEvent');
 var EventType = require('../src/events/eventType');
 
 // Entity
@@ -127,10 +127,10 @@ test('Create Outcome Event and validate attributes', function (t) {
   // Assert that key attributes are the same
 
   // Assert that key attributes are the same
-  var event = eventFactory().create(EventType.OUTCOME, {
+  var event = outcomeEvent().create({
     actor: actor,
     action: action,
-    obj: obj,
+    object: obj,
     eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
     generated: generated,
     group: group

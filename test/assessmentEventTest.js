@@ -22,8 +22,9 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
+var assessmentEvent = require('../src/events/assessmentEvent');
 var eventFactory = require('../src/events/eventFactory');
-var EventType = require('../src/events/eventType');
+var eventType = require('../src/events/eventType');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -128,10 +129,10 @@ test('Create Assessment Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = eventFactory().create(EventType.ASSESSMENT, {
+  var event = assessmentEvent().create({
     actor: actor,
     action: action,
-    obj: obj,
+    object: obj,
     eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
     generated: generated,
     edApp: edApp,

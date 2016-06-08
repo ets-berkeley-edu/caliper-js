@@ -17,24 +17,26 @@
  */
 
 var _ = require('lodash');
+var context = require('../context/context');
 var Event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Represents Assignable Event.  
- * AssignableEvent's prototype set to Event
- * @constructor
- * @param {Object} props Optional property settings
- * @extends Event
+ * Factory function that returns an object based on a delegate prototype when the factory create method is invoked.
+ * All enumerable string keyed properties included in the "props" object are also assigned to the created object.
+ * @returns {{create: create}}
  */
-function AssignableEvent(props) {
-  props = props || {};
-  
-  Event.call(this, props);
-  this.setType(eventType.ASSIGNABLE);
-}
+function AssignableEvent() {
+  var ctx = context.CONTEXT;
+  var type = eventType.ASSIGNABLE;
 
-// Inherit from the prototype.
-AssignableEvent.prototype = _.create(Event.prototype);
+  return {
+    create: function create(props) {
+      props = props || {};
+      props = _.defaults(props, { '@context': ctx }, { '@type': type });
+      return _.create(Event, props);
+    }
+  }
+}
 
 module.exports = AssignableEvent;

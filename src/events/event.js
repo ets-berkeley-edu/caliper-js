@@ -16,7 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var Context = require('../context/context');
+var context = require('../context/context');
 var eventType = require('./eventType');
 
 /**
@@ -41,7 +41,94 @@ var eventType = require('./eventType');
  * @property {Object} extensions Extensions Object
  */
 
+/*
+var Event = {
+  setContext: function(context) {
+    this['@context'] = context;
+  },
+  setType: function(type) {
+    this['@type'] = type;
+  },
+  setSourcedId: function(sourcedId) {
+    this.sourcedId = sourcedId;
+  },
+  setActor: function(actor) {
+    this.actor = actor;
+  },
+  setAction: function(action) {
+    this.action = action;
+  },
+  setObject: function(object) {
+    this.object = object;
+  },
+  setEventTime: function(eventTime) {
+    this.eventTime = eventTime;
+  },
+  setGenerated: function(generated) {
+    this.generated = generated;
+  },
+  setTarget: function(target) {
+    this.target = target;
+  },
+  setReferrer: function(referrer) {
+    this.referrer = referrer;
+  },
+  setEdApp: function(edApp) {
+    this.edApp = edApp;
+  },
+  setGroup: function(group) {
+    this.group = group;
+  },
+  setMembership: function(membership) {
+    this.membership = membership;
+  },
+  setSession: function(session) {
+    this.session = session;
+  },
+  setFederatedSession: function(federatedSession) {
+    this.federatedSession = federatedSession;
+  },
+  setExtensions: function(extensions) {
+    this.extensions = extensions;
+  }
+};
+*/
+
+var Event = {
+  '@context': context.CONTEXT,
+  '@type': eventType.EVENT,
+  actor: {},
+  action: null,
+  object: {},
+  eventTime: null,
+  generated: {},
+  target: {},
+  referrer: {},
+  edApp: {},
+  group: {},
+  membership: {},
+  session: null,
+  federatedSession: null,
+  extensions: {}
+};
+
+
+/**
+ * Factory function
+ * @param props
+ */
+/*
+function Event(props) {
+  props = props || {};
+  return _.assign(_.create(Event(props)), {
+    context: Context.CONTEXT,
+    type: eventType.EVENT
+  });
+}
+*/
+
 // constructor
+/*
 function Event(props) {
   props = props || {};
 
@@ -98,8 +185,10 @@ function Event(props) {
     this.setExtensions(props.extensions);
   }
 }
+*/
 
 // Setters for Caliper Event properties
+/*
 Event.prototype = {
   setContext: function(context) {
     this['@context'] = context;
@@ -150,5 +239,7 @@ Event.prototype = {
     this.extensions = extensions;
   }
 };
+
+*/
 
 module.exports = Event;

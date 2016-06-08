@@ -17,29 +17,26 @@
  */
 
 var _ = require('lodash');
+var context = require('../context/context');
 var Event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Represents Media Event.  
- * MediaEvent's prototype set to Event
- * @constructor
- * @param {Object} props Optional property settings
- * @property {Object} mediaLocation Media Location
- * @extends Event
+ * Factory function that returns an object based on a delegate prototype when the factory create method is invoked.
+ * All enumerable string keyed properties included in the "props" object are also assigned to the created object.
+ * @returns {{create: create}}
  */
-function MediaEvent(props) {
-  props = props || {};
+function MediaEvent() {
+  var ctx = context.CONTEXT;
+  var type = eventType.MEDIA;
 
-  Event.call(this, props);
-  this.setType(eventType.MEDIA);
+  return {
+    create: function create(props) {
+      props = props || {};
+      props = _.defaults(props, { '@context': ctx }, { '@type': type });
+      return _.create(Event, props);
+    }
+  }
 }
-
-// Inherit from the prototype.
-MediaEvent.prototype = _.create(Event.prototype);
-
-MediaEvent.prototype.setMediaLocation = function (mediaLocation) {
-  this.mediaLocation = mediaLocation;
-};
 
 module.exports = MediaEvent;

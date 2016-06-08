@@ -17,24 +17,26 @@
  */
 
 var _ = require('lodash');
+var context = require('../context/context');
 var Event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Represents Assessment Event.  
- * Assessment's prototype set to Event
- * @constructor
- * @param {Object} props Optional property settings
- * @extends Event
+ * Factory function that returns an object based on a delegate prototype when the factory create method is invoked.
+ * All enumerable string keyed properties included in the "props" object are also assigned to the created object.
+ * @returns {{create: create}}
  */
-function AssessmentEvent(props) {
-  props = props || {};
+function AssessmentEvent() {
+  var ctx = context.CONTEXT;
+  var type = eventType.ASSESSMENT;
 
-  Event.call(this, props);
-  this.setType(eventType.ASSESSMENT);
+  return {
+    create: function create(props) {
+      props = props || {};
+      props = _.defaults(props, { '@context': ctx }, { '@type': type });
+      return _.create(Event, props);
+    }
+  }
 }
-
-// Inherit from the prototype.
-AssessmentEvent.prototype = _.create(Event.prototype);
 
 module.exports = AssessmentEvent;
