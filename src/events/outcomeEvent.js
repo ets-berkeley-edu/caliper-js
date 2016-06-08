@@ -22,7 +22,7 @@ var Event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Factory function that returns an object based on a delegate prototype when the factory create method is invoked.
+ * Factory function that returns a mutated object based on a delegate prototype when the factory create method is invoked.
  * All enumerable string keyed properties included in the "props" object are also assigned to the created object.
  * @returns {{create: create}}
  */
@@ -34,7 +34,7 @@ function OutcomeEvent() {
     create: function create(props) {
       props = props || {};
       props = _.defaults(props, { '@context': ctx }, { '@type': type });
-      return _.create(Event, props);
+      return _.assign(_.create(Event), props);
     }
   }
 }
