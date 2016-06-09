@@ -23,13 +23,11 @@ var jsonCompare = require('./testUtils');
 
 // Event
 var assignableEvent = require('../src/events/assignableEvent');
-var EventType = require('../src/events/eventType');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
 var EntityType = require('../src/entities/entityType');
 var assignableType = require('../src/entities/assignable/AssignableDigitalResourceType');
-var DigitalResourceType = require('../src/entities/digitalResourceType');
 
 // Action
 var AssignableActions = require('../src/actions/assignableActions');

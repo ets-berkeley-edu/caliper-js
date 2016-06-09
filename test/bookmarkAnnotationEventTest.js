@@ -23,7 +23,6 @@ var jsonCompare = require('./testUtils');
 
 // Event
 var annotationEvent = require('../src/events/AnnotationEvent');
-var EventType = require('../src/events/eventType');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');

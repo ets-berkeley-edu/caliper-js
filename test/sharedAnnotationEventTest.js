@@ -23,7 +23,6 @@ var jsonCompare = require('./testUtils');
 
 // Event
 var annotationEvent = require('../src/events/annotationEvent');
-var EventType = require('../src/events/eventType');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -153,7 +152,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     group: group,
     membership: membership
   });
-  
+
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventAnnotationShared', event, t);
 });
