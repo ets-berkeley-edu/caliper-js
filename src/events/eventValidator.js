@@ -22,13 +22,15 @@ var propNames = [ "@context", "@type", "sourcedId", "actor", "action", "object",
   "target", "referrer", "edApp", "group", "membership", "session", "federatedSession", "extensions" ];
 
 /**
- * Check for top-level user-defined Event properties and move them to Event.extensions.  Use the good 'ole for loop
- * in preference to the for..in loop in order to avoid iterating over all the enumerable properties of the object
- * including those inherited from it's prototype.
- * @param props
+ * Check event properties.
+ * @param context {string} JSON-LD context IRI
+ * @param type {string} JSON-LD type IRI
+ * @param props {Object} enumerable key:value Event properties
  * @returns {*}
  */
-var checkProperties = function checkProperties(type, props) {
+var checkProperties = function checkProperties(context, type, props) {
+
+  // TODO check the context
 
   // TODO Do type specific checks
 

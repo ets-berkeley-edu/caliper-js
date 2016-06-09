@@ -18,15 +18,15 @@
 
 var _ = require('lodash');
 var context = require('../context/context');
-var Event = require('./event');
+var eventFactory = require('./eventFactory');
 var eventType = require('./eventType');
-var validator = require('./eventValidator');
 
 /**
- * Factory function that returns a mutated object based on a delegate prototype when the
- * factory create method is invoked. All enumerable string keyed properties included in
- * the "props" object and other sources are also assigned to the created object in the
- * order provided.
+ * Factory function that wraps a generic factory for creating new events.  The wrapped function
+ * returns a mutated object based on a delegate prototype when the factory's create method is
+ * invoked.  All enumerable string keyed properties included in the "props" object and other
+ * sources are also assigned to the created object in the order provided.
+ *
  * @returns {{create: create}}
  */
 function ReadingEvent() {
@@ -35,9 +35,7 @@ function ReadingEvent() {
 
   return {
     create: function create(props) {
-      props = props || {};
-      props = validator.checkProperties(type, props);
-      return _.assign(_.create(Event), props, { '@context': ctx }, { '@type': type });
+      return eventFactory().create(ctx, type, props);
     }
   }
 }

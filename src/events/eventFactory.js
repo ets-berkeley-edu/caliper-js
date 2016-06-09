@@ -17,61 +17,25 @@
  */
 
 var _ = require('lodash');
-var eventType = require('./eventType');
 var Event = require('./event');
-var AnnotationEvent = require('./annotationEvent');
-var AssessmentEvent = require('./assessmentEvent');
-var AssessmentItemEvent = require('./assessmentItemEvent');
-var AssignableEvent = require('./assignableEvent');
-var MediaEvent = require('./mediaEvent');
-var NavigationEvent = require('./navigationEvent');
-var OutcomeEvent = require('./outcomeEvent');
-var ReadingEvent = require('./readingEvent');
-var SessionEvent = require('./sessionEvent');
-var ViewEvent = require('./viewEvent');
+var validator = require('./eventValidator');
 
-/*
-Factory function designed to mint new Caliper Event objects.  This is a regular function that does NOT require
-use of the "new" keyword in order to instantiate.  As we want no instanceOf link established between the
-factory function and the objects it creates the prototype property is not utilized.
 
-To create a Caliper Event, simply select the appropriate eventType constant and provide a properties object to
-assign to the Event object, e.g., var event = entityFactory.create(eventType.EVENT, properties);
-*/
+/**
+ * Factory function that returns a mutated object based on a delegate prototype when the
+ * factory create method is invoked. All enumerable string keyed properties included in
+ * the "props" object and other sources are also assigned to the created object in the
+ * order provided.
+ * @returns {{create: create}}
+ */
 function eventFactory() {
-  var factory = _.create(eventFactory.proto);
-  return factory;
-}
-
-eventFactory.proto = {
-  create: function(type, props) {
-    props = props || {};
-
-    switch(type) {
-      case eventType.ANNOTATION:
-        return new AnnotationEvent(props);
-      case eventType.ASSESSMENT:
-        return new AssessmentEvent(props);
-      case eventType.ASSESSMENT_ITEM:
-        return new AssessmentItemEvent(props);
-      case eventType.ASSIGNABLE:
-        return new AssignableEvent(props);
-      case eventType.MEDIA:
-        return new MediaEvent(props);
-      case eventType.NAVIGATION:
-        return new NavigationEvent(props);
-      case eventType.OUTCOME:
-        return new OutcomeEvent(props);
-      case eventType.READING:
-        return new ReadingEvent(props);
-      case eventType.SESSION:
-        return new SessionEvent(props);
-      case eventType.VIEWED:
-        return new ViewEvent(props);
-      default:
-        return new Event(props);
+  return {
+    create: function create(ctx, type, props) {
+      props = props || {};
+      props = validator.checkProperties(ctx, type, props);
+      return _.assign(_.create(Event), props, { '@context': ctx }, { '@type': type });
     }
   }
-};
+}
 
 module.exports = eventFactory;
