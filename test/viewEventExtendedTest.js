@@ -158,8 +158,6 @@ test('Create View Event and validate attributes', function (t) {
     membership: membership,
     extensions: extensions
   });
-  
-  console.log("View Event = " + util.inspect(event));
 
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventViewViewedExtended', event, t);

@@ -153,9 +153,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     group: group,
     membership: membership
   });
-
-  console.log("Shared Annotation Event = " + util.inspect(event));
-
+  
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventAnnotationShared', event, t);
 });

@@ -111,8 +111,6 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
     group: group
   });
 
-  console.log("Session Event = " + util.inspect(event));
-
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventSessionTimedOut', event, t);
 });

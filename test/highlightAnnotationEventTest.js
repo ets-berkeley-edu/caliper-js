@@ -144,8 +144,6 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
     membership: membership
   });
 
-  console.log("Highlight Annotation Event = " + util.inspect(event));
-
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventAnnotationHighlighted', event, t);
 });

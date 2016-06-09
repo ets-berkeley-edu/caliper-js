@@ -136,8 +136,6 @@ test('Create Outcome Event and validate attributes', function (t) {
     group: group
   });
 
-  console.log("Outcome Event = " + util.inspect(event));
-
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventOutcomeGraded', event, t);
 });

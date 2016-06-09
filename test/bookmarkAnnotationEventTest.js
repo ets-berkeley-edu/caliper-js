@@ -143,8 +143,6 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
     membership: membership
   });
 
-  console.log("Bookmark Annotation Event = " + util.inspect(event));
-
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventAnnotationBookmarked', event, t);
 });

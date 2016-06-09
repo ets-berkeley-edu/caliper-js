@@ -139,9 +139,7 @@ test('Create Media Event and validate attributes', function (t) {
     group: group,
     membership: membership
   });
-
-  console.log("Media Event = " + util.inspect(event));
-
+  
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventMediaPausedVideo', event, t);
 });

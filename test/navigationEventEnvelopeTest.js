@@ -163,9 +163,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
   requestor.initialize(options);
   var payload = requestor.createEnvelope(sensor, event);
   payload.setSendTime((new Date("2015-09-15T11:05:01.000Z")).toISOString());
-
-  console.log("Envelope payload = " + util.inspect(payload));
-
+  
   // Assert that JSON produced is the same
   jsonCompare('caliperEnvelopeEventSingle', payload, t);
 });
