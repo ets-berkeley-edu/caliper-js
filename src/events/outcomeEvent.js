@@ -20,10 +20,13 @@ var _ = require('lodash');
 var context = require('../context/context');
 var Event = require('./event');
 var eventType = require('./eventType');
+var validator = require('./eventValidator');
 
 /**
- * Factory function that returns a mutated object based on a delegate prototype when the factory create method is invoked.
- * All enumerable string keyed properties included in the "props" object are also assigned to the created object.
+ * Factory function that returns a mutated object based on a delegate prototype when the
+ * factory create method is invoked. All enumerable string keyed properties included in
+ * the "props" object and other sources are also assigned to the created object in the
+ * order provided.
  * @returns {{create: create}}
  */
 function OutcomeEvent() {
@@ -33,8 +36,8 @@ function OutcomeEvent() {
   return {
     create: function create(props) {
       props = props || {};
-      props = _.defaults(props, { '@context': ctx }, { '@type': type });
-      return _.assign(_.create(Event), props);
+      props = validator.checkProperties(type, props);
+      return _.assign(_.create(Event), props, { '@context': ctx }, { '@type': type });
     }
   }
 }
