@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var DigitalResource = require('./../digitalResource');
+var context = require('../../context/context');
+var digitalResource = require('../digitalResource');
 var digitalResourceType = require('../digitalResourceType');
 
 /**
- * Represents WebPage.  
- * WebPage's prototype set to DigitalResource
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends DigitalResource
+ * Link WebPage to delegate DigitalResource and assign default property values.
  */
-function WebPage(id, props) {
-  props = props || {};
-  
-  DigitalResource.call(this, id, props);
-  this.setType(digitalResourceType.WEB_PAGE);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-WebPage.prototype = _.create(DigitalResource.prototype);
+var WebPage = _.assign(_.create(digitalResource), {
+  '@context': context.CONTEXT,
+  '@type': digitalResourceType.WEB_PAGE
+});
 
 module.exports = WebPage;

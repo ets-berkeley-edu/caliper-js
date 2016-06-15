@@ -51,8 +51,8 @@ self.replacer = function(name, val) {
   return val;
 }
 
-self.parseForNullsAndEmtpy = function(jsObject) {
-  return JSON.parse(JSON.stringify(jsObject, self.replacer));;
+self.parseForNullsAndEmpty = function(jsObject) {
+  return JSON.parse(JSON.stringify(jsObject, self.replacer));
 };
 
 self.serializeToJson = function(jsObject) {
@@ -62,5 +62,5 @@ self.serializeToJson = function(jsObject) {
 
 module.exports = {
   serialize: self.serializeToJson,
-  parseForNullsAndEmtpy: self.parseForNullsAndEmtpy
+  parseForNullsAndEmpty: self.parseForNullsAndEmpty
 };

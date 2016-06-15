@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
+var context = require('../../context/context');
+var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Represents Agent.
- * Agent's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends Entity
+ * Link Agent to delegate Entity and assign default property values.
  */
-function Agent(id, props) {
-  props = props || {};
-  
-  Entity.call(this, id, props);
-  this.setType(entityType.AGENT);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Agent.prototype = _.create(Entity.prototype);
+var Agent = _.assign(_.create(entity), {
+    '@context': context.CONTEXT,
+    '@type': entityType.AGENT
+  });
 
 module.exports = Agent;

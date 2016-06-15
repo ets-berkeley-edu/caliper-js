@@ -17,32 +17,17 @@
  */
 
 var _ = require('lodash');
-var AssignableDigitalResource = require('../assignable/assignableDigitalResource');
+var context = require('../../context/context');
+var assignable = require('../assignable/assignableDigitalResource');
 var assignableType = require('../assignable/assignableDigitalResourceType');
 
 /**
- * Represents an AssessmentItem.
- * AssessmentItem's prototype set to AssignableDigitalResource
- * @constructor
- * @param {String} id URI
- * @property {boolean} isTimeDependent boolean true/false
- * @extends AssignableDigitalResource
+ * Link AssessmentItem to delegate AssignableDigitalResource and assign default property values.
  */
-function AssessmentItem(id, props) {
-  props = props || {};
-
-  AssignableDigitalResource.call(this, id, props);
-  this.setType(assignableType.ASSESSMENT_ITEM);
-  if (props.hasOwnProperty("isTimeDependent")) {
-    this.setIsTimeDependent(props.isTimeDependent);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-AssessmentItem.prototype = _.create(AssignableDigitalResource.prototype, {
-  setIsTimeDependent: function(isTimeDependent) {
-    this.isTimeDependent = isTimeDependent;
-  }
+var AssessmentItem = _.assign(_.create(assignable), {
+  '@context': context.CONTEXT,
+  '@type': assignableType.ASSESSMENT_ITEM,
+  isTimeDependent: false
 });
 
 module.exports = AssessmentItem;

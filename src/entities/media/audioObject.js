@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var MediaObject = require('./mediaObject');
+var context = require('../../context/context');
+var mediaObject = require('./mediaObject');
 var mediaObjectType = require('./mediaObjectType');
 
 /**
- * Represents Audio Object.  
- * AudioObject's prototype set to MediaObject
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends MediaObject 
+ * Link AudioObject to delegate MediaObject and assign default property values.
  */
-function AudioObject(id, props) {
-  props = props || {};
-  
-  MediaObject.call(this, id, props);
-  this.setType(mediaObjectType.AUDIO_OBJECT);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-AudioObject.prototype = _.create(MediaObject.prototype);
+var AudioObject = _.assign(_.create(mediaObject), {
+  '@context': context.CONTEXT,
+  '@type': mediaObjectType.AUDIO_OBJECT
+});
 
 module.exports = AudioObject;

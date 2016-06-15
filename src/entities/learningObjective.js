@@ -17,23 +17,16 @@
  */
 
 var _ = require('lodash');
-var Entity = require('./entity');
+var context = require('../context/context');
+var entity = require('./entity');
 var entityType = require('./entityType');
 
 /**
- * Represents Learning Objective
- * LearningObjective's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends Entity
+ * Link LearningObjective to delegate Entity and assign default property values.
  */
-function LearningObjective(id, props) {
-  Entity.call(this, id, props);
-  this.setType(entityType.LEARNING_OBJECTIVE);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-LearningObjective.prototype = _.create(Entity.prototype);
+var LearningObjective = _.assign(_.create(entity), {
+  '@context': context.CONTEXT,
+  '@type': entityType.LEARNING_OBJECTIVE
+});
 
 module.exports = LearningObjective;

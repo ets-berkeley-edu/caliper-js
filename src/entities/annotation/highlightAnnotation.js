@@ -17,40 +17,18 @@
  */
 
 var _ = require('lodash');
-var Annotation = require('./annotation');
+var context = require('../../context/context');
+var annotation = require('./annotation');
 var annotationType = require('./annotationType');
 
 /**
- * Represents HighlightAnnotation.
- * HighlightAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {Object} selection {startPosition, endPosition
- * @property {string} selectionText Text that was Selected 
- * @extends Annotation
+ * Link HighlightAnnotation to delegate Annotation and assign default property values.
  */
-function HighlightAnnotation(id, props) {
-  props = props || {};
-
-  Annotation.call(this, id, props);
-  this.setType(annotationType.HIGHLIGHT_ANNOTATION);
-  if (props.hasOwnProperty("selection")) {
-    this.setSelection(props.selection);
-  }
-  if (props.hasOwnProperty("selectionText")) {
-    this.setSelectionText(props.selectionText);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-HighlightAnnotation.prototype = _.create(Annotation.prototype, {
-  setSelection: function(selection) {
-    this.selection = selection;
-  },
-  setSelectionText: function(selectionText) {
-    this.selectionText = selectionText;
-  }
+var HighlightAnnotation = _.assign(_.create(annotation), {
+  '@context': context.CONTEXT,
+  '@type': annotationType.HIGHLIGHT_ANNOTATION,
+  selection: {},
+  selectionText: null
 });
 
 module.exports = HighlightAnnotation;

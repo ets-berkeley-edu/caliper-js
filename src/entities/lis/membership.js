@@ -17,54 +17,20 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
+var entity = require('../entity');
+var context = require('../../context/context');
 var entityType = require('../entityType');
 
 /**
- * Represents a W3C Membership.
- * Membership's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} memberId member Identifier
- * @property {string} organizationId organization Identifier
- * @property {Object[]} roles Array of roles
- * @property {string} status Membership status of actor (e.g., active, inactive, deleted)
- * @extends Entity
+ * Link Membership to delegate Entity and assign default property values.
  */
-function Membership(id, props) {
-  props = props || {};
-
-  Entity.call(this, id, props);
-  this.setType(entityType.MEMBERSHIP);
-  if (props.hasOwnProperty("member")) {
-    this.setMember(props.member);
-  }
-  if (props.hasOwnProperty("organization")) {
-    this.setOrganization(props.organization);
-  }
-  if (props.hasOwnProperty("roles")) {
-    this.setRoles(props.roles);
-  }
-  if (props.hasOwnProperty("status")) {
-    this.setStatus(props.status);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Membership.prototype = _.create(Entity.prototype, {
-  setMember: function(member) {
-    this.member = member;
-  },
-  setOrganization: function(organization) {
-    this.organization = organization;
-  },
-  setRoles: function(roles) {
-    this.roles = roles;
-  },
-  setStatus: function(status) {
-    this.status = status;
-  }
+var Membership = _.assign(_.create(entity), {
+  '@context': context.CONTEXT,
+  '@type': entityType.MEMBERSHIP,
+  member: {},
+  organization: {},
+  roles: [],
+  status: null
 });
 
 module.exports = Membership;

@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var Response = require('./response');
+var context = require('../../context/context');
+var response = require('./response');
 var responseType = require('./responseType');
 
 /**
- * Represents TrueFalseResponse.
- * TrueFalseResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} response value
- * @extends Response
+ * Link TrueFalseResponse to delegate Response and assign default property values.
  */
-function TrueFalseResponse(id, props) {
-  props = props || {};
-
-  Response.call(this, id, props);
-  this.setType(responseType.TRUEFALSE);
-  if (props.hasOwnProperty("value")) {
-    this.setValue(props.value);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-TrueFalseResponse.prototype = _.create(Response.prototype, {
-  setValue: function(value) {
-    this.value = value;
-  }
+var TrueFalseResponse = _.assign(_.create(response), {
+  '@context': context.CONTEXT,
+  '@type': responseType.TRUEFALSE,
+  value: null
 });
 
 module.exports = TrueFalseResponse;

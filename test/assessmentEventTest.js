@@ -26,8 +26,14 @@ var assessmentEvent = require('../src/events/assessmentEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
-var EntityType = require('../src/entities/entityType');
-var assignableType = require('../src/entities/assignable/assignableDigitalResourceType');
+var Assessment = require('../src/entities/assessment/assessment');
+var Attempt = require('../src/entities/assignable/attempt');
+var CourseOffering = require('../src/entities/lis/courseOffering');
+var CourseSection = require('../src/entities/lis/courseSection');
+var Group = require('../src/entities/lis/group');
+var Membership = require('../src/entities/lis/membership');
+var Person = require('../src/entities/agent/person');
+var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
 
 // Action
 var AssessmentActions = require('../src/actions/assessmentActions');
@@ -42,7 +48,7 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(EntityType.PERSON, actorId, {
+  var actor = entityFactory().create(Person, actorId, {
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });
@@ -52,7 +58,7 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   // The Object being interacted with by the Actor (Assessment)
   var objId = "https://example.edu/politicalScience/2015/american-revolution-101/assessment/001";
-  var obj = entityFactory().create(assignableType.ASSESSMENT, objId, {
+  var obj = entityFactory().create(Assessment, objId, {
     name: "American Revolution - Key Figures Assessment",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -69,7 +75,7 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   // The generated object (Attempt) within the Event Object
   var generatedId = obj['@id'] + "/attempt/5678";
-  var generated = entityFactory().create(EntityType.ATTEMPT, generatedId, {
+  var generated = entityFactory().create(Attempt, generatedId, {
     actor: actor['@id'],
     assignable: obj['@id'],
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
@@ -79,7 +85,7 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   // The edApp
   var edAppId = "https://example.com/super-assessment-tool";
-  var edApp = entityFactory().create(EntityType.SOFTWARE_APPLICATION, edAppId, {
+  var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "Super Assessment Tool",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     version: "v2"
@@ -87,7 +93,7 @@ test('Create Assessment Event and validate attributes', function (t) {
 
   // LIS Course Offering
   var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var courseOffering = entityFactory().create(EntityType.COURSE_OFFERING, courseId, {
+  var course = entityFactory().create(CourseOffering, courseId, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -96,31 +102,31 @@ test('Create Assessment Event and validate attributes', function (t) {
   });
 
   // LIS Course Section
-  var courseSectionId = courseOffering['@id'] + "/section/001";
-  var courseSection = entityFactory().create(EntityType.COURSE_SECTION, courseSectionId, {
+  var sectionId = course['@id'] + "/section/001";
+  var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    subOrganizationOf: courseOffering,
+    subOrganizationOf: course,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });
 
   // LIS Group
-  var groupId = courseSection['@id'] + "/group/001";
-  var group = entityFactory().create(EntityType.GROUP, groupId, {
+  var groupId = section['@id'] + "/group/001";
+  var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
-    subOrganizationOf: courseSection,
+    subOrganizationOf: section,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
   });
 
   // The Actor's Membership
-  var membershipId = courseOffering['@id'] + "/roster/554433";
-  var membership = entityFactory().create(EntityType.MEMBERSHIP, membershipId, {
+  var membershipId = course['@id'] + "/roster/554433";
+  var membership = entityFactory().create(Membership, membershipId, {
     name: "American Revolution 101",
     description: "Roster entry",
     member: actor['@id'],
-    organization: courseSection['@id'],
+    organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()

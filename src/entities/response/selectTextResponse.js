@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var Response = require('./response');
+var context = require('../../context/context');
+var response = require('./response');
 var responseType = require('./responseType');
 
 /**
- * Represents SelectTextResponse.
- * SelectTextResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {Object[]} values Array of response values
- * @extends Response
+ * Link SelectTextResponse to delegate Response and assign default property values.
  */
-function SelectTextResponse(id, props) {
-  props = props || {};
-
-  Response.call(this, id, props);
-  this.setType(responseType.SELECTTEXT);
-  if (props.hasOwnProperty("values")) {
-    this.setValues(props.values);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-SelectTextResponse.prototype = _.create(Response.prototype, {
-  setValues: function(values) {
-    this.values = values;
-  }
+var SelectTextResponse = _.assign(_.create(response), {
+  '@context': context.CONTEXT,
+  '@type': responseType.SELECTTEXT,
+  values: []
 });
 
 module.exports = SelectTextResponse;

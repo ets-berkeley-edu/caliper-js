@@ -21,13 +21,15 @@ var _ = require('lodash');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 
+// Entity
 var context = require('../src/context/context');
 var entityFactory = require('../src/entities/entityFactory');
 var entityType = require('../src/entities/entityType');
 var eventFactory = require('../src/events/eventFactory');
 var eventType = require('../src/events/eventType');
-var mediaObjectType = require('../src/entities/media/mediaObjectType');
-var videoObject = require('../src/entities/media/videoObject');
+var Person = require('../src/entities/agent/person');
+var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
+var VideoObject = require('../src/entities/media/videoObject');
 
 test('Create minimal VideoObject create event using the eventFactory and validate attributes', function (t) {
 
@@ -36,14 +38,14 @@ test('Create minimal VideoObject create event using the eventFactory and validat
 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(entityType.PERSON, actorId);
+  var actor = entityFactory().create(Person, actorId);
 
   // The Action for the Caliper Event
   var action = "http://purl.imsglobal.org/vocab/caliper/v1/action#Created";
 
   // The Object being interacted with by the Actor
   var objId = "https://example.com/super-media-tool/video/6779";
-  var obj = entityFactory().create(mediaObjectType.VIDEO_OBJECT, objId);
+  var obj = entityFactory().create(VideoObject, objId);
 
   // Assert that key attributes are the same
   var event = eventFactory().create(context.CONTEXT, eventType.EVENT, {

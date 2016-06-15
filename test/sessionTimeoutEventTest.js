@@ -26,7 +26,12 @@ var sessionEvent = require('../src/events/sessionEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
-var EntityType = require('../src/entities/entityType');
+var CourseOffering = require('../src/entities/lis/courseOffering');
+var CourseSection = require('../src/entities/lis/courseSection');
+var Group = require('../src/entities/lis/group');
+var Person = require('../src/entities/agent/person');
+var Session = require('../src/entities/session/session');
+var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
 
 // Action
 var SessionActions = require('../src/actions/sessionActions');
@@ -38,7 +43,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
 
   // The actor
   var actorId = "https://example.com/viewer";
-  var actor = entityFactory().create(EntityType.SOFTWARE_APPLICATION, actorId, {
+  var actor = entityFactory().create(SoftwareApplication, actorId, {
     name: "ePub",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -50,14 +55,14 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
 
   // The session actor
   var sessionActorId = "https://example.edu/user/554433";
-  var sessionActor = entityFactory().create(EntityType.PERSON, sessionActorId, {
+  var sessionActor = entityFactory().create(Person, sessionActorId, {
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });
 
   // The session object
   var objId = "https://example.com/viewer/session-123456789";
-  var obj = entityFactory().create(EntityType.SESSION, objId, {
+  var obj = entityFactory().create(Session, objId, {
     name: "session-123456789",
     actor: sessionActor,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
@@ -72,7 +77,7 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
 
   // LIS Course Offering
   var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var courseOffering = entityFactory().create(EntityType.COURSE_OFFERING, courseId, {
+  var course = entityFactory().create(CourseOffering, courseId, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -81,21 +86,21 @@ test('Create Session TIMEOUT Event and validate attributes', function(t) {
   });
 
   // LIS Course Section
-  var courseSectionId = courseOffering['@id'] + "/section/001";
-  var courseSection = entityFactory().create(EntityType.COURSE_SECTION, courseSectionId, {
+  var sectionId = course['@id'] + "/section/001";
+  var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    subOrganizationOf: courseOffering,
+    subOrganizationOf: course,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });
 
   // LIS Group
-  var groupId = courseSection['@id'] + "/group/001";
-  var group = entityFactory().create(EntityType.GROUP, groupId, {
+  var groupId = section['@id'] + "/group/001";
+  var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
-    subOrganizationOf: courseSection,
+    subOrganizationOf: section,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
   });
 

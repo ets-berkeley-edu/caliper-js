@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var AssignableDigitalResource = require('../assignable/assignableDigitalResource');
+var context = require('../../context/context');
+var assignable = require('../assignable/assignableDigitalResource');
 var assignableType = require('../assignable/assignableDigitalResourceType');
 
 /**
- * Represents an Assessment.
- * AssessmentItem's prototype set to AssignableDigitalResource
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends AssignableDigitalResource
+ * Link Assessment to delegate AssignableDigitalResource and assign default property values.
  */
-function Assessment(id, props) {
-  props = props || {};
-
-  AssignableDigitalResource.call(this, id, props);
-  this.setType(assignableType.ASSESSMENT);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Assessment.prototype = _.create(AssignableDigitalResource.prototype);
+var Assessment = _.assign(_.create(assignable), {
+  '@context': context.CONTEXT,
+  '@type': assignableType.ASSESSMENT
+});
 
 module.exports = Assessment;

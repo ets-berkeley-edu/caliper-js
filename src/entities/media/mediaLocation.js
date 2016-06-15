@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var DigitalResource = require('../digitalResource');
+var context = require('../../context/context');
+var digitalResource = require('../digitalResource');
 var digitalResourceType = require('../digitalResourceType');
 
 /**
- * Represents Media Location.  
- * MediaLocation's prototype set to DigitalResource
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} currentTime String representing the current time (ISO 8601 format)
- * @extends MediaObject
+ * Link MediaLocation to delegate DigitalResource and assign default property values.
  */
-function MediaLocation(id, props) {
-  props = props || {};
-
-  DigitalResource.call(this, id, props);
-  this.setType(digitalResourceType.MEDIA_LOCATION);
-  if (props.hasOwnProperty("currentTime")) {
-    this.setCurrentTime(props.currentTime);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-MediaLocation.prototype = _.create(DigitalResource.prototype, {
-  setCurrentTime: function (currentTime) {
-    this.currentTime = currentTime;
-  }
+var MediaLocation = _.assign(_.create(digitalResource), {
+  '@context': context.CONTEXT,
+  '@type': digitalResourceType.MEDIA_LOCATION,
+  currentTime: null
 });
 
 module.exports = MediaLocation;

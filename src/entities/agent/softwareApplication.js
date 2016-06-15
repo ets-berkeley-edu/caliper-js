@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var Agent = require('./agent');
+var context = require('../../context/context');
+var agent = require('./agent');
 var entityType = require('../entityType');
 
 /**
- * Represents SoftwareApplication.  
- * SoftwareApplication's prototype set to Agent
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} version String representing the version of the SoftwareApplication
- * @extends Agent
+ * Link SoftwareApplication to delegate Agent and assign default property values.
  */
-function SoftwareApplication(id, props) {
-  props = props || {};
-
-  Agent.call(this, id, props);
-  this.setType(entityType.SOFTWARE_APPLICATION);
-  if (props.hasOwnProperty("version")) {
-    this.setVersion(props.version);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-SoftwareApplication.prototype = _.create(Agent.prototype, {
-  setVersion: function(version) {
-    this.version = version;
-  }
+var SoftwareApplication = _.assign(_.create(agent), {
+  '@context': context.CONTEXT,
+  '@type': entityType.SOFTWARE_APPLICATION,
+  version: null
 });
 
 module.exports = SoftwareApplication;

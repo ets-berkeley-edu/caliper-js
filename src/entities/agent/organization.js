@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var Agent = require('./agent');
+var agent = require('./agent');
+var context = require('../../context/context');
 var entityType = require('../entityType');
 
 /**
- * Represents an LTI W3C Organization.
- * Organization's prototype set to Entity.
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {Object} subOrganizationOf Parent Organization Object
- * @extends Agent
+ * Link Organization to delegate Agent and assign default property values.
  */
-function Organization(id, props) {
-  props = props || {};
-
-  Agent.call(this, id, props);
-  this.setType(entityType.ORGANIZATION);
-  if (props.hasOwnProperty("subOrganizationOf")) {
-    this.setSubOrganizationOf(props.subOrganizationOf);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Organization.prototype = _.create(Agent.prototype, {
-  setSubOrganizationOf: function(subOrganizationOf) {
-    this.subOrganizationOf = subOrganizationOf;
-  }
+var Organization = _.assign(_.create(agent), {
+  '@context': context.CONTEXT,
+  '@type': entityType.ORGANIZATION,
+  subOrganizationOf: {}
 });
 
 module.exports = Organization;

@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var Annotation = require('./annotation');
+var context = require('../../context/context');
+var annotation = require('./annotation');
 var annotationType = require('./annotationType');
 
 /**
- * Represents BookmarkAnnotation.  
- * BookmarkAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} bookmarkNotes
- * @extends Annotation
+ * Link BookmarkAnnotation to delegate Annotation and assign default property values.
  */
-function BookmarkAnnotation(id, props) {
-  props = props || {};
-
-  Annotation.call(this, id, props);
-  this.setType(annotationType.BOOKMARK_ANNOTATION);
-  if (props.hasOwnProperty("bookmarkNotes")) {
-    this.setBookmarkNotes(props.bookmarkNotes);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-BookmarkAnnotation.prototype = _.create(Annotation.prototype, {
-  setBookmarkNotes: function(bookmarkNotes) {
-    this.bookmarkNotes = bookmarkNotes;
-  }
+var BookmarkAnnotation = _.assign(_.create(annotation), {
+  '@context': context.CONTEXT,
+  '@type': annotationType.BOOKMARK_ANNOTATION,
+  bookmarkNotes: null
 });
 
 module.exports = BookmarkAnnotation;

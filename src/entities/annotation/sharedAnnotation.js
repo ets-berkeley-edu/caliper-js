@@ -17,34 +17,17 @@
  */
 
 var _ = require('lodash');
-var Annotation = require('./annotation');
+var context = require('../../context/context');
+var annotation = require('./annotation');
 var annotationType = require('./annotationType');
 
 /**
- * Represents SharedAnnotation.  
- * SharedAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {Object[]} withAgents Array of Agents
- * @extends Annotation
+ * Link SharedAnnotation to delegate Annotation and assign default property values.
  */
-function SharedAnnotation(id, props) {
-  props = props || {};
-
-  Annotation.call(this, id, props);
-  this.setType(annotationType.SHARED_ANNOTATION);
-  if (props.hasOwnProperty("withAgents")) {
-    this.setWithAgents(props.withAgents);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-SharedAnnotation.prototype = _.create(Annotation.prototype, {
-  setWithAgents: function(withAgents) {
-    this.withAgents = withAgents;
-  }
-
+var SharedAnnotation = _.assign(_.create(annotation), {
+  '@context': context.CONTEXT,
+  '@type': annotationType.SHARED_ANNOTATION,
+  withAgents: []
 });
 
 module.exports = SharedAnnotation;

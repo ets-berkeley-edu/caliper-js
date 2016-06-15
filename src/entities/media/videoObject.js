@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var MediaObject = require('./mediaObject');
+var context = require('../../context/context');
+var mediaObject = require('./mediaObject');
 var mediaObjectType = require('./mediaObjectType');
 
 /**
- * Represents Video Object.  
- * VideoObject's prototype set to MediaObject
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends MediaObject
+ * Link VideoObject to delegate MediaObject and assign default property values.
  */
-function VideoObject(id, props) {
-  props = props || {};
-
-  MediaObject.call(this, id, props);
-  this.setType(mediaObjectType.VIDEO_OBJECT);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-VideoObject.prototype = _.create(MediaObject.prototype);
+var VideoObject = _.assign(_.create(mediaObject), {
+  '@context': context.CONTEXT,
+  '@type': mediaObjectType.VIDEO_OBJECT
+});
 
 module.exports = VideoObject;

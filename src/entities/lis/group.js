@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var Organization = require('../agent/organization');
+var organization = require('../agent/organization');
+var context = require('../../context/context');
 var entityType = require('../entityType');
 
 /**
- * Represents a Group.
- * Group's prototype is set to Organization.
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends Entity
+ * Link Group to delegate Organization and assign default property values.
  */
-function Group(id, props) {
-  props = props || {};
-
-  Organization.call(this, id, props);
-  this.setType(entityType.GROUP);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Group.prototype = _.create(Organization.prototype);
+var Group = _.assign(_.create(organization), {
+  '@context': context.CONTEXT,
+  '@type': entityType.GROUP
+});
 
 module.exports = Group;

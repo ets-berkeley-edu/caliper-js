@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var DigitalResource = require('../digitalResource');
+var context = require('../../context/context');
+var digitalResource = require('../digitalResource');
 var digitalResourceType = require('../digitalResourceType');
 
 /**
- * Represents Media Object.  
- * MediaObject's prototype set to DigitalResource
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
- * @extends DigitalResource
+ * Link MediaObject to delegate DigitalResource and assign default property values.
  */
-function MediaObject(id, props) {
-  props = props || {};
-
-  DigitalResource.call(this, id, props);
-  this.setType(digitalResourceType.MEDIA_OBJECT);
-  if (props.hasOwnProperty("duration")) {
-    this.setDuration(props.duration);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-MediaObject.prototype = _.create(DigitalResource.prototype, {
-  setDuration: function(duration) {
-    this.duration = duration;
-  }
+var MediaObject = _.assign(_.create(digitalResource), {
+  '@context': context.CONTEXT,
+  '@type': digitalResourceType.MEDIA_OBJECT,
+  duration: null
 });
 
 module.exports = MediaObject;

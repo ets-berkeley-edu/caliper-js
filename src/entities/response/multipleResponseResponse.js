@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var Response = require('./response');
+var context = require('../../context/context');
+var response = require('./response');
 var responseType = require('./responseType');
 
 /**
- * Represents MultipleResponseResponse.
- * MultipleResponseResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {Object[]} values Array of response values
- * @extends Response
+ * Link MultipleResponseResponse to delegate Response and assign default property values.
  */
-function MultipleResponseResponse(id, props) {
-  props = props || {};
-
-  Response.call(this, id, props);
-  this.setType(responseType.MULTIPLERESPONSE);
-  if (props.hasOwnProperty("values")) {
-    this.setValues(props.values);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-MultipleResponseResponse.prototype = _.create(Response.prototype, {
-  setValues: function(values) {
-    this.values = values;
-  }
+var MultipleResponseResponse = _.assign(_.create(response), {
+  '@context': context.CONTEXT,
+  '@type': responseType.MULTIPLERESPONSE,
+  value: null
 });
 
 module.exports = MultipleResponseResponse;

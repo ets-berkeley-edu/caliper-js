@@ -26,8 +26,14 @@ var outcomeEvent = require('../src/events/outcomeEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
-var EntityType = require('../src/entities/entityType');
-var assignableType = require('../src/entities/assignable/assignableDigitalResourceType');
+var Assessment = require('../src/entities/assessment/assessment');
+var Attempt = require('../src/entities/assignable/attempt');
+var CourseOffering = require('../src/entities/lis/courseOffering');
+var CourseSection = require('../src/entities/lis/courseSection');
+var Group = require('../src/entities/lis/group');
+var Person = require('../src/entities/agent/person');
+var Result = require('../src/entities/outcome/result');
+var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
 
 // Action
 var OutcomeActions = require('../src/actions/outcomeActions');
@@ -39,21 +45,21 @@ test('Create Outcome Event and validate attributes', function (t) {
 
   // The Actor for the Caliper Event (as well as the edApp)
   var actorId = "https://example.com/super-assessment-tool";
-  var actor = entityFactory().create(EntityType.SOFTWARE_APPLICATION, actorId, {
+  var actor = entityFactory().create(SoftwareApplication, actorId, {
     name: "Super Assessment Tool",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     version: "v2"
   });
 
   // The learner
-  var learner = entityFactory().create(EntityType.PERSON, "https://example.edu/user/554433");
+  var learner = entityFactory().create(Person, "https://example.edu/user/554433");
 
   // The Action for the Caliper Event
   var action = OutcomeActions.GRADED;
 
   // The Object being interacted with by the Actor (Assessment)
   var assignableId = "https://example.edu/politicalScience/2015/american-revolution-101/assessment/001";
-  var assignable = entityFactory().create(assignableType.ASSESSMENT, assignableId, {
+  var assignable = entityFactory().create(Assessment, assignableId, {
     name: "American Revolution - Key Figures Assessment",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -70,7 +76,7 @@ test('Create Outcome Event and validate attributes', function (t) {
 
   // The generated object (Attempt) within the Event Object
   var objId = assignable['@id'] + "/attempt/5678";
-  var obj = entityFactory().create(EntityType.ATTEMPT, objId, {
+  var obj = entityFactory().create(Attempt, objId, {
     actor: learner['@id'],
     assignable: assignable['@id'],
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
@@ -80,7 +86,7 @@ test('Create Outcome Event and validate attributes', function (t) {
 
   // Generated result
   var generatedId = obj['@id'] + "/result";
-  var generated = entityFactory().create(EntityType.RESULT, generatedId, {
+  var generated = entityFactory().create(Result, generatedId, {
     actor: learner['@id'],
     assignable: assignable['@id'],
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
@@ -96,7 +102,7 @@ test('Create Outcome Event and validate attributes', function (t) {
 
   // LIS Course Offering
   var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var courseOffering = entityFactory().create(EntityType.COURSE_OFFERING, courseId, {
+  var course = entityFactory().create(CourseOffering, courseId, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -105,21 +111,21 @@ test('Create Outcome Event and validate attributes', function (t) {
   });
 
   // LIS Course Section
-  var courseSectionId = courseOffering['@id'] + "/section/001";
-  var courseSection = entityFactory().create(EntityType.COURSE_SECTION, courseSectionId, {
+  var sectionId = course['@id'] + "/section/001";
+  var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    subOrganizationOf: courseOffering,
+    subOrganizationOf: course,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });
 
   // LIS Group
-  var groupId = courseSection['@id'] + "/group/001";
-  var group = entityFactory().create(EntityType.GROUP, groupId, {
+  var groupId = section['@id'] + "/group/001";
+  var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
-    subOrganizationOf: courseSection,
+    subOrganizationOf: section,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
   });
 

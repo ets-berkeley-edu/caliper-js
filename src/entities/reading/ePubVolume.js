@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var DigitalResource = require('../digitalResource');
+var context = require('../../context/context');
+var digitalResource = require('../digitalResource');
 var digitalResourceType = require('../digitalResourceType');
 
 /**
- * Represents EPubVolume.  
- * EPubVolume's prototype set to DigitalResource
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @extends DigitalResource
+ * Link EpubVolume to delegate DigitalResource and assign default property values.
  */
-function EPubVolume(id, props) {
-  props = props || {};
-
-  DigitalResource.call(this, id, props);
-  this.setType(digitalResourceType.EPUB_VOLUME);
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-EPubVolume.prototype = _.create(DigitalResource.prototype);
+var EPubVolume = _.assign(_.create(digitalResource), {
+  '@context': context.CONTEXT,
+  '@type': digitalResourceType.EPUB_VOLUME
+});
 
 module.exports = EPubVolume;

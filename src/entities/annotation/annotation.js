@@ -17,40 +17,18 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
+var context = require('../../context/context');
+var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Represents Annotation.  
- * Annotation's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} annotated Annotated Object identifier
- * @property {string} actor Actor identifier
- * @extends Entity
+ * Link Annotation to delegate Entity and assign default property values.
  */
-function Annotation(id, props) {
-  props = props || {};
-
-  Entity.call(this, id, props);
-  this.setType(entityType.ANNOTATION);
-  if (props.hasOwnProperty("actor")) {
-    this.setActor(props.actor);
-  }
-  if (props.hasOwnProperty("annotated")) {
-    this.setAnnotated(props.annotated);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Annotation.prototype = _.create(Entity.prototype, {
-  setAnnotated: function(annotated) {
-    this.annotated = annotated;
-  },
-  setActor: function(actor) {
-    this.actor = actor;
-  }
+var Annotation = _.assign(_.create(entity), {
+  '@context': context.CONTEXT,
+  '@type': entityType.ANNOTATION,
+  actor: {},
+  annotated: {}
 });
 
 module.exports = Annotation;

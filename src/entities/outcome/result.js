@@ -17,95 +17,26 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
+var context = require('../../context/context');
+var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Represents Result.  
- * Result's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {string} assignableId URI of Assignable
- * @property {number} normalScore Normal Score
- * @property {number} penaltyScore  Penalty Score
- * @property {number} extraCreditScore Extra Credit Score
- * @property {number} totalScore Total Score
- * @property {number} curvedTotalScore Curved Total Score
- * @property {number}curveFactor Curve Factor
- * @property {string} comment Comment
- * @property {Object} scoredBy Agent Object
- * @extends Entity
+ * Link Result to delegate Entity and assign default property values.
  */
-function Result(id, props) {
-  props = props || {};
-
-  Entity.call(this,id, props);
-  this.setType(entityType.RESULT);
-  if (props.hasOwnProperty("actor")) {
-    this.setActor(props.actor);
-  }
-  if (props.hasOwnProperty("assignable")) {
-    this.setAssignable(props.assignable);
-  }
-  if (props.hasOwnProperty("normalScore")) {
-    this.setNormalScore(props.normalScore);
-  }
-  if (props.hasOwnProperty("penaltyScore")) {
-    this.setPenaltyScore(props.penaltyScore);
-  }
-  if (props.hasOwnProperty("extraCreditScore")) {
-    this.setExtraCreditScore(props.extraCreditScore);
-  }
-  if (props.hasOwnProperty("totalScore")) {
-    this.setTotalScore(props.totalScore);
-  }
-  if (props.hasOwnProperty("curvedTotalScore")) {
-    this.setCurvedTotalScore(props.curvedTotalScore);
-  }
-  if (props.hasOwnProperty("curveFactor")) {
-    this.setCurveFactor(props.curveFactor);
-  }
-  if (props.hasOwnProperty("comment")) {
-    this.setComment(props.comment);
-  }
-  if (props.hasOwnProperty("scoredBy")) {
-    this.setScoredBy(props.scoredBy);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Result.prototype = _.create(Entity.prototype, {
-  setActor: function(actorId) {
-    this.actor = actorId;
-  },
-  setAssignable: function(assignableId) {
-    this.assignable = assignableId;
-  },
-  setNormalScore: function(normalScore) {
-    this.normalScore = normalScore;
-  },
-  setPenaltyScore: function(penaltyScore) {
-    this.penaltyScore = penaltyScore;
-  },
-  setExtraCreditScore: function(extraCreditScore) {
-    this.extraCreditScore = extraCreditScore;
-  },
-  setTotalScore: function (totalScore) {
-    this.totalScore = totalScore;
-  },
-  setCurvedTotalScore: function (curvedTotalScore) {
-  this.curvedTotalScore = curvedTotalScore;
-  },
-  setCurveFactor: function (curveFactor) {
-    this.curveFactor = curveFactor;
-  },
-  setComment: function (comment) {
-    this.comment = comment;
-  },
-  setScoredBy: function (scoredBy) {
-    this.scoredBy = scoredBy;
-  }
+var Result = _.assign(_.create(entity), {
+  '@context': context.CONTEXT,
+  '@type': entityType.RESULT,
+  actor: {},
+  assignable: {},
+  normalScore: null,
+  penaltyScore: null,
+  extraCreditScore: null,
+  totalScore: null,
+  curvedTotalScore: null,
+  curveFactor: null,
+  comment: null,
+  scoredBy: null
 });
 
 module.exports = Result;

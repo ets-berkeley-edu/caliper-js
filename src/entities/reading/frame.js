@@ -17,33 +17,17 @@
  */
 
 var _ = require('lodash');
-var DigitalResource = require('../digitalResource');
+var context = require('../../context/context');
+var entity = require('../entity');
 var digitalResourceType = require('../digitalResourceType');
 
 /**
- * Represents Frame.  
- * Frame's prototype set to DigitalResource
- * @constructor
- * @param {string} id URI
- * @param {Object} props Optional property settings
- * @property {number} index Index
- * @extends DigitalResource
+ * Link Frame to delegate Entity and assign default property values.
  */
-function Frame(id, props) {
-  props = props || {};
-
-  DigitalResource.call(this, id, props);
-  this.setType(digitalResourceType.FRAME);
-  if (props.hasOwnProperty("index")) {
-    this.setIndex(props.index);
-  }
-}
-
-// Inherit from the prototype and assign additional properties to the object per the model as required.
-Frame.prototype = _.create(DigitalResource.prototype, {
-  setIndex: function(index) {
-    this.index = index;
-  }
+var Frame = _.assign(_.create(entity), {
+  '@context': context.CONTEXT,
+  '@type': digitalResourceType.FRAME,
+  index: null
 });
 
 module.exports = Frame;
