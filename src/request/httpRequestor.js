@@ -59,6 +59,15 @@ self.createEnvelope = function(sensor, data) {
 };
 
 /**
+ * Emit Caliper dimensional data (entity).
+ * @param sensor
+ * @param data
+ */
+self.describe = function(sensor, data) {
+  self.post(sensor, data);
+};
+
+/**
  * Retrieve payload.
  * @param sensor
  * @param data
@@ -69,12 +78,13 @@ self.getJsonPayload = function(sensor, data) {
 };
 
 /**
- * Send Caliper data.
+ * Issue a POST request.
  * @param sensor
  * @param data
  */
-self.send = function(sensor, data) {
+self.post = function(sensor, data) {
   if (initialized()) {
+
     logger.log('debug', "Sending data " + JSON.stringify(data));
 
     // Create the Envelope payload
@@ -109,9 +119,21 @@ self.send = function(sensor, data) {
   }
 };
 
+
+/**
+ * Emit Caliper Event data.
+ * @param sensor
+ * @param data
+ */
+self.send = function(sensor, data) {
+  self.post(sensor, data);
+};
+
 module.exports = {
   initialize: self.initialize,
   createEnvelope: self.createEnvelope,
+  describe: self.describe,
   getJsonPayload: self.getJsonPayload,
+  post: self.post,
   send: self.send
 };

@@ -169,7 +169,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
   // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
   requestor.initialize(options);
   var payload = requestor.createEnvelope(sensor, event);
-  payload.setSendTime((new Date("2015-09-15T11:05:01.000Z")).toISOString());
+  payload.setSendTime(new Date("2015-09-15T11:05:01.000Z").toISOString());
   
   // Assert that JSON produced is the same
   jsonCompare('caliperEnvelopeEventSingle', payload, t);

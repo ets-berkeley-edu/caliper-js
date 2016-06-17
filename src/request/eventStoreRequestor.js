@@ -17,7 +17,6 @@
  */
 
 var _ = require('lodash');
-var logger = require('../logger');
 var moment = require('moment');
 var Envelope = require('./envelope');
 var requestUtils = require('./requestUtils')
@@ -67,6 +66,15 @@ self.createEnvelope = function(sensor, data) {
 };
 
 /**
+ * Abstract describe method. Implement in a sub-module.
+ * @param sensor
+ * @param data
+ */
+self.describe = function(sensor, data) {
+  throw new Error('Method `eventStoreRequestor::describe()` must be implemented in a sub-module.');
+};
+
+/**
  * Generate JSON. Private method that is not exported.
  * @param payload
  */
@@ -81,7 +89,8 @@ self.generateJsonPayload = function generateJsonPayload(payload) {
  * @returns payload
  */
 self.getJsonPayload = function(sensor, data) {
-  return self.generateJsonPayload(self.createEnvelope(sensor, data));
+  var envelope = self.createEnvelope(sensor, data);
+  return self.generateJsonPayload(envelope);
 };
 
 /**

@@ -39,8 +39,8 @@ function entityFactory() {
       var type = validator.checkType(delegate, props);
 
       // TODO FILTER OUT DUPLICATE CONTEXT
-      return _.assign(_.create(delegate), props, { '@id': entityId, '@type': type });
-      // return _.assign(_.create(delegate), props, { '@context': ctx, '@id': entityId, '@type': type });
+      // return _.assign(_.create(delegate), props, { '@id': entityId, '@type': type });
+      return _.assign(_.create(delegate), props, { '@context': ctx, '@id': entityId, '@type': type });
     }
   }
 }
