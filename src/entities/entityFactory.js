@@ -17,9 +17,7 @@
  */
 
 var _ = require('lodash');
-var context = require('../context/context');
 var Entity = require('./entity');
-var entityType = require('./entityType');
 var validator = require('./entityValidator');
 
 /**
@@ -38,8 +36,6 @@ function entityFactory() {
       var ctx = validator.checkCtx(delegate, props);
       var type = validator.checkType(delegate, props);
 
-      // TODO FILTER OUT DUPLICATE CONTEXT
-      // return _.assign(_.create(delegate), props, { '@id': entityId, '@type': type });
       return _.assign(_.create(delegate), props, { '@context': ctx, '@id': entityId, '@type': type });
     }
   }
