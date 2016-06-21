@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var annotationEvent = require('../src/events/annotationEvent');
+var AnnotationEvent = require('../src/events/annotationEvent');
+var eventFactory = require('../src/events/eventFactory');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -148,7 +149,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = annotationEvent().create({
+  var event = eventFactory().create(AnnotationEvent, {
     actor: actor,
     action: action,
     object: obj,

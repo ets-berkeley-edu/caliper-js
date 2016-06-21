@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var assessmentEvent = require('../src/events/assessmentEvent');
+var AssessmentEvent = require('../src/events/assessmentEvent');
+var eventFactory = require('../src/events/eventFactory');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -140,7 +141,7 @@ test('Create Assessment Event moving custom properties to extensions and validat
   };
 
   // Assert that key attributes are the same
-  var event = assessmentEvent().create({
+  var event = eventFactory().create(AssessmentEvent, {
     actor: actor,
     action: action,
     object: obj,

@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var sessionEvent = require('../src/events/sessionEvent');
+var eventFactory = require('../src/events/eventFactory');
+var SessionEvent = require('../src/events/sessionEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -127,7 +128,7 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
   });
 
   // Assert that key attributes are the same
-  var event = sessionEvent().create({
+  var event = eventFactory().create(SessionEvent, {
     sourcedId: "15128c13-ca75-4952-8cce-72a513ec337d",
     actor: actor,
     action: action,

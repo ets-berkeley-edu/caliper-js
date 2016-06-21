@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var annotationEvent = require('../src/events/AnnotationEvent');
+var AnnotationEvent = require('../src/events/AnnotationEvent');
+var eventFactory = require('../src/events/eventFactory');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -137,7 +138,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = annotationEvent().create({
+  var event = eventFactory().create(AnnotationEvent, {
     actor: actor,
     action: action,
     object: obj,

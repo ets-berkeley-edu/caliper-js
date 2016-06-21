@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var mediaEvent = require('../src/events/mediaEvent');
+var eventFactory = require('../src/events/eventFactory');
+var MediaEvent = require('../src/events/mediaEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -134,7 +135,7 @@ test('Create Media Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = mediaEvent().create({
+  var event = eventFactory().create(MediaEvent, {
     actor: actor,
     action: action,
     object: obj,

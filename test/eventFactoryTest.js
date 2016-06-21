@@ -21,11 +21,14 @@ var _ = require('lodash');
 var util = require('util');
 var jsonCompare = require('./testUtils');
 
+// Event
+var Event = require('../src/events/event');
+var eventFactory = require('../src/events/eventFactory');
+
 // Entity
 var context = require('../src/context/context');
 var entityFactory = require('../src/entities/entityFactory');
 var entityType = require('../src/entities/entityType');
-var eventFactory = require('../src/events/eventFactory');
 var eventType = require('../src/events/eventType');
 var Person = require('../src/entities/agent/person');
 var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
@@ -48,7 +51,7 @@ test('Create minimal VideoObject create event using the eventFactory and validat
   var obj = entityFactory().create(VideoObject, objId);
 
   // Assert that key attributes are the same
-  var event = eventFactory().create(context.CONTEXT, eventType.EVENT, {
+  var event = eventFactory().create(Event, {
     actor: actor,
     action: action,
     object: obj,

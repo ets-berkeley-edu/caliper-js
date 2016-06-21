@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var viewEvent = require('../src/events/viewEvent');
+var eventFactory = require('../src/events/eventFactory');
+var ViewEvent = require('../src/events/viewEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -139,7 +140,7 @@ test('Create View Event and validate attributes', function (t) {
   };
 
   // Assert that key attributes are the same
-  var event = viewEvent().create({
+  var event = eventFactory().create(ViewEvent, {
     actor: actor,
     action: action,
     object: obj,

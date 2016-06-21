@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var navigationEvent = require('../src/events/navigationEvent');
+var eventFactory = require('../src/events/eventFactory');
+var NavigationEvent = require('../src/events/navigationEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -137,7 +138,7 @@ test('Create Navigation Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = navigationEvent().create({
+  var event = eventFactory().create(NavigationEvent, {
     actor: actor,
     action: action,
     object: obj,

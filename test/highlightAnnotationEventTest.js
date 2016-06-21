@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var annotationEvent = require('../src/events/annotationEvent');
+var AnnotationEvent = require('../src/events/annotationEvent');
+var eventFactory = require('../src/events/eventFactory');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -35,7 +36,6 @@ var Group = require('../src/entities/lis/group');
 var Membership = require('../src/entities/lis/membership');
 var Person = require('../src/entities/agent/person');
 var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
-
 
 // Action
 var AnnotationActions = require('../src/actions/annotationActions');
@@ -139,7 +139,7 @@ test('Create HighlightAnnotation Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = annotationEvent().create({
+  var event = eventFactory().create(AnnotationEvent, {
     actor: actor,
     action: action,
     object: obj,

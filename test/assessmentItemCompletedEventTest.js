@@ -22,7 +22,8 @@ var util = require('util');
 var jsonCompare = require('./testUtils');
 
 // Event
-var assessmentItemEvent = require('../src/events/assessmentItemEvent');
+var AssessmentItemEvent = require('../src/events/assessmentItemEvent');
+var eventFactory = require('../src/events/eventFactory');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -158,7 +159,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
   });
 
   // Assert that key attributes are the same
-  var event = assessmentItemEvent().create({
+  var event = eventFactory().create(AssessmentItemEvent, {
     actor: actor,
     action: action,
     object: obj,

@@ -25,7 +25,8 @@ var jsonCompare = require('./testUtils');
 var requestor = require('../src/request/httpRequestor');
 
 // Event
-var navigationEvent = require('../src/events/navigationEvent');
+var eventFactory = require('../src/events/eventFactory');
+var NavigationEvent = require('../src/events/navigationEvent');
 
 // Entity
 var entityFactory = require('../src/entities/entityFactory');
@@ -149,7 +150,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
   });
 
   // Assert that key attributes are the same
-  var event = navigationEvent().create({
+  var event = eventFactory().create(NavigationEvent, {
     actor: actor,
     action: action,
     object: obj,
