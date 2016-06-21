@@ -18,6 +18,7 @@
 
 var _ = require('lodash');
 var Entity = require('./entity');
+var entityType = require('./entityType');
 var validator = require('./entityValidator');
 
 /**
@@ -30,13 +31,17 @@ var validator = require('./entityValidator');
 function entityFactory() {
   return {
     create: function create(delegate, id, props) {
-      delegate = delegate || Entity;
-      props = props || {};
-      var entityId = validator.checkId(id);
-      var ctx = validator.checkCtx(delegate, props);
-      var type = validator.checkType(delegate, props);
+      var proto = delegate || Entity;
+      var protoId = id || null;
+      var properties = props || {};
 
-      return _.assign(_.create(delegate), props, { '@context': ctx, '@id': entityId, '@type': type });
+      // Validation checks
+      properties['@context'] = validator.checkCtx(proto, properties);
+      properties['@type'] = validator.checkType(proto, properties);
+      properties['@id'] = validator.checkId(protoId, properties);
+      properties = validator.moveToExtensions(proto, properties);
+
+      return _.assign(_.create(proto), properties);
     }
   }
 }

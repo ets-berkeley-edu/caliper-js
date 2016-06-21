@@ -17,9 +17,9 @@
  */
 
 var _ = require('lodash');
+var context = require('../context/context');
 var Event = require('./event');
 var validator = require('./eventValidator');
-
 
 /**
  * Factory function that returns a mutated object based on a delegate prototype when the
@@ -30,10 +30,16 @@ var validator = require('./eventValidator');
  */
 function eventFactory() {
   return {
-    create: function create(ctx, type, props) {
-      props = props || {};
-      props = validator.checkProperties(ctx, type, props);
-      return _.assign(_.create(Event), props, { '@context': ctx }, { '@type': type });
+    create: function create(delegate, props) {
+      var proto = delegate || Event;
+      var properties = props || {};
+
+      // Validation checks
+      properties['@context'] = validator.checkCtx(proto, properties);
+      properties['@type'] = validator.checkType(proto, properties);
+      properties = validator.moveToExtensions(proto, properties);
+
+      return _.assign(_.create(proto), properties);
     }
   }
 }

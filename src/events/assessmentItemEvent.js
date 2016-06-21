@@ -18,26 +18,15 @@
 
 var _ = require('lodash');
 var context = require('../context/context');
-var eventFactory = require('./eventFactory');
+var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Factory function that wraps a generic factory for creating new events.  The wrapped function
- * returns a mutated object based on a delegate prototype when the factory's create method is
- * invoked.  All enumerable string keyed properties included in the "props" object and other
- * sources are also assigned to the created object in the order provided.
- *
- * @returns {{create: create}}
+ * Link AssessmentItemEvent to delegate Event and assign default property values.
  */
-function AssessmentItemEvent() {
-  var ctx = context.CONTEXT;
-  var type = eventType.ASSESSMENT_ITEM;
-
-  return {
-    create: function create(props) {
-      return eventFactory().create(ctx, type, props);
-    }
-  }
-}
+var AssessmentItemEvent = _.assign(_.create(event), {
+  '@context': context.CONTEXT,
+  '@type': eventType.ASSESSMENT_ITEM
+});
 
 module.exports = AssessmentItemEvent;
