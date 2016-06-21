@@ -17,55 +17,48 @@
  */
 
 var _ = require('lodash');
-
-var propNames = [ "@context", "@type", "sourcedId", "actor", "action", "object", "eventTime", "generated",
-  "target", "referrer", "edApp", "group", "membership", "session", "federatedSession", "extensions" ];
-
-/**
- * Check event properties.
- * @param context {string} JSON-LD context IRI
- * @param type {string} JSON-LD type IRI
- * @param props {Object} enumerable key:value Event properties
- * @returns {*}
- */
-var checkProperties = function checkProperties(context, type, props) {
-
-  // TODO check the context
-
-  // TODO Do type specific checks
-
-  // Move custom props, if any, to Event.extensions
-  props = moveToExtensions(props);
-
-  return props;
-};
+var context = require('../context/context');
+var eventType = require('./eventType');
+var validator = require('../validator');
 
 /**
- * Check for top-level user-defined custom Event properties and move them to Event.extensions.
- * Use the good 'ole for loop in preference to the for..in loop in order to avoid iterating over
- * all the enumerable properties of the object including those inherited from it's prototype.
+ * Check @context value.
+ * @param delegate
  * @param props
  * @returns {*}
  */
-var moveToExtensions = function moveToExtensions(props) {
-  var keys = _.keys(props);
-  for (var i = 0, len = keys.length; i < len; i++) {
-    var propName = keys[i];
-    if (propNames.indexOf(propName) == -1) {
-      var prop = props[propName];
-      if (props.hasOwnProperty("extensions")) {
-        props.extensions[propName] = prop;
-      } else {
-        var extensions = {};
-        extensions[propName] = prop;
-        props.extensions = extensions;
-      }
-      delete props[propName];
-    }
-  }
-  return props;
+module.exports.checkCtx = function checkCtx(delegate, props) {
+  return validator.checkCtx(delegate, props);
 };
 
-module.exports = {
-  checkProperties: checkProperties
+/**
+ * TODO STUB - WEAK; CHECK FOR IRI
+ * @param id
+ * @returns {*}
+ */
+module.exports.checkId = function checkId(id, props) {
+  return validator.checkId(id, props);
+};
+
+/**
+ * Check @type value.
+ * @param delegate
+ * @param props
+ * @returns {*}
+ */
+module.exports.checkType = function checkType(delegate, props) {
+  return validator.checkType(delegate, props, eventType.EVENT);
+};
+
+/**
+ * Check for top-level user-defined custom Entity properties against linked delegate own and inherited
+ * enumerable property keys (using _.keysIn()) and move custom properties to Entity.extensions. Use the
+ * good 'ole for loop in preference to the for..in loop in order to avoid iterating over both enumerable
+ * and inherited properties of the props object.
+ * @param delegate
+ * @param props
+ * @returns {*}
+ */
+module.exports.moveToExtensions = function moveToExtensions(delegate, props) {
+  return validator.moveToExtensions(delegate, props);
 };

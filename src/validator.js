@@ -17,8 +17,9 @@
  */
 
 var _ = require('lodash');
-var entityType = require('./entityType');
-var validator = require('../validator');
+var context = require('./context/context');
+
+const BLANK_NODE = '_:';
 
 /**
  * Check @context value.
@@ -27,16 +28,28 @@ var validator = require('../validator');
  * @returns {*}
  */
 module.exports.checkCtx = function checkCtx(delegate, props) {
-  return validator.checkCtx(delegate, props);
+  if (delegate.hasOwnProperty('@context')) {
+    return delegate['@context']
+  } else if (props.hasOwnProperty('@context')) {
+    return props['@context']
+  } else {
+    return context.CONTEXT;
+  }
 };
 
 /**
- * TODO STUB - WEAK; CHECK FOR IRI
+ * TODO WEAK CHECK; CHECK FOR IRI
  * @param id
  * @returns {*}
  */
 module.exports.checkId = function checkId(id, props) {
-  return validator.checkId(id, props);
+  if (id) {
+    return id;
+  } else if (props.hasOwnProperty('@id')) {
+    return props['@id']
+  } else {
+    return BLANK_NODE;
+  }
 };
 
 /**
@@ -45,8 +58,14 @@ module.exports.checkId = function checkId(id, props) {
  * @param props
  * @returns {*}
  */
-module.exports.checkType = function checkType(delegate, props) {
-  return validator.checkType(delegate, props, entityType.ENTITY);
+module.exports.checkType = function checkType(delegate, props, defaultType) {
+  if (delegate.hasOwnProperty('@type')) {
+    return delegate['@type']
+  } else if (props.hasOwnProperty('@type')) {
+    return props['@type']
+  } else {
+    return defaultType;
+  }
 };
 
 /**
@@ -59,5 +78,21 @@ module.exports.checkType = function checkType(delegate, props) {
  * @returns {*}
  */
 module.exports.moveToExtensions = function moveToExtensions(delegate, props) {
-  return validator.moveToExtensions(delegate, props);
+  var delegateKeys = _.keysIn(delegate);
+  var keys = _.keys(props);
+  for (var i = 0, len = keys.length; i < len; i++) {
+    var propName = keys[i];
+    if (delegateKeys.indexOf(propName) == -1) {
+      var prop = props[propName];
+      if (props.hasOwnProperty("extensions")) {
+        props.extensions[propName] = prop;
+      } else {
+        var extensions = {};
+        extensions[propName] = prop;
+        props.extensions = extensions;
+      }
+      delete props[propName];
+    }
+  }
+  return props;
 };
