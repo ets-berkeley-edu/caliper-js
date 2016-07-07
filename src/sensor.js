@@ -126,7 +126,7 @@ Caliper.Entities.HighlightAnnotation = require('./entities/annotation/highlightA
 Caliper.Entities.SharedAnnotation    = require('./entities/annotation/sharedAnnotation');
 Caliper.Entities.TagAnnotation       = require('./entities/annotation/tagAnnotation');
 
-// Assignment entities
+// Assessment entities
 Caliper.Entities.Assessment          = require('./entities/assessment/assessment');
 Caliper.Entities.AssessmentItem      = require('./entities/assessment/assessmentItem');
 
@@ -151,22 +151,20 @@ Caliper.Entities.AudioObject       = require('./entities/media/audioObject');
 Caliper.Entities.ImageObject       = require('./entities/media/imageObject');
 Caliper.Entities.VideoObject       = require('./entities/media/videoObject');
 
-// Message Entities
-Caliper.Entities.Forum   = require('./entities/resource/forum');
-Caliper.Entities.Message = require('./entities/resource/message');
-Caliper.Entities.Thread  = require('./entities/resource/thread');
-
 // Outcome Entities
 Caliper.Entities.Result = require('./entities/outcome/result');
 
-// Reading Entities
-Caliper.Entities.EPubChapter    = require('./entities/reading/ePubChapter');
-Caliper.Entities.EPubPart       = require('./entities/reading/ePubPart');
-Caliper.Entities.EPubSubChapter = require('./entities/reading/ePubSubChapter');
-Caliper.Entities.EPubVolume     = require('./entities/reading/ePubVolume');
-Caliper.Entities.Frame          = require('./entities/reading/frame');
-Caliper.Entities.Reading        = require('./entities/reading/reading');
-Caliper.Entities.WebPage        = require('./entities/reading/webPage');
+// Digital Resources
+Caliper.Entities.EPubChapter    = require('./entities/resource/ePubChapter');
+Caliper.Entities.EPubPart       = require('./entities/resource/ePubPart');
+Caliper.Entities.EPubSubChapter = require('./entities/resource/ePubSubChapter');
+Caliper.Entities.EPubVolume     = require('./entities/resource/ePubVolume');
+Caliper.Entities.Forum          = require('./entities/resource/forum');
+Caliper.Entities.Frame          = require('./entities/resource/frame');
+Caliper.Entities.Message        = require('./entities/resource/message');
+Caliper.Entities.Reading        = require('./entities/resource/reading');
+Caliper.Entities.Thread         = require('./entities/resource/thread');
+Caliper.Entities.WebPage        = require('./entities/resource/webPage');
 
 // Response Entities
 Caliper.Entities.Response                 = require('./entities/response/response');
