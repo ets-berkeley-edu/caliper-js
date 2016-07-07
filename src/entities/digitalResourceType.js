@@ -18,14 +18,18 @@
 
 var digitalResourceType = {
   "ASSIGNABLE_DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/AssignableDigitalResource",
+  "DIGITAL_RESOURCE_COLLECTION": "http://purl.imsglobal.org/caliper/v1/DigitalResourceCollection",
   "EPUB_CHAPTER": "http://purl.imsglobal.org/caliper/v1/EpubChapter",
   "EPUB_PART": "http://purl.imsglobal.org/caliper/v1/EpubPart",
   "EPUB_SUB_CHAPTER": "http://purl.imsglobal.org/caliper/v1/EpubSubChapter",
   "EPUB_VOLUME": "http://purl.imsglobal.org/caliper/v1/EpubVolume",
+  "FORUM": "http://purl.imsglobal.org/caliper/v1/Forum",
   "FRAME": "http://purl.imsglobal.org/caliper/v1/Frame",
   "MEDIA_LOCATION": "http://purl.imsglobal.org/caliper/v1/MediaLocation",
   "MEDIA_OBJECT": "http://purl.imsglobal.org/caliper/v1/MediaObject",
+  "MESSAGE": "http://purl.imsglobal.org/caliper/v1/Message",
   "READING": "http://purl.imsglobal.org/caliper/v1/Reading",
+  "THREAD": "http://purl.imsglobal.org/caliper/v1/Thread",
   "WEB_PAGE": "http://purl.imsglobal.org/caliper/v1/WebPage"
 };
 

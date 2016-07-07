@@ -107,9 +107,10 @@ Caliper.Entities.EntityFactory = require('./entities/entityFactory');
 Caliper.Entities.EntityType    = require('./entities/entityType');
 
 // Core entities
-Caliper.Entities.DigitalResource     = require('./entities/digitalResource');
-Caliper.Entities.DigitalResourceType = require('./entities/digitalResourceType');
-Caliper.Entities.LearningObjective   = require('./entities/learningObjective');
+Caliper.Entities.DigitalResource           = require('./entities/digitalResource');
+Caliper.Entities.DigitalResourceCollection = require('./entities/digitalResourceCollection');
+Caliper.Entities.DigitalResourceType       = require('./entities/digitalResourceType');
+Caliper.Entities.LearningObjective         = require('./entities/learningObjective');
 
 // Agent entities
 Caliper.Entities.Agent               = require('./entities/agent/agent');
@@ -149,6 +150,11 @@ Caliper.Entities.MediaLocation     = require('./entities/media/mediaLocation');
 Caliper.Entities.AudioObject       = require('./entities/media/audioObject');
 Caliper.Entities.ImageObject       = require('./entities/media/imageObject');
 Caliper.Entities.VideoObject       = require('./entities/media/videoObject');
+
+// Message Entities
+Caliper.Entities.Forum   = require('./entities/resource/forum');
+Caliper.Entities.Message = require('./entities/resource/message');
+Caliper.Entities.Thread  = require('./entities/resource/thread');
 
 // Outcome Entities
 Caliper.Entities.Result = require('./entities/outcome/result');

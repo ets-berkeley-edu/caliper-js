@@ -18,22 +18,16 @@
 
 var _ = require('lodash');
 var context = require('../context/context');
-var entity = require('./entity');
-var entityType = require('./entityType');
+var digitalResource = require('./digitalResource');
+var digitalResourceType = require('./digitalResourceType');
 
 /**
- * Link DigitalResource to delegate Entity and assign default property values.
+ * Link DigitalResourceCollection to delegate DigitalResource and assign default property values.
  */
-var DigitalResource = _.assign(_.create(entity), {
+var DigitalResourceCollection = _.assign(_.create(digitalResource), {
   '@context': context.CONTEXT,
-  '@type': entityType.DIGITAL_RESOURCE,
-  mediaType: null,
-  creators: [],
-  keywords: [],
-  alignedLearningObjective: [],
-  isPartOf: {},
-  datePublished: null,
-  version: null
+  '@type': digitalResourceType.DIGITAL_RESOURCE_COLLECTION,
+  'items': []
 });
 
-module.exports = DigitalResource;
+module.exports = DigitalResourceCollection;
