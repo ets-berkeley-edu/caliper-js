@@ -27,7 +27,7 @@ var digitalResourceType = require('../digitalResourceType');
 var Message = _.assign(_.create(digitalResource), {
   '@context': context.CONTEXT,
   '@type': digitalResourceType.MESSAGE,
-  'replyTo': null
+  replyTo: null
 });
 
 module.exports = Message;

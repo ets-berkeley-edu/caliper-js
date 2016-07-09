@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         pretty: true,
         output: 'console'
       },
-      files: ['test/*.js']
+      files: ['test/**/*.js']
     },
     jsdoc: {
       dist: {

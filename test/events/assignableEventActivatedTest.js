@@ -19,35 +19,35 @@
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
-var jsonCompare = require('./testUtils');
+var jsonCompare = require('../testUtils');
 
 // Event
-var AssessmentItemEvent = require('../src/events/assessmentItemEvent');
-var eventFactory = require('../src/events/eventFactory');
+var AssignableEvent = require('../../src/events/assignableEvent');
+var eventFactory = require('../../src/events/eventFactory');
 
 // Entity
-var entityFactory = require('../src/entities/entityFactory');
-var Assessment = require('../src/entities/assessment/assessment');
-var AssessmentItem = require('../src/entities/assessment/assessmentItem');
-var Attempt = require('../src/entities/assignable/attempt');
-var CourseOffering = require('../src/entities/lis/courseOffering');
-var CourseSection = require('../src/entities/lis/courseSection');
-var FillinBlankResponse = require('../src/entities/response/fillinBlankResponse');
-var Group = require('../src/entities/lis/group');
-var Membership = require('../src/entities/lis/membership');
-var Person = require('../src/entities/agent/person');
-var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
+var entityFactory = require('../../src/entities/entityFactory');
+var Assessment = require('../../src/entities/assessment/assessment');
+var Attempt = require('../../src/entities/assignable/attempt');
+var CourseOffering = require('../../src/entities/lis/courseOffering');
+var CourseSection = require('../../src/entities/lis/courseSection');
+var Group = require('../../src/entities/lis/group');
+var Membership = require('../../src/entities/lis/membership');
+var Person = require('../../src/entities/agent/person');
+var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 
 // Action
-var AssessmentItemActions = require('../src/actions/assessmentItemActions');
+var AssignableActions = require('../../src/actions/assignableActions');
 
-var Role = require('../src/entities/lis/role');
-var Status = require('../src/entities/lis/status');
+var Role = require('../../src/entities/lis/role');
+var Status = require('../../src/entities/lis/status');
 
-test('Create Assessment Item COMPLETED Event and validate attributes', function (t) {
+test('Create an AssignableEvent (activated) and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
+
+  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
@@ -57,11 +57,11 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
   });
 
   // The Action for the Caliper Event
-  var action = AssessmentItemActions.COMPLETED;
+  var action = AssignableActions.ACTIVATED;
 
   // The Object being interacted with by the Actor (Assessment)
-  var parentId = "https://example.edu/politicalScience/2015/american-revolution-101/assessment/001";
-  var parent = entityFactory().create(Assessment, parentId, {
+  var objId = BASE_COURSE_IRI.concat("/assessment/001");
+  var obj = entityFactory().create(Assessment, objId, {
     name: "American Revolution - Key Figures Assessment",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -76,37 +76,14 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     maxScore: 3.0
   });
 
-  // The Object being interacted with by the Actor (AssessmentItem)
-  var objId = parent['@id'] + "/item/001";
-  var obj = entityFactory().create(AssessmentItem, objId, {
-    name: "Assessment Item 1",
-    isPartOf: parent,
-    maxAttempts: 2,
-    maxSubmits: 2,
-    maxScore: 1.0,
-    isTimeDependent: false,
-    version: "1.0"
-  });
-
-  // The learner's attempt
-  var attemptId = obj['@id'] + "/attempt/789";
-  var attempt = entityFactory().create(Attempt, attemptId, {
+  // The generated object (Attempt) within the Event Object
+  var generatedId = objId.concat("/attempt/5678");
+  var generated = entityFactory().create(Attempt, generatedId, {
     actor: actor['@id'],
-    assignable: parent['@id'],
+    assignable: obj['@id'],
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString(),
     count: 1
-  });
-
-  // The generated response
-  var generatedId = obj['@id'] + "/response/001";
-  var generated = entityFactory().create(FillinBlankResponse, generatedId, {
-    actor: actor['@id'],
-    assignable: parent['@id'],
-    attempt: attempt,
-    values: ["2 July 1776"],
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString()
   });
 
   // The edApp
@@ -118,8 +95,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
   });
 
   // LIS Course Offering
-  var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var course = entityFactory().create(CourseOffering, courseId, {
+  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -128,7 +104,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
   });
 
   // LIS Course Section
-  var sectionId = course['@id'] + "/section/001";
+  var sectionId = BASE_COURSE_IRI.concat("/section/001");
   var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
@@ -139,7 +115,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
   });
 
   // LIS Group
-  var groupId = section['@id'] + "/group/001";
+  var groupId = sectionId.concat("/group/001");
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
@@ -147,7 +123,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
   });
 
   // The Actor's Membership
-  var membershipId = course['@id'] + "/roster/554433";
+  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
   var membership = entityFactory().create(Membership, membershipId, {
     name: "American Revolution 101",
     description: "Roster entry",
@@ -159,7 +135,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
   });
 
   // Assert that key attributes are the same
-  var event = eventFactory().create(AssessmentItemEvent, {
+  var event = eventFactory().create(AssignableEvent, {
     actor: actor,
     action: action,
     object: obj,
@@ -169,7 +145,7 @@ test('Create Assessment Item COMPLETED Event and validate attributes', function 
     group: group,
     membership: membership
   });
-
+  
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEventAssessmentItemCompleted', event, t);
+  jsonCompare('caliperEventAssignableActivated', event, t);
 });

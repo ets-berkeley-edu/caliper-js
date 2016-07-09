@@ -19,17 +19,17 @@
 var _ = require('lodash');
 var test = require('tape');
 var util = require('util');
-var jsonCompare = require('./testUtils');
-var entityFactory = require('../src/entities/entityFactory');
-var person = require('../src/entities/agent/person');
+var jsonCompare = require('../testUtils');
+var entityFactory = require('../../src/entities/entityFactory');
+var Person = require('../../src/entities/agent/person');
 
-test('Create Person Entity and validate attributes', function (t) {
+test('Create a Person entity and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
 
   var id = "https://example.edu/user/554433";
-  var actor = entityFactory().create(person, id, {
+  var actor = entityFactory().create(Person, id, {
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });

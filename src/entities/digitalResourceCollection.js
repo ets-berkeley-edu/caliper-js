@@ -27,7 +27,7 @@ var digitalResourceType = require('./digitalResourceType');
 var DigitalResourceCollection = _.assign(_.create(digitalResource), {
   '@context': context.CONTEXT,
   '@type': digitalResourceType.DIGITAL_RESOURCE_COLLECTION,
-  'items': []
+  items: []
 });
 
 module.exports = DigitalResourceCollection;

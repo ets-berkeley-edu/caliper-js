@@ -16,17 +16,14 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
-var context = require('../../context/context');
-var digitalResourceCollection = require('../digitalResourceCollection');
-var digitalResourceType = require('../digitalResourceType');
-
 /**
- * Link Forum to delegate DigitalResourceCollection and assign default property values.
+ * Enum representing all message actions.
+ * @enum
  */
-var Forum = _.assign(_.create(digitalResourceCollection), {
-  '@context': context.CONTEXT,
-  '@type': digitalResourceType.FORUM
-});
+var messageActions = {
+  "MARKED_AS_READ": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsRead",
+  "MARKED_AS_UNREAD": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsUnread",
+  "POSTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Posted"
+};
 
-module.exports = Forum;
+module.exports = messageActions;

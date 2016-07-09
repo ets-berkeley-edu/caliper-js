@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var digitalResourceCollection = require('../digitalResourceCollection');
-var digitalResourceType = require('../digitalResourceType');
+var context = require('../context/context');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Link Forum to delegate DigitalResourceCollection and assign default property values.
+ * Link ForumEvent to delegate Event and assign default property values.
  */
-var Forum = _.assign(_.create(digitalResourceCollection), {
+var ForumEvent = _.assign(_.create(event), {
   '@context': context.CONTEXT,
-  '@type': digitalResourceType.FORUM
+  '@type': eventType.FORUM
 });
 
-module.exports = Forum;
+module.exports = ForumEvent;

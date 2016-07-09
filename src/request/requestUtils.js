@@ -20,8 +20,8 @@ var _ = require('lodash');
 var logger = require('../logger');
 
 var objPropNames = [ "actor", "object", "generated", "target", "referrer", "edApp", "group", "membership",
-  "session", "federatedSession", "alignedLearningObjective",
-  "assignable", "attempt", "isPartOf", "member", "organization", "subOrganizationOf", "withAgents" ];
+  "session", "federatedSession", "alignedLearningObjective", "assignable", "attempt", "isPartOf", "member",
+  "organization", "replyTo", "subOrganizationOf", "withAgents" ];
 
 var ctxRegex = new RegExp(/http:\/\/purl.imsglobal.org\/ctx\/caliper/);
 

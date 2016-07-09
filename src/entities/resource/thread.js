@@ -26,7 +26,7 @@ var digitalResourceType = require('../digitalResourceType');
  */
 var Thread = _.assign(_.create(digitalResourceCollection), {
   '@context': context.CONTEXT,
-  '@type': digitalResourceType.THREAD,
+  '@type': digitalResourceType.THREAD
 });
 
 module.exports = Thread;

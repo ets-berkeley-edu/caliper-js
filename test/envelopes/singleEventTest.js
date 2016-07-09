@@ -19,34 +19,41 @@
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
-var jsonCompare = require('./testUtils');
+var jsonCompare = require('../testUtils');
+
+// Request
+var requestor = require('../../src/request/httpRequestor');
 
 // Event
-var AnnotationEvent = require('../src/events/annotationEvent');
-var eventFactory = require('../src/events/eventFactory');
+var eventFactory = require('../../src/events/eventFactory');
+var NavigationEvent = require('../../src/events/navigationEvent');
 
 // Entity
-var entityFactory = require('../src/entities/entityFactory');
-var SharedAnnotation = require('../src/entities/annotation/sharedAnnotation');
-var CourseOffering = require('../src/entities/lis/courseOffering');
-var CourseSection = require('../src/entities/lis/courseSection');
-var EpubVolume = require('../src/entities/reading/ePubVolume');
-var Frame = require('../src/entities/reading/frame');
-var Group = require('../src/entities/lis/group');
-var Membership = require('../src/entities/lis/membership');
-var Person = require('../src/entities/agent/person');
-var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
+var entityFactory = require('../../src/entities/entityFactory');
+var CourseOffering = require('../../src/entities/lis/courseOffering');
+var CourseSection = require('../../src/entities/lis/courseSection');
+var EpubVolume = require('../../src/entities/resource/ePubVolume');
+var Frame = require('../../src/entities/resource/frame');
+var Group = require('../../src/entities/lis/group');
+var Membership = require('../../src/entities/lis/membership');
+var Person = require('../../src/entities/agent/person');
+var Session = require('../../src/entities/session/session');
+var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var WebPage = require('../../src/entities/resource/webPage');
 
-// Action
-var AnnotationActions = require('../src/actions/annotationActions');
+// Actions
+var NavigationActions = require('../../src/actions/navigationActions');
 
-var Role = require('../src/entities/lis/role');
-var Status = require('../src/entities/lis/status');
+var Role = require('../../src/entities/lis/role');
+var Status = require('../../src/entities/lis/status');
 
-test('Create SharedAnnotation Event and validate attributes', function (t) {
+test('Create an Envelope containing single NavigationEvent (navigatedTo) and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
+
+  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
+  const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
@@ -55,47 +62,41 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });
 
-  // The Action for the Caliper Event
-  var action = AnnotationActions.SHARED;
+  // Federated Session
+  var sessionId = "https://example.edu/lms/federatedSession/123456789";
+  var session = entityFactory().create(Session, sessionId, {
+    actor: actor,
+    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString()
+  });
 
-  var ePubId = "https://example.com/viewer/book/34843#epubcfi(/4/3)";
-  var ePub = entityFactory().create(EpubVolume, ePubId, {
+  // The Action for the Caliper Event
+  var action = NavigationActions.NAVIGATED_TO;
+
+  // The Object being interacted with by the Actor
+  var obj = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
     version: "2nd ed."
   });
 
-  // The Object of the interaction
-  var objId = "https://example.com/viewer/book/34843#epubcfi(/4/3/3)";
-  var obj = entityFactory().create(Frame, objId, {
-    name: "Key Figures: John Adams",
-    isPartOf: ePub,
-    index: 3,
+  // The target object (frame) within the Event Object
+  var target = entityFactory().create(Frame, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
+    name: "Key Figures: George Washington",
+    isPartOf: obj,
+    index: 1,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    version: ePub.version
+    version: "2nd ed."
   });
 
-  // Shared with
-  var share1 = entityFactory().create(Person, "https://example.edu/user/657585", {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
-  });
-
-  var share2 = entityFactory().create(Person, "https://example.edu/user/667788", {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
-  });
-
-  // The Generated annotation
-  var generatedId = "https://example.edu/shared/9999";
-  var generated = entityFactory().create(SharedAnnotation, generatedId, {
-    actor: actor['@id'],
-    annotated: obj['@id'],
+  // Specific to the Navigation Event - the location where the user navigated from
+  var referrer = entityFactory().create(WebPage, BASE_COURSE_IRI.concat("/index.html"), {
+    name: "American Revolution 101 Landing Page",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    withAgents: [share1, share2]
+    version: "1.0"
   });
 
   // The edApp
@@ -108,8 +109,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   });
 
   // LIS Course Offering
-  var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var course = entityFactory().create(CourseOffering, courseId, {
+  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -118,7 +118,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   });
 
   // LIS Course Section
-  var sectionId = course['@id'] + "/section/001";
+  var sectionId = BASE_COURSE_IRI.concat("/section/001");
   var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
@@ -129,7 +129,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   });
 
   // LIS Group
-  var groupId = section['@id'] + "/group/001";
+  var groupId = sectionId.concat("/group/001");
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
@@ -137,7 +137,7 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   });
 
   // The Actor's Membership
-  var membershipId = course['@id'] + "/roster/554433";
+  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
   var membership = entityFactory().create(Membership, membershipId, {
     name: "American Revolution 101",
     description: "Roster entry",
@@ -149,17 +149,38 @@ test('Create SharedAnnotation Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = eventFactory().create(AnnotationEvent, {
+  var event = eventFactory().create(NavigationEvent, {
     actor: actor,
     action: action,
     object: obj,
     eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
-    generated: generated,
+    target: target,
+    referrer: referrer,
     edApp: edApp,
     group: group,
-    membership: membership
+    membership: membership,
+    federatedSession: session['@id']
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventAnnotationShared', event, t);
+  // Initialize faux sensor and default options
+  var sensor = createFauxSensor("https://example.edu/sensor/001");
+  var options = {};
+
+  // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
+  requestor.initialize(options);
+  var payload = requestor.createEnvelope(sensor, event);
+  payload.setSendTime(new Date("2015-09-15T11:05:01.000Z").toISOString());
+  
+  // Assert that JSON produced is the same
+  jsonCompare('caliperEnvelopeEventSingle', payload, t);
 });
+
+/**
+ * Create a fake sensor object in order to avoid generating a "window is not defined"
+ * reference error since we are not running tests in the browser but on the server.
+ * @param id
+ * @returns {{id: *}}
+ */
+function createFauxSensor(id) {
+    return {id: id};
+}

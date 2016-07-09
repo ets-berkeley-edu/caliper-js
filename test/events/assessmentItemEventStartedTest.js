@@ -19,33 +19,36 @@
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
-var jsonCompare = require('./testUtils');
+var jsonCompare = require('../testUtils');
 
 // Event
-var AssignableEvent = require('../src/events/assignableEvent');
-var eventFactory = require('../src/events/eventFactory');
+var AssessmentItemEvent = require('../../src/events/assessmentItemEvent');
+var eventFactory = require('../../src/events/eventFactory');
 
 // Entity
-var entityFactory = require('../src/entities/entityFactory');
-var Assessment = require('../src/entities/assessment/assessment');
-var Attempt = require('../src/entities/assignable/attempt');
-var CourseOffering = require('../src/entities/lis/courseOffering');
-var CourseSection = require('../src/entities/lis/courseSection');
-var Group = require('../src/entities/lis/group');
-var Membership = require('../src/entities/lis/membership');
-var Person = require('../src/entities/agent/person');
-var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
+var entityFactory = require('../../src/entities/entityFactory');
+var Assessment = require('../../src/entities/assessment/assessment');
+var AssessmentItem = require('../../src/entities/assessment/assessmentItem');
+var Attempt = require('../../src/entities/assignable/attempt');
+var CourseOffering = require('../../src/entities/lis/courseOffering');
+var CourseSection = require('../../src/entities/lis/courseSection');
+var Group = require('../../src/entities/lis/group');
+var Membership = require('../../src/entities/lis/membership');
+var Person = require('../../src/entities/agent/person');
+var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 
 // Action
-var AssignableActions = require('../src/actions/assignableActions');
+var AssessmentItemActions = require('../../src/actions/assessmentItemActions');
 
-var Role = require('../src/entities/lis/role');
-var Status = require('../src/entities/lis/status');
+var Role = require('../../src/entities/lis/role');
+var Status = require('../../src/entities/lis/status');
 
-test('Create Assignable Event and validate attributes', function (t) {
+test('Create an AssessmentItemEvent (started) and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
+
+  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
@@ -55,11 +58,11 @@ test('Create Assignable Event and validate attributes', function (t) {
   });
 
   // The Action for the Caliper Event
-  var action = AssignableActions.ACTIVATED;
+  var action = AssessmentItemActions.STARTED;
 
-  // The Object being interacted with by the Actor (Assessment)
-  var objId = "https://example.edu/politicalScience/2015/american-revolution-101/assessment/001";
-  var obj = entityFactory().create(Assessment, objId, {
+  // Parent assessment
+  var parentId = BASE_COURSE_IRI.concat("/assessment/001");
+  var parent = entityFactory().create(Assessment, parentId, {
     name: "American Revolution - Key Figures Assessment",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -74,11 +77,23 @@ test('Create Assignable Event and validate attributes', function (t) {
     maxScore: 3.0
   });
 
-  // The generated object (Attempt) within the Event Object
-  var generatedId = obj['@id'] + "/attempt/5678";
+  // The Object being interacted with by the Actor (AssessmentItem)
+  var objId = parentId.concat("/item/001");
+  var obj = entityFactory().create(AssessmentItem, objId, {
+    name: "Assessment Item 1",
+    isPartOf: parent,
+    maxAttempts: 2,
+    maxSubmits: 2,
+    maxScore: 1.0,
+    isTimeDependent: false,
+    version: "1.0"
+  });
+
+  // The learner's generated attempt
+  var generatedId = objId.concat("/attempt/789");
   var generated = entityFactory().create(Attempt, generatedId, {
     actor: actor['@id'],
-    assignable: obj['@id'],
+    assignable: parent['@id'],
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString(),
     count: 1
@@ -93,8 +108,7 @@ test('Create Assignable Event and validate attributes', function (t) {
   });
 
   // LIS Course Offering
-  var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var course = entityFactory().create(CourseOffering, courseId, {
+  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -103,7 +117,7 @@ test('Create Assignable Event and validate attributes', function (t) {
   });
 
   // LIS Course Section
-  var sectionId = course['@id'] + "/section/001";
+  var sectionId = BASE_COURSE_IRI.concat("/section/001");
   var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
@@ -114,7 +128,7 @@ test('Create Assignable Event and validate attributes', function (t) {
   });
 
   // LIS Group
-  var groupId = section['@id'] + "/group/001";
+  var groupId = sectionId.concat("/group/001");
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
@@ -122,7 +136,7 @@ test('Create Assignable Event and validate attributes', function (t) {
   });
 
   // The Actor's Membership
-  var membershipId = course['@id'] + "/roster/554433";
+  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
   var membership = entityFactory().create(Membership, membershipId, {
     name: "American Revolution 101",
     description: "Roster entry",
@@ -132,9 +146,9 @@ test('Create Assignable Event and validate attributes', function (t) {
     status: Status.ACTIVE,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
   });
-
+  
   // Assert that key attributes are the same
-  var event = eventFactory().create(AssignableEvent, {
+  var event = eventFactory().create(AssessmentItemEvent, {
     actor: actor,
     action: action,
     object: obj,
@@ -144,7 +158,7 @@ test('Create Assignable Event and validate attributes', function (t) {
     group: group,
     membership: membership
   });
-  
+
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEventAssignableActivated', event, t);
+  jsonCompare('caliperEventAssessmentItemStarted', event, t);
 });

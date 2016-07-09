@@ -16,17 +16,17 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
-var context = require('../../context/context');
-var digitalResourceCollection = require('../digitalResourceCollection');
-var digitalResourceType = require('../digitalResourceType');
-
 /**
- * Link Forum to delegate DigitalResourceCollection and assign default property values.
+ * Enum representing all thread actions.
+ * @enum
  */
-var Forum = _.assign(_.create(digitalResourceCollection), {
-  '@context': context.CONTEXT,
-  '@type': digitalResourceType.FORUM
-});
+var threadActions = {
+  "CREATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Created",
+  "DELETED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deleted",
+  "MARKED_AS_READ": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsRead",
+  "MARKED_AS_UNREAD": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsUnread",
+  "REMOVED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Removed",
+  "UPDATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Updated"
+};
 
-module.exports = Forum;
+module.exports = threadActions;

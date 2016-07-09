@@ -19,21 +19,23 @@
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
-var jsonCompare = require('./testUtils');
+var jsonCompare = require('../testUtils');
 
 // Request
-var requestor = require('../src/request/httpRequestor');
+var requestor = require('../../src/request/httpRequestor');
 
 // Entity
-var entityFactory = require('../src/entities/entityFactory');
-var EpubSubChapter = require('../src/entities/reading/ePubSubChapter');
-var EpubVolume = require('../src/entities/reading/ePubVolume');
-var Person = require('../src/entities/agent/person');
+var entityFactory = require('../../src/entities/entityFactory');
+var EpubSubChapter = require('../../src/entities/resource/ePubSubChapter');
+var EpubVolume = require('../../src/entities/resource/ePubVolume');
+var Person = require('../../src/entities/agent/person');
 
-test('Create Envelope containing batched entities and validate attributes', function (t) {
+test('Create an Envelope containing batched entities and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
+  
+  const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
 
   var personId = "https://example.edu/user/554433";
   var person = entityFactory().create(Person, personId, {
@@ -41,16 +43,14 @@ test('Create Envelope containing batched entities and validate attributes', func
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
   });
 
-  var epubVolumeId = "https://example.com/viewer/book/34843#epubcfi(/4/3)";
-  var epubVolume = entityFactory().create(EpubVolume, epubVolumeId, {
+  var epubVolume = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
     version: "2nd ed."
   });
 
-  var epubSubChapterId = "https://example.com/viewer/book/34843#epubcfi(/4/3/1)";
-  var epubSubChapter = entityFactory().create(EpubSubChapter, epubSubChapterId, {
+  var epubSubChapter = entityFactory().create(EpubSubChapter, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
     name: "Key Figures: George Washington",
     isPartOf: epubVolume,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),

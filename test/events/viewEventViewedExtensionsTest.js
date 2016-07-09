@@ -19,36 +19,39 @@
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
-var jsonCompare = require('./testUtils');
+var jsonCompare = require('../testUtils');
 
 // Event
-var eventFactory = require('../src/events/eventFactory');
-var SessionEvent = require('../src/events/sessionEvent');
+var eventFactory = require('../../src/events/eventFactory');
+var ViewEvent = require('../../src/events/viewEvent');
 
 // Entity
-var entityFactory = require('../src/entities/entityFactory');
-var CourseOffering = require('../src/entities/lis/courseOffering');
-var CourseSection = require('../src/entities/lis/courseSection');
-var EpubVolume = require('../src/entities/reading/ePubVolume');
-var Frame = require('../src/entities/reading/frame');
-var Group = require('../src/entities/lis/group');
-var Membership = require('../src/entities/lis/membership');
-var Person = require('../src/entities/agent/person');
-var Session = require('../src/entities/session/session');
-var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
+var entityFactory = require('../../src/entities/entityFactory');
+var CourseOffering = require('../../src/entities/lis/courseOffering');
+var CourseSection = require('../../src/entities/lis/courseSection');
+var EpubVolume = require('../../src/entities/resource/ePubVolume');
+var Frame = require('../../src/entities/resource/frame');
+var Group = require('../../src/entities/lis/group');
+var Membership = require('../../src/entities/lis/membership');
+var Person = require('../../src/entities/agent/person');
+var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 
 // Action
-var SessionActions = require('../src/actions/sessionActions');
+var ViewActions = require('../../src/actions/viewActions');
 
-var Role = require('../src/entities/lis/role');
-var Status = require('../src/entities/lis/status');
+var Role = require('../../src/entities/lis/role');
+var Status = require('../../src/entities/lis/status');
 
-test('Create Session LOGIN Event and validate attributes', function (t) {
+test('Create a ViewEvent (viewed) with custom extensions and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
 
-  // The Actor for the Caliper Event (as well as the edApp)
+  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
+  const BASE_VIEWER_IRI = "https://example.com/viewer";
+  const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
+
+  // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
@@ -56,30 +59,10 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   });
 
   // The Action for the Caliper Event
-  var action = SessionActions.LOGGED_IN;
+  var action = ViewActions.VIEWED;
 
   // The Object being interacted with by the Actor
-  var objId = "https://example.com/viewer";
-  var obj = entityFactory().create(SoftwareApplication, objId, {
-    name: "ePub",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    version: "1.2.3"
-  });
-
-  // Generated session
-  var generatedId = "https://example.com/viewer/session-123456789";
-  var generated = entityFactory().create(Session, generatedId, {
-    name: "session-123456789",
-    actor: actor,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString()
-  });
-
-  // ePub parent
-  var ePubId = "https://example.com/viewer/book/34843#epubcfi(/4/3)";
-  var ePub = entityFactory().create(EpubVolume, ePubId, {
+  var obj = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -87,19 +70,17 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   });
 
   // The target object (frame) within the Event Object
-  var targetId = "https://example.com/viewer/book/34843#epubcfi(/4/3/1)";
-  var target = entityFactory().create(Frame, targetId, {
+  var target = entityFactory().create(Frame, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
     name: "Key Figures: George Washington",
-    isPartOf: ePub,
+    isPartOf: obj,
     index: 1,
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    version: ePub.version
+    version: "2nd ed."
   });
 
   // The edApp
-  var edAppId = "https://example.com/viewer";
-  var edApp = entityFactory().create(SoftwareApplication, edAppId, {
+  var edApp = entityFactory().create(SoftwareApplication, BASE_VIEWER_IRI, {
     name: "ePub",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
@@ -107,8 +88,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   });
 
   // LIS Course Offering
-  var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var course = entityFactory().create(CourseOffering, courseId, {
+  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -117,7 +97,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   });
 
   // LIS Course Section
-  var sectionId = course['@id'] + "/section/001";
+  var sectionId = BASE_COURSE_IRI.concat("/section/001");
   var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
@@ -128,7 +108,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   });
 
   // LIS Group
-  var groupId = section['@id'] + "/group/001";
+  var groupId = sectionId.concat("/group/001");
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
@@ -136,7 +116,7 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
   });
 
   // The Actor's Membership
-  var membershipId = course['@id'] + "/roster/554433";
+  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
   var membership = entityFactory().create(Membership, membershipId, {
     name: "American Revolution 101",
     description: "Roster entry",
@@ -147,20 +127,31 @@ test('Create Session LOGIN Event and validate attributes', function (t) {
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
   });
 
+  // Extensions
+  var extensions = {
+    ext_com_example_job: {
+      "@context": {
+        "@vocab": "http://purl.example.com/caliper/extensions/vocab/"
+      },
+      "@id": "_:1",
+      "@type": "Job",
+      "tag": "async job"
+    }
+  };
+
   // Assert that key attributes are the same
-  var event = eventFactory().create(SessionEvent, {
-    sourcedId: "15128c13-ca75-4952-8cce-72a513ec337d",
+  var event = eventFactory().create(ViewEvent, {
     actor: actor,
     action: action,
     object: obj,
     eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
-    generated: generated,
     target: target,
     edApp: edApp,
     group: group,
-    membership: membership
+    membership: membership,
+    extensions: extensions
   });
 
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEventSessionLoggedIn', event, t);
+  jsonCompare('caliperEventViewViewedExtended', event, t);
 });

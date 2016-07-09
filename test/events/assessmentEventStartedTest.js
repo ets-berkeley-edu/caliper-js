@@ -19,34 +19,35 @@
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
-var jsonCompare = require('./testUtils');
+var jsonCompare = require('../testUtils');
 
 // Event
-var AnnotationEvent = require('../src/events/AnnotationEvent');
-var eventFactory = require('../src/events/eventFactory');
+var AssessmentEvent = require('../../src/events/assessmentEvent');
+var eventFactory = require('../../src/events/eventFactory');
 
 // Entity
-var entityFactory = require('../src/entities/entityFactory');
-var BookmarkAnnotation = require('../src/entities/annotation/bookmarkAnnotation');
-var CourseOffering = require('../src/entities/lis/courseOffering');
-var CourseSection = require('../src/entities/lis/courseSection');
-var EpubVolume = require('../src/entities/reading/ePubVolume');
-var Frame = require('../src/entities/reading/frame');
-var Group = require('../src/entities/lis/group');
-var Membership = require('../src/entities/lis/membership');
-var Person = require('../src/entities/agent/person');
-var SoftwareApplication = require('../src/entities/agent/SoftwareApplication');
+var entityFactory = require('../../src/entities/entityFactory');
+var Assessment = require('../../src/entities/assessment/assessment');
+var Attempt = require('../../src/entities/assignable/attempt');
+var CourseOffering = require('../../src/entities/lis/courseOffering');
+var CourseSection = require('../../src/entities/lis/courseSection');
+var Group = require('../../src/entities/lis/group');
+var Membership = require('../../src/entities/lis/membership');
+var Person = require('../../src/entities/agent/person');
+var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 
 // Action
-var AnnotationActions = require('../src/actions/annotationActions');
+var AssessmentActions = require('../../src/actions/assessmentActions');
 
-var Role = require('../src/entities/lis/role');
-var Status = require('../src/entities/lis/status');
+var Role = require('../../src/entities/lis/role');
+var Status = require('../../src/entities/lis/status');
 
-test('Create BookmarkAnnotation Event and validate attributes', function (t) {
+test('Create an AssessmentEvent (started) and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
+
+  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
@@ -56,49 +57,45 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   });
 
   // The Action for the Caliper Event
-  var action = AnnotationActions.BOOKMARKED;
+  var action = AssessmentActions.STARTED;
 
-  var ePubId = "https://example.com/viewer/book/34843#epubcfi(/4/3)";
-  var ePub = entityFactory().create(EpubVolume, ePubId, {
-    name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
+  // The Object being interacted with by the Actor (Assessment)
+  var objId = BASE_COURSE_IRI.concat("/assessment/001");
+  var obj = entityFactory().create(Assessment, objId, {
+    name: "American Revolution - Key Figures Assessment",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
     dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    version: "2nd ed."
-  });
-
-  // The Object of the interaction
-  var objId = "https://example.com/viewer/book/34843#epubcfi(/4/3/2)";
-  var obj = entityFactory().create(Frame, objId, {
-    name: "Key Figures: Lord North",
-    isPartOf: ePub,
-    index: 2,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    version: ePub.version
+    datePublished: new Date("2015-08-15T09:30:00.000Z").toISOString(),
+    version: "1.0",
+    dateToActivate: new Date("2015-08-16T05:00:00.000Z").toISOString(),
+    dateToShow: new Date("2015-08-16T05:00:00.000Z").toISOString(),
+    dateToStartOn: new Date("2015-08-16T05:00:00.000Z").toISOString(),
+    dateToSubmit: new Date("2015-09-28T11:59:59.000Z").toISOString(),
+    maxAttempts: 2,
+    maxSubmits: 2,
+    maxScore: 3.0
   });
 
   // The generated object (Attempt) within the Event Object
-  var generatedId = "https://example.edu/bookmarks/00001";
-  var generated = entityFactory().create(BookmarkAnnotation, generatedId, {
+  var generatedId = objId.concat("/attempt/5678");
+  var generated = entityFactory().create(Attempt, generatedId, {
     actor: actor['@id'],
-    annotated: obj['@id'],
+    assignable: obj['@id'],
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    bookmarkNotes: "The Intolerable Acts (1774)--bad idea Lord North"
+    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    count: 1
   });
 
   // The edApp
-  var edAppId = "https://example.com/viewer";
+  var edAppId = "https://example.com/super-assessment-tool";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
-    name: "ePub",
+    name: "Super Assessment Tool",
     dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    version: "1.2.3"
+    version: "v2"
   });
 
   // LIS Course Offering
-  var courseId = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var course = entityFactory().create(CourseOffering, courseId, {
+  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
@@ -107,7 +104,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   });
 
   // LIS Course Section
-  var sectionId = course['@id'] + "/section/001";
+  var sectionId = BASE_COURSE_IRI.concat("/section/001");
   var section = entityFactory().create(CourseSection, sectionId, {
     name: "American Revolution 101",
     courseNumber: "POL101",
@@ -118,7 +115,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   });
 
   // LIS Group
-  var groupId = section['@id'] + "/group/001";
+  var groupId = sectionId.concat("/group/001");
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
@@ -126,7 +123,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   });
 
   // The Actor's Membership
-  var membershipId = course['@id'] + "/roster/554433";
+  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
   var membership = entityFactory().create(Membership, membershipId, {
     name: "American Revolution 101",
     description: "Roster entry",
@@ -138,7 +135,7 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   });
 
   // Assert that key attributes are the same
-  var event = eventFactory().create(AnnotationEvent, {
+  var event = eventFactory().create(AssessmentEvent, {
     actor: actor,
     action: action,
     object: obj,
@@ -150,5 +147,5 @@ test('Create BookmarkAnnotation Event and validate attributes', function (t) {
   });
 
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEventAnnotationBookmarked', event, t);
+  jsonCompare('caliperEventAssessmentStarted', event, t);
 });

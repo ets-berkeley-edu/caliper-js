@@ -20,7 +20,7 @@ var test = require('tape');
 var _ = require('lodash');
 var diff = require('deep-diff').diff;
 
-test('Validate JSON with different attribute order', function (t) {
+test('Confirm that two JSON objects with varying property orders match', function (t) {
 
   // Plan for N assertions
   t.plan(1);
@@ -37,5 +37,5 @@ test('Validate JSON with different attribute order', function (t) {
 
   var differences = diff(lhs, rhs);
 
-  t.equal(true, _.isUndefined(differences), "Validate JSON with different attribute order");
+  t.equal(true, _.isUndefined(differences), "Validate JSON with different property order");
 });
