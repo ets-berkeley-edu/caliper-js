@@ -21,24 +21,25 @@
  * @constructor
  * @property {string} sensor Sensor identifier
  * @property {string} sendTime String representing Date
- * @property {Object[]} array of events/entities
+ * @property {Object[]} data Array of events/entities
  */
 
 // Constructor
 function Envelope() {
+
 }
 
 // Setters for Caliper Envelope properties
-Envelope.prototype.setSensor = function(sensor) {
+Envelope.prototype = {
+  setSensor: function(sensor) {
     this.sensor = sensor;
-};
-
-Envelope.prototype.setSendTime = function(sendTime) {
+  },
+  setSendTime: function(sendTime) {
     this.sendTime = sendTime;
-};
-
-Envelope.prototype.setData = function(data) {
+  },
+  setData: function(data) {
     this.data = data;
+  }
 };
 
 module.exports = Envelope;

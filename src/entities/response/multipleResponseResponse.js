@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Response = require('./response');
-var ResponseType = require('./responseType');
+var constants = require('../../constants');
+var response = require('./response');
+var entityType = require('../entityType');
 
 /**
- * Represents MultipleResponseResponse.
- * MultipleResponseResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @property {Object[]} values Array of response values
- * @extends Response
+ * Link MultipleResponseResponse to delegate Response and assign default property values.
  */
-function MultipleResponseResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.MULTIPLERESPONSE);
-    this.setValues(null);
-}
-
-MultipleResponseResponse.prototype = _.create(Response.prototype);
-
-MultipleResponseResponse.prototype.setValues = function(values) {
-    this.values = values;
-};
+var MultipleResponseResponse = _.assign(_.create(response), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.MULTIPLERESPONSE,
+  value: null
+});
 
 module.exports = MultipleResponseResponse;

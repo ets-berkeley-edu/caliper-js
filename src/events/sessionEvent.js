@@ -17,20 +17,16 @@
  */
 
 var _ = require('lodash');
-var Event = require('./event');
-var EventType = require('./eventType');
+var constants = require('../constants');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Session Event.  
- * SessionEvent's prototype set to Event
- * @constructor
- * @extends Event
+ * Link SessionEvent to delegate Event and assign default property values.
  */
-function SessionEvent() {
-    Event.call(this);
-    this.setType(EventType.SESSION);
-}
-
-SessionEvent.prototype = _.create(Event.prototype);
+var SessionEvent = _.assign(_.create(event), {
+  '@context': constants.CONTEXT,
+  '@type': eventType.SESSION
+});
 
 module.exports = SessionEvent;

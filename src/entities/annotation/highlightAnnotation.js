@@ -17,34 +17,18 @@
  */
 
 var _ = require('lodash');
-var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var constants = require('../../constants');
+var annotation = require('./annotation');
+var entityType = require('../entityType');
 
 /**
- * Represents HighlightAnnotation.
- * HighlightAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @property {Object} selection {startPosition, endPosition
- * @property {string} selectionText Text that was Selected 
- * @extends Annotation
+ * Link HighlightAnnotation to delegate Annotation and assign default property values.
  */
-function HighlightAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
-    this.setSelection(null);
-    this.setSelectionText(null);
-}
-
-HighlightAnnotation.prototype = _.create(Annotation.prototype);
-
-HighlightAnnotation.prototype.setSelection = function(selection) {
-  this.selection = selection;
-};
-
-HighlightAnnotation.prototype.setSelectionText = function(selectionText) {
-  this.selectionText = selectionText;
-};
+var HighlightAnnotation = _.assign(_.create(annotation), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.HIGHLIGHT_ANNOTATION,
+  selection: {},
+  selectionText: null
+});
 
 module.exports = HighlightAnnotation;

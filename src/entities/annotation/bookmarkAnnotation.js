@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var constants = require('../../constants');
+var annotation = require('./annotation');
+var entityType = require('../entityType');
 
 /**
- * Represents BookmarkAnnotation.  
- * BookmarkAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @property {string} bookmarkNotes
- * @extends Annotation
+ * Link BookmarkAnnotation to delegate Annotation and assign default property values.
  */
-function BookmarkAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.BOOKMARK_ANNOTATION);
-    this.setBookmarkNotes(null);
-}
-
-BookmarkAnnotation.prototype = _.create(Annotation.prototype);
-
-BookmarkAnnotation.prototype.setBookmarkNotes = function(bookmarkNotes) {
-  this.bookmarkNotes = bookmarkNotes;
-};
+var BookmarkAnnotation = _.assign(_.create(annotation), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.BOOKMARK_ANNOTATION,
+  bookmarkNotes: null
+});
 
 module.exports = BookmarkAnnotation;

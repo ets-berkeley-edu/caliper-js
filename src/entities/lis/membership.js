@@ -17,45 +17,20 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var entity = require('../entity');
+var constants = require('../../constants');
+var entityType = require('../entityType');
 
 /**
- * Represents a W3C Membership.
- * Membership's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @property {string} memberId member Identifier
- * @property {string} organizationId organization Identifier
- * @property {Object[]} roles Array of roles
- * @extends Entity
+ * Link Membership to delegate Entity and assign default property values.
  */
-function Membership(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.MEMBERSHIP);
-    this.setMember(null);
-    this.setOrganization(null);
-    this.setRoles(null);
-    this.setStatus(null);
-}
-
-Membership.prototype = _.create(Entity.prototype);
-
-Membership.prototype.setMember = function(member) {
-    this.member = member;
-};
-
-Membership.prototype.setOrganization = function(organization) {
-    this.organization = organization;
-};
-
-Membership.prototype.setRoles = function(roles) {
-    this.roles = roles;
-};
-
-Membership.prototype.setStatus = function(status) {
-    this.status = status;
-};
+var Membership = _.assign(_.create(entity), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.MEMBERSHIP,
+  member: {},
+  organization: {},
+  roles: [],
+  status: null
+});
 
 module.exports = Membership;

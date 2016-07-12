@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Response = require('./response');
-var ResponseType = require('./responseType');
+var constants = require('../../constants');
+var response = require('./response');
+var entityType = require('../entityType');
 
 /**
- * Represents MultipleChoiceResponse.
- * MultipleChoiceResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @property {string} response value
- * @extends Response
+ * Link MultipleChoiceResponse to delegate Response and assign default property values.
  */
-function MultipleChoiceResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.MULTIPLECHOICE);
-    this.setValue(null);
-}
-
-MultipleChoiceResponse.prototype = _.create(Response.prototype);
-
-MultipleChoiceResponse.prototype.setValue = function(value) {
-    this.value = value;
-};
+var MultipleChoiceResponse = _.assign(_.create(response), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.MULTIPLECHOICE,
+  value: null
+});
 
 module.exports = MultipleChoiceResponse;

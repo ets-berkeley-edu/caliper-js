@@ -17,22 +17,16 @@
  */
 
 var _ = require('lodash');
-var Organization = require('../agent/organization');
-var EntityType = require('../entityType');
+var organization = require('../agent/organization');
+var constants = require('../../constants');
+var entityType = require('../entityType');
 
 /**
- * Represents Group.
- * Group's prototype set to Organization
- * @constructor
- * @param {string} id URI
- * @extends Entity
+ * Link Group to delegate Organization and assign default property values.
  */
-function Group(id) {
-    Organization.call(this);
-    this.setId(id);
-    this.setType(EntityType.GROUP);
-}
-
-Group.prototype = _.create(Organization.prototype);
+var Group = _.assign(_.create(organization), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.GROUP
+});
 
 module.exports = Group;

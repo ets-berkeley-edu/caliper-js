@@ -24,7 +24,7 @@ var assessmentActions = {
   "PAUSED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused",
   "RESTARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Restarted",
   "STARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started",
-  "SUBMITTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted",
+  "SUBMITTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted"
 };
 
 module.exports = assessmentActions;

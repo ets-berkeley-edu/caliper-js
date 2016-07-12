@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var constants = require('../../constants');
+var agent = require('./agent');
+var entityType = require('../entityType');
 
 /**
- * Represents SoftwareApplication.  
- * SoftwareApplication's prototype set to Agent
- * @constructor
- * @param {string} id URI
- * @extends Organization
- * @property {string} Version String representing the version of the SoftwareApplication
+ * Link SoftwareApplication to delegate Agent and assign default property values.
  */
-function SoftwareApplication(id) {
-  Entity.call(this);
-  this.setId(id);
-  this.setType(EntityType.SOFTWARE_APPLICATION);
-  this.setVersion(null);
-}
-
-SoftwareApplication.prototype = _.create(Entity.prototype);
-
-SoftwareApplication.prototype.setVersion = function (version) {
-    this.version = version;
-};
+var SoftwareApplication = _.assign(_.create(agent), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.SOFTWARE_APPLICATION,
+  version: null
+});
 
 module.exports = SoftwareApplication;

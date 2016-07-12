@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Response = require('./response');
-var ResponseType = require ('./responseType');
+var constants = require('../../constants');
+var response = require('./response');
+var entityType = require('../entityType');
 
 /**
- * Represents FillinBlankResponse.
- * FillinBlankResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @property {Object[]} values Array of response values
- * @extends Response
+ * Link FillinBlankResponse to delegate Response and assign default property values.
  */
-function FillinBlankResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.FILLINBLANK);
-    this.setValues(null);
-}
-
-FillinBlankResponse.prototype = _.create(Response.prototype);
-
-FillinBlankResponse.prototype.setValues = function(values) {
-    this.values = values;
-};
+var FillinBlankResponse = _.assign(_.create(response), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.FILLINBLANK,
+  values: []
+});
 
 module.exports = FillinBlankResponse;

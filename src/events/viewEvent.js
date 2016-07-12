@@ -17,20 +17,16 @@
  */
 
 var _ = require('lodash');
-var Event = require('./event');
-var EventType = require('./eventType');
+var constants = require('../constants');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents View Event.  
- * ViewEvent's prototype set to Event
- * @constructor
- * @extends Event
+ * Link ViewEvent to delegate Event and assign default property values.
  */
-function ViewEvent() {
-    Event.call(this);
-    this.setType(EventType.VIEWED);
-}
-
-ViewEvent.prototype = _.create(Event.prototype);
+var ViewEvent = _.assign(_.create(event), {
+  '@context': constants.CONTEXT,
+  '@type': eventType.VIEWED
+});
 
 module.exports = ViewEvent;

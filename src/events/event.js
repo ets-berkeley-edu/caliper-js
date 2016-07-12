@@ -16,106 +16,26 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var Context = require('../context/context');
+var constants = require('../constants');
+var eventType = require('./eventType');
 
-/**
- * Represents Base Caliper Event.
- * @constructor
- * @property {string} context Context
- * @property {string} type Type
- * @property {string} sourcedId Event identifier
- * @property {Object} actor Actor initiating the action
- * @property {string} action String representing the action
- * @property {Object} object Object of the interaction
- * @property {string} eventTime String representing Date (ISO 8601 format)
- * @property {Object} target Target
- * @property {Object} generated Generated
- * @property {Object} referrer Referrer
- * @property {Object} edApp EdApp Object
- * @property {Object} group Group Object
- * @property {Object} membership Membership Object
- * @property {Object} federatedSession Session Object
- * @property {Object} extensions Extensions Object
- */
-
-// constructor
-function Event() {
-  this.setContext(Context.CONTEXT);
-  this.setType(null);
-  this.setSourcedId(null);
-  this.setActor(null);
-  this.setAction(null);
-  this.setObject(null);
-  this.setEventTime(null);
-  this.setTarget(null);
-  this.setGenerated(null);
-  this.setReferrer(null);
-  this.setEdApp(null);
-  this.setGroup(null);
-  this.setMembership(null);
-  this.setFederatedSession(null);
-  this.setExtensions(null);
-}
-
-// Setters for Caliper Event properties
-Event.prototype.setContext = function(context) {
-  this['@context'] = context;
-};
-
-Event.prototype.setType = function(type) {
-  this['@type'] = type;
-};
-
-Event.prototype.setSourcedId = function(sourcedId) {
-  this.sourcedId = sourcedId;
-};
-
-Event.prototype.setActor = function(actor) {
-  this.actor = actor;
-};
-
-Event.prototype.setAction = function(action) {
-  this.action = action;
-};
-
-Event.prototype.setObject = function(object) {
-  this.object = object;
-};
-
-Event.prototype.setEventTime = function(eventTime) {
-  this.eventTime = eventTime;
-};
-
-Event.prototype.setTarget = function(target) {
-  this.target = target;
-};
-
-Event.prototype.setGenerated = function(generated) {
-  this.generated = generated;
-};
-
-Event.prototype.setReferrer = function(referrer) {
-  this.referrer = referrer;
-};
-
-Event.prototype.setEdApp = function(edApp) {
-  this.edApp = edApp;
-};
-
-Event.prototype.setGroup = function(group) {
-  this.group = group;
-};
-
-Event.prototype.setMembership = function(membership) {
-  this.membership = membership;
-};
-
-Event.prototype.setFederatedSession = function(federatedSession) {
-  this.federatedSession = federatedSession;
-};
-
-Event.prototype.setExtensions = function(extensions) {
-  this.extensions = extensions;
+var Event = {
+  '@context': constants.CONTEXT,
+  '@type': eventType.EVENT,
+  sourcedId: null,
+  actor: {},
+  action: null,
+  object: {},
+  eventTime: null,
+  generated: {},
+  target: {},
+  referrer: {},
+  edApp: {},
+  group: {},
+  membership: {},
+  session: null,
+  federatedSession: null,
+  extensions: {}
 };
 
 module.exports = Event;

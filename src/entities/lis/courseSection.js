@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var CourseOffering = require('./courseOffering');
-var EntityType = require('../entityType');
+var courseOffering = require('./courseOffering');
+var constants = require('../../constants');
+var entityType = require('../entityType');
 
 /**
- * Represents Course.  
- * CourseSection's prototype set to CourseOffering
- * @constructor
- * @param {string} id URI
- * @property {string} category String representing a Category (lecture, lab, etc.)
- * @extends Course
+ * Link CourseSection to delegate CourseOffering and assign default property values.
  */
-function CourseSection(id) {
-    CourseOffering.call(this);
-    this.setId(id);
-    this.setType(EntityType.COURSE_SECTION);
-    this.setCategory(null);
-}
-
-CourseSection.prototype = _.create(CourseOffering.prototype);
-
-CourseSection.prototype.setCategory = function(category) {
-  this.category = category;
-};
+var CourseSection = _.assign(_.create(courseOffering), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.COURSE_SECTION,
+  category: null
+});
 
 module.exports = CourseSection;

@@ -22,7 +22,7 @@
  */
 var readingActions = {
   "SEARCHED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched",
-  "VIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
+  "VIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
 };
 
 module.exports = readingActions;

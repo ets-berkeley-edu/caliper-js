@@ -17,9 +17,9 @@
  */
 
 var status =  {
-    "ACTIVE": "http://purl.imsglobal.org/vocab/lis/v2/status#Active",
-    "DELETED": "http://purl.imsglobal.org/vocab/lis/v2/status#Deleted",
-    "INACTIVE": "http://purl.imsglobal.org/vocab/lis/v2/status#Inactive"
+  "ACTIVE": "http://purl.imsglobal.org/vocab/lis/v2/status#Active",
+  "DELETED": "http://purl.imsglobal.org/vocab/lis/v2/status#Deleted",
+  "INACTIVE": "http://purl.imsglobal.org/vocab/lis/v2/status#Inactive"
 };
 
 module.exports = status;

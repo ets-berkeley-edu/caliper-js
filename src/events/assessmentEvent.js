@@ -17,20 +17,16 @@
  */
 
 var _ = require('lodash');
-var Event = require('./event');
-var EventType = require('./eventType');
+var constants = require('../constants');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Assessment Event.  
- * Assessment's prototype set to Event
- * @constructor
- * @extends Event
+ * Link AssessmentEvent to delegate Event and assign default property values.
  */
-function AssessmentEvent() {
-    Event.call(this);
-    this.setType(EventType.ASSESSMENT);
-}
-
-AssessmentEvent.prototype = _.create(Event.prototype);
+var AssessmentEvent = _.assign(_.create(event), {
+  '@context': constants.CONTEXT,
+  '@type': eventType.ASSESSMENT
+});
 
 module.exports = AssessmentEvent;

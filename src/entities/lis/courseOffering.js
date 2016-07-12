@@ -17,34 +17,18 @@
  */
 
 var _ = require('lodash');
-var Organization = require('../agent/organization');
-var EntityType = require('../entityType');
+var organization = require('../agent/organization');
+var constants = require('../../constants');
+var entityType = require('../entityType');
 
 /**
- * Represents Organization.
- * CourseOffering's prototype set to Organization
- * @constructor
- * @param {string} id URI
- * @property {string} courseNumber String representing the Course Number
- * @property {string} academicSession String representing the academic session
- * @extends Organization
+ * Link CourseOffering to delegate Organization and assign default property values.
  */
-function CourseOffering(id) {
-    Organization.call(this);
-    this.setId(id);
-    this.setType(EntityType.COURSE_OFFERING);
-    this.setCourseNumber(null);
-    this.setAcademicSession(null);
-}
-
-CourseOffering.prototype = _.create(Organization.prototype);
-
-CourseOffering.prototype.setCourseNumber = function(courseNumber) {
-    this.courseNumber = courseNumber;
-};
-
-CourseOffering.prototype.setAcademicSession = function(academicSession) {
-    this.academicSession = academicSession;
-};
+var CourseOffering = _.assign(_.create(organization), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.COURSE_OFFERING,
+  courseNumber: null,
+  academicSession: null
+});
 
 module.exports = CourseOffering;

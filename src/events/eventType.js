@@ -17,16 +17,20 @@
  */
 
 var eventType = {
-    "ANNOTATION": "http://purl.imsglobal.org/caliper/v1/AnnotationEvent",
-    "ASSESSMENT": "http://purl.imsglobal.org/caliper/v1/AssessmentEvent",
-    "ASSESSMENT_ITEM": "http://purl.imsglobal.org/caliper/v1/AssessmentItemEvent",
-    "ASSIGNABLE": "http://purl.imsglobal.org/caliper/v1/AssignableEvent",
-    "EVENT": "http://purl.imsglobal.org/caliper/v1/Event",
-    "MEDIA": "http://purl.imsglobal.org/caliper/v1/MediaEvent",
-    "NAVIGATION": "http://purl.imsglobal.org/caliper/v1/NavigationEvent",
-    "OUTCOME": "http://purl.imsglobal.org/caliper/v1/OutcomeEvent",
-    "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent",
-    "SESSION": "http://purl.imsglobal.org/caliper/v1/SessionEvent"
+  "ANNOTATION": "http://purl.imsglobal.org/caliper/v1/AnnotationEvent",
+  "ASSESSMENT": "http://purl.imsglobal.org/caliper/v1/AssessmentEvent",
+  "ASSESSMENT_ITEM": "http://purl.imsglobal.org/caliper/v1/AssessmentItemEvent",
+  "ASSIGNABLE": "http://purl.imsglobal.org/caliper/v1/AssignableEvent",
+  "EVENT": "http://purl.imsglobal.org/caliper/v1/Event",
+  "FORUM": "http://purl.imsglobal.org/caliper/v1/ForumEvent",
+  "MEDIA": "http://purl.imsglobal.org/caliper/v1/MediaEvent",
+  "MESSAGE": "http://purl.imsglobal.org/caliper/v1/MessageEvent",
+  "NAVIGATION": "http://purl.imsglobal.org/caliper/v1/NavigationEvent",
+  "OUTCOME": "http://purl.imsglobal.org/caliper/v1/OutcomeEvent",
+  "READING": "http://purl.imsglobal.org/caliper/v1/ReadingEvent",
+  "SESSION": "http://purl.imsglobal.org/caliper/v1/SessionEvent",
+  "THREAD": "http://purl.imsglobal.org/caliper/v1/ThreadEvent",
+  "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent"
 };
 
 module.exports = eventType;

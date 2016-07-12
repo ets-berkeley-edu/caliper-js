@@ -29,7 +29,7 @@ var assignableActions = {
   "REVIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed",
   "SHOWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed",
   "STARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started",
-  "SUBMITTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted",
+  "SUBMITTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted"
 };
 
 module.exports = assignableActions;

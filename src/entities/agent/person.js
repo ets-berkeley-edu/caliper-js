@@ -17,22 +17,16 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var agent = require('./agent');
+var constants = require('../../constants');
+var entityType = require('../entityType');
 
 /**
- * Represents Person.  
- * Person's prototype set to Agent
- * @constructor
- * @param {string} id URI
- * @extends Agent
+ * Link Person to delegate Agent and assign default property values.
  */
-function Person(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.PERSON);
-}
-
-Person.prototype = _.create(Entity.prototype);
+var Person = _.assign(_.create(agent), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.PERSON
+});
 
 module.exports = Person;

@@ -18,11 +18,9 @@
 
 var _ = require('lodash');
 var http = require('https');
-// var Q = require('q');
 var logger = require('../logger');
 var moment = require('moment');
 var requestor = require('./eventStoreRequestor');
-var requestUtils = require('./requestUtils')
 
 /**
  * Represents httpRequestor self.
@@ -35,20 +33,20 @@ var options = {};
  * Check if self is properly initialized
  */
 var initialized = function() {
-    return true; //TODO
+  return true; //TODO
 };
 
 /**
  * Initializes the default self to use.
  * @function initialize
- * @param options $options passed straight to the self
+ * @param sensorOptions $options passed straight to the self
  */
 self.initialize = function(sensorOptions) {
-    if (!_.isUndefined(sensorOptions)) {
-        options = sensorOptions;
-    }
-    requestor.initialize(sensorOptions);
-    logger.log('debug', "Initialized httpRequestor with options " + JSON.stringify(options));
+  if (!_.isUndefined(sensorOptions)) {
+      options = sensorOptions;
+  }
+  requestor.initialize(sensorOptions);
+  logger.log('debug', "Initialized httpRequestor with options " + JSON.stringify(options));
 };
 
 /**
@@ -57,7 +55,16 @@ self.initialize = function(sensorOptions) {
  * @param data
  */
 self.createEnvelope = function(sensor, data) {
-    return requestor.createEnvelope(sensor, data);
+  return requestor.createEnvelope(sensor, data);
+};
+
+/**
+ * Emit Caliper dimensional data (entity).
+ * @param sensor
+ * @param data
+ */
+self.describe = function(sensor, data) {
+  self.post(sensor, data);
 };
 
 /**
@@ -67,53 +74,66 @@ self.createEnvelope = function(sensor, data) {
  * @returns payload
  */
 self.getJsonPayload = function(sensor, data) {
-    return requestor.getJsonPayload(sensor, data);
+  return requestor.getJsonPayload(sensor, data);
 };
 
 /**
- * Send Caliper data.
+ * Issue a POST request.
+ * @param sensor
+ * @param data
+ */
+self.post = function(sensor, data) {
+  if (initialized()) {
+
+    logger.log('debug', "Sending data " + JSON.stringify(data));
+
+    // Create the Envelope payload
+    var jsonPayload = requestor.getJsonPayload(sensor, data);
+
+    logger.log('debug', "Added data to envelope " + JSON.stringify(jsonPayload));
+
+    // Add Headers
+    var headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': jsonPayload.length
+    };
+
+    // Merge headers
+    var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
+
+    logger.log('debug', 'httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
+
+    // Create request
+    var request = http.request(sendOptions, function (response) {
+      logger.log('info', "finished sending. Response = " + JSON.stringify(response));
+    }, function(error){
+      logger.log('error', "ERROR sending event = " + error);
+    });
+
+    // Write request
+    request.write(jsonPayload);
+    request.end();
+
+  } else {
+    logger.log('error', "httpRequestor is not initialized!");
+  }
+};
+
+
+/**
+ * Emit Caliper Event data.
  * @param sensor
  * @param data
  */
 self.send = function(sensor, data) {
-    if (initialized()) {
-        logger.log('debug', "Sending data " + JSON.stringify(data));
-
-        // Create the Envelope payload
-        var jsonPayload = requestor.getJsonPayload(sensor, data);
-
-        logger.log('debug', "Added data to envelope " + JSON.stringify(jsonPayload));
-
-        // Add Headers
-        var headers = {
-            'Content-Type': 'application/json',
-            'Content-Length': jsonPayload.length
-        };
-
-        // Merge headers
-        var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
-
-        logger.log('debug', 'httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
-
-        // Create request
-        var request = http.request(sendOptions, function (response) {
-            logger.log('info', "finished sending. Response = " + JSON.stringify(response));
-        }, function(error){
-            logger.log('error', "ERROR sending event = " + ERROR);
-        });
-
-        // Write request
-        request.write(jsonPayload);
-        request.end();
-
-    } else {
-        logger.log('error', "httpRequestor is not initialized!");
-    }
+  self.post(sensor, data);
 };
 
 module.exports = {
-    initialize: self.initialize,
-    createEnvelope: self.createEnvelope,
-    getJsonPayload: self.getJsonPayload,
-    send: self.send
+  initialize: self.initialize,
+  createEnvelope: self.createEnvelope,
+  describe: self.describe,
+  getJsonPayload: self.getJsonPayload,
+  post: self.post,
+  send: self.send
 };

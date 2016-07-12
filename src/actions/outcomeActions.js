@@ -21,7 +21,7 @@
  * @enum
  */
 var outcomeActions = {
-  "GRADED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded",
+  "GRADED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded"
 };
 
 module.exports = outcomeActions;

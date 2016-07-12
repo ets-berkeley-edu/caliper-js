@@ -17,20 +17,16 @@
  */
 
 var _ = require('lodash');
-var Event = require('./event');
-var EventType = require('./eventType');
+var constants = require('../constants');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Annotation Event.  
- * AnnotationEvent's prototype set to Event
- * @constructor
- * @extends Event
+ * Link AnnotationEvent to delegate Event and assign default property values.
  */
-function AnnotationEvent() {
-    Event.call(this);
-    this.setType(EventType.ANNOTATION);
-}
-
-AnnotationEvent.prototype = _.create(Event.prototype);
+var AnnotationEvent = _.assign(_.create(event), {
+  '@context': constants.CONTEXT,
+  '@type': eventType.ANNOTATION
+});
 
 module.exports = AnnotationEvent;

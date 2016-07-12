@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var constants = require('../../constants');
+var annotation = require('./annotation');
+var entityType = require('../entityType');
 
 /**
- * Represents TagAnnotation.  
- * TagAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @property {string[]} tags Array of Strings representing tags
- * @extends Annotation
+ * Link TagAnnotation to delegate Annotation and assign default property values.
  */
-function TagAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.TAG_ANNOTATION);
-    this.setTags(null);
-}
-
-TagAnnotation.prototype = _.create(Annotation.prototype);
-
-TagAnnotation.prototype.setTags = function(tags) {
-  this.tags = tags;
-};
+var TagAnnotation = _.assign(_.create(annotation), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.TAG_ANNOTATION,
+  tags: []
+});
 
 module.exports = TagAnnotation;

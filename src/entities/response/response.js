@@ -17,59 +17,22 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var constants = require('../../constants');
+var entity = require('../entity');
+var entityType = require('../entityType');
 
 /**
- * Represents Response.
- * Response's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @param {string} type Type
- * @property {string} assignable URI representing Assignment being attempted
- * @property {string} actor URI representing Actor attempted
- * @property {Object} attempt representing attempt
- * @property {string} startedAtTime String Representation of Date
- * @property {string} endedAtTime String Representation of Date
- * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
- * @extends Entity
+ * Link Response to delegate Entity and assign default property values.
  */
-function Response(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.RESPONSE);
-    this.setActor(null);
-    this.setAssignable(null);
-    this.setAttempt(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
-}
-
-Response.prototype = _.create(Entity.prototype);
-
-Response.prototype.setAssignable = function(assignableId) {
-    this.assignable = assignableId;
-};
-
-Response.prototype.setActor = function(actorId) {
-    this.actor = actorId;
-};
-
-Response.prototype.setAttempt = function(attempt) {
-    this.attempt = attempt;
-};
-
-Response.prototype.setStartedAtTime = function(startedAtTime) {
-    this.startedAtTime = startedAtTime;
-};
-
-Response.prototype.setEndedAtTime = function(endedAtTime) {
-    this.endedAtTime = endedAtTime;
-};
-
-Response.prototype.setDuration = function(duration) {
-    this.duration = duration;
-};
+var Response = _.assign(_.create(entity), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.RESPONSE,
+  actor: {},
+  assignable: {},
+  attempt: {},
+  startedAtTime: null,
+  endedAtTime: null,
+  duration: null
+});
 
 module.exports = Response;

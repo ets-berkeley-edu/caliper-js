@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var agent = require('./agent');
+var constants = require('../../constants');
+var entityType = require('../entityType');
 
 /**
- * Represents an LTI W3C Organization.
- * Organization's prototype set to Entity.
- * @constructor
- * @param {string} id URI
- * @property {Object} subOrganizationOf Parent Organization Object
- * @extends Agent
+ * Link Organization to delegate Agent and assign default property values.
  */
-function Organization(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.ORGANIZATION);
-    this.setSubOrganizationOf(null);
-}
-
-Organization.prototype = _.create(Entity.prototype);
-
-Organization.prototype.setSubOrganizationOf = function(subOrganizationOf) {
-  this.subOrganizationOf = subOrganizationOf;
-};
+var Organization = _.assign(_.create(agent), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.ORGANIZATION,
+  subOrganizationOf: {}
+});
 
 module.exports = Organization;

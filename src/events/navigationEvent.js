@@ -17,21 +17,16 @@
  */
 
 var _ = require('lodash');
-var Event = require('./event');
-var EventType = require('./eventType');
+var constants = require('../constants');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Navigation Event.  
- * NavigationEvent's prototype set to Event
- * @constructor
- * @property {Object} navigatedFrom Object they navigated from
- * @extends Event
+ * Link NavigationEvent to delegate Event and assign default property values.
  */
-function NavigationEvent() {
-    Event.call(this);
-    this.setType(EventType.NAVIGATION);
-}
-
-NavigationEvent.prototype = _.create(Event.prototype);
+var NavigationEvent = _.assign(_.create(event), {
+  '@context': constants.CONTEXT,
+  '@type': eventType.NAVIGATION
+});
 
 module.exports = NavigationEvent;

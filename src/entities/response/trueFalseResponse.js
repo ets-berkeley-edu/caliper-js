@@ -17,28 +17,17 @@
  */
 
 var _ = require('lodash');
-var Response = require('./response');
-var ResponseType = require('./responseType');
+var constants = require('../../constants');
+var response = require('./response');
+var entityType = require('../entityType');
 
 /**
- * Represents TrueFalseResponse.
- * TrueFalseResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @property {string} response value
- * @extends Response
+ * Link TrueFalseResponse to delegate Response and assign default property values.
  */
-function TrueFalseResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.TRUEFALSE);
-    this.setValue(null);
-}
-
-TrueFalseResponse.prototype = _.create(Response.prototype);
-
-TrueFalseResponse.prototype.setValue = function(value) {
-    this.value = value;
-};
+var TrueFalseResponse = _.assign(_.create(response), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.TRUEFALSE,
+  value: null
+});
 
 module.exports = TrueFalseResponse;

@@ -33,7 +33,7 @@ var jsonCompare = function(expectedJsonFile, JsonToCompare, t, filterCallback) {
 
   var differences;
 
-  var processedJsonToCompare = requestUtils.parseForNullsAndEmtpy(JsonToCompare);
+  var processedJsonToCompare = requestUtils.parseForNullsAndEmpty(JsonToCompare);
   // console.log("Processed JSON = " + JSON.stringify(processedJsonToCompare));
   JsonToCompare = processedJsonToCompare;
 

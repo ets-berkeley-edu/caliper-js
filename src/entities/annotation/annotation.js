@@ -17,34 +17,18 @@
  */
 
 var _ = require('lodash');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var constants = require('../../constants');
+var entity = require('../entity');
+var entityType = require('../entityType');
 
 /**
- * Represents Annotation.  
- * Annotation's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @property {string} annotated Annotated Object identifier
- * @property {string} actor Actor identifier
- * @extends Entity
+ * Link Annotation to delegate Entity and assign default property values.
  */
-function Annotation(id) {
-  Entity.call(this);
-  this.setId(id);
-  this.setType(EntityType.ANNOTATION);
-  this.setActor(null);
-  this.setAnnotated(null);
-}
-
-Annotation.prototype = _.create(Entity.prototype);
-
-Annotation.prototype.setAnnotated = function(annotated) {
-  this.annotated = annotated;
-};
-
-Annotation.prototype.setActor = function(actor) {
-  this.actor = actor;
-};
+var Annotation = _.assign(_.create(entity), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.ANNOTATION,
+  actor: {},
+  annotated: {}
+});
 
 module.exports = Annotation;

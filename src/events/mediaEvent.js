@@ -17,25 +17,16 @@
  */
 
 var _ = require('lodash');
-var Event = require('./event');
-var EventType = require('./eventType');
+var constants = require('../constants');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Media Event.  
- * MediaEvent's prototype set to Event
- * @constructor
- * @property {Object} mediaLocation Media Location
- * @extends Event
+ * Link MediaEvent to delegate Event and assign default property values.
  */
-function MediaEvent() {
-    Event.call(this);
-    this.setType(EventType.MEDIA);
-}
-
-MediaEvent.prototype = _.create(Event.prototype);
-
-MediaEvent.prototype.setMediaLocation = function (mediaLocation) {
-  this.mediaLocation = mediaLocation;
-};
+var MediaEvent = _.assign(_.create(event), {
+  '@context': constants.CONTEXT,
+  '@type': eventType.MEDIA
+});
 
 module.exports = MediaEvent;

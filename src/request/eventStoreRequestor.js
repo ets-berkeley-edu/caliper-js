@@ -17,7 +17,6 @@
  */
 
 var _ = require('lodash');
-var logger = require('../logger');
 var moment = require('moment');
 var Envelope = require('./envelope');
 var requestUtils = require('./requestUtils')
@@ -39,13 +38,13 @@ var initialized = function() {
 /**
  * Initializes the default self to use.
  * @function initialize
- * @param options $options passed straight to the self
+ * @param sensorOptions $options passed straight to the self
  */
 self.initialize = function(sensorOptions) {
-    if (!_.isUndefined(sensorOptions)) {
-        options = sensorOptions;
-    }
-    // logger.log('info', "Initializing Requestor with options " + JSON.stringify(options));
+  if (!_.isUndefined(sensorOptions)) {
+      options = sensorOptions;
+  }
+  // logger.log('info', "Initializing Requestor with options " + JSON.stringify(options));
 };
 
 /**
@@ -54,24 +53,33 @@ self.initialize = function(sensorOptions) {
  * @param data
  */
 self.createEnvelope = function(sensor, data) {
-    var envelope = new Envelope();
-    envelope.sensor = sensor.id;
-    envelope.sendTime = moment().utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-    if (Array.isArray(data)) {
-        envelope.data = data;
-    } else {
-        envelope.data = [data];
-    }
+  var envelope = new Envelope();
+  envelope.sensor = sensor.id;
+  envelope.sendTime = moment().utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  if (Array.isArray(data)) {
+      envelope.data = data;
+  } else {
+      envelope.data = [data];
+  }
 
-    return envelope;
+  return envelope;
+};
+
+/**
+ * Abstract describe method. Implement in a sub-module.
+ * @param sensor
+ * @param data
+ */
+self.describe = function(sensor, data) {
+  throw new Error('Method `eventStoreRequestor::describe()` must be implemented in a sub-module.');
 };
 
 /**
  * Generate JSON. Private method that is not exported.
- * @param envelope
+ * @param payload
  */
 self.generateJsonPayload = function generateJsonPayload(payload) {
-    return requestUtils.serialize(payload);
+  return requestUtils.serialize(payload);
 }
 
 /**
@@ -81,7 +89,8 @@ self.generateJsonPayload = function generateJsonPayload(payload) {
  * @returns payload
  */
 self.getJsonPayload = function(sensor, data) {
-    return self.generateJsonPayload(self.createEnvelope(sensor, data));
+  var envelope = self.createEnvelope(sensor, data);
+  return self.generateJsonPayload(envelope);
 };
 
 /**
@@ -90,12 +99,12 @@ self.getJsonPayload = function(sensor, data) {
  * @param data
  */
 self.send = function(sensor, data) {
-    throw new Error('Method `eventStoreRequestor::send()` must be implemented in a sub-module.');
+  throw new Error('Method `eventStoreRequestor::send()` must be implemented in a sub-module.');
 };
 
 module.exports = {
-    initialize: self.initialize,
-    createEnvelope: self.createEnvelope,
-    getJsonPayload: self.getJsonPayload,
-    send: self.send
+  initialize: self.initialize,
+  createEnvelope: self.createEnvelope,
+  getJsonPayload: self.getJsonPayload,
+  send: self.send
 };
