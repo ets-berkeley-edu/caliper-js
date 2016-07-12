@@ -21,7 +21,7 @@ caliper-js is a Javascript client for [Caliper](http://www.imsglobal.org/caliper
 ### Running the example
 
 * grunt http-server:dev
-* In a browser, navigate to http://localhost:9999/index.html
+* In a browser, navigate to http://localhost:8888/index.html
 
 ### Installing and using the Library:
 
