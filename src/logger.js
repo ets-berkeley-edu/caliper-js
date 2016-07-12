@@ -15,20 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
- 
-var logger = require('caterpillar').createLogger({
-  level: 6
-});
+
+const logger = require('caterpillar').create({ level: 6 });
 
 var output = logger
   .pipe(
-    require('caterpillar-filter').createFilter()
+    require('caterpillar-filter').create()
   )
   .pipe(
-    require('caterpillar-human').createHuman()
+    require('caterpillar-human').create()
   )
   .pipe(
-    require('caterpillar-browser').createBrowser()
+    require('caterpillar-browser').create()
   );
 
 // Export
