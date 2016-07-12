@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var digitalResource = require('../digitalResource');
-var digitalResourceType = require('../digitalResourceType');
+var constants = require('../../constants');
+var digitalResource = require('./digitalResource');
+var entityType = require('../entityType');
 
 /**
  * Link Reading to delegate DigitalResource and assign default property values.
  */
 var Reading = _.assign(_.create(digitalResource), {
-  '@context': context.CONTEXT,
-  '@type': digitalResourceType.READING
+  '@context': constants.CONTEXT,
+  '@type': entityType.READING
 });
 
 module.exports = Reading;

@@ -22,7 +22,7 @@ var util = require('util');
 var jsonCompare = require('../testUtils');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
-var DigitalResourceCollection = require('../../src/entities/digitalResourceCollection');
+var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var Person = require('../../src/entities/agent/person');
 
 test('Create a DigitalResourceCollection entity and validate properties', function (t) {

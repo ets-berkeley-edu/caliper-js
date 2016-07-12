@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var assignable = require('../assignable/assignableDigitalResource');
-var assignableType = require('../assignable/assignableDigitalResourceType');
+var constants = require('../../constants');
+var mediaObject = require('./mediaObject');
+var entityType = require('../entityType');
 
 /**
- * Link Assessment to delegate AssignableDigitalResource and assign default property values.
+ * Link VideoObject to delegate MediaObject and assign default property values.
  */
-var Assessment = _.assign(_.create(assignable), {
-  '@context': context.CONTEXT,
-  '@type': assignableType.ASSESSMENT
+var VideoObject = _.assign(_.create(mediaObject), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.VIDEO_OBJECT
 });
 
-module.exports = Assessment;
+module.exports = VideoObject;

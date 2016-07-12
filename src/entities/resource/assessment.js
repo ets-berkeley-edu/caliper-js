@@ -17,26 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var entity = require('../entity');
+var constants = require('../../constants');
+var assignable = require('./assignableDigitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link Result to delegate Entity and assign default property values.
+ * Link Assessment to delegate AssignableDigitalResource and assign default property values.
  */
-var Result = _.assign(_.create(entity), {
-  '@context': context.CONTEXT,
-  '@type': entityType.RESULT,
-  actor: {},
-  assignable: {},
-  normalScore: null,
-  penaltyScore: null,
-  extraCreditScore: null,
-  totalScore: null,
-  curvedTotalScore: null,
-  curveFactor: null,
-  comment: null,
-  scoredBy: null
+var Assessment = _.assign(_.create(assignable), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.ASSESSMENT
 });
 
-module.exports = Result;
+module.exports = Assessment;

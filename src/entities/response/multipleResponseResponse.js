@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var response = require('./response');
-var responseType = require('./responseType');
+var entityType = require('../entityType');
 
 /**
  * Link MultipleResponseResponse to delegate Response and assign default property values.
  */
 var MultipleResponseResponse = _.assign(_.create(response), {
-  '@context': context.CONTEXT,
-  '@type': responseType.MULTIPLERESPONSE,
+  '@context': constants.CONTEXT,
+  '@type': entityType.MULTIPLERESPONSE,
   value: null
 });
 

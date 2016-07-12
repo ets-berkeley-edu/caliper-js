@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var digitalResource = require('../digitalResource');
-var digitalResourceType = require('../digitalResourceType');
+var constants = require('../../constants');
+var digitalResource = require('./digitalResource');
+var entityType = require('../entityType');
 
 /**
  * Link EpubVolume to delegate DigitalResource and assign default property values.
  */
 var EPubVolume = _.assign(_.create(digitalResource), {
-  '@context': context.CONTEXT,
-  '@type': digitalResourceType.EPUB_VOLUME
+  '@context': constants.CONTEXT,
+  '@type': entityType.EPUB_VOLUME
 });
 
 module.exports = EPubVolume;

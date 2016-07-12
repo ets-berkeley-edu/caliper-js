@@ -17,7 +17,7 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var entity = require('../entity');
 var entityType = require('../entityType');
 
@@ -25,7 +25,7 @@ var entityType = require('../entityType');
  * Link Session to delegate Entity and assign default property values.
  */
 var Session = _.assign(_.create(entity), {
-  '@context': context.CONTEXT,
+  '@context': constants.CONTEXT,
   '@type': entityType.SESSION,
   actor: {},
   startedAtTime: null,

@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var response = require('./response');
-var responseType = require('./responseType');
+var entityType = require('../entityType');
 
 /**
  * Link TrueFalseResponse to delegate Response and assign default property values.
  */
 var TrueFalseResponse = _.assign(_.create(response), {
-  '@context': context.CONTEXT,
-  '@type': responseType.TRUEFALSE,
+  '@context': constants.CONTEXT,
+  '@type': entityType.TRUEFALSE,
   value: null
 });
 

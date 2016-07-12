@@ -18,14 +18,14 @@
 
 var _ = require('lodash');
 var organization = require('../agent/organization');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**
  * Link Group to delegate Organization and assign default property values.
  */
 var Group = _.assign(_.create(organization), {
-  '@context': context.CONTEXT,
+  '@context': constants.CONTEXT,
   '@type': entityType.GROUP
 });
 

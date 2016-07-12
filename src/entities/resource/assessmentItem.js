@@ -16,9 +16,18 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var assignableDigitalResourceType = {
-  "ASSESSMENT": "http://purl.imsglobal.org/caliper/v1/Assessment",
-  "ASSESSMENT_ITEM": "http://purl.imsglobal.org/caliper/v1/AssessmentItem"
-};
+var _ = require('lodash');
+var constants = require('../../constants');
+var assignable = require('./assignableDigitalResource');
+var entityType = require('../entityType');
 
-module.exports = assignableDigitalResourceType;
+/**
+ * Link AssessmentItem to delegate AssignableDigitalResource and assign default property values.
+ */
+var AssessmentItem = _.assign(_.create(assignable), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.ASSESSMENT_ITEM,
+  isTimeDependent: false
+});
+
+module.exports = AssessmentItem;

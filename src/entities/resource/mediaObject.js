@@ -16,11 +16,18 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var annotationType = {
-    "BOOKMARK_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/BookmarkAnnotation",
-    "HIGHLIGHT_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/HighlightAnnotation",
-    "SHARED_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/SharedAnnotation",
-    "TAG_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/TagAnnotation"
-};
+var _ = require('lodash');
+var constants = require('../../constants');
+var digitalResource = require('./digitalResource');
+var entityType = require('../entityType');
 
-module.exports = annotationType;
+/**
+ * Link MediaObject to delegate DigitalResource and assign default property values.
+ */
+var MediaObject = _.assign(_.create(digitalResource), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.MEDIA_OBJECT,
+  duration: null
+});
+
+module.exports = MediaObject;

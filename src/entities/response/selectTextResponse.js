@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var response = require('./response');
-var responseType = require('./responseType');
+var entityType = require('../entityType');
 
 /**
  * Link SelectTextResponse to delegate Response and assign default property values.
  */
 var SelectTextResponse = _.assign(_.create(response), {
-  '@context': context.CONTEXT,
-  '@type': responseType.SELECTTEXT,
+  '@context': constants.CONTEXT,
+  '@type': entityType.SELECTTEXT,
   values: []
 });
 

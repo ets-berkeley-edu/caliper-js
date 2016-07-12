@@ -18,14 +18,14 @@
 
 var _ = require('lodash');
 var courseOffering = require('./courseOffering');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**
  * Link CourseSection to delegate CourseOffering and assign default property values.
  */
 var CourseSection = _.assign(_.create(courseOffering), {
-  '@context': context.CONTEXT,
+  '@context': constants.CONTEXT,
   '@type': entityType.COURSE_SECTION,
   category: null
 });

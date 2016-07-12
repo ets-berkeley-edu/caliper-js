@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var digitalResource = require('../digitalResource');
-var digitalResourceType = require('../digitalResourceType');
+var constants = require('../../constants');
+var digitalResource = require('./digitalResource');
+var entityType = require('../entityType');
 
 /**
  * Link Frame to delegate Entity and assign default property values.
  */
 var Frame = _.assign(_.create(digitalResource), {
-  '@context': context.CONTEXT,
-  '@type': digitalResourceType.FRAME,
+  '@context': constants.CONTEXT,
+  '@type': entityType.FRAME,
   index: null
 });
 

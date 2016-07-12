@@ -16,12 +16,18 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var responseType = {
-  "FILLINBLANK": "http://purl.imsglobal.org/caliper/v1/FillinBlankResponse",
-  "MULTIPLECHOICE": "http://purl.imsglobal.org/caliper/v1/MultipleChoiceResponse",
-  "MULTIPLERESPONSE": "http://purl.imsglobal.org/caliper/v1/MultipleResponseResponse",
-  "SELECTTEXT": "http://purl.imsglobal.org/caliper/v1/SelectTextResponse",
-  "TRUEFALSE": "http://purl.imsglobal.org/caliper/v1/TrueFalseResponse"
-};
+var _ = require('lodash');
+var constants = require('../../constants');
+var digitalResource = require('./digitalResource');
+var entityType = require('../entityType');
 
-module.exports = responseType;
+/**
+ * Link MediaLocation to delegate DigitalResource and assign default property values.
+ */
+var MediaLocation = _.assign(_.create(digitalResource), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.MEDIA_LOCATION,
+  currentTime: null
+});
+
+module.exports = MediaLocation;

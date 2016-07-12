@@ -16,17 +16,9 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
-var context = require('../context/context');
-var entity = require('./entity');
-var entityType = require('./entityType');
+var constants = {
+  BLANK_NODE: "_:",
+  CONTEXT: "http://purl.imsglobal.org/ctx/caliper/v1/Context"
+};
 
-/**
- * Link LearningObjective to delegate Entity and assign default property values.
- */
-var LearningObjective = _.assign(_.create(entity), {
-  '@context': context.CONTEXT,
-  '@type': entityType.LEARNING_OBJECTIVE
-});
-
-module.exports = LearningObjective;
+module.exports = constants;

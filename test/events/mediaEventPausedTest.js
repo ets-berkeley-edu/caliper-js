@@ -30,12 +30,12 @@ var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Group = require('../../src/entities/lis/group');
-var LearningObjective = require('../../src/entities/learningObjective');
-var MediaLocation = require('../../src/entities/media/mediaLocation');
+var LearningObjective = require('../../src/entities/assign/learningObjective');
+var MediaLocation = require('../../src/entities/resource/mediaLocation');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
-var VideoObject = require('../../src/entities/media/videoObject');
+var VideoObject = require('../../src/entities/resource/videoObject');
 
 // Action
 var MediaActions = require('../../src/actions/mediaActions');

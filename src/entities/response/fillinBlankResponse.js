@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var response = require('./response');
-var responseType = require('./responseType');
+var entityType = require('../entityType');
 
 /**
  * Link FillinBlankResponse to delegate Response and assign default property values.
  */
 var FillinBlankResponse = _.assign(_.create(response), {
-  '@context': context.CONTEXT,
-  '@type': responseType.FILLINBLANK,
+  '@context': constants.CONTEXT,
+  '@type': entityType.FILLINBLANK,
   values: []
 });
 

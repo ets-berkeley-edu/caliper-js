@@ -27,9 +27,9 @@ var eventFactory = require('../../src/events/eventFactory');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
-var Assessment = require('../../src/entities/assessment/assessment');
-var AssessmentItem = require('../../src/entities/assessment/assessmentItem');
-var Attempt = require('../../src/entities/assignable/attempt');
+var Assessment = require('../../src/entities/resource/assessment');
+var AssessmentItem = require('../../src/entities/resource/assessmentItem');
+var Attempt = require('../../src/entities/assign/attempt');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var FillinBlankResponse = require('../../src/entities/response/fillinBlankResponse');

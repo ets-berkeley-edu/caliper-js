@@ -16,11 +16,24 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var Context = {
-    "CONTEXT": "http://purl.imsglobal.org/ctx/caliper/v1/Context"
-    // "ENTITY": "http://purl.imsglobal.org/ctx/caliper/v1/Entity",
-    // "ENVELOPE": "http://purl.imsglobal.org/caliper/ctx/v1/Envelope",
-    // "EVENT": "http://purl.imsglobal.org/ctx/caliper/v1/Event"
-};
+var _ = require('lodash');
+var constants = require('../../constants');
+var entity = require('../entity');
+var entityType = require('../entityType');
 
-module.exports = Context;
+/**
+ * Link DigitalResource to delegate Entity and assign default property values.
+ */
+var DigitalResource = _.assign(_.create(entity), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.DIGITAL_RESOURCE,
+  mediaType: null,
+  creators: [],
+  keywords: [],
+  alignedLearningObjective: [],
+  isPartOf: {},
+  datePublished: null,
+  version: null
+});
+
+module.exports = DigitalResource;

@@ -17,16 +17,16 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var annotation = require('./annotation');
-var annotationType = require('./annotationType');
+var entityType = require('../entityType');
 
 /**
  * Link TagAnnotation to delegate Annotation and assign default property values.
  */
 var TagAnnotation = _.assign(_.create(annotation), {
-  '@context': context.CONTEXT,
-  '@type': annotationType.TAG_ANNOTATION,
+  '@context': constants.CONTEXT,
+  '@type': entityType.TAG_ANNOTATION,
   tags: []
 });
 

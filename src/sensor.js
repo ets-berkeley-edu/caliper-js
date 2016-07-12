@@ -82,60 +82,77 @@ Sensor.send = function(event) {
  * dependency graph and load everything correctly.
  */
 Caliper.Actions = {};
-Caliper.Context = {};
+Caliper.Constants = {};
 Caliper.Entities = {};
 Caliper.Events = {};
 Caliper.Request = {};
+Caliper.Validator = {};
 
-// ACTIONS
+// Actions
 Caliper.Actions.AnnotationActions     = require('./actions/annotationActions');
 Caliper.Actions.AssessmentActions     = require('./actions/assessmentActions');
 Caliper.Actions.AssessmentItemActions = require('./actions/assessmentItemActions');
 Caliper.Actions.AssignableActions     = require('./actions/assignableActions');
+Caliper.Actions.ForumActions          = require('./actions/forumActions');
 Caliper.Actions.MediaActions          = require('./actions/mediaActions');
+Caliper.Actions.MessageActions        = require('./actions/messageActions');
 Caliper.Actions.NavigationActions     = require('./actions/navigationActions');
 Caliper.Actions.OutcomeActions        = require('./actions/outcomeActions');
 Caliper.Actions.ReadingActions        = require('./actions/readingActions');
 Caliper.Actions.SessionActions        = require('./actions/sessionActions');
+Caliper.Actions.ThreadActions         = require('./actions/threadActions');
+Caliper.Actions.ViewActions           = require('./actions/viewActions');
 
-// CONTEXT
-Caliper.Context.Context = require('./context/context');
+// Misc. constants
+Caliper.Constants.Constants = require('./constants');
 
-// ENTITIES
-Caliper.Entities.Entity        = require('./entities/entity');
-Caliper.Entities.EntityFactory = require('./entities/entityFactory');
-Caliper.Entities.EntityType    = require('./entities/entityType');
+// Entities
+Caliper.Entities.Entity          = require('./entities/entity');
+Caliper.Entities.EntityFactory   = require('./entities/entityFactory');
+Caliper.Entities.EntityType      = require('./entities/entityType');
+// Caliper.Entities.EntityValidator = require('./entities/entityValidator');
 
-// Core entities
-Caliper.Entities.DigitalResource           = require('./entities/digitalResource');
-Caliper.Entities.DigitalResourceCollection = require('./entities/digitalResourceCollection');
-Caliper.Entities.DigitalResourceType       = require('./entities/digitalResourceType');
-Caliper.Entities.LearningObjective         = require('./entities/learningObjective');
-
-// Agent entities
+// Agents
 Caliper.Entities.Agent               = require('./entities/agent/agent');
 Caliper.Entities.Organization        = require('./entities/agent/organization');
 Caliper.Entities.Person              = require('./entities/agent/person');
 Caliper.Entities.SoftwareApplication = require('./entities/agent/softwareApplication');
 
-// Annotation entities
+// Annotations
 Caliper.Entities.Annotation          = require('./entities/annotation/annotation');
-Caliper.Entities.AnnotationType      = require('./entities/annotation/annotationType');
 Caliper.Entities.BookmarkAnnotation  = require('./entities/annotation/bookmarkAnnotation');
 Caliper.Entities.HighlightAnnotation = require('./entities/annotation/highlightAnnotation');
 Caliper.Entities.SharedAnnotation    = require('./entities/annotation/sharedAnnotation');
 Caliper.Entities.TagAnnotation       = require('./entities/annotation/tagAnnotation');
 
-// Assessment entities
-Caliper.Entities.Assessment          = require('./entities/assessment/assessment');
-Caliper.Entities.AssessmentItem      = require('./entities/assessment/assessmentItem');
+// Assignment-related
+Caliper.Entities.Attempt           = require('./entities/assign/attempt');
+Caliper.Entities.LearningObjective = require('./entities/assign/learningObjective');
+Caliper.Entities.Result            = require('./entities/assign/result');
 
-// Assignable entities
-Caliper.Entities.AssignableDigitalResource     = require('./entities/assignable/assignableDigitalResource');
-Caliper.Entities.AssignableDigitalResourceType = require('./entities/assignable/assignableDigitalResourceType');
-Caliper.Entities.Attempt                       = require('./entities/assignable/attempt');
+// Digital Resources
+Caliper.Entities.Assessment                = require('./entities/resource/assessment');
+Caliper.Entities.AssessmentItem            = require('./entities/resource/assessmentItem');
+Caliper.Entities.AssignableDigitalResource = require('./entities/resource/assignableDigitalResource');
+Caliper.Entities.AudioObject               = require('./entities/resource/audioObject');
+Caliper.Entities.DigitalResource           = require('./entities/resource/digitalResource');
+Caliper.Entities.DigitalResourceCollection = require('./entities/resource/digitalResourceCollection');
+Caliper.Entities.EPubChapter               = require('./entities/resource/ePubChapter');
+Caliper.Entities.EPubPart                  = require('./entities/resource/ePubPart');
+Caliper.Entities.EPubSubChapter            = require('./entities/resource/ePubSubChapter');
+Caliper.Entities.EPubVolume                = require('./entities/resource/ePubVolume');
+Caliper.Entities.Forum                     = require('./entities/resource/forum');
+Caliper.Entities.Frame                     = require('./entities/resource/frame');
+Caliper.Entities.ImageObject               = require('./entities/resource/imageObject');
+Caliper.Entities.MediaObject               = require('./entities/resource/mediaObject');
+Caliper.Entities.MediaLocation             = require('./entities/resource/mediaLocation');
+Caliper.Entities.Message                   = require('./entities/resource/message');
+Caliper.Entities.Reading                   = require('./entities/resource/reading');
+Caliper.Entities.Thread                    = require('./entities/resource/thread');
+Caliper.Entities.VideoObject               = require('./entities/resource/videoObject');
+Caliper.Entities.WebPage                   = require('./entities/resource/webPage');
 
-// LIS entities
+// LIS
 Caliper.Entities.CourseOffering = require('./entities/lis/courseOffering');
 Caliper.Entities.CourseSection  = require('./entities/lis/courseSection');
 Caliper.Entities.Group          = require('./entities/lis/group');
@@ -143,60 +160,44 @@ Caliper.Entities.Membership     = require('./entities/lis/membership');
 Caliper.Entities.Role           = require('./entities/lis/role');
 Caliper.Entities.Status         = require('./entities/lis/status');
 
-// Media Entities
-Caliper.Entities.MediaObject       = require('./entities/media/mediaObject');
-Caliper.Entities.MediaObjectType   = require('./entities/media/mediaObjectType');
-Caliper.Entities.MediaLocation     = require('./entities/media/mediaLocation');
-Caliper.Entities.AudioObject       = require('./entities/media/audioObject');
-Caliper.Entities.ImageObject       = require('./entities/media/imageObject');
-Caliper.Entities.VideoObject       = require('./entities/media/videoObject');
-
-// Outcome Entities
-Caliper.Entities.Result = require('./entities/outcome/result');
-
-// Digital Resources
-Caliper.Entities.EPubChapter    = require('./entities/resource/ePubChapter');
-Caliper.Entities.EPubPart       = require('./entities/resource/ePubPart');
-Caliper.Entities.EPubSubChapter = require('./entities/resource/ePubSubChapter');
-Caliper.Entities.EPubVolume     = require('./entities/resource/ePubVolume');
-Caliper.Entities.Forum          = require('./entities/resource/forum');
-Caliper.Entities.Frame          = require('./entities/resource/frame');
-Caliper.Entities.Message        = require('./entities/resource/message');
-Caliper.Entities.Reading        = require('./entities/resource/reading');
-Caliper.Entities.Thread         = require('./entities/resource/thread');
-Caliper.Entities.WebPage        = require('./entities/resource/webPage');
-
-// Response Entities
+// Response
 Caliper.Entities.Response                 = require('./entities/response/response');
-Caliper.Entities.ResponseType             = require('./entities/response/responseType');
 Caliper.Entities.FillinBlankResponse      = require('./entities/response/fillinBlankResponse');
 Caliper.Entities.MultipleChoiceResponse   = require('./entities/response/multipleChoiceResponse');
 Caliper.Entities.MultipleResponseResponse = require('./entities/response/multipleResponseResponse');
 Caliper.Entities.SelectTextResponse       = require('./entities/response/selectTextResponse');
 Caliper.Entities.TrueFalseResponse        = require('./entities/response/trueFalseResponse');
 
-// Session Entities
+// Session
 Caliper.Entities.Session = require('./entities/session/session');
 
-// EVENTS
+// Events
 Caliper.Events.Event               = require('./events/event');
 Caliper.Events.EventFactory        = require('./events/eventFactory');
 Caliper.Events.EventType           = require('./events/eventType');
-Caliper.Events.EventValidator      = require('./events/eventValidator');
+// Caliper.Events.EventValidator      = require('./events/eventValidator');
 Caliper.Events.AnnotationEvent     = require('./events/annotationEvent');
 Caliper.Events.AssessmentEvent     = require('./events/assessmentEvent');
 Caliper.Events.AssessmentItemEvent = require('./events/assessmentItemEvent');
 Caliper.Events.AssignableEvent     = require('./events/assignableEvent');
+Caliper.Events.ForumEvent          = require('./events/forumEvent');
 Caliper.Events.MediaEvent          = require('./events/mediaEvent');
+Caliper.Events.MessageEvent        = require('./events/messageEvent');
 Caliper.Events.NavigationEvent     = require('./events/navigationEvent');
 Caliper.Events.OutcomeEvent        = require('./events/outcomeEvent');
 Caliper.Events.SessionEvent        = require('./events/sessionEvent');
+Caliper.Events.ThreadEvent         = require('./events/threadEvent');
 Caliper.Events.ViewEvent           = require('./events/viewEvent');
 
-// REQUEST
+// Request
 Caliper.Request.Envelope            = require('./request/envelope');
 Caliper.Request.EventStoreRequestor = require('./request/eventStoreRequestor');
 Caliper.Request.HttpRequestor       = require('./request/httpRequestor');
+
+// Validator
+Caliper.Validator.Validator       = require('./validator');
+Caliper.Validator.EntityValidator = require('./entities/entityValidator');
+Caliper.Validator.EventValidator  = require('./events/eventValidator');
 
 // Replace/Create the global namespace and objects (the sensor) we want there
 Caliper.Sensor = Sensor;

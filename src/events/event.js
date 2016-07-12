@@ -16,11 +16,11 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var context = require('../context/context');
+var constants = require('../constants');
 var eventType = require('./eventType');
 
 var Event = {
-  '@context': context.CONTEXT,
+  '@context': constants.CONTEXT,
   '@type': eventType.EVENT,
   sourcedId: null,
   actor: {},

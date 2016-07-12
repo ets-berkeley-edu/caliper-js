@@ -17,9 +17,7 @@
  */
 
 var _ = require('lodash');
-var context = require('./context/context');
-
-const BLANK_NODE = '_:';
+var constants = require('./constants');
 
 /**
  * Check @context value.
@@ -33,7 +31,7 @@ module.exports.checkCtx = function checkCtx(delegate, props) {
   } else if (props.hasOwnProperty('@context')) {
     return props['@context']
   } else {
-    return context.CONTEXT;
+    return constants.CONTEXT;
   }
 };
 
@@ -48,7 +46,7 @@ module.exports.checkId = function checkId(id, props) {
   } else if (props.hasOwnProperty('@id')) {
     return props['@id']
   } else {
-    return BLANK_NODE;
+    return constants.BLANK_NODE;
   }
 };
 

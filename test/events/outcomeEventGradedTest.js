@@ -27,13 +27,13 @@ var OutcomeEvent = require('../../src/events/outcomeEvent');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
-var Assessment = require('../../src/entities/assessment/assessment');
-var Attempt = require('../../src/entities/assignable/attempt');
+var Assessment = require('../../src/entities/resource/assessment');
+var Attempt = require('../../src/entities/assign/attempt');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Group = require('../../src/entities/lis/group');
 var Person = require('../../src/entities/agent/person');
-var Result = require('../../src/entities/outcome/result');
+var Result = require('../../src/entities/assign/result');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 
 // Action

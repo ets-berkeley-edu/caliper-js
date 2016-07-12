@@ -16,11 +16,11 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var context = require('../context/context');
+var constants = require('../constants');
 var entityType = require('./entityType');
 
 var Entity = {
-  '@context': context.CONTEXT,
+  '@context': constants.CONTEXT,
   '@id': null,
   '@type': entityType.ENTITY,
   name: null,

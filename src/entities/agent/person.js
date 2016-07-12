@@ -18,14 +18,14 @@
 
 var _ = require('lodash');
 var agent = require('./agent');
-var context = require('../../context/context');
+var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**
  * Link Person to delegate Agent and assign default property values.
  */
 var Person = _.assign(_.create(agent), {
-  '@context': context.CONTEXT,
+  '@context': constants.CONTEXT,
   '@type': entityType.PERSON
 });
 

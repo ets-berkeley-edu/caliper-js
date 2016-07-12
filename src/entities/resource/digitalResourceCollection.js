@@ -16,10 +16,18 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var mediaObjectType = {
-  "AUDIO_OBJECT": "http://purl.imsglobal.org/caliper/v1/AudioObject",
-  "IMAGE_OBJECT": "http://purl.imsglobal.org/caliper/v1/ImageObject",
-  "VIDEO_OBJECT": "http://purl.imsglobal.org/caliper/v1/VideoObject"
-};
+var _ = require('lodash');
+var constants = require('../../constants');
+var digitalResource = require('./digitalResource');
+var entityType = require('../entityType');
 
-module.exports = mediaObjectType;
+/**
+ * Link DigitalResourceCollection to delegate DigitalResource and assign default property values.
+ */
+var DigitalResourceCollection = _.assign(_.create(digitalResource), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.DIGITAL_RESOURCE_COLLECTION,
+  items: []
+});
+
+module.exports = DigitalResourceCollection;

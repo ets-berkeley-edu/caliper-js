@@ -17,17 +17,22 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var digitalResource = require('../digitalResource');
-var digitalResourceType = require('../digitalResourceType');
+var constants = require('../../constants');
+var entity = require('../entity');
+var entityType = require('../entityType');
 
 /**
- * Link MediaLocation to delegate DigitalResource and assign default property values.
+ * Link Attempt to delegate Entity and assign default property values.
  */
-var MediaLocation = _.assign(_.create(digitalResource), {
-  '@context': context.CONTEXT,
-  '@type': digitalResourceType.MEDIA_LOCATION,
-  currentTime: null
+var Attempt = _.assign(_.create(entity), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.ATTEMPT,
+  actor: {},
+  assignable: {},
+  count: null,
+  startedAtTime: null,
+  endedAtTime: null,
+  duration: null
 });
 
-module.exports = MediaLocation;
+module.exports = Attempt;

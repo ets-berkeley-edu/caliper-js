@@ -17,15 +17,15 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var Entity = require('../entity');
+var constants = require('../../constants');
+var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
  * Link Response to delegate Entity and assign default property values.
  */
-var Response = _.assign(_.create(Entity), {
-  '@context': context.CONTEXT,
+var Response = _.assign(_.create(entity), {
+  '@context': constants.CONTEXT,
   '@type': entityType.RESPONSE,
   actor: {},
   assignable: {},

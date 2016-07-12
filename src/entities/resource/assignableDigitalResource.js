@@ -17,17 +17,23 @@
  */
 
 var _ = require('lodash');
-var context = require('../../context/context');
-var assignable = require('../assignable/assignableDigitalResource');
-var assignableType = require('../assignable/assignableDigitalResourceType');
+var constants = require('../../constants');
+var digitalResource = require('./digitalResource');
+var entityType = require('../entityType');
 
 /**
- * Link AssessmentItem to delegate AssignableDigitalResource and assign default property values.
+ * Link AssignableDigitalResource to delegate DigitalResource and assign default property values.
  */
-var AssessmentItem = _.assign(_.create(assignable), {
-  '@context': context.CONTEXT,
-  '@type': assignableType.ASSESSMENT_ITEM,
-  isTimeDependent: false
+var AssignableDigitalResource = _.assign(_.create(digitalResource), {
+  '@context': constants.CONTEXT,
+  '@type': entityType.DIGITAL_RESOURCE,
+  dateToActivate: null,
+  dateToShow: null,
+  dateToStartOn: null,
+  dateToSubmit: null,
+  maxAttempts: null,
+  maxSubmits: null,
+  maxScore: null
 });
 
-module.exports = AssessmentItem;
+module.exports = AssignableDigitalResource;
