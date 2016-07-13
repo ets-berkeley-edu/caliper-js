@@ -1,12 +1,19 @@
 {
-  "author": {
-    "name": "Prashant Nayak, Anthony Whyte",
-    "company": "IMS Global"
-  },
   "name": "caliperjs",
   "version": "1.1.0",
   "description": "Caliper Javascript Sensor",
-  "license": "For license information contact, info@imsglobal.org",
+  "keywords": ["caliper", "caliperjs", "caliper-js", "imsglobal", "sensor"],
+  "license": "LGPL-3.0",
+  "contributors": [
+    {
+      "name": "Prashant Nayak",
+      "email": "prashant@intellifylearning.com"
+    },
+    {
+      "name": "Anthony Whyte",
+      "email": "arwhyte@umich.edu"
+    }
+  ],
   "dependencies": {
     "caterpillar": "3.0.x",
     "caterpillar-browser": "3.0.x",
@@ -30,5 +37,9 @@
     "karma-browserify": "5.0.x",
     "tape": "4.6.x",
     "util": "0.10.x"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/IMSGlobal/caliper-js.git"
   }
 }
