@@ -16,8 +16,9 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var test = require('tape');
 var _ = require('lodash');
+var moment = require('moment');
+var test = require('tape');
 var util = require('util');
 var jsonCompare = require('../testUtils');
 
@@ -64,8 +65,10 @@ test('Create an Envelope containing batched entities and validate properties', f
 
   // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
   requestor.initialize(options);
-  var payload = requestor.createEnvelope(sensor, [ person, epubVolume, epubSubChapter ]);
-  payload.setSendTime(new Date("2015-09-15T11:05:01.000Z").toISOString());
+
+  var sendTime = moment("2015-09-15T11:05:01.000Z");
+  var data = [ person, epubVolume, epubSubChapter ];
+  var payload = requestor.createEnvelope(sensor, sendTime, data);
 
   // Assert that JSON produced is the same
   jsonCompare('caliperEnvelopeEntityBatch', payload, t);

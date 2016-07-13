@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -168,8 +169,9 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
 
   // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
   requestor.initialize(options);
-  var payload = requestor.createEnvelope(sensor, event);
-  payload.setSendTime(new Date("2015-09-15T11:05:01.000Z").toISOString());
+
+  var sendTime = moment("2015-09-15T11:05:01.000Z");
+  var payload = requestor.createEnvelope(sensor, sendTime, event);
   
   // Assert that JSON produced is the same
   jsonCompare('caliperEnvelopeEventSingle', payload, t);

@@ -52,10 +52,12 @@ self.initialize = function(sensorOptions) {
 /**
  * Create envelope.
  * @param sensor
+ * @param sendTime
  * @param data
+ * @returns {*}
  */
-self.createEnvelope = function(sensor, data) {
-  return requestor.createEnvelope(sensor, data);
+self.createEnvelope = function(sensor, sendTime, data) {
+  return requestor.createEnvelope(sensor, sendTime, data);
 };
 
 /**

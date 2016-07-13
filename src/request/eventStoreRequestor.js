@@ -48,21 +48,25 @@ self.initialize = function(sensorOptions) {
 };
 
 /**
- * Create envelope
+ * Return envelope.  Convert data object to array if necessary or copy data array to payload array using .slice().
  * @param sensor
  * @param data
  */
-self.createEnvelope = function(sensor, data) {
-  var envelope = new Envelope();
-  envelope.sensor = sensor.id;
-  envelope.sendTime = moment().utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+self.createEnvelope = function(sensor, sendTime, data) {
+  var id = sensor.id;
+  var sendTime = sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  //var sendTime = sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  var payload = [];
   if (Array.isArray(data)) {
-      envelope.data = data;
+    payload = data.slice();
   } else {
-      envelope.data = [data];
+    payload.push(data);
   }
-
-  return envelope;
+  return _.assign(_.create(Envelope), {
+    sensor: id,
+    sendTime: sendTime,
+    data: payload
+  });
 };
 
 /**
