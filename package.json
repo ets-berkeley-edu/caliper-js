@@ -1,27 +1,30 @@
 {
-  "author": {
-    "name": "Prashant Nayak, Anthony Whyte",
-    "company": "IMS Global"
-  },
   "name": "caliperjs",
   "version": "1.1.0",
   "description": "Caliper Javascript Sensor",
+  "keywords": ["caliper", "caliperjs", "caliper-js", "imsglobal", "sensor"],
+  "license": "LGPL-3.0",
+  "contributors": [
+    {
+      "name": "Prashant Nayak",
+      "email": "prashant@intellifylearning.com"
+    },
+    {
+      "name": "Anthony Whyte",
+      "email": "arwhyte@umich.edu"
+    }
+  ],
   "dependencies": {
     "caterpillar": "3.0.x",
     "caterpillar-browser": "3.0.x",
     "caterpillar-filter": "3.0.x",
     "caterpillar-human": "3.0.x",
-    "fs": "0.0.2",
     "http-browserify": "^1.7.0",
     "https-browserify": "0.0.x",
-    "lodash": "*",
+    "lodash": "4.13.x",
     "moment": "^2.10.1",
-    "q": "^1.0.1",
-    "querystring": "^0.2.0",
-    "uniq": "*",
     "url": "0.11.x"
   },
-  "license": "For license information contact, info@imsglobal.org",
   "devDependencies": {
     "deep-diff": "^0.3.0",
     "grunt": "1.0.x",
@@ -29,9 +32,14 @@
     "grunt-http-server": "2.0.x",
     "grunt-jsdoc": "2.1.x",
     "grunt-tape": "0.1.x",
-    "jsonfile": "^2.0.0",
+    "jsonfile": "2.3.x",
     "karma": "1.1.x",
     "karma-browserify": "5.0.x",
-    "tape": "4.6.x"
+    "tape": "4.6.x",
+    "util": "0.10.x"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/IMSGlobal/caliper-js.git"
   }
 }

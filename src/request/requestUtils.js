@@ -16,7 +16,6 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
 var logger = require('../logger');
 
 var objPropNames = [ "actor", "object", "generated", "target", "referrer", "edApp", "group", "membership",
