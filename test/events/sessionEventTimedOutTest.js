@@ -49,8 +49,8 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
   // The actor
   var actor = entityFactory().create(SoftwareApplication, BASE_VIEWER_IRI, {
     name: "ePub",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "1.2.3"
   });
 
@@ -60,18 +60,18 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
   // The session actor
   var sessionActorId = "https://example.edu/user/554433";
   var sessionActor = entityFactory().create(Person, sessionActorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // The session object
   var obj = entityFactory().create(Session, BASE_VIEWER_IRI.concat("/session-123456789"), {
     name: "session-123456789",
     actor: sessionActor,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
-    startedAtTime: moment.utc("2015-09-15T10:15:00Z"),
-    endedAtTime: moment.utc("2015-09-15T11:05:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
+    startedAtTime: moment.utc("2015-09-15T10:15:00.000Z"),
+    endedAtTime: moment.utc("2015-09-15T11:05:00.000Z"),
     duration: "PT3000S"
   });
 
@@ -83,8 +83,8 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -94,8 +94,8 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -103,7 +103,7 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -112,7 +112,7 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00Z"),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     edApp: edApp,
     group: group
   });

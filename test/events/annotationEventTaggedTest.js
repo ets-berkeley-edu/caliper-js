@@ -55,8 +55,8 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // The Action for the Caliper Event
@@ -64,8 +64,8 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
 
   var ePub = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "2nd ed."
   });
 
@@ -74,8 +74,8 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
     name: "The Stamp Act Crisis",
     isPartOf: ePub,
     index: 4,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: ePub.version
   });
   
@@ -84,8 +84,8 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
   var generated = entityFactory().create(TagAnnotation, generatedId, {
     actor: actor['@id'],
     annotated: obj['@id'],
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     tags: ["to-read", "1765", "shared-with-project-team"]
   });
 
@@ -93,8 +93,8 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
   var edAppId = "https://example.com/viewer";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "ePub",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "1.2.3"
   });
 
@@ -103,8 +103,8 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -114,8 +114,8 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -123,7 +123,7 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // The Actor's Membership
@@ -135,7 +135,7 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -143,7 +143,7 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00Z"),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     generated: generated,
     edApp: edApp,
     group: group,

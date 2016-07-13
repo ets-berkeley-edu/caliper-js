@@ -40,22 +40,22 @@ test('Create an Envelope containing batched entities and validate properties', f
 
   var personId = "https://example.edu/user/554433";
   var person = entityFactory().create(Person, personId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   var epubVolume = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "2nd ed."
   });
 
   var epubSubChapter = entityFactory().create(EpubSubChapter, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
     name: "Key Figures: George Washington",
     isPartOf: epubVolume,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "2nd ed."
   });
 

@@ -31,8 +31,9 @@ test('Create a Person entity and validate properties', function (t) {
 
   var id = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, id, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    //dateModified: moment.utc("2015-09-02T11:30:00.000Z")
+    dateModified: moment.utc("20150902T113000.000Z")
   });
 
   // Assert that the JSON produced is the same

@@ -59,16 +59,16 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // Federated Session
   var sessionId = "https://example.edu/lms/federatedSession/123456789";
   var session = entityFactory().create(Session, sessionId, {
     actor: actor,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    startedAtTime: moment.utc("2015-09-15T10:15:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    startedAtTime: moment.utc("2015-09-15T10:15:00.000Z")
   });
 
   // The Action for the Caliper Event
@@ -77,8 +77,8 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
   // The Object being interacted with by the Actor
   var obj = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "2nd ed."
   });
 
@@ -87,16 +87,16 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
     name: "Key Figures: George Washington",
     isPartOf: obj,
     index: 1,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "2nd ed."
   });
 
   // Specific to the Navigation Event - the location where the user navigated from
   var referrer = entityFactory().create(WebPage, BASE_COURSE_IRI.concat("/index.html"), {
     name: "American Revolution 101 Landing Page",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "1.0"
   });
 
@@ -104,8 +104,8 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
   var edAppId = "https://example.com/viewer";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "ePub",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "1.2.3"
   });
 
@@ -114,8 +114,8 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -125,8 +125,8 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -134,7 +134,7 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // The Actor's Membership
@@ -146,7 +146,7 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -154,7 +154,7 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00Z"),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     target: target,
     referrer: referrer,
     edApp: edApp,

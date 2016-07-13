@@ -55,7 +55,7 @@ test('Create a generic Event (videoObject created) using the eventFactory and va
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00Z")
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z")
   });
 
   // Assert that the JSON produced is the same

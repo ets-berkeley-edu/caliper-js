@@ -54,8 +54,8 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // The Action for the Caliper Event
@@ -65,8 +65,8 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
   var parentId = BASE_COURSE_IRI.concat("/assessment/001");
   var parent = entityFactory().create(Assessment, parentId, {
     name: "American Revolution - Key Figures Assessment",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     datePublished: moment.utc("2015-08-15T09:30:00.000Z"),
     version: "1.0",
     dateToActivate: moment.utc("2015-08-16T05:00:00.000Z"),
@@ -95,8 +95,8 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
   var generated = entityFactory().create(Attempt, generatedId, {
     actor: actor['@id'],
     assignable: parent['@id'],
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    startedAtTime: moment.utc("2015-09-15T10:15:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    startedAtTime: moment.utc("2015-09-15T10:15:00.000Z"),
     count: 1
   });
 
@@ -104,7 +104,7 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
   var edAppId = "https://example.com/super-assessment-tool";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "Super Assessment Tool",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
     version: "v2"
   });
 
@@ -113,8 +113,8 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -124,8 +124,8 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -133,7 +133,7 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // The Actor's Membership
@@ -145,7 +145,7 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
   
   // Assert that key attributes are the same
@@ -153,7 +153,7 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00Z"),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     generated: generated,
     edApp: edApp,
     group: group,

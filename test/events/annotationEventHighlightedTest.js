@@ -55,8 +55,8 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // The Action for the Caliper Event
@@ -64,8 +64,8 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
 
   var ePub = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "2nd ed."
   });
 
@@ -74,8 +74,8 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
     name: "Key Figures: George Washington",
     isPartOf: ePub,
     index: 1,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: ePub.version
   });
 
@@ -84,8 +84,8 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
   var generated = entityFactory().create(HighlightAnnotation, generatedId, {
     actor: actor['@id'],
     annotated: obj['@id'],
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     selection: { "start": "455", "end": "489" },
     selectionText: "Life, Liberty and the pursuit of Happiness"
   });
@@ -94,8 +94,8 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
   var edAppId = "https://example.com/viewer";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "ePub",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "1.2.3"
   });
 
@@ -104,8 +104,8 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -115,8 +115,8 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -124,7 +124,7 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // The Actor's Membership
@@ -136,7 +136,7 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -144,7 +144,7 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00Z"),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     generated: generated,
     edApp: edApp,
     group: group,

@@ -55,8 +55,8 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // The Action for the Caliper Event
@@ -65,7 +65,7 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
   // Learning Objective
   var learningObjectiveId = "https://example.edu/american-revolution-101/personalities/learn";
   var learningObjective = entityFactory().create(LearningObjective, learningObjectiveId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // The Object of the interaction
@@ -74,15 +74,15 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
     mediaType: "video/ogg",
     duration: "PT1H12M27S",
     alignedLearningObjective: [learningObjective],
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "1.0"
   });
 
   // The target location
   var target = entityFactory().create(MediaLocation, baseVideoIRI, {
     currentTime: "PT30M54S",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
     version: "1.0"
   });
 
@@ -90,8 +90,8 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
   var edAppId = "https://example.com/super-media-tool";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "Super Media Tool",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "Version 2"
   });
 
@@ -100,8 +100,8 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -111,8 +111,8 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -120,7 +120,7 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // The Actor's Membership
@@ -132,7 +132,7 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00Z")
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -140,7 +140,7 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00Z"),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     target: target,
     edApp: edApp,
     group: group,
