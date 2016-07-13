@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -72,7 +73,7 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
   var creator = entityFactory().create(Person, "https://example.edu/users/554433");
   var message = entityFactory().create(Message, threadId.concat("/messages/2"), {
     creators: [ creator ],
-    dateCreated: "2016-09-15T10:15:00.000Z"
+    dateCreated: moment.utc("2016-09-15T10:15:00.000Z")
   });
 
   // Message object
@@ -80,7 +81,7 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
     creators: [ actor ],
     replyTo: message,
     isPartOf: thread,
-    dateCreated: "2016-09-15T10:15:30.000Z"
+    dateCreated: moment.utc("2016-09-15T10:15:30.000Z")
   });
 
   // edApp context
@@ -98,7 +99,7 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
     organization: group['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: "2016-08-01T06:00:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
   // Local Session
@@ -110,7 +111,7 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2016-09-15T10:15:30.000Z").toISOString(),
+    eventTime: moment.utc("2016-09-15T10:15:30.000Z"),
     edApp: edApp,
     group: group,
     membership: membership,

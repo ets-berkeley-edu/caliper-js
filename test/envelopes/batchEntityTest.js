@@ -40,22 +40,22 @@ test('Create an Envelope containing batched entities and validate properties', f
 
   var personId = "https://example.edu/user/554433";
   var person = entityFactory().create(Person, personId, {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z")
   });
 
   var epubVolume = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z"),
     version: "2nd ed."
   });
 
   var epubSubChapter = entityFactory().create(EpubSubChapter, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
     name: "Key Figures: George Washington",
     isPartOf: epubVolume,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z"),
     version: "2nd ed."
   });
 
@@ -66,12 +66,12 @@ test('Create an Envelope containing batched entities and validate properties', f
   // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
   requestor.initialize(options);
 
-  var sendTime = moment("2015-09-15T11:05:01.000Z");
+  var sendTime = moment.utc("2015-09-15T11:05:01.000Z");
   var data = [ person, epubVolume, epubSubChapter ];
-  var payload = requestor.createEnvelope(sensor, sendTime, data);
+  var envelope = requestor.createEnvelope(sensor, sendTime, data);
 
   // Assert that JSON produced is the same
-  jsonCompare('caliperEnvelopeEntityBatch', payload, t);
+  jsonCompare('caliperEnvelopeEntityBatch', envelope, t);
 });
 
 /**

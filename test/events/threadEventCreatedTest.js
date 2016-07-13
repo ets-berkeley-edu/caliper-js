@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -60,14 +61,14 @@ test('Create a ThreadEvent (markedAsRead) and validate properties', function (t)
   var forumId = BASE_COURSE_IRI.concat("/forums/1");
   var forum = entityFactory().create(Forum, forumId, {
     name: "Caliper Forum",
-    dateCreated: "2016-09-15T10:15:00.000Z"
+    dateCreated: moment.utc("2016-09-15T10:15:00.000Z")
   });
 
   // Thread object
   var obj = entityFactory().create(Thread, forumId.concat("/topics/1"), {
     name: "Caliper Information Model",
     isPartOf: forum,
-    dateCreated: "2016-09-15T10:16:00.000Z"
+    dateCreated: moment.utc("2016-09-15T10:16:00.000Z")
   });
 
   // edApp context
@@ -89,14 +90,14 @@ test('Create a ThreadEvent (markedAsRead) and validate properties', function (t)
 
   // Local Session
   var sessionId = BASE_LMS_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
-  var session = entityFactory().create(Session, sessionId, { startedAtTime: "2016-09-15T10:13:00.000Z" });
+  var session = entityFactory().create(Session, sessionId, { startedAtTime: moment.utc("2016-09-15T10:13:00.000Z") });
 
   // Assert that key attributes are the same
   var event = eventFactory().create(ThreadEvent, {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2016-09-15T10:16:00.000Z").toISOString(),
+    eventTime: moment.utc("2016-09-15T10:16:00.000Z"),
     edApp: edApp,
     group: group,
     membership: membership,

@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -54,7 +55,7 @@ test('Create a generic Event (videoObject created) using the eventFactory and va
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2015-09-15T10:15:00Z").toISOString()
+    eventTime: moment.utc("2015-09-15T10:15:00Z")
   });
 
   // Assert that the JSON produced is the same

@@ -55,7 +55,6 @@ self.initialize = function(sensorOptions) {
 self.createEnvelope = function(sensor, sendTime, data) {
   var id = sensor.id;
   var sendTime = sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-  //var sendTime = sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
   var payload = [];
   if (Array.isArray(data)) {
     payload = data.slice();

@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -54,8 +55,8 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z")
   });
 
   // The Action for the Caliper Event
@@ -64,8 +65,8 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
   // The Object being interacted with by the Actor
   var obj = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z"),
     version: "2nd ed."
   });
 
@@ -74,16 +75,16 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
     name: "Key Figures: George Washington",
     isPartOf: obj,
     index: 1,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z"),
     version: "2nd ed."
   });
 
   // The edApp
   var edApp = entityFactory().create(SoftwareApplication, BASE_VIEWER_IRI, {
     name: "ePub",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z"),
     version: "1.2.3"
   });
 
@@ -92,8 +93,8 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z")
   });
 
   // LIS Course Section
@@ -103,8 +104,8 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z")
   });
 
   // LIS Group
@@ -112,7 +113,7 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z")
   });
 
   // The Actor's Membership
@@ -124,7 +125,7 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z")
   });
 
   // Assert that key attributes are the same
@@ -132,7 +133,7 @@ test('Create a ViewEvent (viewed) and validate properties', function (t) {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    eventTime: moment.utc("2015-09-15T10:15:00Z"),
     target: target,
     edApp: edApp,
     group: group,

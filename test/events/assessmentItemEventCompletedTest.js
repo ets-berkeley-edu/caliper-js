@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -54,8 +55,8 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z")
   });
 
   // The Action for the Caliper Event
@@ -65,14 +66,14 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
   var parentId = BASE_COURSE_IRI.concat("/assessment/001");
   var parent = entityFactory().create(Assessment, parentId, {
     name: "American Revolution - Key Figures Assessment",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    datePublished: new Date("2015-08-15T09:30:00.000Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z"),
+    datePublished: moment.utc("2015-08-15T09:30:00.000Z"),
     version: "1.0",
-    dateToActivate: new Date("2015-08-16T05:00:00.000Z").toISOString(),
-    dateToShow: new Date("2015-08-16T05:00:00.000Z").toISOString(),
-    dateToStartOn: new Date("2015-08-16T05:00:00.000Z").toISOString(),
-    dateToSubmit: new Date("2015-09-28T11:59:59.000Z").toISOString(),
+    dateToActivate: moment.utc("2015-08-16T05:00:00.000Z"),
+    dateToShow: moment.utc("2015-08-16T05:00:00.000Z"),
+    dateToStartOn: moment.utc("2015-08-16T05:00:00.000Z"),
+    dateToSubmit: moment.utc("2015-09-28T11:59:59.000Z"),
     maxAttempts: 2,
     maxSubmits: 2,
     maxScore: 3.0
@@ -95,8 +96,8 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
   var attempt = entityFactory().create(Attempt, attemptId, {
     actor: actor['@id'],
     assignable: parent['@id'],
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    startedAtTime: moment.utc("2015-09-15T10:15:00Z"),
     count: 1
   });
 
@@ -107,15 +108,15 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
     assignable: parent['@id'],
     attempt: attempt,
     values: ["2 July 1776"],
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    startedAtTime: moment.utc("2015-09-15T10:15:00Z")
   });
 
   // The edApp
   var edAppId = "https://example.com/super-assessment-tool";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "Super Assessment Tool",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
     version: "v2"
   });
 
@@ -124,8 +125,8 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z")
   });
 
   // LIS Course Section
@@ -135,8 +136,8 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00Z")
   });
 
   // LIS Group
@@ -144,7 +145,7 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z")
   });
 
   // The Actor's Membership
@@ -156,7 +157,7 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00Z")
   });
 
   // Assert that key attributes are the same
@@ -164,7 +165,7 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    eventTime: moment.utc("2015-09-15T10:15:00Z"),
     generated: generated,
     edApp: edApp,
     group: group,

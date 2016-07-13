@@ -19,7 +19,6 @@
 var _ = require('lodash');
 var http = require('https');
 var logger = require('../logger');
-var moment = require('moment');
 var requestor = require('./eventStoreRequestor');
 
 /**

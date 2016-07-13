@@ -17,6 +17,7 @@
  */
 
 var _ = require('lodash');
+var moment = require('moment');
 var test = require('tape');
 var util = require('util');
 var jsonCompare = require('../testUtils');

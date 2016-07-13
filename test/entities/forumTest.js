@@ -17,6 +17,7 @@
  */
 
 var _ = require('lodash');
+var moment = require('moment');
 var test = require('tape');
 var util = require('util');
 var jsonCompare = require('../testUtils');
@@ -35,15 +36,15 @@ test('Create a Forum entity and validate properties', function (t) {
   var forumId = BASE_COURSE_IRI.concat("/forums/1");
   var thread01 = entityFactory().create(Thread, forumId.concat("/topics/1"), {
     name: "Caliper Information Model",
-    dateCreated: "2016-08-01T06:01:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:01:00.000Z")
   });
   var thread02 = entityFactory().create(Thread, forumId.concat("/topics/2"), {
     name: "Caliper Sensor API",
-    dateCreated: "2016-08-01T06:02:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:02:00.000Z")
   });
   var thread03 = entityFactory().create(Thread, forumId.concat("/topics/3"), {
     name: "Caliper Certification",
-    dateCreated: "2016-09-02T11:30:00.000Z"
+    dateCreated: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
   var section = entityFactory().create(CourseSection, BASE_COURSE_IRI.concat("/sections/1"));
@@ -52,8 +53,8 @@ test('Create a Forum entity and validate properties', function (t) {
     name: "Caliper Forum",
     items: [thread01, thread02, thread03],
     isPartOf: section,
-    dateCreated: "2016-08-01T06:00:00.000Z",
-    dateModified: "2016-09-02T11:30:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
   // Assert that the JSON produced is the same
