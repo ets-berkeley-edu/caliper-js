@@ -16,20 +16,16 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Request
-var requestor = require('../../src/request/httpRequestor');
-
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var EpubSubChapter = require('../../src/entities/resource/ePubSubChapter');
 var EpubVolume = require('../../src/entities/resource/ePubVolume');
 var Person = require('../../src/entities/agent/person');
+
+var jsonCompare = require('../testUtils');
+var requestor = require('../../src/request/httpRequestor');
 
 test('Create an Envelope containing batched entities and validate properties', function (t) {
 

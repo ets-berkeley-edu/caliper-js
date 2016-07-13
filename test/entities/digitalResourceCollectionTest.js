@@ -16,15 +16,15 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
-var util = require('util');
-var jsonCompare = require('../testUtils');
+
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var Person = require('../../src/entities/agent/person');
+
+var jsonCompare = require('../testUtils');
 
 test('Create a DigitalResourceCollection entity and validate properties', function (t) {
 

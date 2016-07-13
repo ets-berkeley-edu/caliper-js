@@ -18,15 +18,11 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
 var eventFactory = require('../../src/events/eventFactory');
 var SessionEvent = require('../../src/events/sessionEvent');
+var SessionActions = require('../../src/actions/sessionActions');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -35,14 +31,12 @@ var Frame = require('../../src/entities/resource/frame');
 var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
+var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
-
-// Action
-var SessionActions = require('../../src/actions/sessionActions');
-
-var Role = require('../../src/entities/lis/role');
 var Status = require('../../src/entities/lis/status');
+
+var jsonCompare = require('../testUtils');
 
 test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
 

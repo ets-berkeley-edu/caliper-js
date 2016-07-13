@@ -18,15 +18,11 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
 var eventFactory = require('../../src/events/eventFactory');
 var MediaEvent = require('../../src/events/mediaEvent');
+var MediaActions = require('../../src/actions/mediaActions');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -35,14 +31,12 @@ var LearningObjective = require('../../src/entities/assign/learningObjective');
 var MediaLocation = require('../../src/entities/resource/mediaLocation');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
+var Role = require('../../src/entities/lis/role');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 var VideoObject = require('../../src/entities/resource/videoObject');
-
-// Action
-var MediaActions = require('../../src/actions/mediaActions');
-
-var Role = require('../../src/entities/lis/role');
 var Status = require('../../src/entities/lis/status');
+
+var jsonCompare = require('../testUtils');
 
 test('Create a MediaEvent (paused) and validate properties', function (t) {
 
