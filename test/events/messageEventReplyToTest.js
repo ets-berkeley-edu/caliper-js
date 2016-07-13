@@ -104,7 +104,7 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
 
   // Local Session
   var sessionId = BASE_LMS_IRI.concat("/sessions/41102ee0870b0be0bb3259166a9947952a3c5425");
-  var session = entityFactory().create(Session, sessionId, { startedAtTime: "2016-09-15T10:12:00.000Z" });
+  var session = entityFactory().create(Session, sessionId, { startedAtTime: moment.utc("2016-09-15T10:12:00.000Z") });
 
   // Assert that key attributes are the same
   var event = eventFactory().create(MessageEvent, {

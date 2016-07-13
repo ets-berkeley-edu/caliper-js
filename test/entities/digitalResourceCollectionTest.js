@@ -39,18 +39,18 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
   var collectionId = BASE_COURSE_IRI.concat("/resources/1");
   var docs = entityFactory().create(DigitalResourceCollection, collectionId.concat("/collections/1"), {
     name: "Document Collection",
-    dateCreated: "2016-08-01T06:01:00.000Z",
-    datePublished: "2016-08-15T09:30:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:01:00.000Z"),
+    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
   });
   var images = entityFactory().create(DigitalResourceCollection, collectionId.concat("/collections/2"), {
     name: "Image Collection",
-    dateCreated: "2016-08-01T06:02:00.000Z",
-    datePublished: "2016-08-15T09:30:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:02:00.000Z"),
+    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
   });
   var videos = entityFactory().create(DigitalResourceCollection, collectionId.concat("/collections/3"), {
     name: "Video Collection",
-    dateCreated: "2016-08-01T06:03:00.000Z",
-    datePublished: "2016-08-15T09:30:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:03:00.000Z"),
+    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
   });
 
   var collection = entityFactory().create(DigitalResourceCollection, collectionId, {
@@ -59,9 +59,9 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
     keywords: ["collections", "documents", "images", "videos"],
     items: [docs, images, videos],
     isPartOf: section,
-    dateCreated: "2016-08-01T06:00:00.000Z",
-    dateModified: "2016-08-01T06:03:00.000Z",
-    datePublished: "2016-08-15T09:30:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2016-08-01T06:03:00.000Z"),
+    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
   });
 
   // Assert that the JSON produced is the same
