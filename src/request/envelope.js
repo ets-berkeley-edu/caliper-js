@@ -17,29 +17,13 @@
  */
 
 /**
- * Represents Caliper Envelope.
- * @constructor
- * @property {string} sensor Sensor identifier
- * @property {string} sendTime String representing Date
- * @property {Object[]} data Array of events/entities
+ * Caliper envelope
+ * @type {{sensor: null, sendTime: null, data: Array}}
  */
-
-// Constructor
-function Envelope() {
-
-}
-
-// Setters for Caliper Envelope properties
-Envelope.prototype = {
-  setSensor: function(sensor) {
-    this.sensor = sensor;
-  },
-  setSendTime: function(sendTime) {
-    this.sendTime = sendTime;
-  },
-  setData: function(data) {
-    this.data = data;
-  }
+var Envelope = {
+  sensor: null,
+  sendTime: null,
+  data: []
 };
 
 module.exports = Envelope;
