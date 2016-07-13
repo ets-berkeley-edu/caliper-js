@@ -18,9 +18,9 @@
 
 var _ = require('lodash');
 var diff = require('deep-diff').diff;
-var jf = require('jsonfile')
-var util = require('util')
-var requestUtils = require('../src/request/requestUtils')
+var jf = require('jsonfile');
+// var util = require('util');
+var requestUtils = require('../src/request/requestUtils');
 
 /**
  * Utility function to compare JSON (represented by a object) to JSON fixture expectedJsonFile: filename
