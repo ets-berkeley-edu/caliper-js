@@ -16,7 +16,6 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
 var requestor = require('./request/httpRequestor');
 var logger = require('./logger');
 

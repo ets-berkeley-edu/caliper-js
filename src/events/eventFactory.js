@@ -17,7 +17,6 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var Event = require('./event');
 var validator = require('./eventValidator');
 
