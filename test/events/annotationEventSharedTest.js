@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -54,8 +55,8 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
   // The Actor for the Caliper Event
   var actorId = "https://example.edu/user/554433";
   var actor = entityFactory().create(Person, actorId, {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // The Action for the Caliper Event
@@ -63,8 +64,8 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
 
   var ePub = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
     name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "2nd ed."
   });
 
@@ -73,20 +74,20 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
     name: "Key Figures: John Adams",
     isPartOf: ePub,
     index: 3,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: ePub.version
   });
 
   // Shared with
   var share1 = entityFactory().create(Person, "https://example.edu/user/657585", {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   var share2 = entityFactory().create(Person, "https://example.edu/user/667788", {
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // The Generated annotation
@@ -94,8 +95,8 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
   var generated = entityFactory().create(SharedAnnotation, generatedId, {
     actor: actor['@id'],
     annotated: obj['@id'],
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     withAgents: [share1, share2]
   });
 
@@ -103,8 +104,8 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
   var edAppId = "https://example.com/viewer";
   var edApp = entityFactory().create(SoftwareApplication, edAppId, {
     name: "ePub",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
     version: "1.2.3"
   });
 
@@ -113,8 +114,8 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -124,8 +125,8 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -133,7 +134,7 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // The Actor's Membership
@@ -145,7 +146,7 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
     organization: section['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -153,7 +154,7 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     generated: generated,
     edApp: edApp,
     group: group,

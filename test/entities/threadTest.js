@@ -17,6 +17,7 @@
  */
 
 var _ = require('lodash');
+var moment = require('moment');
 var test = require('tape');
 var util = require('util');
 var jsonCompare = require('../testUtils');
@@ -44,8 +45,8 @@ test('Create a Thread entity and validate properties', function (t) {
     name: "Caliper Information Model",
     items: [msg01, msg02, msg03],
     isPartOf: forum,
-    dateCreated: "2016-08-01T06:00:00.000Z",
-    dateModified: "2016-09-02T11:30:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
   // Assert that the JSON produced is the same

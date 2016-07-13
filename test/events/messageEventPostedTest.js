@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -90,19 +91,19 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
     organization: group['@id'],
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: "2016-08-01T06:00:00.000Z"
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
   // Local Session
   var sessionId = BASE_LMS_IRI.concat("/sessions/c6711eb49cf4dea1f4bad1ae6be66a662651b32e");
-  var session = entityFactory().create(Session, sessionId, { startedAtTime: "2016-09-15T10:13:00.000Z" });
+  var session = entityFactory().create(Session, sessionId, { startedAtTime: moment.utc("2016-09-15T10:13:00.000Z") });
 
   // Assert that key attributes are the same
   var event = eventFactory().create(MessageEvent, {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2016-09-15T10:15:00.000Z").toISOString(),
+    eventTime: moment.utc("2016-09-15T10:15:00.000Z"),
     edApp: edApp,
     group: group,
     membership: membership,

@@ -136,7 +136,7 @@
         // Send the Event
         var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
         var envelope = requestor.createEnvelope(sensor, sendTime, event);
-        
+
         console.log('created event envelope %O', envelope);
 
         sensor.send(envelope);

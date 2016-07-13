@@ -17,6 +17,7 @@
  */
 
 var _ = require('lodash');
+var moment = require('moment');
 var test = require('tape');
 var util = require('util');
 var jsonCompare = require('../testUtils');
@@ -36,20 +37,20 @@ test('Create a Message entity and validate properties', function (t) {
   var forumId = BASE_COURSE_IRI.concat("/forums/2");
   var forum = entityFactory().create(Forum, forumId, {
     name: "Caliper Forum",
-    dateCreated: "2016-09-01T09:28:00.000Z"
+    dateCreated: moment.utc("2016-09-01T09:28:00.000Z")
   });
 
   var threadId = forumId.concat("/topics/1");
   var thread = entityFactory().create(Thread, threadId, {
     name: "Caliper Happiness Index",
     isPartOf: forum,
-    dateCreated: "2016-09-01T09:30:00.000Z"
+    dateCreated: moment.utc("2016-09-01T09:30:00.000Z")
   });
 
   var msg01Creator = entityFactory().create(Person, "https://example.edu/users/12345");
   var msg01 = entityFactory().create(Message, threadId.concat("/messages/1"), {
     creators: [ msg01Creator ],
-    dateCreated: "2016-09-02T11:30:00.000Z"
+    dateCreated: moment.utc("2016-09-02T11:30:00.000Z")
   });
   
   var msg02Creator = entityFactory().create(Person, "https://example.edu/users/554433");
@@ -57,7 +58,7 @@ test('Create a Message entity and validate properties', function (t) {
     creators: [ msg02Creator ],
     replyTo: msg01,
     isPartOf: thread,
-    dateCreated: "2016-09-02T11:32:00.000Z"
+    dateCreated: moment.utc("2016-09-02T11:32:00.000Z")
   });
 
   // Assert that the JSON produced is the same

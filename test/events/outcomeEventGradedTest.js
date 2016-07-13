@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var moment = require('moment');
 var test = require('tape');
 var _ = require('lodash');
 var util = require('util');
@@ -50,7 +51,7 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
   var actorId = "https://example.com/super-assessment-tool";
   var actor = entityFactory().create(SoftwareApplication, actorId, {
     name: "Super Assessment Tool",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
     version: "v2"
   });
 
@@ -64,14 +65,14 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
   var assignableId = BASE_COURSE_IRI.concat("/assessment/001");
   var assignable = entityFactory().create(Assessment, assignableId, {
     name: "American Revolution - Key Figures Assessment",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString(),
-    datePublished: new Date("2015-08-15T09:30:00.000Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
+    datePublished: moment.utc("2015-08-15T09:30:00.000Z"),
     version: "1.0",
-    dateToActivate: new Date("2015-08-16T05:00:00.000Z").toISOString(),
-    dateToShow: new Date("2015-08-16T05:00:00.000Z").toISOString(),
-    dateToStartOn: new Date("2015-08-16T05:00:00.000Z").toISOString(),
-    dateToSubmit: new Date("2015-09-28T11:59:59.000Z").toISOString(),
+    dateToActivate: moment.utc("2015-08-16T05:00:00.000Z"),
+    dateToShow: moment.utc("2015-08-16T05:00:00.000Z"),
+    dateToStartOn: moment.utc("2015-08-16T05:00:00.000Z"),
+    dateToSubmit: moment.utc("2015-09-28T11:59:59.000Z"),
     maxAttempts: 2,
     maxSubmits: 2,
     maxScore: 3.0
@@ -81,8 +82,8 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
   var obj = entityFactory().create(Attempt, assignableId.concat("/attempt/5678"), {
     actor: learner['@id'],
     assignable: assignable['@id'],
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    startedAtTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    startedAtTime: moment.utc("2015-09-15T10:15:00.000Z"),
     count: 1
   });
 
@@ -90,7 +91,7 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
   var generated = entityFactory().create(Result, assignableId.concat("/attempt/5678/result"), {
     actor: learner['@id'],
     assignable: assignable['@id'],
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
     normalScore: 3.0,
     penaltyScore: 0.0,
     extraCreditScore: 0.0,
@@ -106,8 +107,8 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
     name: "Political Science 101: The American Revolution",
     courseNumber: "POL101",
     academicSession: "Fall-2015",
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Course Section
@@ -117,8 +118,8 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
     courseNumber: "POL101",
     academicSession: "Fall-2015",
     subOrganizationOf: course,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString(),
-    dateModified: new Date("2015-09-02T11:30:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
   });
 
   // LIS Group
@@ -126,7 +127,7 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
   var group = entityFactory().create(Group, groupId, {
     name: "Discussion Group 001",
     subOrganizationOf: section,
-    dateCreated: new Date("2015-08-01T06:00:00Z").toISOString()
+    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -134,7 +135,7 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: new Date("2015-09-15T10:15:00Z").toISOString(),
+    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
     generated: generated,
     group: group
   });
