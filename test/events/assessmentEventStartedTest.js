@@ -18,13 +18,10 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
-var AssessmentEvent = require('../../src/events/assessmentEvent');
 var eventFactory = require('../../src/events/eventFactory');
+var AssessmentEvent = require('../../src/events/assessmentEvent');
+var AssessmentActions = require('../../src/actions/assessmentActions');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
@@ -35,13 +32,11 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
-
-// Action
-var AssessmentActions = require('../../src/actions/assessmentActions');
-
 var Role = require('../../src/entities/lis/role');
+var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 var Status = require('../../src/entities/lis/status');
+
+var jsonCompare = require('../testUtils');
 
 test('Create an AssessmentEvent (started) and validate properties', function (t) {
 

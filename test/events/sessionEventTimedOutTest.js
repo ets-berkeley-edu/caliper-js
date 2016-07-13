@@ -18,15 +18,11 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
 var eventFactory = require('../../src/events/eventFactory');
 var SessionEvent = require('../../src/events/sessionEvent');
+var SessionActions = require('../../src/actions/sessionActions');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -35,8 +31,7 @@ var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 
-// Action
-var SessionActions = require('../../src/actions/sessionActions');
+var jsonCompare = require('../testUtils');
 
 test('Create a SessionEvent (timedOut) and validate properties', function(t) {
 

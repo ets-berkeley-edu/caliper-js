@@ -18,15 +18,11 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
 var eventFactory = require('../../src/events/eventFactory');
 var OutcomeEvent = require('../../src/events/outcomeEvent');
+var OutcomeActions = require('../../src/actions/outcomeActions');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var Attempt = require('../../src/entities/assign/attempt');
@@ -37,8 +33,7 @@ var Person = require('../../src/entities/agent/person');
 var Result = require('../../src/entities/assign/result');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 
-// Action
-var OutcomeActions = require('../../src/actions/outcomeActions');
+var jsonCompare = require('../testUtils');
 
 test('Create an OutcomeEvent (graded) and validate properties', function (t) {
 

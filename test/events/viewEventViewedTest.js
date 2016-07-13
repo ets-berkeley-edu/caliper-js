@@ -18,15 +18,11 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
 var eventFactory = require('../../src/events/eventFactory');
 var ViewEvent = require('../../src/events/viewEvent');
+var ViewActions = require('../../src/actions/viewActions');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -35,13 +31,11 @@ var Frame = require('../../src/entities/resource/frame');
 var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
-
-// Action
-var ViewActions = require('../../src/actions/viewActions');
-
 var Role = require('../../src/entities/lis/role');
+var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 var Status = require('../../src/entities/lis/status');
+
+var jsonCompare = require('../testUtils');
 
 test('Create a ViewEvent (viewed) and validate properties', function (t) {
 

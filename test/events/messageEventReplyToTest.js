@@ -18,30 +18,24 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
 var eventFactory = require('../../src/events/eventFactory');
 var MessageEvent = require('../../src/events/messageEvent');
+var MessageActions = require('../../src/actions/messageActions');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Forum = require('../../src/entities/resource/forum');
 var Membership = require('../../src/entities/lis/membership');
 var Message = require('../../src/entities/resource/message');
 var Person = require('../../src/entities/agent/person');
+var Role = require('../../src/entities/lis/role');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 var Session = require('../../src/entities/session/Session');
 var Thread = require('../../src/entities/resource/thread');
-
-// Action
-var MessageActions = require('../../src/actions/messageActions');
-
-var Role = require('../../src/entities/lis/role');
 var Status = require('../../src/entities/lis/status');
+
+var jsonCompare = require('../testUtils');
 
 test('Create a MessageEvent (posted) and validate properties', function (t) {
 

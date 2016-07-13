@@ -16,16 +16,16 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
-var util = require('util');
-var jsonCompare = require('../testUtils');
+
 var entityFactory = require('../../src/entities/entityFactory');
 var Forum = require('../../src/entities/resource/forum');
 var Message = require('../../src/entities/resource/message');
 var Person = require('../../src/entities/agent/person');
 var Thread = require('../../src/entities/resource/thread');
+
+var jsonCompare = require('../testUtils');
 
 test('Create a Message entity and validate properties', function (t) {
 

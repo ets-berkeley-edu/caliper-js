@@ -18,18 +18,10 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Request
-var requestor = require('../../src/request/httpRequestor');
-
-// Event
 var eventFactory = require('../../src/events/eventFactory');
 var NavigationEvent = require('../../src/events/navigationEvent');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -38,15 +30,16 @@ var Frame = require('../../src/entities/resource/frame');
 var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
+var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var Status = require('../../src/entities/lis/status');
 var WebPage = require('../../src/entities/resource/webPage');
 
-// Actions
 var NavigationActions = require('../../src/actions/navigationActions');
 
-var Role = require('../../src/entities/lis/role');
-var Status = require('../../src/entities/lis/status');
+var jsonCompare = require('../testUtils');
+var requestor = require('../../src/request/httpRequestor');
 
 test('Create an Envelope containing single NavigationEvent (navigatedTo) and validate properties', function (t) {
 

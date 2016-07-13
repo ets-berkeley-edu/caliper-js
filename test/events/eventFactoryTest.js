@@ -18,21 +18,16 @@
 
 var moment = require('moment');
 var test = require('tape');
-var _ = require('lodash');
-var util = require('util');
-var jsonCompare = require('../testUtils');
 
-// Event
-var Event = require('../../src/events/event');
 var eventFactory = require('../../src/events/eventFactory');
+var Event = require('../../src/events/event');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
-var entityType = require('../../src/entities/entityType');
-var eventType = require('../../src/events/eventType');
 var Person = require('../../src/entities/agent/person');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 var VideoObject = require('../../src/entities/resource/videoObject');
+
+var jsonCompare = require('../testUtils');
 
 test('Create a generic Event (videoObject created) using the eventFactory and validate properties', function (t) {
 
