@@ -20,8 +20,8 @@ var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var EpubSubChapter = require('../../src/entities/resource/ePubSubChapter');
 var EpubVolume = require('../../src/entities/resource/ePubVolume');
+var Frame = require('../../src/entities/resource/frame');
 var Person = require('../../src/entities/agent/person');
 
 var jsonCompare = require('../testUtils');
@@ -47,12 +47,13 @@ test('Create an Envelope containing batched entities and validate properties', f
     version: "2nd ed."
   });
 
-  var epubSubChapter = entityFactory().create(EpubSubChapter, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
+  var frame = entityFactory().create(Frame, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
     name: "Key Figures: George Washington",
     isPartOf: epubVolume,
     dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
     dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "2nd ed."
+    version: "2nd ed.",
+    index: 1
   });
 
   // Initialize faux sensor and default options
@@ -63,7 +64,7 @@ test('Create an Envelope containing batched entities and validate properties', f
   requestor.initialize(options);
 
   var sendTime = moment.utc("2015-09-15T11:05:01.000Z");
-  var data = [ person, epubVolume, epubSubChapter ];
+  var data = [ person, epubVolume, frame ];
   var envelope = requestor.createEnvelope(sensor, sendTime, data);
 
   // Assert that JSON produced is the same

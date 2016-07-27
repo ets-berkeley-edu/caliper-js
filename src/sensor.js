@@ -139,7 +139,6 @@ Caliper.Entities.DigitalResource           = require('./entities/resource/digita
 Caliper.Entities.DigitalResourceCollection = require('./entities/resource/digitalResourceCollection');
 Caliper.Entities.EPubChapter               = require('./entities/resource/ePubChapter');
 Caliper.Entities.EPubPart                  = require('./entities/resource/ePubPart');
-Caliper.Entities.EPubSubChapter            = require('./entities/resource/ePubSubChapter');
 Caliper.Entities.EPubVolume                = require('./entities/resource/ePubVolume');
 Caliper.Entities.Forum                     = require('./entities/resource/forum');
 Caliper.Entities.Frame                     = require('./entities/resource/frame');
