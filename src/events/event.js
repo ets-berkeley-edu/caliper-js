@@ -21,8 +21,8 @@ var eventType = require('./eventType');
 
 var Event = {
   '@context': constants.CONTEXT,
+  id: null,
   '@type': eventType.EVENT,
-  sourcedId: null,
   actor: {},
   action: null,
   object: {},
