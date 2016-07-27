@@ -119,11 +119,12 @@ Caliper.Entities.Person              = require('./entities/agent/person');
 Caliper.Entities.SoftwareApplication = require('./entities/agent/softwareApplication');
 
 // Annotations
-Caliper.Entities.Annotation          = require('./entities/annotation/annotation');
-Caliper.Entities.BookmarkAnnotation  = require('./entities/annotation/bookmarkAnnotation');
-Caliper.Entities.HighlightAnnotation = require('./entities/annotation/highlightAnnotation');
-Caliper.Entities.SharedAnnotation    = require('./entities/annotation/sharedAnnotation');
-Caliper.Entities.TagAnnotation       = require('./entities/annotation/tagAnnotation');
+Caliper.Entities.Annotation           = require('./entities/annotation/annotation');
+Caliper.Entities.BookmarkAnnotation   = require('./entities/annotation/bookmarkAnnotation');
+Caliper.Entities.HighlightAnnotation  = require('./entities/annotation/highlightAnnotation');
+Caliper.Entities.SharedAnnotation     = require('./entities/annotation/sharedAnnotation');
+Caliper.Entities.TagAnnotation        = require('./entities/annotation/tagAnnotation');
+Caliper.Entities.TextPositionSelector = require('./entities/annotation/textPositionSelector');
 
 // Assignment-related
 Caliper.Entities.Attempt           = require('./entities/assign/attempt');
