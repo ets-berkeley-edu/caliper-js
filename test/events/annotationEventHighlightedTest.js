@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -35,6 +36,7 @@ var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 var Status = require('../../src/entities/lis/status');
+var TextPositionSelector = require('../../src/entities/annotation/textPositionSelector');
 
 var jsonCompare = require('../testUtils');
 
@@ -75,12 +77,13 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
 
   // The Generated annotation
   var generatedId = "https://example.edu/highlights/12345";
+  var selector = _.assign(_.create(TextPositionSelector), { start: 455, end: 489 });
   var generated = entityFactory().create(HighlightAnnotation, generatedId, {
     actor: actor['@id'],
     annotated: obj['@id'],
     dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
     dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    selection: { "start": "455", "end": "489" },
+    selection: selector,
     selectionText: "Life, Liberty and the pursuit of Happiness"
   });
 
