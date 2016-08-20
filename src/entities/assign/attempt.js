@@ -29,6 +29,7 @@ var Attempt = _.assign(_.create(entity), {
   '@type': entityType.ATTEMPT,
   actor: {},
   assignable: {},
+  isPartOf: {},
   count: null,
   startedAtTime: null,
   endedAtTime: null,
