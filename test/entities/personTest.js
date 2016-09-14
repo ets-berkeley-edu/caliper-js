@@ -29,8 +29,9 @@ test('Create a Person entity and validate properties', function (t) {
   // Plan for N assertions
   t.plan(1);
 
-  var id = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, id, {
+  const BASE_IRI = "https://example.edu";
+
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/user/554433"), {
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
     dateModified: moment.utc("20160902T113000.000Z")
   });
