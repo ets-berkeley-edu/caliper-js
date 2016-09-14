@@ -24,9 +24,6 @@ var SessionEvent = require('../../src/events/sessionEvent');
 var SessionActions = require('../../src/actions/sessionActions');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
-var CourseSection = require('../../src/entities/lis/courseSection');
-var Group = require('../../src/entities/lis/group');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
@@ -38,78 +35,42 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
-  const BASE_VIEWER_IRI = "https://example.com/viewer";
+  const BASE_IRI = "https://example.edu";
 
-  // The actor
-  var actor = entityFactory().create(SoftwareApplication, BASE_VIEWER_IRI, {
-    name: "ePub",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "1.2.3"
-  });
+  // The Actor
+  var actor = entityFactory().create(SoftwareApplication, BASE_IRI);
 
   // The Action for the Caliper Event
   var action = SessionActions.TIMED_OUT;
 
-  // The session actor
-  var sessionActorId = "https://example.edu/user/554433";
-  var sessionActor = entityFactory().create(Person, sessionActorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
+  // The referenced session actor
+  var sessionActorId = BASE_IRI.concat("/users/112233");
+  var sessionActor = entityFactory().create(Person, sessionActorId);
 
-  // The session object
-  var obj = entityFactory().create(Session, BASE_VIEWER_IRI.concat("/session-123456789"), {
-    name: "session-123456789",
+  // Session
+  var objId = BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
+  var obj = entityFactory().create(Session, objId, {
     actor: sessionActor,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    startedAtTime: moment.utc("2015-09-15T10:15:00.000Z"),
-    endedAtTime: moment.utc("2015-09-15T11:05:00.000Z"),
-    duration: "PT3000S"
+    dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
+    startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
+    endedAtTime: moment.utc("2016-11-15T11:15:00.000Z"),
+    duration: "PT3600S"
   });
 
-  // For this event the edApp is the actor
-  var edApp = actor;
+  // Event time
+  var eventTime = moment.utc("2016-11-15T11:15:00.000Z");
 
-  // LIS Course Offering
-  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
-    name: "Political Science 101: The American Revolution",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Course Section
-  var sectionId = BASE_COURSE_IRI.concat("/section/001");
-  var section = entityFactory().create(CourseSection, sectionId, {
-    name: "American Revolution 101",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Group
-  var groupId = sectionId.concat("/group/001");
-  var group = entityFactory().create(Group, groupId, {
-    name: "Discussion Group 001",
-    subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
-  });
+  // Event Id GUID
+  var eventId = "513d4ca1-0ecf-4234-932d-c4cb287884a3";
 
   // Assert that key attributes are the same
   var event = eventFactory().create(SessionEvent, {
-    id: "15128c13-ca75-4952-8cce-72a513ec337d",
+    id: eventId,
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
-    edApp: edApp,
-    group: group
+    eventTime: eventTime,
+    edApp: actor
   });
 
   // Assert that the JSON produced is the same
