@@ -87,7 +87,8 @@ test('Create a ThreadEvent (markedAsRead) and validate properties', function (t)
 
   // Session
   var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
-    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z") });
+    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+  });
 
   // Assert that key attributes are the same
   var event = eventFactory().create(ThreadEvent, {
