@@ -37,14 +37,13 @@ test('Create a SessionEvent (loggedOut) and validate properties', function(t) {
 
   const BASE_IRI = "https://example.edu";
 
-  // The Actor for the Caliper Event (as well as the edApp)
-  var actorId = BASE_IRI.concat("/users/554433");
-  var actor = entityFactory().create(Person, actorId);
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // The Action for the Caliper Event
+  // The Action
   var action = SessionActions.LOGGED_OUT;
 
-  // The Object being interacted with by the Actor
+  // The Object of the interaction
   var obj = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
 
   // Event time

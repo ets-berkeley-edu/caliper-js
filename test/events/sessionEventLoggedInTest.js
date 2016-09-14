@@ -37,22 +37,20 @@ test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
 
   const BASE_IRI = "https://example.edu";
 
-  // The Actor for the Caliper Event (as well as the edApp)
-  var actorId = BASE_IRI.concat("/users/554433");
-  var actor = entityFactory().create(Person, actorId);
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // The Action for the Caliper Event
+  // The Action
   var action = SessionActions.LOGGED_IN;
 
-  // The Object being interacted with by the Actor
+  // The Object of the interaction
   var obj = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
 
   // Event time
   var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
   // Session
-  var sessionId = BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259");
-  var session = entityFactory().create(Session, sessionId, {
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
     actor: actor,
     dateCreated: moment.utc("2016-11-15T10:00:00.000Z"),
     startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")

@@ -40,17 +40,13 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
   // The Actor
   var actor = entityFactory().create(SoftwareApplication, BASE_IRI);
 
-  // The Action for the Caliper Event
+  // The Action
   var action = SessionActions.TIMED_OUT;
 
-  // The referenced session actor
-  var sessionActorId = BASE_IRI.concat("/users/112233");
-  var sessionActor = entityFactory().create(Person, sessionActorId);
-
-  // Session
+  // The Object of the interaction
   var objId = BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
   var obj = entityFactory().create(Session, objId, {
-    actor: sessionActor,
+    actor: entityFactory().create(Person, BASE_IRI.concat("/users/112233")),
     dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
     startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
     endedAtTime: moment.utc("2016-11-15T11:15:00.000Z"),

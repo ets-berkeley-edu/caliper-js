@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -42,17 +43,16 @@ test('Create a ViewEvent (viewed) with custom extensions and validate properties
   t.plan(1);
 
   const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // The Actor for the Caliper Event (as well as the edApp)
-  var actorId = BASE_IRI.concat("/users/554433");
-  var actor = entityFactory().create(Person, actorId);
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // The Action for the Caliper Event
+  // The Action
   var action = ViewActions.VIEWED;
 
-  // The Object being interacted with by the Actor
-  var objId = BASE_IRI.concat("/etexts/200.epub");
-  var obj = entityFactory().create(Document, objId, {
+  // The Object of the interaction
+  var obj = entityFactory().create(Document, BASE_IRI.concat("/etexts/200.epub"), {
     name: "IMS Caliper Specification",
     version: "1.1"
   });
@@ -64,28 +64,22 @@ test('Create a ViewEvent (viewed) with custom extensions and validate properties
   var edApp = entityFactory().create(SoftwareApplication, BASE_IRI);
 
   // Group
-  var groupId = BASE_IRI.concat("/terms/201601/courses/7/sections/1");
-  var group = entityFactory().create(CourseSection, groupId, {
+  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
     courseNumber: "CPS 435-01",
     academicSession: "Fall 2016"
   });
 
   // The Actor's Membership
-  var membershipId = groupId.concat("/rosters/1");
-  var membership = entityFactory().create(Membership, membershipId, {
+  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
     member: actor,
-    organization: {
-      "@id": group["@id"],
-      "@type": group["@type"]
-    },
+    organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
   // Session
-  var sessionId = BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259");
-  var session = entityFactory().create(Session, sessionId, {
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
     startedAtTime: moment.utc("2016-11-15T10:00:00.000Z") });
 
   // Extensions
