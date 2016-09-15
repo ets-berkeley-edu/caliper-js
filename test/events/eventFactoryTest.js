@@ -34,25 +34,28 @@ test('Create a generic Event (videoObject created) using the eventFactory and va
   // Plan for N assertions
   t.plan(1);
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, actorId);
+  const BASE_IRI = "https://example.edu";
 
-  // The Action for the Caliper Event
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+
+  // The Action
   var action = "http://purl.imsglobal.org/vocab/caliper/v1/action#Created";
 
-  // The Object being interacted with by the Actor
-  var objId = "https://example.com/super-media-tool/video/6779";
-  var obj = entityFactory().create(VideoObject, objId);
+  // The Object of the interaction
+  var obj = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/6779"));
+
+  // Event time
+  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
   // Assert that key attributes are the same
   var event = eventFactory().create(Event, {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00.000Z")
+    eventTime: eventTime
   });
 
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEventMinimalCreated', event, t);
+  jsonCompare('caliperEventBasicCreated', event, t);
 });
