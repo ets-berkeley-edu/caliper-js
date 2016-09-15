@@ -41,7 +41,7 @@ var Status = require('../../src/entities/lis/status');
 
 var jsonCompare = require('../testUtils');
 
-test('Create a ForumEvent (created) and validate properties', function (t) {
+test('Create a ForumEvent (subscribed) and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
