@@ -20,6 +20,7 @@ var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
+var Document = require('../../src/entities/resource/document');
 var Forum = require('../../src/entities/resource/forum');
 var Message = require('../../src/entities/resource/message');
 var Person = require('../../src/entities/agent/person');
@@ -32,35 +33,76 @@ test('Create a Message entity and validate properties', function (t) {
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/semesters/201601/courses/25";
+  const BASE_IRI = "https://example.edu";
+  const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2";
+  const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
 
-  var forumId = BASE_COURSE_IRI.concat("/forums/2");
-  var forum = entityFactory().create(Forum, forumId, {
-    name: "Caliper Forum",
-    dateCreated: moment.utc("2016-09-01T09:28:00.000Z")
-  });
+  // Forum, Thread context
+  var forum = entityFactory().create(Forum, BASE_FORUM_IRI);
+  var thread = entityFactory().create(Thread, BASE_THREAD_IRI, { isPartOf: forum });
 
-  var threadId = forumId.concat("/topics/1");
-  var thread = entityFactory().create(Thread, threadId, {
-    name: "Caliper Happiness Index",
-    isPartOf: forum,
-    dateCreated: moment.utc("2016-09-01T09:30:00.000Z")
-  });
+  // Message creators
+  var creators = [];
+  creators.push(entityFactory().create(Person, BASE_IRI.concat("/users/778899")));
 
-  var msg01Creator = entityFactory().create(Person, "https://example.edu/users/12345");
-  var msg01 = entityFactory().create(Message, threadId.concat("/messages/1"), {
-    creators: [ msg01Creator ],
-    dateCreated: moment.utc("2016-09-02T11:30:00.000Z")
-  });
-  
-  var msg02Creator = entityFactory().create(Person, "https://example.edu/users/554433");
-  var msg02 = entityFactory().create(Message, threadId.concat("/messages/2"), {
-    creators: [ msg02Creator ],
-    replyTo: msg01,
+  // replyTo
+  var replyTo = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/2"));
+
+  // Attachments
+  var attachments = [];
+  attachments.push(entityFactory().create(Document, BASE_IRI.concat("/etexts/201.epub"), {
+    name: "IMS Caliper Implementation Guide",
+    dateCreated: "2016-10-01T06:00:00.000Z",
+    version: "1.1"
+  }));
+
+  // Message
+  var message = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/3"), {
+    creators: creators,
+    body: "The Caliper working group provides a set of Caliper Sensor reference implementations for the purposes of education and experimentation.  They have not been tested for use in a production environment.  See the Caliper Implementation Guide for more details.",
+    replyTo: replyTo,
     isPartOf: thread,
-    dateCreated: moment.utc("2016-09-02T11:32:00.000Z")
+    attachments: attachments,
+    dateCreated: moment.utc("2016-11-15T10:15:30.000Z")
   });
 
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityMessage', msg02, t);
+  jsonCompare('caliperEntityMessage', message, t);
 });
+
+/**
+ {
+  "@id": "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1/messages/3",
+  "@type": "http://purl.imsglobal.org/caliper/v1/Message",
+  "creators": [
+    {
+      "@id": "https://example.edu/users/778899",
+      "@type": "http://purl.imsglobal.org/caliper/v1/Person"
+    }
+  ],
+  "body": "The Caliper working group provides a set of Caliper Sensor reference implementations for the purposes of education and experimentation.  They have not been tested for use in a production environment.  See the Caliper Implementation Guide for more details.",
+  "replyTo": {
+    "@id": "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1/messages/2",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Message"
+  },
+  "isPartOf": {
+    "@id": "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Thread",
+    "isPartOf": {
+      "@id": "https://example.edu/terms/201601/courses/7/sections/1/forums/2",
+      "@type": "http://purl.imsglobal.org/caliper/v1/Forum"
+    }
+  },
+  "attachments": [
+    {
+      "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
+      "@id": "https://example.edu/etexts/201.epub",
+      "@type": "http://purl.imsglobal.org/caliper/v1/Document",
+      "name": "IMS Caliper Implementation Guide",
+      "dateCreated": "2016-10-01T06:00:00.000Z",
+      "version": "1.1"
+    }
+  ],
+  "dateCreated": "2016-11-15T10:15:30.000Z"
+}
+ */
