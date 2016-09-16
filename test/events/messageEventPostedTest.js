@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -42,62 +43,65 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/semesters/201601/courses/25";
-  const BASE_LMS_IRI = "https://example.com/lms";
+  const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+  const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2";
+  const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/users/554433";
-  var actor = entityFactory().create(Person, actorId);
+  // Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // The Action for the Caliper Event
+  // Action
   var action = MessageActions.POSTED;
 
-  // Forum context
-  var forumId = BASE_COURSE_IRI.concat("/forums/2");
-  var forum = entityFactory().create(Forum, forumId, { name: "Caliper Forum" });
+  // Forum, Thread context
+  var forum = entityFactory().create(Forum, BASE_FORUM_IRI, { name: "Caliper Forum" });
+  var thread = entityFactory().create(Thread, BASE_THREAD_IRI, { name: "Caliper Adoption", isPartOf: forum });
 
-  // Thread context
-  var threadId = forumId.concat("/topics/1");
-  var thread = entityFactory().create(Thread, threadId, {
-    name: "Caliper Adoption",
-    isPartOf: forum
-  });
+  // Message creators
+  var creators = [];
+  creators.push(entityFactory().create(Person, BASE_IRI.concat("/users/554433")));
 
-  // Message object
-  var obj = entityFactory().create(Message, threadId.concat("/messages/2"), {
-    creators: [ actor ],
+  // The Object of the interaction
+  var obj = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/2"), {
+    creators: creators,
+    body: "Are the Caliper Sensor reference implementations production-ready?",
     isPartOf: thread,
-    dateCreated: "2016-09-15T10:15:00.000Z"
+    dateCreated: moment.utc("2016-11-15T10:15:00.000Z")
   });
+
+  // Event time
+  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
   // edApp context
-  var edApp = entityFactory().create(SoftwareApplication, BASE_LMS_IRI.concat("/forums"), { version: "v2" });
+  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/forums"), { version: "v2" });
 
-  // Group context
-  var group = entityFactory().create(CourseSection, BASE_COURSE_IRI.concat("/sections/1"), {
-    courseNumber: "POL101-01",
-    academicSession: "Fall-2016"
+  // Group
+  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    courseNumber: "CPS 435-01",
+    academicSession: "Fall 2016"
   });
 
-  // Actor's membership context
-  var membership = entityFactory().create(Membership, BASE_COURSE_IRI.concat("/rosters/1"), {
-    member: actor['@id'],
-    organization: group['@id'],
+  // Membership
+  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    member: actor,
+    organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
-  // Local Session
-  var sessionId = BASE_LMS_IRI.concat("/sessions/c6711eb49cf4dea1f4bad1ae6be66a662651b32e");
-  var session = entityFactory().create(Session, sessionId, { startedAtTime: moment.utc("2016-09-15T10:13:00.000Z") });
+  // Session
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+  });
 
   // Assert that key attributes are the same
   var event = eventFactory().create(MessageEvent, {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2016-09-15T10:15:00.000Z"),
+    eventTime: eventTime,
     edApp: edApp,
     group: group,
     membership: membership,
@@ -107,3 +111,68 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventMessagePosted', event, t);
 });
+
+/**
+ {
+  "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
+  "@type": "http://purl.imsglobal.org/caliper/v1/MessageEvent",
+  "actor": {
+    "@id": "https://example.edu/users/554433",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Person"
+  },
+  "action": "http://purl.imsglobal.org/vocab/caliper/v1/action#Posted",
+  "object": {
+    "@id": "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1/messages/2",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Message",
+    "creators": [
+      {
+        "@id": "https://example.edu/users/554433",
+        "@type": "http://purl.imsglobal.org/caliper/v1/Person"
+      }
+    ],
+    "isPartOf": {
+      "@id": "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1",
+      "@type": "http://purl.imsglobal.org/caliper/v1/Thread",
+      "name": "Caliper Adoption",
+      "isPartOf": {
+        "@id": "https://example.edu/terms/201601/courses/7/sections/1/forums/2",
+        "@type": "http://purl.imsglobal.org/caliper/v1/Forum",
+        "name": "Caliper Forum"
+      }
+    },
+    "dateCreated": "2016-11-15T10:15:00.000Z"
+  },
+  "eventTime": "2016-11-15T10:15:00.000Z",
+  "edApp": {
+    "@id": "https://example.edu/forums",
+    "@type": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication",
+    "version": "v2"
+  },
+  "group": {
+    "@id": "https://example.edu/terms/201601/courses/7/sections/1",
+    "@type": "http://purl.imsglobal.org/caliper/v1/CourseSection",
+    "courseNumber": "CPS 435-01",
+    "academicSession": "Fall 2016"
+  },
+  "membership": {
+    "@id": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Membership",
+    "member": {
+      "@id": "https://example.edu/users/554433",
+      "@type": "http://purl.imsglobal.org/caliper/v1/Person"
+    },
+    "organization": {
+      "@id": "https://example.edu/terms/201601/courses/7/sections/1",
+      "@type": "http://purl.imsglobal.org/caliper/v1/CourseSection"
+    },
+    "roles": [ "http://purl.imsglobal.org/vocab/lis/v2/membership#Learner" ],
+    "status": "http://purl.imsglobal.org/vocab/lis/v2/status#Active",
+    "dateCreated": "2016-08-01T06:00:00.000Z"
+  },
+  "session": {
+    "@id": "https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Session",
+    "startedAtTime": "2016-11-15T10:00:00.000Z"
+  }
+}
+ */
