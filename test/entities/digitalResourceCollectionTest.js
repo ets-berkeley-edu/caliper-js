@@ -41,7 +41,7 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
   var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
     subOrganizationOf: course
   });
-  
+
   // Items
   var items = [];
   items.push(entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
@@ -59,6 +59,7 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
     version: "1.1.1"
   }));
 
+  // Collection
   var collection = entityFactory().create(DigitalResourceCollection, BASE_SECTION_IRI.concat("/resources/2"), {
     name: "Video Collection",
     keywords: ["collection", "videos"],
