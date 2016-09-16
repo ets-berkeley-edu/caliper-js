@@ -27,8 +27,8 @@ var entityType = require('../entityType');
 var Message = _.assign(_.create(digitalResource), {
   '@context': constants.CONTEXT,
   '@type': entityType.MESSAGE,
+  body: null,
   replyTo: null,
-  content: null,
   attachments: []
 });
 
