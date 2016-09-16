@@ -41,23 +41,23 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
   var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
     subOrganizationOf: course
   });
-
+  
   // Items
-  var item01 = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
+  var items = [];
+  items.push(entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
     mediaType: "video/ogg",
     name: "Introduction to IMS Caliper",
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
     duration: "PT1H12M27S",
     version: "1.1"
-  });
-
-  var item02 = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/5629"), {
+  }));
+  items.push(entityFactory().create(VideoObject, BASE_IRI.concat("/videos/5629"), {
     mediaType: "video/ogg",
     name: "IMS Caliper Activity Profiles",
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
     duration: "PT55M13S",
     version: "1.1.1"
-  });
+  }));
 
   var collection = entityFactory().create(DigitalResourceCollection, BASE_SECTION_IRI.concat("/resources/2"), {
     name: "Video Collection",
