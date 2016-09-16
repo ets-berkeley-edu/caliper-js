@@ -20,9 +20,10 @@ var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
+var Course = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
-var Person = require('../../src/entities/agent/person');
+var VideoObject = require('../../src/entities/resource/videoObject');
 
 var jsonCompare = require('../testUtils');
 
@@ -31,37 +32,40 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/semesters/201601/courses/25";
-  var section = entityFactory().create(CourseSection, BASE_COURSE_IRI.concat("/sections/1"));
-  var creator01 = entityFactory().create(Person, "https://example.edu/user/112233");
-  var creator02 = entityFactory().create(Person, "https://example.edu/user/223344");
-  var creators = [creator01, creator02];
-  var collectionId = BASE_COURSE_IRI.concat("/resources/1");
-  var docs = entityFactory().create(DigitalResourceCollection, collectionId.concat("/collections/1"), {
-    name: "Document Collection",
-    dateCreated: moment.utc("2016-08-01T06:01:00.000Z"),
-    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
-  });
-  var images = entityFactory().create(DigitalResourceCollection, collectionId.concat("/collections/2"), {
-    name: "Image Collection",
-    dateCreated: moment.utc("2016-08-01T06:02:00.000Z"),
-    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
-  });
-  var videos = entityFactory().create(DigitalResourceCollection, collectionId.concat("/collections/3"), {
-    name: "Video Collection",
-    dateCreated: moment.utc("2016-08-01T06:03:00.000Z"),
-    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
+  const BASE_IRI = "https://example.edu";
+  const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+  // Course context
+  var course = entityFactory().create(Course, BASE_COURSE_IRI);
+  var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    subOrganizationOf: course
   });
 
-  var collection = entityFactory().create(DigitalResourceCollection, collectionId, {
-    name: "Course resources",
-    creators: creators,
-    keywords: ["collections", "documents", "images", "videos"],
-    items: [docs, images, videos],
+  // Items
+  var item01 = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
+    mediaType: "video/ogg",
+    name: "Introduction to IMS Caliper",
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    duration: "PT1H12M27S",
+    version: "1.1"
+  });
+
+  var item02 = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/5629"), {
+    mediaType: "video/ogg",
+    name: "IMS Caliper Activity Profiles",
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    duration: "PT55M13S",
+    version: "1.1.1"
+  });
+
+  var collection = entityFactory().create(DigitalResourceCollection, BASE_SECTION_IRI.concat("/resources/2"), {
+    name: "Video Collection",
+    keywords: ["collection", "videos"],
+    items: [item01, item02],
     isPartOf: section,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2016-08-01T06:03:00.000Z"),
-    datePublished: moment.utc("2016-08-15T09:30:00.000Z")
+    dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
   // Assert that the JSON produced is the same
