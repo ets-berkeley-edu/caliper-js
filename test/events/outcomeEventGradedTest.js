@@ -30,7 +30,7 @@ var Attempt = require('../../src/entities/assign/attempt');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Person = require('../../src/entities/agent/person');
 var Result = require('../../src/entities/assign/result');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 
 var jsonCompare = require('../testUtils');
 

@@ -26,7 +26,7 @@ var SessionActions = require('../../src/actions/sessionActions');
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 
 var jsonCompare = require('../testUtils');
 

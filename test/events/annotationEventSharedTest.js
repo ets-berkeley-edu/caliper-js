@@ -33,7 +33,7 @@ var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
 
 var jsonCompare = require('../testUtils');

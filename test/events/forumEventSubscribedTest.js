@@ -30,7 +30,7 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var Forum = require('../../src/entities/resource/forum');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Session = require('../../src/entities/session/Session');
 
 // Action

@@ -24,7 +24,7 @@ var Event = require('../../src/events/event');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var VideoObject = require('../../src/entities/resource/videoObject');
 
 var jsonCompare = require('../testUtils');
