@@ -63,7 +63,7 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
   var collection = entityFactory().create(DigitalResourceCollection, BASE_SECTION_IRI.concat("/resources/2"), {
     name: "Video Collection",
     keywords: ["collection", "videos"],
-    items: [item01, item02],
+    items: items,
     isPartOf: section,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
     dateModified: moment.utc("2016-09-02T11:30:00.000Z")
