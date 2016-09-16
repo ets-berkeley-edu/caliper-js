@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -25,13 +26,11 @@ var AssignableActions = require('../../src/actions/assignableActions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
-var Attempt = require('../../src/entities/assign/attempt');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
-var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
+var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
 var Status = require('../../src/entities/lis/status');
 
@@ -42,91 +41,54 @@ test('Create an AssignableEvent (activated) and validate properties', function (
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
+  const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/112233"));
 
-  // The Action for the Caliper Event
+  // The Action
   var action = AssignableActions.ACTIVATED;
 
-  // The Object being interacted with by the Actor (Assessment)
-  var objId = BASE_COURSE_IRI.concat("/assessment/001");
-  var obj = entityFactory().create(Assessment, objId, {
-    name: "American Revolution - Key Figures Assessment",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    datePublished: moment.utc("2015-08-15T09:30:00.000Z"),
-    version: "1.0",
-    dateToActivate: moment.utc("2015-08-16T05:00:00.000Z"),
-    dateToShow: moment.utc("2015-08-16T05:00:00.000Z"),
-    dateToStartOn: moment.utc("2015-08-16T05:00:00.000Z"),
-    dateToSubmit: moment.utc("2015-09-28T11:59:59.000Z"),
+  // The Object of the interaction
+  var obj = entityFactory().create(Assessment, BASE_SECTION_IRI.concat("/assess/1"), {
+    name: "Quiz One",
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2016-09-02T11:30:00.000Z"),
+    datePublished: moment.utc("2016-11-12T10:10:00.000Z"),
+    dateToActivate: moment.utc("2016-11-12T10:15:00.000Z"),
+    dateToStartOn: moment.utc("2016-11-14T05:00:00.000Z"),
+    dateToSubmit: moment.utc("2016-11-18T11:59:59.000Z"),
     maxAttempts: 2,
     maxSubmits: 2,
-    maxScore: 3.0
+    maxScore: 25,
+    version: "1.0"
   });
 
-  // The generated object (Attempt) within the Event Object
-  var generatedId = objId.concat("/attempt/5678");
-  var generated = entityFactory().create(Attempt, generatedId, {
-    actor: actor['@id'],
-    assignable: obj['@id'],
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    startedAtTime: moment.utc("2015-09-15T10:15:00.000Z"),
-    count: 1
-  });
+  // Event time
+  var eventTime = moment.utc("2016-11-12T10:15:00.000Z");
 
   // The edApp
-  var edAppId = "https://example.com/super-assessment-tool";
-  var edApp = entityFactory().create(SoftwareApplication, edAppId, {
-    name: "Super Assessment Tool",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    version: "v2"
-  });
+  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
 
-  // LIS Course Offering
-  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
-    name: "Political Science 101: The American Revolution",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Course Section
-  var sectionId = BASE_COURSE_IRI.concat("/section/001");
-  var section = entityFactory().create(CourseSection, sectionId, {
-    name: "American Revolution 101",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Group
-  var groupId = sectionId.concat("/group/001");
-  var group = entityFactory().create(Group, groupId, {
-    name: "Discussion Group 001",
-    subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+  // Group
+  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    courseNumber: "CPS 435-01",
+    academicSession: "Fall 2016"
   });
 
   // The Actor's Membership
-  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
-  var membership = entityFactory().create(Membership, membershipId, {
-    name: "American Revolution 101",
-    description: "Roster entry",
-    member: actor['@id'],
-    organization: section['@id'],
-    roles: [Role.LEARNER],
+  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    member: actor,
+    organization: _.omit(group, ["courseNumber", "academicSession"]),
+    roles: [Role.INSTRUCTOR],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+  });
+
+  // Session
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/f095bbd391ea4a5dd639724a40b606e98a631823"), {
+    startedAtTime: moment.utc("2016-11-12T10:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -134,11 +96,11 @@ test('Create an AssignableEvent (activated) and validate properties', function (
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
-    generated: generated,
+    eventTime: eventTime,
     edApp: edApp,
     group: group,
-    membership: membership
+    membership: membership,
+    session: session
   });
   
   // Assert that the JSON produced is the same
