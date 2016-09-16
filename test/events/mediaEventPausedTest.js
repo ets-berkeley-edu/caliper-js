@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -24,17 +25,15 @@ var MediaEvent = require('../../src/events/mediaEvent');
 var MediaActions = require('../../src/actions/mediaActions');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
-var Group = require('../../src/entities/lis/group');
-var LearningObjective = require('../../src/entities/assign/learningObjective');
 var MediaLocation = require('../../src/entities/resource/mediaLocation');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
+var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
-var VideoObject = require('../../src/entities/resource/videoObject');
 var Status = require('../../src/entities/lis/status');
+var VideoObject = require('../../src/entities/resource/videoObject');
 
 var jsonCompare = require('../testUtils');
 
@@ -43,90 +42,51 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
-  var baseVideoIRI = "https://example.com/super-media-tool/video/1225";
+  const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // The Action for the Caliper Event
+  // The Action
   var action = MediaActions.PAUSED;
 
-  // Learning Objective
-  var learningObjectiveId = "https://example.edu/american-revolution-101/personalities/learn";
-  var learningObjective = entityFactory().create(LearningObjective, learningObjectiveId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
-  });
-
   // The Object of the interaction
-  var obj = entityFactory().create(VideoObject, baseVideoIRI, {
-    name: "American Revolution - Key Figures Video",
+  var obj = entityFactory().create(VideoObject, BASE_IRI.concat("/UQVK-dsU7-Y"), {
+    name: "Information and Welcome",
     mediaType: "video/ogg",
-    duration: "PT1H12M27S",
-    alignedLearningObjective: [learningObjective],
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "1.0"
+    duration: "PT20M20S"
   });
 
-  // The target location
-  var target = entityFactory().create(MediaLocation, baseVideoIRI, {
-    currentTime: "PT30M54S",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    version: "1.0"
+  // The Target location
+  var target = entityFactory().create(MediaLocation, BASE_IRI.concat("/UQVK-dsU7-Y?t=321"), {
+    currentTime: "PT05M21S"
   });
+
+  // Event time
+  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
   // The edApp
-  var edAppId = "https://example.com/super-media-tool";
-  var edApp = entityFactory().create(SoftwareApplication, edAppId, {
-    name: "Super Media Tool",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "Version 2"
-  });
+  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/player"));
 
-  // LIS Course Offering
-  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
-    name: "Political Science 101: The American Revolution",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Course Section
-  var sectionId = BASE_COURSE_IRI.concat("/section/001");
-  var section = entityFactory().create(CourseSection, sectionId, {
-    name: "American Revolution 101",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Group
-  var groupId = sectionId.concat("/group/001");
-  var group = entityFactory().create(Group, groupId, {
-    name: "Discussion Group 001",
-    subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+  // Group
+  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    courseNumber: "CPS 435-01",
+    academicSession: "Fall 2016"
   });
 
   // The Actor's Membership
-  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
-  var membership = entityFactory().create(Membership, membershipId, {
-    name: "American Revolution 101",
-    description: "Roster entry",
-    member: actor['@id'],
-    organization: section['@id'],
+  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    member: actor,
+    organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+  });
+
+  // Session
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -134,13 +94,69 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
+    eventTime: eventTime,
     target: target,
     edApp: edApp,
     group: group,
-    membership: membership
+    membership: membership,
+    session: session
   });
   
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventMediaPausedVideo', event, t);
 });
+
+/**
+ {
+  "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
+  "@type": "http://purl.imsglobal.org/caliper/v1/MediaEvent",
+  "actor": {
+    "@id": "https://example.edu/users/554433",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Person"
+  },
+  "action": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused",
+  "object": {
+    "@id": "https://example.edu/UQVK-dsU7-Y",
+    "@type": "http://purl.imsglobal.org/caliper/v1/VideoObject",
+    "name": "Information and Welcome",
+    "mediaType": "video/ogg",
+    "duration": "PT20M20S"
+  },
+  "target": {
+    "@id": "https://example.edu/UQVK-dsU7-Y?t=321",
+    "@type": "http://purl.imsglobal.org/caliper/v1/MediaLocation",
+    "currentTime": "PT05M21S"
+  },
+  "eventTime": "2016-11-15T10:15:00.000Z",
+  "edApp": {
+    "@id": "http://example.edu/",
+    "@type": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication"
+  },
+  "group": {
+    "@id": "https://example.edu/terms/201601/courses/7/sections/1",
+    "@type": "http://purl.imsglobal.org/caliper/v1/CourseSection",
+    "courseNumber": "CPS 435-01",
+    "academicSession": "Fall 2016"
+  },
+  "membership": {
+    "@id": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Membership",
+    "member": {
+      "@id": "https://example.edu/users/554433",
+      "@type": "http://purl.imsglobal.org/caliper/v1/Person"
+    },
+    "organization": {
+      "@id": "https://example.edu/terms/201601/courses/7/sections/1",
+      "@type": "http://purl.imsglobal.org/caliper/v1/CourseSection"
+    },
+    "roles": [ "http://purl.imsglobal.org/vocab/lis/v2/membership#Learner" ],
+    "status": "http://purl.imsglobal.org/vocab/lis/v2/status#Active",
+    "dateCreated": "2016-08-01T06:00:00.000Z"
+  },
+  "session": {
+    "@id": "https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259",
+    "@type": "http://purl.imsglobal.org/caliper/v1/Session",
+    "startedAtTime": "2016-11-15T10:00:00.000Z"
+  }
+}
+ */
