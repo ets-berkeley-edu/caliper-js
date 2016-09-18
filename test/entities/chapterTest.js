@@ -34,7 +34,7 @@ test('Create a Chapter entity and validate properties', function (t) {
 
   var parent = entityFactory().create(Document, BASE_IRI, {
     name: "IMS Caliper Implementation Guide",
-    dateCreated: "2016-10-01T06:00:00.000Z",
+    dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
     version: "1.1"
   });
 
