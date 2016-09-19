@@ -30,7 +30,7 @@ var DigitalResource = _.assign(_.create(entity), {
   mediaType: null,
   creators: [],
   keywords: [],
-  alignedLearningObjective: [],
+  learningObjectives: [],
   isPartOf: {},
   datePublished: null,
   version: null
