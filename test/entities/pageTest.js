@@ -48,7 +48,7 @@ test('Create a Page entity and validate properties', function (t) {
     name: "Page 23",
     isPartOf: chapter
   });
-  
+
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntityPage', page, t);
 });
