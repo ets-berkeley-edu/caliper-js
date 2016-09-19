@@ -39,7 +39,7 @@ test('Create a Result entity and validate properties', function (t) {
 
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
   var assignable = entityFactory().create(Assessment, BASE_SECTION_IRI.concat("/assess/1"));
-  var atp = entityFactory().create(Attempt, BASE_ATTEMPT_IRI, {
+  var attempt = entityFactory().create(Attempt, BASE_ATTEMPT_IRI, {
     actor: actor,
     assignable: assignable,
     count: 1,
@@ -53,7 +53,7 @@ test('Create a Result entity and validate properties', function (t) {
   });
 
   var result = entityFactory().create(Result, BASE_ATTEMPT_IRI.concat("/results/1"), {
-    attempt: atp,
+    attempt: attempt,
     comment: "Well done.",
     normalScore: 15.0,
     penaltyScore: 0.0,
