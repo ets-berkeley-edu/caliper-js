@@ -85,11 +85,11 @@ test('Create a ViewEvent (viewed) with custom extensions and validate properties
 
   // Extensions
   var extensions = {
-    cronJob: {
-      "@context": {
-        "@vocab": "http://example.edu/ctx/edu.jsonld"
-      },
-      "@id": BASE_IRI.concat("/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7"),
+    "@context": {
+      "@vocab": "http://example.edu/ctx/edu.jsonld"
+    },
+    job: {
+      "@id": "https://example.edu/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7",
       "@type": "ChronJob",
       jobTag: "caliper",
       jobDate: moment.utc("2016-11-16T01:01:00.000Z")
