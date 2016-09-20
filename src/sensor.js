@@ -89,6 +89,7 @@ Caliper.Request = {};
 Caliper.Validator = {};
 
 // Actions
+Caliper.Actions.Actions               = require('./actions/actions');
 Caliper.Actions.AnnotationActions     = require('./actions/annotationActions');
 Caliper.Actions.AssessmentActions     = require('./actions/assessmentActions');
 Caliper.Actions.AssessmentItemActions = require('./actions/assessmentItemActions');
