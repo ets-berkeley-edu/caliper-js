@@ -60,21 +60,3 @@ test('Create a Basic event (created) and validate properties', function (t) {
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventBasicCreated', event, t);
 });
-
-
-/**
- {
-  "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-  "@type": "http://purl.imsglobal.org/caliper/v1/Event",
-  "actor": {
-    "@id": "https://example.edu/users/554433",
-    "@type": "http://purl.imsglobal.org/caliper/v1/Person"
-  },
-  "action": "http://purl.imsglobal.org/vocab/caliper/v1/action#Created",
-  "object": {
-    "@id": "https://example.edu/videos/6779",
-    "@type": "http://purl.imsglobal.org/caliper/v1/VideoObject"
-  },
-  "eventTime": "2016-11-15T10:15:00.000Z"
-}
- */
