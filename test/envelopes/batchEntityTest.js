@@ -20,9 +20,12 @@ var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var EpubVolume = require('../../src/entities/resource/ePubVolume');
-var Frame = require('../../src/entities/resource/frame');
+var Course = require('../../src/entities/lis/courseOffering');
+var CourseSection = require('../../src/entities/lis/courseSection');
+var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
+var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
+var VideoObject = require('../../src/entities/resource/videoObject');
 
 var jsonCompare = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
@@ -31,40 +34,69 @@ test('Create an Envelope containing batched entities and validate properties', f
 
   // Plan for N assertions
   t.plan(1);
-  
-  const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
 
-  var personId = "https://example.edu/user/554433";
-  var person = entityFactory().create(Person, personId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
+  const BASE_EDU_IRI = "https://example.edu";
+  const BASE_COM_IRI = "https://example.com";
+  const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+  // Person
+  var person = entityFactory().create(Person, BASE_EDU_IRI.concat("/users/554433"), {
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
-  var epubVolume = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
-    name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "2nd ed."
+  // Document
+  var creators = [];
+  creators.push(entityFactory().create(Person, BASE_EDU_IRI.concat("/people/12345")));
+  creators.push(entityFactory().create(Person, BASE_COM_IRI.concat("/staff/56789")));
+
+  var document = entityFactory().create(Document, BASE_EDU_IRI.concat("/etexts/201.epub"), {
+    name: "IMS Caliper Implementation Guide",
+    creators: creators,
+    dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
+    version: "1.1"
   });
 
-  var frame = entityFactory().create(Frame, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
-    name: "Key Figures: George Washington",
-    isPartOf: epubVolume,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "2nd ed.",
-    index: 1
+  // Course context
+  var course = entityFactory().create(Course, BASE_COURSE_IRI);
+  var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, { subOrganizationOf: course });
+
+  // Items
+  var items = [];
+  items.push(entityFactory().create(VideoObject, BASE_EDU_IRI.concat("/videos/1225"), {
+    mediaType: "video/ogg",
+    name: "Introduction to IMS Caliper",
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    duration: "PT1H12M27S",
+    version: "1.1"
+  }));
+  items.push(entityFactory().create(VideoObject, BASE_EDU_IRI.concat("/videos/5629"), {
+    mediaType: "video/ogg",
+    name: "IMS Caliper Activity Profiles",
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    duration: "PT55M13S",
+    version: "1.1.1"
+  }));
+
+  // Collection
+  var collection = entityFactory().create(DigitalResourceCollection, BASE_SECTION_IRI.concat("/resources/2"), {
+    name: "Video Collection",
+    items: items,
+    isPartOf: section,
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
   // Initialize faux sensor and default options
-  var sensor = createFauxSensor("https://example.edu/sensor/001");
+  var sensor = createFauxSensor(BASE_EDU_IRI.concat("/sensors/1"));
   var options = {};
 
   // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
   requestor.initialize(options);
 
-  var sendTime = moment.utc("2015-09-15T11:05:01.000Z");
-  var data = [ person, epubVolume, frame ];
+  var sendTime = moment.utc("2016-11-15T11:05:01.000Z");
+  var data = [ person, document, collection ];
   var envelope = requestor.createEnvelope(sensor, sendTime, data);
 
   // Assert that JSON produced is the same
