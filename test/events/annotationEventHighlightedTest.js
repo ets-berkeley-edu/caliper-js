@@ -26,11 +26,8 @@ var AnnotationActions = require('../../src/actions/annotationActions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var HighlightAnnotation = require('../../src/entities/annotation/highlightAnnotation');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Document = require('../../src/entities/resource/document');
-var Frame = require('../../src/entities/resource/frame');
-var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
