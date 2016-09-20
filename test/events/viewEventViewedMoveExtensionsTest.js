@@ -21,64 +21,47 @@ var moment = require('moment');
 var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
-var AssessmentEvent = require('../../src/events/assessmentEvent');
-var AssessmentActions = require('../../src/actions/assessmentActions');
+var ViewEvent = require('../../src/events/viewEvent');
+var ViewActions = require('../../src/actions/viewActions');
 
-// Entity
 var entityFactory = require('../../src/entities/entityFactory');
-var Assessment = require('../../src/entities/resource/assessment');
-var Attempt = require('../../src/entities/assign/attempt');
 var CourseSection = require('../../src/entities/lis/courseSection');
+var Document = require('../../src/entities/resource/document');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
+
 var Status = require('../../src/entities/lis/status');
 
 var jsonCompare = require('../testUtils');
 
-test('Create an AssessmentEvent (started) and validate properties', function (t) {
+test('Create a ViewEvent (viewed) moving top-level custom properties to extensions and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-  const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = AssessmentActions.STARTED;
+  var action = ViewActions.VIEWED;
 
   // The Object of the interaction
-  var obj = entityFactory().create(Assessment, BASE_ASSESS_IRI, {
-    name: "Quiz One",
-    dateToStartOn: moment.utc("2016-11-14T05:00:00.000Z"),
-    dateToSubmit: moment.utc("2016-11-18T11:59:59.000Z"),
-    maxAttempts: 2,
-    maxSubmits: 2,
-    maxScore: 25,
-    version: "1.0"
+  var obj = entityFactory().create(Document, BASE_IRI.concat("/etexts/200.epub"), {
+    name: "IMS Caliper Specification",
+    version: "1.1"
   });
 
   // Event time
   var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
-  // Generated Attempt
-  var generated = entityFactory().create(Attempt, BASE_ASSESS_IRI.concat("/users/554433/attempts/1"), {
-    actor: actor,
-    assignable: _.omit(obj, [ "name", "dateToStartOn", "dateToSubmit", "maxAttempts",
-      "maxSubmits", "maxScore", "version" ]),
-    dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
-    startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
-    count: 1
-  });
-
   // The edApp
-  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
+  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI);
 
   // Group
   var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
@@ -86,7 +69,7 @@ test('Create an AssessmentEvent (started) and validate properties', function (t)
     academicSession: "Fall 2016"
   });
 
-  // Membership
+  // The Actor's Membership
   var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
     member: actor,
     organization: _.omit(group, ["courseNumber", "academicSession"]),
@@ -100,28 +83,32 @@ test('Create an AssessmentEvent (started) and validate properties', function (t)
     startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
   });
 
-  // Append job and agent to event as top-level properties (validator will move them to extensions) 
-  var job = { 
-    id: "d3df65f7-d66b-41e5-8897-2879ca078733", 
-    name: "Async job" 
-  }; 
-  var agent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"; 
+  // Custom extension appended to the event as a top-level property (move to extensions)
+  var chron = {
+    "@context": {
+      "@vocab": "http://example.edu/ctx/edu.jsonld"
+    },
+    job: {
+      "@id": "https://example.edu/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7",
+      "@type": "ChronJob",
+      jobTag: "caliper",
+      jobDate: moment.utc("2016-11-16T01:01:00.000Z")
+    }
+  };
 
   // Assert that key attributes are the same
-  var event = eventFactory().create(AssessmentEvent, {
+  var event = eventFactory().create(ViewEvent, {
     actor: actor,
     action: action,
     object: obj,
     eventTime: eventTime,
-    generated: generated,
     edApp: edApp,
     group: group,
     membership: membership,
     session: session,
-    job: job,
-    agent: agent
+    job: chron
   });
 
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEventMoveCustomPropertiesToExtensions', event, t);
+  jsonCompare('caliperEventViewViewedExtended', event, t);
 });
