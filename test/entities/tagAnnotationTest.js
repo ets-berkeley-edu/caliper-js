@@ -47,21 +47,3 @@ test('Create a TagAnnotation entity and validate properties', function (t) {
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntityTagAnnotation', annotation, t);
 });
-
-/**
- {
-  "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-  "@id": "https://example.edu/users/554433/etexts/201/tags/3",
-  "@type": "http://purl.imsglobal.org/caliper/v1/TagAnnotation",
-  "actor": {
-    "@id": "https://example.edu/users/554433",
-    "@type": "http://purl.imsglobal.org/caliper/v1/Person"
-  },
-  "annotated": {
-    "@id": "https://example.edu/etexts/201.epub#epubcfi(/6/4[chap01]!/4[body01]/12[para06]/1:97)",
-    "@type": "http://purl.imsglobal.org/caliper/v1/Chapter"
-  },
-  "tags": [ "profile", "event", "entity" ],
-  "dateCreated": "2016-08-01T09:00:00.000Z"
-}
-*/
