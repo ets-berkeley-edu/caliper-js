@@ -26,6 +26,7 @@ var entityType = {
   "AUDIO_OBJECT": "http://purl.imsglobal.org/caliper/v1/AudioObject",
   "BOOKMARK_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/BookmarkAnnotation",
   "CHAPTER": "http://purl.imsglobal.org/caliper/v1/Chapter",
+  "COLLECTION": "http://purl.imsglobal.org/caliper/v1/Collection",
   "COURSE_OFFERING": "http://purl.imsglobal.org/caliper/v1/CourseOffering",
   "COURSE_SECTION": "http://purl.imsglobal.org/caliper/v1/CourseSection",
   "DIGITAL_RESOURCE": "http://purl.imsglobal.org/caliper/v1/DigitalResource",
