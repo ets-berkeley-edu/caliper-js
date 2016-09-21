@@ -39,6 +39,7 @@ test('Create a Document entity and validate properties', function (t) {
 
   var document = entityFactory().create(Document, BASE_EDU_IRI.concat("/etexts/201.epub"), {
     name: "IMS Caliper Implementation Guide",
+    mediaType: "application/epub+zip",
     creators: creators,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
     datePublished: moment.utc("2016-10-01T06:00:00.000Z"),
