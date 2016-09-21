@@ -33,6 +33,7 @@ test('Create an AudioObject entity and validate properties', function (t) {
 
   var audio = entityFactory().create(AudioObject, BASE_IRI.concat("/audio/765"), {
     name: "Audio Recording: IMS Caliper Sensor API Q&A.",
+    mediaType: "audio/ogg",
     datePublished: moment.utc("2016-12-01T06:00:00.000Z"),
     duration: "PT55M13S"
   });
