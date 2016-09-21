@@ -20,9 +20,9 @@ var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var TagAnnotation = require('../../src/entities/annotation/tagAnnotation');
 var Chapter = require('../../src/entities/resource/chapter');
 var Person = require('../../src/entities/agent/person');
+var TagAnnotation = require('../../src/entities/annotation/tagAnnotation');
 
 var jsonCompare = require('../testUtils');
 
