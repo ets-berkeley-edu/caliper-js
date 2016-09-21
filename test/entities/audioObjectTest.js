@@ -40,15 +40,3 @@ test('Create a Document entity and validate properties', function (t) {
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntityAudioObject', document, t);
 });
-
-
-/**
- {
-  "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-  "@id": "https://example.edu/webinars/765",
-  "@type": "http://purl.imsglobal.org/caliper/v1/AudioObject",
-  "name": "Audio Recording: IMS Caliper Sensor API Q&A.",
-  "datePublished": "2016-12-01T06:00:00.000Z",
-  "duration": "PT55M13S"
-}
- */
