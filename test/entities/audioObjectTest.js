@@ -31,12 +31,12 @@ test('Create an AudioObject entity and validate properties', function (t) {
 
   const BASE_IRI = "https://example.edu";
 
-  var document = entityFactory().create(AudioObject, BASE_IRI.concat("/audio/765"), {
+  var audio = entityFactory().create(AudioObject, BASE_IRI.concat("/audio/765"), {
     name: "Audio Recording: IMS Caliper Sensor API Q&A.",
     datePublished: moment.utc("2016-12-01T06:00:00.000Z"),
     duration: "PT55M13S"
   });
 
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityAudioObject', document, t);
+  jsonCompare('caliperEntityAudioObject', audio, t);
 });
