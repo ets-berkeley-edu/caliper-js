@@ -43,18 +43,3 @@ test('Create a VideoObject entity and validate properties', function (t) {
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntityVideoObject', video, t);
 });
-
-
-/**
- {
-  "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-  "@id": "https://example.edu/videos/1225",
-  "@type": "http://purl.imsglobal.org/caliper/v1/VideoObject",
-  "mediaType": "video/ogg",
-  "name": "Introduction to IMS Caliper",
-  "version": "1.1",
-  "dateCreated": "2016-08-01T06:00:00.000Z",
-  "dateModified": "2016-09-02T11:30:00.000Z",
-  "duration": "PT1H12M27S"
-}
- */
