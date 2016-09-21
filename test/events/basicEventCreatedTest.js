@@ -25,8 +25,8 @@ var Event = require('../../src/events/Event');
 var Actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
+var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
-var VideoObject = require('../../src/entities/resource/videoObject');
 
 var jsonCompare = require('../testUtils');
 
@@ -36,6 +36,7 @@ test('Create a Basic event (created) and validate properties', function (t) {
   t.plan(1);
 
   const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -44,7 +45,11 @@ test('Create a Basic event (created) and validate properties', function (t) {
   var action = Actions.CREATED;
 
   // The Object of the interaction
-  var obj = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/6779"));
+  var obj = entityFactory().create(Document, BASE_SECTION_IRI.concat("/resources/123"), {
+    name: "Course Syllabus",
+    dateCreated: moment.utc("2016-11-12T07:15:00.000Z"),
+    version: "1"
+  });
 
   // Event time
   var eventTime = moment.utc("2016-11-15T10:15:00.000Z");

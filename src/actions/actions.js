@@ -34,6 +34,7 @@ var actions = {
   "EXITED_FULLSCREEN": "http://purl.imsglobal.org/vocab/caliper/v1/action#ExitedFullScreen",
   "FORWARDED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#ForwardedTo",
   "JUMPED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#JumpedTo",
+  "MODIFIED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Modified",
   "MUTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Muted",
   "OPENED_POPOUT": "http://purl.imsglobal.org/vocab/caliper/v1/action#OpenedPopout",
   "PAUSED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused",
