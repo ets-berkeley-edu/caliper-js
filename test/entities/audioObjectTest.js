@@ -24,7 +24,7 @@ var AudioObject = require('../../src/entities/resource/audioObject');
 
 var jsonCompare = require('../testUtils');
 
-test('Create a Document entity and validate properties', function (t) {
+test('Create an AudioObject entity and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
