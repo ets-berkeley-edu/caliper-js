@@ -122,7 +122,6 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
     group: group,
     membership: membership,
     session: session
-
   });
 
   // Assert that the JSON produced is the same
