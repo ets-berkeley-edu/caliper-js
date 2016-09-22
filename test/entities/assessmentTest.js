@@ -54,7 +54,7 @@ test('Create an Assessment entity and validate properties', function (t) {
     maxScore: 15,
     version: "1.0"
   });
-  
+
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntityAssessment', assess, t);
 });
