@@ -18,13 +18,13 @@
 
 var _ = require('lodash');
 var constants = require('../../constants');
-var entity = require('../entity');
+var digitalResource = require('./digitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link LearningObjective to delegate Entity and assign default property values.
+ * Link LearningObjective to delegate DigitalResource and assign default property values.
  */
-var LearningObjective = _.assign(_.create(entity), {
+var LearningObjective = _.assign(_.create(digitalResource), {
   '@context': constants.CONTEXT,
   '@type': entityType.LEARNING_OBJECTIVE
 });
