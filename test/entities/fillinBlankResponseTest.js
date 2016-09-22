@@ -24,7 +24,6 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
 var Attempt = require('../../src/entities/assign/attempt');
-var CourseSection = require('../../src/entities/lis/courseSection');
 var FillinBlankResponse = require('../../src/entities/response/fillinBlankResponse');
 var Person = require('../../src/entities/agent/person');
 
