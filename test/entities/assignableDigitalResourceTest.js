@@ -47,18 +47,3 @@ test('Create an AssignableDigitalResource entity and validate properties', funct
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntityAssignableDigitalResource', assignable, t);
 });
-
-/**
- {
-   "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-   "@id": "https://example.edu/terms/201601/courses/7/sections/1/assign/2",
-   "@type": "http://purl.imsglobal.org/caliper/v1/AssignableDigitalResource",
-   "name": "Week 9 Reflection",
-   "description": "3-5 page reflection on this week's assigned readings.",
-   "dateCreated": "2016-11-01T06:00:00.000Z",
-   "dateToStartOn": "2016-11-15T11:59:59.000Z",
-   "maxAttempts": 2,
-   "maxSubmits": 2,
-   "maxScore": 50
- }
- */
