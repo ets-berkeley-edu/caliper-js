@@ -44,6 +44,7 @@ var entityType = {
   "HIGHLIGHT_ANNOTATION": "http://purl.imsglobal.org/caliper/v1/HighlightAnnotation",
   "IMAGE_OBJECT": "http://purl.imsglobal.org/caliper/v1/ImageObject",
   "LEARNING_OBJECTIVE": "http://purl.imsglobal.org/caliper/v1/LearningObjective",
+  "LTI_SESSION": "http://purl.imsglobal.org/caliper/v1/LtiSession",
   "MEDIA_LOCATION": "http://purl.imsglobal.org/caliper/v1/MediaLocation",
   "MEDIA_OBJECT": "http://purl.imsglobal.org/caliper/v1/MediaObject",
   "MEMBERSHIP": "http://purl.imsglobal.org/caliper/v1/Membership",
