@@ -40,17 +40,3 @@ test('Create a Organization entity and validate properties', function (t) {
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntityOrganization', organization, t);
 });
-
-/**
- {
-   "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-   "@id": "https://example.edu/colleges/1/depts/1",
-   "@type": "http://purl.imsglobal.org/caliper/v1/Organization",
-   "name": "Computer Science Department",
-   "subOrganizationOf": {
-     "@id": "https://example.edu/colleges/1",
-     "@type": "http://purl.imsglobal.org/caliper/v1/Organization",
-     "name": "College of Engineering"
-   }
- }
- */
