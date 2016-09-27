@@ -24,9 +24,7 @@ var Course = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResource = require('../../src/entities/resource/digitalResource');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
-var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
-var VideoObject = require('../../src/entities/resource/videoObject');
 
 var jsonCompare = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');

@@ -96,7 +96,10 @@ test('Create an Envelope containing batched entities and validate properties', f
   requestor.initialize(options);
 
   var sendTime = moment.utc("2016-11-15T11:05:01.000Z");
-  var data = [ person, document, collection ];
+  var data = [];
+  data.push(person);
+  data.push(document);
+  data.push(collection);
   var envelope = requestor.createEnvelope(sensor, sendTime, data);
 
   // Assert that JSON produced is the same
