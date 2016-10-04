@@ -99,7 +99,6 @@ Caliper.Actions.MediaActions          = require('./actions/mediaActions');
 Caliper.Actions.MessageActions        = require('./actions/messageActions');
 Caliper.Actions.NavigationActions     = require('./actions/navigationActions');
 Caliper.Actions.OutcomeActions        = require('./actions/outcomeActions');
-Caliper.Actions.ReadingActions        = require('./actions/readingActions');
 Caliper.Actions.SessionActions        = require('./actions/sessionActions');
 Caliper.Actions.ThreadActions         = require('./actions/threadActions');
 Caliper.Actions.ViewActions           = require('./actions/viewActions');
@@ -115,6 +114,7 @@ Caliper.Entities.EntityType      = require('./entities/entityType');
 
 // Agents
 Caliper.Entities.Agent               = require('./entities/agent/agent');
+Caliper.Entities.Group               = require('./entities/agent/group');
 Caliper.Entities.Organization        = require('./entities/agent/organization');
 Caliper.Entities.Person              = require('./entities/agent/person');
 Caliper.Entities.SoftwareApplication = require('./entities/agent/softwareApplication');
@@ -129,7 +129,6 @@ Caliper.Entities.TextPositionSelector = require('./entities/annotation/textPosit
 
 // Assignment-related
 Caliper.Entities.Attempt           = require('./entities/assign/attempt');
-Caliper.Entities.LearningObjective = require('./entities/assign/learningObjective');
 Caliper.Entities.Result            = require('./entities/assign/result');
 
 // Digital Resources
@@ -145,6 +144,7 @@ Caliper.Entities.EPubVolume                = require('./entities/resource/ePubVo
 Caliper.Entities.Forum                     = require('./entities/resource/forum');
 Caliper.Entities.Frame                     = require('./entities/resource/frame');
 Caliper.Entities.ImageObject               = require('./entities/resource/imageObject');
+Caliper.Entities.LearningObjective         = require('./entities/resource/learningObjective');
 Caliper.Entities.MediaObject               = require('./entities/resource/mediaObject');
 Caliper.Entities.MediaLocation             = require('./entities/resource/mediaLocation');
 Caliper.Entities.Message                   = require('./entities/resource/message');
@@ -156,7 +156,6 @@ Caliper.Entities.WebPage                   = require('./entities/resource/webPag
 // LIS
 Caliper.Entities.CourseOffering = require('./entities/lis/courseOffering');
 Caliper.Entities.CourseSection  = require('./entities/lis/courseSection');
-Caliper.Entities.Group          = require('./entities/lis/group');
 Caliper.Entities.Membership     = require('./entities/lis/membership');
 Caliper.Entities.Role           = require('./entities/lis/role');
 Caliper.Entities.Status         = require('./entities/lis/status');
