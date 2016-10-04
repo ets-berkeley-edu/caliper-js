@@ -16,13 +16,30 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-/**
- * Enum representing all reading actions.
- * @enum
- */
-var readingActions = {
-  "SEARCHED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched",
-  "VIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
-};
+var moment = require('moment');
+var test = require('tape');
 
-module.exports = readingActions;
+var entityFactory = require('../../src/entities/entityFactory');
+var VideoObject = require('../../src/entities/resource/videoObject');
+
+var jsonCompare = require('../testUtils');
+
+test('Create a VideoObject entity and validate properties', function (t) {
+
+  // Plan for N assertions
+  t.plan(1);
+
+  const BASE_IRI = "https://example.edu";
+
+  var video = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
+    name: "Introduction to IMS Caliper",
+    mediaType: "video/ogg",
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+    dateModified: moment.utc("2016-09-02T11:30:00.000Z"),
+    duration: "PT1H12M27S",
+    version: "1.1"
+  });
+
+  // Assert that the JSON produced is the same
+  jsonCompare('caliperEntityVideoObject', video, t);
+});

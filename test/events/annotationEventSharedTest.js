@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -25,15 +26,13 @@ var AnnotationActions = require('../../src/actions/annotationActions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var SharedAnnotation = require('../../src/entities/annotation/sharedAnnotation');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
-var EpubVolume = require('../../src/entities/resource/ePubVolume');
-var Frame = require('../../src/entities/resource/frame');
-var Group = require('../../src/entities/lis/group');
+var Document = require('../../src/entities/resource/document');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var Session = require('../../src/entities/session/session');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
 
 var jsonCompare = require('../testUtils');
@@ -43,104 +42,58 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
-  const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
+  const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // The Action for the Caliper Event
+  // The Action
   var action = AnnotationActions.SHARED;
 
-  var ePub = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
-    name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "2nd ed."
-  });
-
   // The Object of the interaction
-  var obj = entityFactory().create(Frame, BASE_EPUB_IRI.concat("#epubcfi(/4/3/3)"), {
-    name: "Key Figures: John Adams",
-    isPartOf: ePub,
-    index: 3,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: ePub.version
+  var obj = entityFactory().create(Document, BASE_IRI.concat("/etexts/201.epub"), {
+    name: "IMS Caliper Implementation Guide",
+    version: "1.1"
   });
 
-  // Shared with
-  var share1 = entityFactory().create(Person, "https://example.edu/user/657585", {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  var share2 = entityFactory().create(Person, "https://example.edu/user/667788", {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
+  // Shares
+  var sharedWith = [];
+  sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/657585")));
+  sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/667788")));
 
   // The Generated annotation
-  var generatedId = "https://example.edu/shared/9999";
-  var generated = entityFactory().create(SharedAnnotation, generatedId, {
-    actor: actor['@id'],
-    annotated: obj['@id'],
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    withAgents: [share1, share2]
+  var generated = entityFactory().create(SharedAnnotation, BASE_IRI.concat("/users/554433/etexts/201/shares/1"), {
+    actor: actor,
+    annotated: _.omit(obj, [ "name", "dateCreated", "version" ]),
+    dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
+    withAgents: sharedWith
   });
+
+  // Event time
+  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
   // The edApp
-  var edAppId = "https://example.com/viewer";
-  var edApp = entityFactory().create(SoftwareApplication, edAppId, {
-    name: "ePub",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "1.2.3"
-  });
+  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "1.2.3" });
 
-  // LIS Course Offering
-  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
-    name: "Political Science 101: The American Revolution",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Course Section
-  var sectionId = BASE_COURSE_IRI.concat("/section/001");
-  var section = entityFactory().create(CourseSection, sectionId, {
-    name: "American Revolution 101",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Group
-  var groupId = sectionId.concat("/group/001");
-  var group = entityFactory().create(Group, groupId, {
-    name: "Discussion Group 001",
-    subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+  // The Group
+  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    courseNumber: "CPS 435-01",
+    academicSession: "Fall 2016"
   });
 
   // The Actor's Membership
-  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
-  var membership = entityFactory().create(Membership, membershipId, {
-    name: "American Revolution 101",
-    description: "Roster entry",
-    member: actor['@id'],
-    organization: section['@id'],
+  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    member: actor,
+    organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+  });
+
+  // Session
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -148,11 +101,12 @@ test('Create an AnnotationEvent (shared) and validate properties', function (t) 
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
+    eventTime: eventTime,
     generated: generated,
     edApp: edApp,
     group: group,
-    membership: membership
+    membership: membership,
+    session: session
   });
 
   // Assert that the JSON produced is the same

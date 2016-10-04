@@ -21,12 +21,8 @@
  * @enum
  */
 var forumActions = {
-  "CREATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Created",
-  "DELETED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deleted",
-  "REMOVED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Removed",
   "SUBSCRIBED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed",
-  "UNSUBSCRIBED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unsubscribed",
-  "UPDATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Updated"
+  "UNSUBSCRIBED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unsubscribed"
 };
 
 module.exports = forumActions;

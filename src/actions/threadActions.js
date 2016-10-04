@@ -21,12 +21,8 @@
  * @enum
  */
 var threadActions = {
-  "CREATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Created",
-  "DELETED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deleted",
   "MARKED_AS_READ": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsRead",
   "MARKED_AS_UNREAD": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsUnread",
-  "REMOVED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Removed",
-  "UPDATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Updated"
 };
 
 module.exports = threadActions;

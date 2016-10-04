@@ -19,40 +19,32 @@
 var moment = require('moment');
 var test = require('tape');
 
-var eventFactory = require('../../src/events/eventFactory');
-var Event = require('../../src/events/event');
-
 var entityFactory = require('../../src/entities/entityFactory');
-var Person = require('../../src/entities/agent/person');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
-var VideoObject = require('../../src/entities/resource/videoObject');
+var Collection = require('../../src/entities/collection');
+var Group = require('../../src/entities/agent/group');
 
 var jsonCompare = require('../testUtils');
 
-test('Create a generic Event (videoObject created) using the eventFactory and validate properties', function (t) {
+test('Create a Collection entity and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, actorId);
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // The Action for the Caliper Event
-  var action = "http://purl.imsglobal.org/vocab/caliper/v1/action#Created";
+  // Items
+  var items = [];
+  items.push(entityFactory().create(Group, BASE_SECTION_IRI.concat("/groups/1")));
+  items.push(entityFactory().create(Group, BASE_SECTION_IRI.concat("/groups/3")));
+  items.push(entityFactory().create(Group, BASE_SECTION_IRI.concat("/groups/5")));
 
-  // The Object being interacted with by the Actor
-  var objId = "https://example.com/super-media-tool/video/6779";
-  var obj = entityFactory().create(VideoObject, objId);
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(Event, {
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00.000Z")
+  // Collection
+  var collection = entityFactory().create(Collection, BASE_SECTION_IRI.concat("/groups"), {
+    name: "Groups",
+    items: items,
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
   // Assert that the JSON produced is the same
-  jsonCompare('caliperEventMinimalCreated', event, t);
+  jsonCompare('caliperEntityCollection', collection, t);
 });

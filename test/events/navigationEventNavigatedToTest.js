@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -24,15 +25,12 @@ var NavigationEvent = require('../../src/events/navigationEvent');
 var NavigationActions = require('../../src/actions/navigationActions');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
-var EpubVolume = require('../../src/entities/resource/ePubVolume');
-var Frame = require('../../src/entities/resource/frame');
-var Group = require('../../src/entities/lis/group');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var Session = require('../../src/entities/session/session');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var WebPage = require('../../src/entities/resource/webPage');
 var Status = require('../../src/entities/lis/status');
 
@@ -43,92 +41,49 @@ test('Create a NavigationEvent (navigatedTo) and validate properties', function 
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/politicalScience/2015/american-revolution-101";
-  const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
+  const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, actorId, {
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // The Action for the Caliper Event
+  // The Action
   var action = NavigationActions.NAVIGATED_TO;
 
-  // The Object being interacted with by the Actor
-  var obj = entityFactory().create(EpubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
-    name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "2nd ed."
+  // The Object of the interaction
+  var obj = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/2"), {
+    name: "Learning Analytics Specifications",
+    description: "Overview of Learning Analytics Specifications with particular emphasis on IMS Caliper.",
+    dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
   });
 
-  // The target object (frame) within the Event Object
-  var target = entityFactory().create(Frame, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
-    name: "Key Figures: George Washington",
-    isPartOf: obj,
-    index: 1,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "2nd ed."
-  });
+  // Event time
+  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
-  // Specific to the Navigation Event - the location where the user navigated from
-  var referrer = entityFactory().create(WebPage, BASE_COURSE_IRI.concat("/index.html"), {
-    name: "American Revolution 101 Landing Page",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "1.0"
-  });
+  // Referring resource
+  var referrer = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/1"));
 
   // The edApp
-  var edAppId = "https://example.com/viewer";
-  var edApp = entityFactory().create(SoftwareApplication, edAppId, {
-    name: "ePub",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z"),
-    version: "1.2.3"
-  });
+  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI);
 
-  // LIS Course Offering
-  var course = entityFactory().create(CourseOffering, BASE_COURSE_IRI, {
-    name: "Political Science 101: The American Revolution",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Course Section
-  var sectionId = BASE_COURSE_IRI.concat("/section/001");
-  var section = entityFactory().create(CourseSection, sectionId, {
-    name: "American Revolution 101",
-    courseNumber: "POL101",
-    academicSession: "Fall-2015",
-    subOrganizationOf: course,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2015-09-02T11:30:00.000Z")
-  });
-
-  // LIS Group
-  var groupId = sectionId.concat("/group/001");
-  var group = entityFactory().create(Group, groupId, {
-    name: "Discussion Group 001",
-    subOrganizationOf: section,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+  // Group
+  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    courseNumber: "CPS 435-01",
+    academicSession: "Fall 2016"
   });
 
   // The Actor's Membership
-  var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
-  var membership = entityFactory().create(Membership, membershipId, {
-    name: "American Revolution 101",
-    description: "Roster entry",
-    member: actor['@id'],
-    organization: section['@id'],
+  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    member: actor,
+    organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.LEARNER],
     status: Status.ACTIVE,
-    dateCreated: moment.utc("2015-08-01T06:00:00.000Z")
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+  });
+
+  // Session
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
   });
 
   // Assert that key attributes are the same
@@ -136,12 +91,12 @@ test('Create a NavigationEvent (navigatedTo) and validate properties', function 
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2015-09-15T10:15:00.000Z"),
-    target: target,
+    eventTime: eventTime,
     referrer: referrer,
     edApp: edApp,
     group: group,
-    membership: membership
+    membership: membership,
+    session: session
   });
 
   // Assert that the JSON produced is the same

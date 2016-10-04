@@ -20,6 +20,7 @@ var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
+var Course = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Forum = require('../../src/entities/resource/forum');
 var Thread = require('../../src/entities/resource/thread');
@@ -31,27 +32,33 @@ test('Create a Forum entity and validate properties', function (t) {
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/semesters/201601/courses/25";
+  const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+  const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/1";
 
-  var forumId = BASE_COURSE_IRI.concat("/forums/1");
-  var thread01 = entityFactory().create(Thread, forumId.concat("/topics/1"), {
+  // Course context
+  var course = entityFactory().create(Course, BASE_COURSE_IRI);
+  var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, { subOrganizationOf: course });
+
+  // Items
+  var items = [];
+  items.push(entityFactory().create(Thread, BASE_FORUM_IRI.concat("/topics/1"), {
     name: "Caliper Information Model",
-    dateCreated: moment.utc("2016-08-01T06:01:00.000Z")
-  });
-  var thread02 = entityFactory().create(Thread, forumId.concat("/topics/2"), {
+    dateCreated: moment.utc("2016-11-01T09:30:00.000Z")
+  }));
+  items.push(entityFactory().create(Thread, BASE_FORUM_IRI.concat("/topics/2"), {
     name: "Caliper Sensor API",
-    dateCreated: moment.utc("2016-08-01T06:02:00.000Z")
-  });
-  var thread03 = entityFactory().create(Thread, forumId.concat("/topics/3"), {
+    dateCreated: moment.utc("2016-11-01T09:30:00.000Z")
+  }));
+  items.push(entityFactory().create(Thread, BASE_FORUM_IRI.concat("/topics/3"), {
     name: "Caliper Certification",
-    dateCreated: moment.utc("2016-09-02T11:30:00.000Z")
-  });
+    dateCreated: moment.utc("2016-11-01T09:30:00.000Z")
+  }));
 
-  var section = entityFactory().create(CourseSection, BASE_COURSE_IRI.concat("/sections/1"));
-
-  var forum = entityFactory().create(Forum, forumId, {
+  // Forum
+  var forum = entityFactory().create(Forum, BASE_FORUM_IRI, {
     name: "Caliper Forum",
-    items: [thread01, thread02, thread03],
+    items: items,
     isPartOf: section,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
     dateModified: moment.utc("2016-09-02T11:30:00.000Z")

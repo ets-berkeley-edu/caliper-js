@@ -27,8 +27,7 @@ var entityType = require('../entityType');
 var Result = _.assign(_.create(entity), {
   '@context': constants.CONTEXT,
   '@type': entityType.RESULT,
-  actor: {},
-  assignable: {},
+  attempt: {},
   normalScore: null,
   penaltyScore: null,
   extraCreditScore: null,

@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -29,7 +30,7 @@ var Forum = require('../../src/entities/resource/forum');
 var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
-var SoftwareApplication = require('../../src/entities/agent/SoftwareApplication');
+var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Session = require('../../src/entities/session/Session');
 var Thread = require('../../src/entities/resource/thread');
 var Status = require('../../src/entities/lis/status');
@@ -41,57 +42,60 @@ test('Create a ThreadEvent (markedAsRead) and validate properties', function (t)
   // Plan for N assertions
   t.plan(1);
 
-  const BASE_COURSE_IRI = "https://example.edu/semesters/201601/courses/25";
-  const BASE_LMS_IRI = "https://example.com/lms";
+  const BASE_IRI = "https://example.edu";
+  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // The Actor for the Caliper Event
-  var actorId = "https://example.edu/user/554433";
-  var actor = entityFactory().create(Person, actorId);
+  // The Actor
+  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action for the Caliper Event
   var action = ThreadActions.MARKED_AS_READ;
 
   // Forum context
-  var forumId = BASE_COURSE_IRI.concat("/forums/1");
-  var forum = entityFactory().create(Forum, forumId, {
+  var forum = entityFactory().create(Forum, BASE_SECTION_IRI.concat("/forums/1"), {
     name: "Caliper Forum",
-    dateCreated: moment.utc("2016-09-15T10:15:00.000Z")
+    dateCreated: moment.utc("2016-11-15T10:15:00.000Z")
   });
 
   // Thread object
-  var obj = entityFactory().create(Thread, forumId.concat("/topics/1"), {
+  var obj = entityFactory().create(Thread, BASE_SECTION_IRI.concat("/forums/1/topics/1"), {
     name: "Caliper Information Model",
     isPartOf: forum,
-    dateCreated: moment.utc("2016-09-15T10:16:00.000Z")
+    dateCreated: moment.utc("2016-11-15T10:16:00.000Z")
   });
+
+  // Event time
+  var eventTime = moment.utc("2016-11-15T10:16:00.000Z");
 
   // edApp context
-  var edApp = entityFactory().create(SoftwareApplication, BASE_LMS_IRI.concat("/forums"), { version: "v2" });
+  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/forums"), { version: "v2" });
 
   // Group context
-  var group = entityFactory().create(CourseSection, BASE_COURSE_IRI.concat("/sections/1"), {
-    courseNumber: "POL101-01",
-    academicSession: "Fall-2016"
+  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    courseNumber: "CPS 435-01",
+    academicSession: "Fall 2016"
   });
 
-  // Actor's membership context
-  var membership = entityFactory().create(Membership, BASE_COURSE_IRI.concat("/rosters/1"), {
-    member: actor['@id'],
-    organization: group['@id'],
+  // The Actor's Membership
+  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    member: actor,
+    organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.LEARNER],
-    status: Status.ACTIVE
+    status: Status.ACTIVE,
+    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
-  // Local Session
-  var sessionId = BASE_LMS_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
-  var session = entityFactory().create(Session, sessionId, { startedAtTime: moment.utc("2016-09-15T10:13:00.000Z") });
+  // Session
+  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+  });
 
   // Assert that key attributes are the same
   var event = eventFactory().create(ThreadEvent, {
     actor: actor,
     action: action,
     object: obj,
-    eventTime: moment.utc("2016-09-15T10:16:00.000Z"),
+    eventTime: eventTime,
     edApp: edApp,
     group: group,
     membership: membership,
