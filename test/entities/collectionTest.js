@@ -21,7 +21,7 @@ var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Collection = require('../../src/entities/collection');
-var Group = require('../../src/entities/lis/group');
+var Group = require('../../src/entities/agent/group');
 
 var jsonCompare = require('../testUtils');
 

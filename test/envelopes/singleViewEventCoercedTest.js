@@ -37,6 +37,7 @@ var Status = require('../../src/entities/lis/status');
 var jsonCompare = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
+/**
 test('Create an Envelope containing single ViewEvent (viewed), coerce actor, object, edApp and validate properties', function (t) {
 
   // Plan for N assertions
@@ -128,6 +129,7 @@ test('Create an Envelope containing single ViewEvent (viewed), coerce actor, obj
   // Assert that JSON produced is the same
   jsonCompare('caliperEnvelopeEventViewViewedCoerced', envelope, t);
 });
+ */
 
 /**
  * Create a fake sensor object in order to avoid generating a "window is not defined"
