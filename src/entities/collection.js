@@ -27,6 +27,7 @@ var entityType = require('./entityType');
 var Collection = _.assign(_.create(entity), {
   '@context': constants.CONTEXT,
   '@type': entityType.COLLECTION,
+  isPartOf: {},
   items: []
 });
 
