@@ -44,7 +44,7 @@ var WebPage = require('../../src/entities/resource/webPage');
 var jsonCompare = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
-test('Create an Envelope containing batched Events (Navigation, Annotation, View) and validate properties', function (t) {
+test('Create an Envelope containing batched Navigation, Annotation, View Events and validate properties', function (t) {
 
   // Plan for N assertions
   t.plan(1);
