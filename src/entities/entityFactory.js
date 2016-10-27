@@ -35,13 +35,22 @@ function entityFactory() {
       var protoId = id || null;
       var properties = props || {};
 
+      proto['@id'] = protoId;
+      //properties['@id'] = protoId;
+
       // Validation checks
-      properties['@context'] = validator.checkCtx(proto, properties);
-      properties['@type'] = validator.checkType(proto, properties);
-      properties['@id'] = validator.checkId(protoId, properties);
+
+      //properties['@context'] = validator.checkCtx(proto, properties);
+      //properties['@type'] = validator.checkType(proto, properties);
+      //properties['@id'] = validator.checkId(protoId, properties);
       properties = validator.moveToExtensions(proto, properties);
 
-      return _.assign(_.create(proto), properties);
+      //return _.create(proto, properties);
+      // return _.assign(proto, properties); -> TypeError: Converting circular structure to JSON
+      //return _.assign(_.create(proto), properties);
+
+      // Combine objects (composition) against an empty target literal
+      return _.assign({}, proto, properties);
     }
   }
 }

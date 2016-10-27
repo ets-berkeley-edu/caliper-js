@@ -18,15 +18,11 @@
 
 var _ = require('lodash');
 var organization = require('./organization');
-var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**
- * Link Group to delegate Organization and assign default property values.
+ * Compose Group from Organization and set default properties.
  */
-var Group = _.assign(_.create(organization), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.GROUP
-});
+var Group = _.assign({}, organization, { "@type": entityType.GROUP });
 
 module.exports = Group;

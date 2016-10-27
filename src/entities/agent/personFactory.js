@@ -17,13 +17,28 @@
  */
 
 var _ = require('lodash');
-var digitalResource = require('./digitalResource');
+// var agent = require('./agent');
+var entity = require('../entity');
+var agent = require('./agentFactory');
+var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**
- * Compose EpubPart from DigitalResource and set default properties.
- * @deprecated
+ * Factory Function
+ * @param id
+ * @param opts
  */
-var EPubPart = _.assign({}, digitalResource, { "@type": entityType.EPUB_PART });
+ var Person = function person() {
+   var type = { "@type": entityType.PERSON };
 
-module.exports = EPubPart;
+   return {
+     create: function create(id, opts) {
+       var id = { "@id": id || "_" };
+       var options = _.assign(opts, id, type) || _.assign({}, id, type);
+
+       return _.assign(_.create(agent().create(id)), options);
+     }
+   };
+ };
+
+module.exports = Person;

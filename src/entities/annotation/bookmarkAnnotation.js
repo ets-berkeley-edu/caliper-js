@@ -17,17 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var annotation = require('./annotation');
 var entityType = require('../entityType');
 
 /**
- * Link BookmarkAnnotation to delegate Annotation and assign default property values.
+ * Compose BookmarkAnnotation from Annotation and set default properties.
  */
-var BookmarkAnnotation = _.assign(_.create(annotation), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.BOOKMARK_ANNOTATION,
-  bookmarkNotes: null
-});
+var BookmarkAnnotation = _.assign({}, annotation, { "@type": entityType.BOOKMARK_ANNOTATION, bookmarkNotes: null });
 
 module.exports = BookmarkAnnotation;

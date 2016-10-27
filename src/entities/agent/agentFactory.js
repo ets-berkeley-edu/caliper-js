@@ -17,13 +17,42 @@
  */
 
 var _ = require('lodash');
-var digitalResource = require('./digitalResource');
+var constants = require('../../constants');
+var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Compose EpubPart from DigitalResource and set default properties.
- * @deprecated
+ * Link Agent to delegate Entity and assign default property values.
  */
-var EPubPart = _.assign({}, digitalResource, { "@type": entityType.EPUB_PART });
+/*
+ var Agent = _.assign(_.create(entity), {
+ '@context': constants.CONTEXT,
+ '@type': entityType.AGENT
+ });
+ */
+/**
+var Agent = _.create(entity.prototype, {
+  '@context': constants.CONTEXT,
+  '@type': entityType.AGENT
+});
+*/
 
-module.exports = EPubPart;
+/**
+ * Factory Function
+ * @param id
+ * @param opts
+ */
+var Agent = function agent() {
+  var type = { "@type": entityType.AGENT };
+
+  return {
+    create: function create(id, opts) {
+      var id = { "@id": id || "_" };
+      var options = _.assign(opts, id, type) || _.assign({}, id, type);
+
+      return _.assign(_.create(entity), options);
+    }
+  };
+};
+
+module.exports = Agent;

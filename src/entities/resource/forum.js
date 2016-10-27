@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
-var digitalResourceCollection = require('./digitalResourceCollection');
+var collection = require('./digitalResourceCollection');
 var entityType = require('../entityType');
 
 /**
- * Link Forum to delegate DigitalResourceCollection and assign default property values.
+ * Compose Forum from DigitalResourceCollection and set default properties.
  */
-var Forum = _.assign(_.create(digitalResourceCollection), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.FORUM
-});
+var Forum = _.assign({}, collection, { "@type": entityType.FORUM });
 
 module.exports = Forum;

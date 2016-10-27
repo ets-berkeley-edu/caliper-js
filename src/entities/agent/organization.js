@@ -18,16 +18,11 @@
 
 var _ = require('lodash');
 var agent = require('./agent');
-var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**
- * Link Organization to delegate Agent and assign default property values.
+ * Compose Organization from Agent and set default properties.
  */
-var Organization = _.assign(_.create(agent), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.ORGANIZATION,
-  subOrganizationOf: {}
-});
+var Organization = _.assign({}, agent, { "@type": entityType.ORGANIZATION, subOrganizationOf: {} });
 
 module.exports = Organization;

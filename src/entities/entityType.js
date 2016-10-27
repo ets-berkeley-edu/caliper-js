@@ -17,7 +17,7 @@
  */
 
 var entityType = {
-  "AGENT": "http://purl.imsglobal.org/caliper/v1/AGENT",
+  "AGENT": "http://purl.imsglobal.org/caliper/v1/Agent",
   "ANNOTATION": "http://purl.imsglobal.org/caliper/v1/Annotation",
   "ASSESSMENT": "http://purl.imsglobal.org/caliper/v1/Assessment",
   "ASSESSMENT_ITEM": "http://purl.imsglobal.org/caliper/v1/AssessmentItem",

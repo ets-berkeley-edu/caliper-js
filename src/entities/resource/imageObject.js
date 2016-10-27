@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var mediaObject = require('./mediaObject');
 var entityType = require('../entityType');
 
 /**
- * Link ImageObject to delegate MediaObject and assign default property values.
+ * Compose ImageObject from MediaObject and set default properties.
  */
-var ImageObject = _.assign(_.create(mediaObject), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.IMAGE_OBJECT
-});
+var ImageObject = _.assign({}, mediaObject, { "@type": entityType.IMAGE_OBJECT });
 
 module.exports = ImageObject;

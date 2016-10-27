@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var digitalResource = require('./digitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link WebPage to delegate DigitalResource and assign default property values.
+ * Compose WebPage from DigitalResource and set default properties.
  */
-var WebPage = _.assign(_.create(digitalResource), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.WEB_PAGE
-});
+var WebPage = _.assign({}, digitalResource, { "@type": entityType.WEB_PAGE });
 
 module.exports = WebPage;

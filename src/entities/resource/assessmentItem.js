@@ -17,17 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var assignable = require('./assignableDigitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link AssessmentItem to delegate AssignableDigitalResource and assign default property values.
+ * Compose AssessmentItem from AssignableDigitalResource and set default properties.
  */
-var AssessmentItem = _.assign(_.create(assignable), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.ASSESSMENT_ITEM,
-  isTimeDependent: false
-});
+var AssessmentItem = _.assign({}, assignable, { "@type": entityType.ASSESSMENT_ITEM, isTimeDependent: null });
 
 module.exports = AssessmentItem;

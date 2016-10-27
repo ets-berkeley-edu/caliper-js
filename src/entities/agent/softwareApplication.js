@@ -17,17 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var agent = require('./agent');
 var entityType = require('../entityType');
 
 /**
- * Link SoftwareApplication to delegate Agent and assign default property values.
+ * Compose SoftwareApplication from Agent and set default properties.
  */
-var SoftwareApplication = _.assign(_.create(agent), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.SOFTWARE_APPLICATION,
-  version: null
-});
+var SoftwareApplication = _.assign({}, agent, { "@type": entityType.SOFTWARE_APPLICATION, version: null });
 
 module.exports = SoftwareApplication;

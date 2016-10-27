@@ -17,16 +17,14 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Link Attempt to delegate Entity and assign default property values.
+ * Compose Attempt from Entity and set default properties.
  */
-var Attempt = _.assign(_.create(entity), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.ATTEMPT,
+var Attempt = _.assign({}, entity, {
+  "@type": entityType.ATTEMPT,
   actor: {},
   assignable: {},
   isPartOf: {},

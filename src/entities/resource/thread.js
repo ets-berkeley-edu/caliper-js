@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
-var digitalResourceCollection = require('./digitalResourceCollection');
+var collection = require('./digitalResourceCollection');
 var entityType = require('../entityType');
 
 /**
- * Link Thread to delegate DigitalResourceCollection and assign default property values.
+ * Compose Thread from DigitalResourceCollection and set default properties.
  */
-var Thread = _.assign(_.create(digitalResourceCollection), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.THREAD
-});
+var Thread = _.assign({}, collection, { "@type": entityType.THREAD });
 
 module.exports = Thread;
