@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link AssessmentEvent to delegate Event and assign default property values.
+ * Compose AssessmentEvent from Event and set default properties.
  */
-var AssessmentEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.ASSESSMENT
-});
+var AssessmentEvent = _.assign({}, event, { "@type": eventType.ASSESSMENT });
 
 module.exports = AssessmentEvent;

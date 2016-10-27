@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link ReadingEvent to delegate Event and assign default property values.
+ * Compose ReadingEvent from Event and set default properties.
  */
-var ReadingEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.READING
-});
+var ReadingEvent = _.assign({}, event, { "@type": eventType.READING });
 
 module.exports = ReadingEvent;

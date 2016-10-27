@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link ThreadEvent to delegate Event and assign default property values.
+ * Compose ThreadEvent from Event and set default properties.
  */
-var ThreadEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.THREAD
-});
+var ThreadEvent = _.assign({}, event, { "@type": eventType.THREAD });
 
 module.exports = ThreadEvent;

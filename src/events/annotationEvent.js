@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link AnnotationEvent to delegate Event and assign default property values.
+ * Compose AnnotationEvent from Event and set default properties.
  */
-var AnnotationEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.ANNOTATION
-});
+var AnnotationEvent = _.assign({}, event, { "@type": eventType.ANNOTATION });
 
 module.exports = AnnotationEvent;

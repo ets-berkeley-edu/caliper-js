@@ -34,11 +34,13 @@ function eventFactory() {
       var properties = props || {};
 
       // Validation checks
-      properties['@context'] = validator.checkCtx(proto, properties);
-      properties['@type'] = validator.checkType(proto, properties);
-      properties = validator.moveToExtensions(proto, properties);
+      // properties['@context'] = validator.checkCtx(proto, properties);
+      // properties['@type'] = validator.checkType(proto, properties);
+      // properties = validator.moveToExtensions(proto, properties);
 
-      return _.assign(_.create(proto), properties);
+      // Combine objects (composition) against an empty target literal
+      return _.assign({}, proto, properties);
+      //return _.assign(_.create(proto), properties);
     }
   }
 }

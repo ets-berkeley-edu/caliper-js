@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link NavigationEvent to delegate Event and assign default property values.
+ * Compose NavigationEvent from Event and set default properties.
  */
-var NavigationEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.NAVIGATION
-});
+var NavigationEvent = _.assign({}, event, { "@type": eventType.NAVIGATION });
 
 module.exports = NavigationEvent;

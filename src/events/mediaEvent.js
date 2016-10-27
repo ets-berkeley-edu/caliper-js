@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link MediaEvent to delegate Event and assign default property values.
+ * Compose MediaEvent from Event and set default properties.
  */
-var MediaEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.MEDIA
-});
+var MediaEvent = _.assign({}, event, { "@type": eventType.MEDIA });
 
 module.exports = MediaEvent;

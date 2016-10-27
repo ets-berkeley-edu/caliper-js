@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link OutcomeEvent to delegate Event and assign default property values.
+ * Compose OutcomeEvent from Event and set default properties.
  */
-var OutcomeEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.OUTCOME
-});
+var OutcomeEvent = _.assign({}, event, { "@type": eventType.OUTCOME });
 
 module.exports = OutcomeEvent;

@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link MessageEvent to delegate Event and assign default property values.
+ * Compose MessageEvent from Event and set default properties.
  */
-var MessageEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.MESSAGE
-});
+var MessageEvent = _.assign({}, event, { "@type": eventType.MESSAGE });
 
 module.exports = MessageEvent;
