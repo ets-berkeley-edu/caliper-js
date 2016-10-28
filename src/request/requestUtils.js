@@ -22,7 +22,7 @@ var objPropNames = [ "actor", "annotated", "assignable", "attempt", "edApp", "fe
   "group", "isPartOf", "learningObjectives", "member", "membership", "object", "organization", "referrer",
   "replyTo", "scoredBy", "session", "subOrganizationOf", "target", "withAgents" ];
 
-var ctxRegex = new RegExp(/http:\/\/purl.imsglobal.org\/ctx\/caliper/);
+var regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper/;
 
 /**
  * Represents httpRequestor self.
@@ -86,7 +86,7 @@ self.replacer = function(key, val) {
  */
 self.deleteContext = function(obj) {
   if (obj.hasOwnProperty("@context")) {
-    if (ctxRegex.test(obj["@context"])) {
+    if (regexCtx.test(obj["@context"])) {
       delete obj["@context"];
     }
   }
