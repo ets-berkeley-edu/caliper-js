@@ -17,40 +17,34 @@
  */
 
 var _ = require('lodash');
-var Entity = require('./entity');
+var entity = require('./entity');
 var entityType = require('./entityType');
 var validator = require('./entityValidator');
 
 /**
  * Factory function that returns a mutated object based on a delegate prototype when the
  * factory create method is invoked. All enumerable string keyed properties included in
- * the "props" object and other sources are also assigned to the created object in the
- * order provided.
+ * the other sources are also assigned to the created object in the order provided.
  * @returns {{create: create}}
  */
 function entityFactory() {
   return {
-    create: function create(delegate, id, props) {
-      var proto = delegate || Entity;
-      var protoId = id || null;
-      var properties = props || {};
+    create: function create(delegate, id, opts) {
+      var proto = delegate || entity;
+      var id = id || null;
+      var options = opts || {};
 
-      proto['@id'] = protoId;
-      //properties['@id'] = protoId;
+      // Add id to options
+      options['@id'] = id;
 
       // Validation checks
-
-      //properties['@context'] = validator.checkCtx(proto, properties);
-      //properties['@type'] = validator.checkType(proto, properties);
-      //properties['@id'] = validator.checkId(protoId, properties);
-      properties = validator.moveToExtensions(proto, properties);
-
-      //return _.create(proto, properties);
-      // return _.assign(proto, properties); -> TypeError: Converting circular structure to JSON
-      //return _.assign(_.create(proto), properties);
+      options = validator.checkContext(proto, options);
+      options = validator.checkId(options);
+      options = validator.checkType(proto, options);
+      options = validator.moveToExtensions(proto, options);
 
       // Combine objects (composition) against an empty target literal
-      return _.assign({}, proto, properties);
+      return _.assign({}, proto, options);
     }
   }
 }

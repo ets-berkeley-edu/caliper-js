@@ -17,30 +17,29 @@
  */
 
 var _ = require('lodash');
-var Event = require('./event');
+var event = require('./event');
 var validator = require('./eventValidator');
 
 /**
  * Factory function that returns a mutated object based on a delegate prototype when the
  * factory create method is invoked. All enumerable string keyed properties included in
- * the "props" object and other sources are also assigned to the created object in the
- * order provided.
+ * the other sources are also assigned to the created object in the order provided.
  * @returns {{create: create}}
  */
 function eventFactory() {
   return {
-    create: function create(delegate, props) {
-      var proto = delegate || Event;
-      var properties = props || {};
+    create: function create(delegate, opts) {
+      var proto = delegate || event;
+      var options = opts || {};
 
       // Validation checks
-      // properties['@context'] = validator.checkCtx(proto, properties);
-      // properties['@type'] = validator.checkType(proto, properties);
-      // properties = validator.moveToExtensions(proto, properties);
+      options = validator.checkContext(proto, options);
+      options = validator.checkId(options);
+      options = validator.checkType(proto, options);
+      options = validator.moveToExtensions(proto, options);
 
       // Combine objects (composition) against an empty target literal
-      return _.assign({}, proto, properties);
-      //return _.assign(_.create(proto), properties);
+      return _.assign({}, proto, options);
     }
   }
 }

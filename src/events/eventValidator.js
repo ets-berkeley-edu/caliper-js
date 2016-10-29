@@ -18,47 +18,46 @@
 
 var _ = require('lodash');
 var constants = require('../constants');
-var eventType = require('./eventType');
 var validator = require('../validator');
 
 /**
  * Check @context value.
- * @param delegate
- * @param props
+ * @param event
+ * @param opts
  * @returns {*}
  */
-module.exports.checkCtx = function checkCtx(delegate, props) {
-  return validator.checkCtx(delegate, props);
+module.exports.checkContext = function checkContext(event, opts) {
+  return validator.checkContext(event, opts);
 };
 
 /**
- * TODO STUB - WEAK; CHECK FOR IRI
+ * check id
  * @param id
  * @returns {*}
  */
-module.exports.checkId = function checkId(id, props) {
-  return validator.checkId(id, props);
+module.exports.checkId = function checkId(opts) {
+  return validator.checkId(opts, constants.EVENT);
 };
 
 /**
  * Check @type value.
- * @param delegate
- * @param props
+ * @param event
+ * @param opts
  * @returns {*}
  */
-module.exports.checkType = function checkType(delegate, props) {
-  return validator.checkType(delegate, props, eventType.EVENT);
+module.exports.checkType = function checkType(event, opts) {
+  return validator.checkType(event, opts, constants.EVENT);
 };
 
 /**
- * Check for top-level user-defined custom Entity properties against linked delegate own and inherited
+ * Check for top-level user-defined custom Entity properties against linked event own and inherited
  * enumerable property keys (using _.keysIn()) and move custom properties to Entity.extensions. Use the
  * good 'ole for loop in preference to the for..in loop in order to avoid iterating over both enumerable
- * and inherited properties of the props object.
- * @param delegate
- * @param props
+ * and inherited properties of the opts object.
+ * @param event
+ * @param opts
  * @returns {*}
  */
-module.exports.moveToExtensions = function moveToExtensions(delegate, props) {
-  return validator.moveToExtensions(delegate, props);
+module.exports.moveToExtensions = function moveToExtensions(event, opts) {
+  return validator.moveToExtensions(event, opts);
 };
