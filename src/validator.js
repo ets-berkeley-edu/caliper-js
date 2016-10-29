@@ -145,20 +145,36 @@ module.exports.checkType = function checkType(proto, opts, type) {
  */
 module.exports.moveToExtensions = function moveToExtensions(proto, opts) {
   var protoKeys = _.keysIn(proto);
-  var keys = _.keys(opts);
-  for (var i = 0, len = keys.length; i < len; i++) {
-    var propName = keys[i];
-    if (protoKeys.indexOf(propName) == -1) {
-      var prop = opts[propName];
-      if (opts.hasOwnProperty("extensions")) {
-        opts.extensions[propName] = prop;
-      } else {
-        var extensions = {};
-        extensions[propName] = prop;
-        opts.extensions = extensions;
+  var optsKeys = _.keys(opts);
+  var obj = {};
+
+  for (var i = 0, len = optsKeys.length; i < len; i++) {
+    var optsPropName = optsKeys[i];
+    if (protoKeys.indexOf(optsPropName) == -1) {
+      var customProp = opts[optsPropName];
+      var customKeys = _.keys(customProp);
+      for (var i = 0, len = customKeys.length; i < len; i++) {
+        if (customKeys[i] == '@context') {
+          if (typeof customProp['@context'] === 'object') {
+            if (obj.hasOwnProperty('@context')) {
+              obj['@context'] = _.assign({}, obj['@context'], customProp['@context']);
+            } else {
+              obj['@context'] = customProp['@context'];
+            }
+          }
+        } else {
+          obj[customKeys[i]] = customProp[customKeys[i]];
+        }
+        delete opts[optsPropName];
       }
-      delete opts[propName];
     }
   }
+
+  if (opts.hasOwnProperty("extensions")) {
+    opts.extensions = _.assign({}, opts.extensions, obj);
+  } else {
+    opts.extensions = obj;
+  }
+
   return opts;
 };
