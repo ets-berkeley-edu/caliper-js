@@ -41,7 +41,7 @@ function entityFactory() {
       options = validator.checkContext(proto, options);
       options = validator.checkId(options);
       options = validator.checkType(proto, options);
-      options = validator.moveToExtensions(proto, options);
+      // options = validator.moveToExtensions(proto, options);
 
       // Combine objects (composition) against an empty target literal
       return _.assign({}, proto, options);

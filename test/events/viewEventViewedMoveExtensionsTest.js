@@ -37,6 +37,7 @@ var Status = require('../../src/entities/lis/status');
 
 var jsonCompare = require('../testUtils');
 
+/**
 test('Create a ViewEvent (viewed) moving top-level custom properties to extensions and validate properties', function (t) {
 
   // Plan for N assertions
@@ -112,3 +113,4 @@ test('Create a ViewEvent (viewed) moving top-level custom properties to extensio
   // Assert that the JSON produced is the same
   jsonCompare('caliperEventViewViewedExtended', event, t);
 });
+ */
