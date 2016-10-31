@@ -17,16 +17,13 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var digitalResource = require('./digitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link EpubChapter to delegate DigitalResource and assign default property values.
+ * Compose EpubChapter from DigitalResource and set default properties.
+ * @deprecated
  */
-var EPubChapter = _.assign(_.create(digitalResource), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.EPUB_CHAPTER
-});
+var EPubChapter = _.assign({}, digitalResource, { "@type": entityType.EPUB_CHAPTER });
 
 module.exports = EPubChapter;

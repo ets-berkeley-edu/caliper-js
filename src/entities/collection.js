@@ -17,18 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var entity = require('./entity');
 var entityType = require('./entityType');
 
 /**
- * Link Collection to delegate Entity and assign default property values.
+ * Compose Collection from Entity and set default properties.
  */
-var Collection = _.assign(_.create(entity), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.COLLECTION,
-  isPartOf: {},
-  items: []
-});
+var Collection = _.assign({}, entity, { "@type": entityType.COLLECTION, isPartOf: {}, items: [] });
 
 module.exports = Collection;

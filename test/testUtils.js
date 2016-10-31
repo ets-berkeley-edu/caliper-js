@@ -19,56 +19,48 @@
 var _ = require('lodash');
 var diff = require('deep-diff').diff;
 var jf = require('jsonfile');
-// var util = require('util');
+//var logger = require("../src/logger");
 var requestUtils = require('../src/request/requestUtils');
 
 /**
- * Utility function to compare JSON (represented by a object) to JSON fixture expectedJsonFile: filename
- * (relative to test/resources directory) without .json extension JsonToCompare: Object representing JSON
- * that will be compared to expectedJson t: The Tape test object filterCallback: callback function to filter
- * out JSON attributes, paths that should not be compared. Callback shouldreturn TRUE for any key + path
- * combination that should not be analyzed for differences.
+ * Utility function to compare JSON (represented by an object) to a JSON fixture.
+ * fixture: test fixture (relative to test/resources directory) without .json extension
+ * obj: Object to be converted to JSON that will be compared to expected Json
+ * t: The Tape test object
+ * filterCallback: callback function to filter out JSON attributes, paths that should not be compared.
+ * Callback should return TRUE for any key + path combination that should not be analyzed for differences.
  **/
-var jsonCompare = function(expectedJsonFile, JsonToCompare, t, filterCallback) {
+var jsonCompare = function(fixture, obj, t, filterCallback) {
 
+  const FIXTURES_BASE_DIR = '../caliper-common-fixtures/src/test/resources/fixtures/';
+
+  var file = FIXTURES_BASE_DIR.concat(fixture, ".json");
+  var objJson = requestUtils.parse(obj);
+  //logger.log("info", "Parsed JSON = " + requestUtils.stringify(objJson));
   var differences;
 
-  var processedJsonToCompare = requestUtils.parseForNullsAndEmpty(JsonToCompare);
-  // console.log("Processed JSON = " + JSON.stringify(processedJsonToCompare));
-  JsonToCompare = processedJsonToCompare;
-
-  var FIXTURES_BASE_DIR = '../caliper-common-fixtures/src/test/resources/fixtures/';
-  var file = FIXTURES_BASE_DIR + expectedJsonFile + '.json';
   jf.readFile(file, function(err, expectedJson) {
-    // console.log("INFO: Loaded JSON from file: " + util.inspect(expectedJson));
     if (_.isNull(expectedJson)) {
       var errMsg = "ERROR: Unable to load specified JSON fixture: " + file;
-      console.log(errMsg);
+      //logger.log("debug", errMsg);
       differences = errMsg; // define so we trigger failure;
     } else {
       if (_.isUndefined(filterCallback)) {
-        differences = diff(expectedJson, JsonToCompare);
+        differences = diff(expectedJson, objJson);
       } else {
-        differences = diff(expectedJson, JsonToCompare, filterCallback);
+        differences = diff(expectedJson, objJson, filterCallback);
       }
     }
 
-    t.equal(true, _.isUndefined(differences), "Validate Event JSON");
-
+    t.equal(true, _.isUndefined(differences), "Validate JSON");
     // console.log("DEBUG: Differences is undefined = " + _.isUndefined(differences) + " equal = " + equal);
+    //logger.log("debug", "ERROR: Differences is undefined = " + _.isUndefined(differences) + " equal = " + t.equal);
 
     if (!_.isUndefined(differences)) {
-      console.log("ERROR: JSON Differences = " + JSON.stringify(differences));
+      //logger.log("debug", "ERROR: JSON Differences = " + requestUtils.stringify(differences));
+      console.log("ERROR: JSON Differences = " + requestUtils.stringify(differences));
     }
   })
-};
-
-var defaultDateCreatedStr = function() {
-
-};
-
-var defaultDateModifiedStr = function() {
-
 };
 
 module.exports = jsonCompare;

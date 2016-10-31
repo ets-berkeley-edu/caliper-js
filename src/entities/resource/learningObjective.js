@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var digitalResource = require('./digitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link LearningObjective to delegate DigitalResource and assign default property values.
+ * Compose LearningObjective from DigitalResource and set default properties.
  */
-var LearningObjective = _.assign(_.create(digitalResource), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.LEARNING_OBJECTIVE
-});
+var LearningObjective = _.assign({}, digitalResource, { "@type": entityType.LEARNING_OBJECTIVE });
 
 module.exports = LearningObjective;

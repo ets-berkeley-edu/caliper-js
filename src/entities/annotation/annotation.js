@@ -17,18 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Link Annotation to delegate Entity and assign default property values.
+ * Compose Annotation from Entity and set default properties.
  */
-var Annotation = _.assign(_.create(entity), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.ANNOTATION,
-  actor: {},
-  annotated: {}
-});
+var Annotation = _.assign({}, entity, { "@type": entityType.ANNOTATION, actor: {}, annotated: {} });
 
 module.exports = Annotation;

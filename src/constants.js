@@ -18,7 +18,9 @@
 
 var constants = {
   BLANK_NODE: "_:",
-  CONTEXT: "http://purl.imsglobal.org/ctx/caliper/v1/Context"
+  CONTEXT: "http://purl.imsglobal.org/ctx/caliper/v1/Context",
+  ENTITY: "entity",
+  EVENT: "event"
 };
 
 module.exports = constants;

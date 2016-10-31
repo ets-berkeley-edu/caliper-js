@@ -17,17 +17,13 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var collection = require('../collection');
 var digitalResource = require('./digitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link DigitalResourceCollection to delegate Collection and assign DigitalResource and other default property values.
+ * Compose Collection from Collection and Entity and set default properties.
  */
-var DigitalResourceCollection = _.assign(_.create(collection), digitalResource, {
-  '@context': constants.CONTEXT,
-  '@type': entityType.DIGITAL_RESOURCE_COLLECTION
-});
+var DigitalResourceCollection = _.assign({}, collection, digitalResource, { "@type": entityType.DIGITAL_RESOURCE_COLLECTION });
 
 module.exports = DigitalResourceCollection;

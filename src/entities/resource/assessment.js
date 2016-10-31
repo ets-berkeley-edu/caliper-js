@@ -17,17 +17,13 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
-var digitalResourceCollection = require('./digitalResourceCollection');
+var collection = require('./digitalResourceCollection');
 var assignable = require('./assignableDigitalResource');
 var entityType = require('../entityType');
 
 /**
- * Link Assessment to delegate DigitalResourceCollection and assign AssignableDigitalResource and other default property values.
+ * Compose Assessment from DigitalResourceCollection and AssignableDigitalResource and set default properties.
  */
-var Assessment = _.assign(_.create(digitalResourceCollection), assignable, {
-  '@context': constants.CONTEXT,
-  '@type': entityType.ASSESSMENT
-});
+var Assessment = _.assign({}, collection, assignable, { "@type": entityType.ASSESSMENT });
 
 module.exports = Assessment;

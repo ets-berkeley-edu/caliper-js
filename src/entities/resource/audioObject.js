@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var mediaObject = require('./mediaObject');
 var entityType = require('../entityType');
 
 /**
- * Link AudioObject to delegate MediaObject and assign default property values.
+ * Compose AudioObject from MediaObject and set default properties.
  */
-var AudioObject = _.assign(_.create(mediaObject), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.AUDIO_OBJECT
-});
+var AudioObject = _.assign({}, mediaObject, { "@type": entityType.AUDIO_OBJECT });
 
 module.exports = AudioObject;

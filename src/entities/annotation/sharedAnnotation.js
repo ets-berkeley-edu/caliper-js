@@ -17,17 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var annotation = require('./annotation');
 var entityType = require('../entityType');
 
 /**
- * Link SharedAnnotation to delegate Annotation and assign default property values.
+ * Compose SharedAnnotation from Annotation and set default properties.
  */
-var SharedAnnotation = _.assign(_.create(annotation), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.SHARED_ANNOTATION,
-  withAgents: []
-});
+var SharedAnnotation = _.assign({}, annotation, { "@type": entityType.SHARED_ANNOTATION, withAgents: [] });
 
 module.exports = SharedAnnotation;

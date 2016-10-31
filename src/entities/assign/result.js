@@ -17,16 +17,14 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Link Result to delegate Entity and assign default property values.
+ * Compose Result from Entity and set default properties.
  */
-var Result = _.assign(_.create(entity), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.RESULT,
+var Result = _.assign({}, entity, {
+  "@type": entityType.RESULT,
   attempt: {},
   normalScore: null,
   penaltyScore: null,

@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link ViewEvent to delegate Event and assign default property values.
+ * Compose ViewEvent from Event and set default properties.
  */
-var ViewEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.VIEWED
-});
+var ViewEvent = _.assign({}, event, { "@type": eventType.VIEWED });
 
 module.exports = ViewEvent;

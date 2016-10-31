@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Link Agent to delegate Entity and assign default property values.
+ * Compose Agent from Entity and set default properties.
  */
-var Agent = _.assign(_.create(entity), {
-    '@context': constants.CONTEXT,
-    '@type': entityType.AGENT
-  });
+var Agent = _.assign({}, entity, { "@type": entityType.AGENT });
 
 module.exports = Agent;

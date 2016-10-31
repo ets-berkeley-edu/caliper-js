@@ -17,16 +17,14 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var annotation = require('./annotation');
 var entityType = require('../entityType');
 
 /**
- * Link HighlightAnnotation to delegate Annotation and assign default property values.
+ * Compose HighlightAnnotation from Annotation and set default properties.
  */
-var HighlightAnnotation = _.assign(_.create(annotation), {
-  '@context': constants.CONTEXT,
-  '@type': entityType.HIGHLIGHT_ANNOTATION,
+var HighlightAnnotation = _.assign({}, annotation, {
+  "@type": entityType.HIGHLIGHT_ANNOTATION,
   selection: {},
   selectionText: null
 });

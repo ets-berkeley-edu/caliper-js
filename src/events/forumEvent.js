@@ -17,16 +17,12 @@
  */
 
 var _ = require('lodash');
-var constants = require('../constants');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Link ForumEvent to delegate Event and assign default property values.
+ * Compose ForumEvent from Event and set default properties.
  */
-var ForumEvent = _.assign(_.create(event), {
-  '@context': constants.CONTEXT,
-  '@type': eventType.FORUM
-});
+var ForumEvent = _.assign({}, event, { "@type": eventType.FORUM });
 
 module.exports = ForumEvent;

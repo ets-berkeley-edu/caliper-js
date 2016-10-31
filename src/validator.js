@@ -17,80 +17,164 @@
  */
 
 var _ = require('lodash');
+var uuid = require('node-uuid');
 var constants = require('./constants');
+var entityType = require('./entities/entityType');
+var eventType = require('./events/eventType');
 
-/**
- * Check @context value.
- * @param delegate
- * @param props
- * @returns {*}
- */
-module.exports.checkCtx = function checkCtx(delegate, props) {
-  if (delegate.hasOwnProperty('@context')) {
-    return delegate['@context']
-  } else if (props.hasOwnProperty('@context')) {
-    return props['@context']
-  } else {
-    return constants.CONTEXT;
+//var regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper/;
+// var regexType = /^http:\/\/purl.imsglobal.org\/caliper\/v?[0-9]*p?[0-9]*\/?[A-Z]?[a-z]*/;
+
+
+var validate = {
+  hasCaliperContext: function isCaliperContext(obj) {
+    if (obj.hasOwnProperty('@context')) {
+      var regex = /^http:\/\/purl.imsglobal.org\/ctx\/caliper/;
+      return regex.test(obj['@context']);
+    } else {
+      return false;
+    }
+  },
+  hasCaliperType: function isCaliperType(obj) {
+    if (obj.hasOwnProperty('@type')) {
+      var regex = /^http:\/\/purl.imsglobal.org\/caliper\/v?[0-9]*p?[0-9]*\/?[A-Z]?[a-z]*/;  // TODO lookup instead?
+      return regex.test(obj['@type']);
+    } else {
+      return false;
+    }
+  },
+  hasGlobalId: function hasGlobalId(obj) {
+    return (obj.hasOwnProperty('@id') && obj['@id']);
+  },
+  hasLocalId: function hasLocalId(obj) {
+    return (obj.hasOwnProperty('id') && obj['id']);
   }
 };
 
 /**
- * TODO WEAK CHECK; CHECK FOR IRI
- * @param id
- * @returns {*}
+ * Create a blank node with randomly generated UUID.
+ * @returns {string}
  */
-module.exports.checkId = function checkId(id, props) {
-  if (id) {
-    return id;
-  } else if (props.hasOwnProperty('@id')) {
-    return props['@id']
-  } else {
-    return constants.BLANK_NODE;
-  }
+module.exports.createBlankNode = function createBlankNode() {
+  return "".concat(constants.BLANK_NODE, uuid.v4);
 };
 
 /**
- * Check @type value.
- * @param delegate
- * @param props
+ * Check for Caliper @context.  If found, suppress any attempt to replace value.
+ * @param proto
+ * @param opts
  * @returns {*}
  */
-module.exports.checkType = function checkType(delegate, props, defaultType) {
-  if (delegate.hasOwnProperty('@type')) {
-    return delegate['@type']
-  } else if (props.hasOwnProperty('@type')) {
-    return props['@type']
-  } else {
-    return defaultType;
+module.exports.checkContext = function checkContext(proto, opts) {
+  var options = opts || {};
+  if (validate.hasCaliperContext(proto) && options.hasOwnProperty('@context')) {
+    delete options['@context'];
   }
+  return options;
 };
 
 /**
- * Check for top-level user-defined custom Entity properties against linked delegate own and inherited
- * enumerable property keys (using _.keysIn()) and move custom properties to Entity.extensions. Use the
- * good 'ole for loop in preference to the for..in loop in order to avoid iterating over both enumerable
- * and inherited properties of the props object.
- * @param delegate
- * @param props
- * @returns {*}
+ * Check if id provided (minimal check). If an Entity lacks an @id mint a blank node; if an Event lacks an id do nothing.
+ * @param opts
+ * @param type
+ * @returns {*|{}}
  */
-module.exports.moveToExtensions = function moveToExtensions(delegate, props) {
-  var delegateKeys = _.keysIn(delegate);
-  var keys = _.keys(props);
-  for (var i = 0, len = keys.length; i < len; i++) {
-    var propName = keys[i];
-    if (delegateKeys.indexOf(propName) == -1) {
-      var prop = props[propName];
-      if (props.hasOwnProperty("extensions")) {
-        props.extensions[propName] = prop;
-      } else {
-        var extensions = {};
-        extensions[propName] = prop;
-        props.extensions = extensions;
+module.exports.checkId = function checkId(opts, type) {
+  var options = opts || {};
+  switch (type) {
+    case constants.ENTITY:
+      if (!validate.hasGlobalId(options)) {
+        options['@id'] = createBlankNode(); // TODO add config for minting blank node
       }
-      delete props[propName];
+      break;
+    case constants.EVENT:
+      if (validate.hasGlobalId(options)) {
+        options.id = options['@id'];
+        delete options['@id']; // event.id not event.@id
+      }
+
+      if (!validate.hasLocalId(options)) {
+        // options['id'] = createBlankNode(); // TODO add config for minting blank node
+      }
+      break;
+    default:
+    // do nothing
+  }
+  return options;
+};
+
+/**
+ * Check for Caliper @type.  If found, suppress any attempt to replace value.
+ * If no @type property is found insert appropriate default type.
+ * @param proto
+ * @param opts
+ * @param type
+ * @returns {*|{}}
+ */
+module.exports.checkType = function checkType(proto, opts, type) {
+  var options = opts || {};
+  if (validate.hasCaliperType(proto)) {
+    if (options.hasOwnProperty('@type')) {
+      delete options['@type'];
+    }
+  } else {
+    if (!(options.hasOwnProperty('@type') && options['@type'])) {
+      switch (type) {
+        case constants.ENTITY:
+          options['@type'] = entityType.ENTITY;
+          break;
+        case constants.EVENT:
+          options['@type'] = eventType.EVENT;
+          break;
+        default:
+        // do nothing
+      }
     }
   }
-  return props;
+  return options;
+};
+
+/**
+ * Check for top-level user-defined custom Entity properties against linked proto own and inherited
+ * enumerable property keys (using _.keysIn()) and move custom properties to Entity.extensions. Use the
+ * good 'ole for loop in preference to the for..in loop in order to avoid iterating over both enumerable
+ * and inherited properties of the opts object.
+ * @param proto
+ * @param opts
+ * @returns {*}
+ */
+module.exports.moveToExtensions = function moveToExtensions(proto, opts) {
+  var protoKeys = _.keysIn(proto);
+  var optsKeys = _.keys(opts);
+  var obj = {};
+
+  for (var i = 0, len = optsKeys.length; i < len; i++) {
+    var optsPropName = optsKeys[i];
+    if (protoKeys.indexOf(optsPropName) == -1) {
+      var customProp = opts[optsPropName];
+      var customKeys = _.keys(customProp);
+      for (var i = 0, len = customKeys.length; i < len; i++) {
+        if (customKeys[i] == '@context') {
+          if (typeof customProp['@context'] === 'object') {
+            if (obj.hasOwnProperty('@context')) {
+              obj['@context'] = _.assign({}, obj['@context'], customProp['@context']);
+            } else {
+              obj['@context'] = customProp['@context'];
+            }
+          }
+        } else {
+          obj[customKeys[i]] = customProp[customKeys[i]];
+        }
+        delete opts[optsPropName];
+      }
+    }
+  }
+
+  if (opts.hasOwnProperty("extensions")) {
+    opts.extensions = _.assign({}, opts.extensions, obj);
+  } else {
+    opts.extensions = obj;
+  }
+
+  return opts;
 };
