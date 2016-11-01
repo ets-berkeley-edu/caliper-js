@@ -129,6 +129,7 @@ Caliper.Entities.TextPositionSelector = require('./entities/annotation/textPosit
 
 // Assignment-related
 Caliper.Entities.Attempt           = require('./entities/assign/attempt');
+Caliper.Entities.LearningObjective = require('./entities/assign/learningObjective');
 Caliper.Entities.Result            = require('./entities/assign/result');
 
 // LIS
@@ -153,7 +154,6 @@ Caliper.Entities.EPubVolume                = require('./entities/resource/ePubVo
 Caliper.Entities.Forum                     = require('./entities/resource/forum');
 Caliper.Entities.Frame                     = require('./entities/resource/frame');
 Caliper.Entities.ImageObject               = require('./entities/resource/imageObject');
-Caliper.Entities.LearningObjective         = require('./entities/resource/learningObjective');
 Caliper.Entities.MediaObject               = require('./entities/resource/mediaObject');
 Caliper.Entities.MediaLocation             = require('./entities/resource/mediaLocation');
 Caliper.Entities.Message                   = require('./entities/resource/message');

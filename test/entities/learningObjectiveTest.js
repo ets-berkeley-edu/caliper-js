@@ -21,7 +21,7 @@ var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var AssignableDigitalResource = require('../../src/entities/resource/assignableDigitalResource');
-var LearningObjective = require('../../src/entities/resource/learningObjective');
+var LearningObjective = require('../../src/entities/assign/learningObjective');
 
 var jsonCompare = require('../testUtils');
 
