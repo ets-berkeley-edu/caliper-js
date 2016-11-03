@@ -69,11 +69,11 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
     actor: actor,
     annotated: annotated,
     tags: tags,
-    dateCreated: moment.utc("2016-09-15T10:15:00.000Z")
+    dateCreated: moment.utc("2016-11-15T10:15:00.000Z")
   });
 
   // Event time
-  var eventTime = moment.utc("2016-09-15T10:15:00.000Z");
+  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
   // The edApp
   var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, {
