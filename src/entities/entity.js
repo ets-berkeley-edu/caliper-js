@@ -21,13 +21,13 @@ var entityType = require('./entityType');
 
 var Entity = {
   '@context': constants.CONTEXT,
-  '@id': null,
-  '@type': entityType.ENTITY,
+  id: null,
+  type: entityType.ENTITY,
   name: null,
   description: null,
   dateCreated: null,
   dateModified: null,
-  extensions: {}
+  extensions: []
 };
 
 module.exports = Entity;
