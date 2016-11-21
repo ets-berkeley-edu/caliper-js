@@ -36,6 +36,25 @@ test('Create an AssessmentItem entity with extensions and validate properties', 
 
   var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);
 
+  // Custom extension
+  var question = {
+    "@context": {
+      id: "@id",
+      type: "@type",
+      example: "http://example.edu/ctx/edu",
+      xsd: "http://www.w3.org/2001/XMLSchema#",
+      itemType: { id: "example:itemType", type: "xsd:string" },
+      itemText: { id: "example:itemText", type: "xsd:string" },
+      itemCorrectResponse: { id: "example:itemCorrectResponse", type: "xsd:boolean" }
+    },
+    itemType: "true/false",
+    itemText: "In Caliper event actors are limited to people only.",
+    itemCorrectResponse: false
+  };
+
+  var extensions = [];
+  extensions.push(question);
+
   var item = entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3"), {
     isPartOf: parent,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
@@ -44,14 +63,7 @@ test('Create an AssessmentItem entity with extensions and validate properties', 
     maxSubmits: 2,
     maxScore: 5,
     isTimeDependent: false,
-    extensions: {
-      "@context": {
-        "@vocab": "http://example.edu/ctx/edu.jsonld"
-      },
-      itemType: "true/false",
-      itemText: "In Caliper event actors are limited to people only.",
-      itemCorrectResponse: false
-    }
+    extensions: extensions
   });
 
   // Assert that the JSON produced is the same

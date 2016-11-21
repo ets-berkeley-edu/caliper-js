@@ -55,16 +55,21 @@ test('Create a Basic event (modified) with extensions and validate properties', 
   // Event time
   var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
-  // Extension
+  // Custom Extension
   var history = {
     "@context": {
-      "@vocab": "http://example.edu/ctx/edu.jsonld"
+      id: "@id",
+      type: "@type",
+      previousVersion: "http://example.edu/ctx/edu/previousVersion"
     },
     "previousVersion": {
-      "@id": "https://example.edu/terms/201601/courses/7/sections/1/resources/123?version=1",
-      "@type": "http://purl.imsglobal.org/caliper/v1/Document"
+      id: "https://example.edu/terms/201601/courses/7/sections/1/resources/123?version=1",
+      type: "Document"
     }
   };
+
+  var extensions = [];
+  extensions.push(history);
 
   // Assert that key attributes are the same
   var event = eventFactory().create(Event, {
@@ -72,7 +77,7 @@ test('Create a Basic event (modified) with extensions and validate properties', 
     action: action,
     object: obj,
     eventTime: eventTime,
-    extensions: history
+    extensions: extensions
   });
 
   // Assert that the JSON produced is the same

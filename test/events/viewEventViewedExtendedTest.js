@@ -83,18 +83,28 @@ test('Create a ViewEvent (viewed) with custom extensions and validate properties
     startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
   });
 
-  // Extensions
-  var extensions = {
+// Custom extension
+  var job = {
     "@context": {
-      "@vocab": "http://example.edu/ctx/edu.jsonld"
+      id: "@id",
+      type: "@type",
+      example: "http://example.edu/ctx/edu",
+      xsd: "http://www.w3.org/2001/XMLSchema#",
+      ChronJob: "example:ChronJob",
+      job: "example:job",
+      jobTag: { id: "example:jobTag", type: "xsd:string" },
+      jobDate: { id: "example:jobDate", type: "xsd:dateTime" }
     },
     job: {
-      "@id": "https://example.edu/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7",
-      "@type": "ChronJob",
+      id: "https://example.edu/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7",
+      type: "ChronJob",
       jobTag: "caliper",
       jobDate: moment.utc("2016-11-16T01:01:00.000Z")
     }
   };
+
+  var extensions = [];
+  extensions.push(job);
 
   // Assert that key attributes are the same
   var event = eventFactory().create(ViewEvent, {

@@ -70,19 +70,23 @@ test('Create a LtiSession entity and validate properties', function (t) {
   };
 
   var extensions = {
-    ext_vnd_instructor: {
+    "ext_vnd_instructor": {
       "@context": {
-       "@vocab": "http://example.edu/ctx/edu.jsonld",
-       sdo: "http://schema.org/"
+        sdo: "http://schema.org/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        jobTitle: {id: "sdo:jobTitle", type: "xsd:string"},
+        givenName: {id: "sdo:givenName", type: "xsd:string"},
+        familyName: {id: "sdo:familyName", type: "xsd:string"},
+        email: {id: "sdo:email", type: "xsd:string"},
+        url: {id: "sdo:url", type: "xsd:string"}
       },
-      "@type": "Faculty",
-      "sdo:jobTitle": "Professor",
-      "sdo:givenName": "Trig",
-      "sdo:familyName": "Haversine",
-      "sdo:email": "trighaversine@example.edu",
-      "sdo:url": "https://example.edu/faculty/trighaversine",
-      isTenured: true,
-      isOnSabbatical: false
+      id: "https://example.edu/faculty/trighaversine",
+      type: "Person",
+      jobTitle: "Professor",
+      givenName: "Trig",
+      familyName: "Haversine",
+      email: "trighaversine@example.edu",
+      url: "https://example.edu/faculty/trighaversine"
     }
   };
 
