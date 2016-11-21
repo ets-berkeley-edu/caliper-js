@@ -25,9 +25,8 @@ var eventType = require('./events/eventType');
 //var regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper/;
 // var regexType = /^http:\/\/purl.imsglobal.org\/caliper\/v?[0-9]*p?[0-9]*\/?[A-Z]?[a-z]*/;
 
-
 var validate = {
-  hasCaliperContext: function isCaliperContext(obj) {
+  hasCaliperContext: function hasCaliperContext(obj) {
     if (obj.hasOwnProperty('@context')) {
       var regex = /^http:\/\/purl.imsglobal.org\/ctx\/caliper/;
       return regex.test(obj['@context']);
@@ -35,19 +34,20 @@ var validate = {
       return false;
     }
   },
-  hasCaliperType: function isCaliperType(obj) {
-    if (obj.hasOwnProperty('@type')) {
-      var regex = /^http:\/\/purl.imsglobal.org\/caliper\/v?[0-9]*p?[0-9]*\/?[A-Z]?[a-z]*/;  // TODO lookup instead?
-      return regex.test(obj['@type']);
+  hasCaliperType: function hasCaliperType(obj) {
+    if (obj.hasOwnProperty('type')) {
+      // var regex = /^http:\/\/purl.imsglobal.org\/caliper\/v?[0-9]*p?[0-9]*\/?[A-Z]?[a-z]*/;  // TODO lookup instead?
+      // return regex.test(obj.type);
+      return true;  // TODO REFACTOR THIS CHECK
     } else {
       return false;
     }
   },
-  hasGlobalId: function hasGlobalId(obj) {
+  hasJsonldId: function hasJsonldId(obj) {
     return (obj.hasOwnProperty('@id') && obj['@id']);
   },
-  hasLocalId: function hasLocalId(obj) {
-    return (obj.hasOwnProperty('id') && obj['id']);
+  hasId: function hasId(obj) {
+    return (obj.hasOwnProperty('id') && obj.id);
   }
 };
 
@@ -55,7 +55,7 @@ var validate = {
  * Create a blank node with randomly generated UUID.
  * @returns {string}
  */
-module.exports.createBlankNode = function createBlankNode() {
+var createBlankNode = function createBlankNode() {
   return "".concat(constants.BLANK_NODE, uuid.v4);
 };
 
@@ -74,23 +74,28 @@ module.exports.checkContext = function checkContext(proto, opts) {
 };
 
 /**
- * Check if id provided (minimal check). If an Entity lacks an @id mint a blank node; if an Event lacks an id do nothing.
+ * Check if id provided (minimal check). If an Entity lacks an id mint a blank node; if an Event lacks an id do nothing.
  * @param opts
  * @param type
  * @returns {*|{}}
  */
 module.exports.checkId = function checkId(opts, type) {
   var options = opts || {};
+  if (!(validate.hasId(options))) {
+   // options.id = createBlankNode();
+  }
+
+  /*
   switch (type) {
     case constants.ENTITY:
-      if (!validate.hasGlobalId(options)) {
-        options['@id'] = createBlankNode(); // TODO add config for minting blank node
+      if (!validate.hasJsonldId(options)) {
+        options.id = createBlankNode(); // TODO add config for minting blank node
       }
       break;
     case constants.EVENT:
-      if (validate.hasGlobalId(options)) {
-        options.id = options['@id'];
-        delete options['@id']; // event.id not event.@id
+      if (validate.hasId(options)) {
+        // options.id = options['@id'];
+        delete options.id;
       }
 
       if (!validate.hasLocalId(options)) {
@@ -100,12 +105,13 @@ module.exports.checkId = function checkId(opts, type) {
     default:
     // do nothing
   }
+  */
   return options;
 };
 
 /**
- * Check for Caliper @type.  If found, suppress any attempt to replace value.
- * If no @type property is found insert appropriate default type.
+ * Check for Caliper type.  If found, suppress any attempt to replace value.
+ * If no type property is found insert appropriate default type.
  * @param proto
  * @param opts
  * @param type
@@ -114,17 +120,17 @@ module.exports.checkId = function checkId(opts, type) {
 module.exports.checkType = function checkType(proto, opts, type) {
   var options = opts || {};
   if (validate.hasCaliperType(proto)) {
-    if (options.hasOwnProperty('@type')) {
-      delete options['@type'];
+    if (options.hasOwnProperty('type')) {
+      delete options.type;
     }
   } else {
-    if (!(options.hasOwnProperty('@type') && options['@type'])) {
+    if (!(options.hasOwnProperty('type') && options.type)) {
       switch (type) {
         case constants.ENTITY:
-          options['@type'] = entityType.ENTITY;
+          options.type = entityType.ENTITY;
           break;
         case constants.EVENT:
-          options['@type'] = eventType.EVENT;
+          options.type = eventType.EVENT;
           break;
         default:
         // do nothing
