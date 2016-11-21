@@ -52,30 +52,3 @@ test('Create a SharedAnnotation entity and validate properties', function (t) {
   // Assert that the JSON produced is the same
   jsonCompare('caliperEntitySharedAnnotation', annotation, t);
 });
-
-/**
- {
-  "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-  "@id": "https://example.edu/users/554433/etexts/201/shares/1",
-  "@type": "http://purl.imsglobal.org/caliper/v1/SharedAnnotation",
-  "actor": {
-    "@id": "https://example.edu/users/554433",
-    "@type": "http://purl.imsglobal.org/caliper/v1/Person"
-  },
-  "annotated": {
-    "@id": "https://example.edu/etexts/201.epub",
-    "@type": "http://purl.imsglobal.org/caliper/v1/Document"
-  },
-  "withAgents": [
-    {
-      "@id": "https://example.edu/users/657585",
-      "@type": "http://purl.imsglobal.org/caliper/v1/Person"
-    },
-    {
-      "@id": "https://example.edu/users/667788",
-      "@type": "http://purl.imsglobal.org/caliper/v1/Person"
-    }
-  ],
-  "dateCreated": "2016-08-01T09:00:00.000Z"
-}
- */
