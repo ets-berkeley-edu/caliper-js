@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose MediaLocation from DigitalResource and set default properties.
  */
-var MediaLocation = _.assign({}, digitalResource, { "@type": entityType.MEDIA_LOCATION, currentTime: null });
+var MediaLocation = _.assign({}, digitalResource, { type: entityType.MEDIA_LOCATION, currentTime: null });
 
 module.exports = MediaLocation;

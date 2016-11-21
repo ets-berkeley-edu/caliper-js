@@ -23,6 +23,6 @@ var entityType = require('./entityType');
 /**
  * Compose Collection from Entity and set default properties.
  */
-var Collection = _.assign({}, entity, { "@type": entityType.COLLECTION, isPartOf: {}, items: [] });
+var Collection = _.assign({}, entity, { type: entityType.COLLECTION, isPartOf: {}, items: [] });
 
 module.exports = Collection;

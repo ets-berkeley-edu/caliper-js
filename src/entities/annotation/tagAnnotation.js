@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose TagAnnotation from Annotation and set default properties.
  */
-var TagAnnotation = _.assign({}, annotation, { "@type": entityType.TAG_ANNOTATION, tags: [] });
+var TagAnnotation = _.assign({}, annotation, { type: entityType.TAG_ANNOTATION, tags: [] });
 
 module.exports = TagAnnotation;

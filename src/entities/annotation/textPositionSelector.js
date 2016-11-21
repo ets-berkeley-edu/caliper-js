@@ -22,7 +22,7 @@ var _ = require('lodash');
  * TextPositionSelector describes a range of text based on its start and end positions.  The text MUST be
  * normalized before counting characters. Each TextPositionSelector MUST have exactly 1 caliper:start property
  * and exactly 1 caliper:end property.
- * @type {Object}
+ * type {Object}
  */
 var textPositionSelector = {
   start: null,

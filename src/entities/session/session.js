@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var Session = _.assign(_.create(entity), {
   '@context': constants.CONTEXT,
-  '@type': entityType.SESSION,
+  'type': entityType.SESSION,
   actor: {},
   startedAtTime: null,
   endedAtTime: null,

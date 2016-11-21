@@ -24,6 +24,6 @@ var entityType = require('../entityType');
  * Compose Reading from DigitalResource and set default properties.
  * @deprecated
  */
-var Reading = _.assign({}, digitalResource, { "@type": entityType.READING });
+var Reading = _.assign({}, digitalResource, { type: entityType.READING });
 
 module.exports = Reading;

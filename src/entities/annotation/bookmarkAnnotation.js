@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose BookmarkAnnotation from Annotation and set default properties.
  */
-var BookmarkAnnotation = _.assign({}, annotation, { "@type": entityType.BOOKMARK_ANNOTATION, bookmarkNotes: null });
+var BookmarkAnnotation = _.assign({}, annotation, { type: entityType.BOOKMARK_ANNOTATION, bookmarkNotes: null });
 
 module.exports = BookmarkAnnotation;

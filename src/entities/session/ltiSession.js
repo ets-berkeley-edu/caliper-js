@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var LtiSession = _.assign(_.create(session), {
   '@context': constants.CONTEXT,
-  '@type': entityType.LTI_SESSION,
+  'type': entityType.LTI_SESSION,
   launchParameters: {}
 });
 

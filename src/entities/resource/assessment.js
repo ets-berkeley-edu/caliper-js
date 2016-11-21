@@ -24,6 +24,6 @@ var entityType = require('../entityType');
 /**
  * Compose Assessment from DigitalResourceCollection and AssignableDigitalResource and set default properties.
  */
-var Assessment = _.assign({}, collection, assignable, { "@type": entityType.ASSESSMENT });
+var Assessment = _.assign({}, collection, assignable, { type: entityType.ASSESSMENT });
 
 module.exports = Assessment;

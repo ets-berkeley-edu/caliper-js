@@ -24,7 +24,7 @@ var entityType = require('../entityType');
  * Compose Message from DigitalResource and set default properties.
  */
 var Message = _.assign({}, digitalResource, {
-  "@type": entityType.MESSAGE,
+  type: entityType.MESSAGE,
   body: null,
   replyTo: null,
   attachments: [] });
