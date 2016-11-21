@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var Response = _.assign(_.create(entity), {
   '@context': constants.CONTEXT,
-  '@type': entityType.RESPONSE,
+  'type': entityType.RESPONSE,
   actor: {},
   assignable: {},
   attempt: {},

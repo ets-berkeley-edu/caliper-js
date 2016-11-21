@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var MultipleResponseResponse = _.assign(_.create(response), {
   '@context': constants.CONTEXT,
-  '@type': entityType.MULTIPLERESPONSE,
+  'type': entityType.MULTIPLERESPONSE,
   values: []
 });
 

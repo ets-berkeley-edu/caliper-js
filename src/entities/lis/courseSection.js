@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var CourseSection = _.assign(_.create(courseOffering), {
   '@context': constants.CONTEXT,
-  '@type': entityType.COURSE_SECTION,
+  'type': entityType.COURSE_SECTION,
   category: null
 });
 

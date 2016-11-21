@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var Membership = _.assign(_.create(entity), {
   '@context': constants.CONTEXT,
-  '@type': entityType.MEMBERSHIP,
+  'type': entityType.MEMBERSHIP,
   member: {},
   organization: {},
   roles: [],

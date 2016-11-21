@@ -24,7 +24,7 @@ var entityType = require('../entityType');
  * Compose AssignableDigitalResource from DigitalResource and set default properties.
  */
 var AssignableDigitalResource = _.assign({}, digitalResource, {
-  "@type": entityType.ASSIGNABLE_DIGITAL_RESOURCE,
+  type: entityType.ASSIGNABLE_DIGITAL_RESOURCE,
   dateToActivate: null,
   dateToShow: null,
   dateToStartOn: null,

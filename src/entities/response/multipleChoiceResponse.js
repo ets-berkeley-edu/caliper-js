@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var MultipleChoiceResponse = _.assign(_.create(response), {
   '@context': constants.CONTEXT,
-  '@type': entityType.MULTIPLECHOICE,
+  'type': entityType.MULTIPLECHOICE,
   value: null
 });
 

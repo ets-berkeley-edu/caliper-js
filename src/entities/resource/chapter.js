@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Chapter from DigitalResource and set default properties.
  */
-var Chapter = _.assign({}, digitalResource, { "@type": entityType.CHAPTER });
+var Chapter = _.assign({}, digitalResource, { type: entityType.CHAPTER });
 
 module.exports = Chapter;

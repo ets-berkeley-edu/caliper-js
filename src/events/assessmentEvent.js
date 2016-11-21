@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose AssessmentEvent from Event and set default properties.
  */
-var AssessmentEvent = _.assign({}, event, { "@type": eventType.ASSESSMENT });
+var AssessmentEvent = _.assign({}, event, { type: eventType.ASSESSMENT });
 
 module.exports = AssessmentEvent;

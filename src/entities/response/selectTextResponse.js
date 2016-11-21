@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var SelectTextResponse = _.assign(_.create(response), {
   '@context': constants.CONTEXT,
-  '@type': entityType.SELECTTEXT,
+  'type': entityType.SELECTTEXT,
   values: []
 });
 

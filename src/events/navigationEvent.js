@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose NavigationEvent from Event and set default properties.
  */
-var NavigationEvent = _.assign({}, event, { "@type": eventType.NAVIGATION });
+var NavigationEvent = _.assign({}, event, { type: eventType.NAVIGATION });
 
 module.exports = NavigationEvent;

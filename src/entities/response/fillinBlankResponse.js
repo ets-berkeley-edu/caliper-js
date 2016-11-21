@@ -26,7 +26,7 @@ var entityType = require('../entityType');
  */
 var FillinBlankResponse = _.assign(_.create(response), {
   '@context': constants.CONTEXT,
-  '@type': entityType.FILLINBLANK,
+  'type': entityType.FILLINBLANK,
   values: []
 });
 

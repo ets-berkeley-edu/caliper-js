@@ -24,7 +24,7 @@ var entityType = require('../entityType');
  * Compose Attempt from Entity and set default properties.
  */
 var Attempt = _.assign({}, entity, {
-  "@type": entityType.ATTEMPT,
+  type: entityType.ATTEMPT,
   actor: {},
   assignable: {},
   isPartOf: {},

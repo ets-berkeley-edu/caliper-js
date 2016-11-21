@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Document from DigitalResource and set default properties.
  */
-var Document = _.assign({}, digitalResource, { "@type": entityType.DOCUMENT });
+var Document = _.assign({}, digitalResource, { type: entityType.DOCUMENT });
 
 module.exports = Document;

@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose MediaObject from DigitalResource and set default properties.
  */
-var MediaObject = _.assign({}, digitalResource, { "@type": entityType.MEDIA_OBJECT, duration: null });
+var MediaObject = _.assign({}, digitalResource, { type: entityType.MEDIA_OBJECT, duration: null });
 
 module.exports = MediaObject;

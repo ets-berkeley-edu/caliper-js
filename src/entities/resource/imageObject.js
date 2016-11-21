@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose ImageObject from MediaObject and set default properties.
  */
-var ImageObject = _.assign({}, mediaObject, { "@type": entityType.IMAGE_OBJECT });
+var ImageObject = _.assign({}, mediaObject, { type: entityType.IMAGE_OBJECT });
 
 module.exports = ImageObject;

@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Organization from Agent and set default properties.
  */
-var Organization = _.assign({}, agent, { "@type": entityType.ORGANIZATION, subOrganizationOf: {} });
+var Organization = _.assign({}, agent, { type: entityType.ORGANIZATION, subOrganizationOf: {} });
 
 module.exports = Organization;

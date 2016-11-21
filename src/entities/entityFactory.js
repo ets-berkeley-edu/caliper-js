@@ -35,7 +35,7 @@ function entityFactory() {
       var options = opts || {};
 
       // Add id to options
-      options['@id'] = id;
+      options.id = id;
 
       // Validation checks
       options = validator.checkContext(proto, options);

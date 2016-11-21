@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Group from Organization and set default properties.
  */
-var Group = _.assign({}, organization, { "@type": entityType.GROUP });
+var Group = _.assign({}, organization, { type: entityType.GROUP });
 
 module.exports = Group;

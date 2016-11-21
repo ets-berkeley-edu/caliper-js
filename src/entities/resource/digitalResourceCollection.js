@@ -24,6 +24,6 @@ var entityType = require('../entityType');
 /**
  * Compose Collection from Collection and Entity and set default properties.
  */
-var DigitalResourceCollection = _.assign({}, collection, digitalResource, { "@type": entityType.DIGITAL_RESOURCE_COLLECTION });
+var DigitalResourceCollection = _.assign({}, collection, digitalResource, { type: entityType.DIGITAL_RESOURCE_COLLECTION });
 
 module.exports = DigitalResourceCollection;

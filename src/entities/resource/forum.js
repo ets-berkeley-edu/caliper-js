@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Forum from DigitalResourceCollection and set default properties.
  */
-var Forum = _.assign({}, collection, { "@type": entityType.FORUM });
+var Forum = _.assign({}, collection, { type: entityType.FORUM });
 
 module.exports = Forum;

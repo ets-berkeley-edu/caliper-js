@@ -40,7 +40,7 @@ module.exports.checkId = function checkId(opts) {
 };
 
 /**
- * Check @type value.
+ * Check type value.
  * @param entity
  * @param opts
  * @returns {*}

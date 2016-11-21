@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Thread from DigitalResourceCollection and set default properties.
  */
-var Thread = _.assign({}, collection, { "@type": entityType.THREAD });
+var Thread = _.assign({}, collection, { type: entityType.THREAD });
 
 module.exports = Thread;

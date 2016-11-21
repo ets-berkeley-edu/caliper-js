@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose AudioObject from MediaObject and set default properties.
  */
-var AudioObject = _.assign({}, mediaObject, { "@type": entityType.AUDIO_OBJECT });
+var AudioObject = _.assign({}, mediaObject, { type: entityType.AUDIO_OBJECT });
 
 module.exports = AudioObject;
