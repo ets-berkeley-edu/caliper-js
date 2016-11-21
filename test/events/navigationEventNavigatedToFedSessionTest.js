@@ -89,13 +89,13 @@ test('Create a NavigationEvent (navigatedTo) with a Federated Session and valida
     startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
   });
 
-  var required = {
+  var ltiRequired = {
     lti_message_type: "basic-lti-launch-request",
     lti_version: "LTI-2p0",
     resource_link_id: "88391-e1919-bb3456"
   };
 
-  var recommended = {
+  var ltiRecommended = {
     context_id: "8213060-006f-27b2066ac545",
     launch_presentation_document_target: "iframe",
     launch_presentation_height: 240,
@@ -106,7 +106,7 @@ test('Create a NavigationEvent (navigatedTo) with a Federated Session and valida
     user_id: "0ae836b9-7fc9-4060-006f-27b2066ac545"
   };
 
-  var optional = {
+  var ltiOptional = {
     context_type: "CourseSection",
     launch_presentation_locale: "en-US",
     launch_presentation_css_url: "https://example.edu/css/tool.css",
@@ -114,7 +114,7 @@ test('Create a NavigationEvent (navigatedTo) with a Federated Session and valida
   };
 
   // includes LTI 2.0 deprecated properties (e.g., context_title) with recommended custom_ prefix
-  var custom = {
+  var ltiCustom = {
     custom_caliper_session_id: "https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259",
     custom_context_title: "CPS 435 Learning Analytics",
     custom_context_label: "CPS 435",
@@ -122,25 +122,29 @@ test('Create a NavigationEvent (navigatedTo) with a Federated Session and valida
     custom_user_image: "https://example.edu/users/554433/profile/avatar.jpg"
   };
 
-  var extensions = {
-    ext_vnd_instructor: {
+  var ltiExtensions = {
+    "ext_vnd_instructor": {
       "@context": {
-        "@vocab": "http://example.edu/ctx/edu.jsonld",
-        sdo: "http://schema.org/"
+        sdo: "http://schema.org/",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        jobTitle: {id: "sdo:jobTitle", type: "xsd:string"},
+        givenName: {id: "sdo:givenName", type: "xsd:string"},
+        familyName: {id: "sdo:familyName", type: "xsd:string"},
+        email: {id: "sdo:email", type: "xsd:string"},
+        url: {id: "sdo:url", type: "xsd:string"}
       },
-      "@type": "Faculty",
-      "sdo:jobTitle": "Professor",
-      "sdo:givenName": "Trig",
-      "sdo:familyName": "Haversine",
-      "sdo:email": "trighaversine@example.edu",
-      "sdo:url": "https://example.edu/faculty/trighaversine",
-      isTenured: true,
-      isOnSabbatical: false
+      id: "https://example.edu/faculty/trighaversine",
+      type: "Person",
+      jobTitle: "Professor",
+      givenName: "Trig",
+      familyName: "Haversine",
+      email: "trighaversine@example.edu",
+      url: "https://example.edu/faculty/trighaversine"
     }
   };
 
   // Compose launchParameters from objects above
-  var launchParameters = _.assign({}, required, recommended, optional, custom, extensions);
+  var launchParameters = _.assign({}, ltiRequired, ltiRecommended, ltiOptional, ltiCustom, ltiExtensions);
 
   var ltiSession = entityFactory().create(LtiSession, BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"), {
     actor: actor,
