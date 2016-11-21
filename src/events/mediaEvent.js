@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose MediaEvent from Event and set default properties.
  */
-var MediaEvent = _.assign({}, event, { "@type": eventType.MEDIA });
+var MediaEvent = _.assign({}, event, { type: eventType.MEDIA });
 
 module.exports = MediaEvent;
