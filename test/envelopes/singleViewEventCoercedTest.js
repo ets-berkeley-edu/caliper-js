@@ -51,20 +51,20 @@ test('Create an Envelope containing single ViewEvent (viewed), coerce actor, obj
     context.push("http://purl.imsglobal.org/ctx/caliper/v1/Context");
     context.push({
       "actor": {
-        "@id": "http://purl.imsglobal.org/caliper/v1/Person",
-        "@type": "@id"
+        "id": "http://purl.imsglobal.org/caliper/v1/Person",
+        "@type": "id"
       }
     });
     context.push({
       "object": {
-        "@id": "http://purl.imsglobal.org/caliper/v1/Document",
-        "@type": "@id"
+        "id": "http://purl.imsglobal.org/caliper/v1/Document",
+        "@type": "id"
       }
     });
     context.push({
       "edApp": {
-        "@id": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication",
-        "@type": "@id"
+        "id": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication",
+        "@type": "id"
       }
     });
 
