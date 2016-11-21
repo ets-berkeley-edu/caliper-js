@@ -64,7 +64,7 @@ test('Create a SessionEvent (loggedOut) and validate properties', function(t) {
 
   // Assert that key attributes are the same
   var event = eventFactory().create(SessionEvent, {
-    id: eventId,
+    uuid: eventId,
     actor: actor,
     action: action,
     object: obj,
