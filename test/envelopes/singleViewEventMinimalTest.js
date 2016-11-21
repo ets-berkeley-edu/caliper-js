@@ -81,33 +81,3 @@ test('Create an Envelope containing single ViewEvent (viewed) and validate prope
 function createFauxSensor(id) {
   return {id: id};
 }
-
-
-
-
-
-
-
-
-/**
- {
-  "sensor": "https://example.edu/sensors/1",
-  "sendTime": "2016-11-15T11:05:01.000Z",
-  "data": [
-    {
-      "@context": "http://purl.imsglobal.org/ctx/caliper/v1/Context",
-      "@type": "http://purl.imsglobal.org/caliper/v1/Event",
-      "actor": {
-        "@id": "https://example.edu/users/554433",
-        "@type": "http://purl.imsglobal.org/caliper/v1/Person"
-      },
-      "action": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed",
-      "object": {
-        "@id": "https://example.edu/etexts/201.epub",
-        "@type": "http://purl.imsglobal.org/caliper/v1/Document"
-      },
-      "eventTime": "2016-11-15T10:15:00.000Z"
-    }
-  ]
-}
- */
