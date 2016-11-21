@@ -21,8 +21,8 @@ var eventType = require('./eventType');
 
 var Event = {
   '@context': constants.CONTEXT,
-  id: null,
-  '@type': eventType.EVENT,
+  uuid: null,
+  type: eventType.EVENT,
   actor: {},
   action: null,
   object: {},
@@ -35,7 +35,7 @@ var Event = {
   membership: {},
   session: null,
   federatedSession: null,
-  extensions: {}
+  extensions: []
 };
 
 module.exports = Event;
