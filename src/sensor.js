@@ -29,7 +29,7 @@ var logger = require('./logger');
  * so we can attach non-sensor module exports to it
  * @type {{}|*|Caliper}
  */
-var Caliper = window.Caliper || {};
+var Caliper = (typeof window !== 'undefined') ? window.Caliper || {} : {};
 
 /**
  * Represents Caliper Sensor.
@@ -206,6 +206,9 @@ Caliper.Validator.EventValidator  = require('./events/eventValidator');
 Caliper.Sensor = Sensor;
 
 // Replace/create Caliper in global namespace
-window.Caliper = Caliper;
-
-logger.log('debug', "Added Sensor to window global %o", window.Sensor);
+if (typeof window !== 'undefined') {
+  window.Caliper = Caliper;
+  logger.log('debug', "Added Sensor to window global %o", window.Sensor);
+} else {
+  module.exports = Caliper
+}
