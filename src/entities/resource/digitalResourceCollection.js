@@ -21,7 +21,7 @@ var digitalResource = require('./digitalResource');
 var entityType = require('../entityType');
 
 /**
- * Compose DigitalResourceCollection from Entity and DigitalResource and set default properties.
+ * Compose DigitalResourceCollection from DigitalResource and set default properties.
  */
 var DigitalResourceCollection = _.assign({}, digitalResource, {
   type: entityType.DIGITAL_RESOURCE_COLLECTION,

@@ -61,7 +61,7 @@ self.createEnvelope = function(sensor, sendTime, data) {
   } else {
     payload.push(data);
   }
-  
+
   return _.assign({}, envelope, { sensor: id, sendTime: sendTime, data: payload });
 };
 
