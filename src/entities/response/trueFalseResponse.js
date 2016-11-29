@@ -24,7 +24,7 @@ var entityType = require('../entityType');
 /**
  * Link TrueFalseResponse to delegate Response and assign default property values.
  */
-var TrueFalseResponse = _.assign(_.create(response), {
+var TrueFalseResponse = _.assign({}, response, {
   '@context': constants.CONTEXT,
   'type': entityType.TRUEFALSE,
   value: null

@@ -24,7 +24,7 @@ var entityType = require('../entityType');
 /**
  * Link MultipleChoiceResponse to delegate Response and assign default property values.
  */
-var MultipleChoiceResponse = _.assign(_.create(response), {
+var MultipleChoiceResponse = _.assign({}, response, {
   '@context': constants.CONTEXT,
   'type': entityType.MULTIPLECHOICE,
   value: null
