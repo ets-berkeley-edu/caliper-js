@@ -26,7 +26,6 @@ var entityType = {
   "AUDIO_OBJECT": "AudioObject",
   "BOOKMARK_ANNOTATION": "BookmarkAnnotation",
   "CHAPTER": "Chapter",
-  "COLLECTION": "Collection",
   "COURSE_OFFERING": "CourseOffering",
   "COURSE_SECTION": "CourseSection",
   "DIGITAL_RESOURCE": "DigitalResource",
