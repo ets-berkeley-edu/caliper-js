@@ -107,7 +107,6 @@ Caliper.Actions.ViewActions           = require('./actions/viewActions');
 Caliper.Constants.Constants = require('./constants');
 
 // Entities
-Caliper.Entities.Collection      = require('./entities/collection');
 Caliper.Entities.Entity          = require('./entities/entity');
 Caliper.Entities.EntityFactory   = require('./entities/entityFactory');
 Caliper.Entities.EntityType      = require('./entities/entityType');
