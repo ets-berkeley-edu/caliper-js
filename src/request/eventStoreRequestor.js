@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var moment = require('moment');
-var Envelope = require('./envelope');
+var envelope = require('./envelope');
 var requestUtils = require('./requestUtils')
 
 /**
@@ -61,11 +61,8 @@ self.createEnvelope = function(sensor, sendTime, data) {
   } else {
     payload.push(data);
   }
-  return _.assign(_.create(Envelope), {
-    sensor: id,
-    sendTime: sendTime,
-    data: payload
-  });
+  
+  return _.assign({}, envelope, { sensor: id, sendTime: sendTime, data: payload });
 };
 
 /**

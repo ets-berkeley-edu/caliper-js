@@ -24,7 +24,7 @@ var entityType = require('../entityType');
 /**
  * Link LtiSession to delegate Session and assign default property values.
  */
-var LtiSession = _.assign(_.create(session), {
+var LtiSession = _.assign({}, session, {
   '@context': constants.CONTEXT,
   'type': entityType.LTI_SESSION,
   launchParameters: {}

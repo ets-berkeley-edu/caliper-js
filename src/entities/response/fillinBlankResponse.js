@@ -24,7 +24,7 @@ var entityType = require('../entityType');
 /**
  * Link FillinBlankResponse to delegate Response and assign default property values.
  */
-var FillinBlankResponse = _.assign(_.create(response), {
+var FillinBlankResponse = _.assign({}, response, {
   '@context': constants.CONTEXT,
   'type': entityType.FILLINBLANK,
   values: []

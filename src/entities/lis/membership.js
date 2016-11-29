@@ -24,7 +24,7 @@ var entityType = require('../entityType');
 /**
  * Link Membership to delegate Entity and assign default property values.
  */
-var Membership = _.assign(_.create(entity), {
+var Membership = _.assign({}, entity, {
   '@context': constants.CONTEXT,
   'type': entityType.MEMBERSHIP,
   member: {},
