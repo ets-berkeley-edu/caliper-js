@@ -68,7 +68,7 @@ var role = {
   "MENTOR_EXTERNAL_AUDITOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalAuditor",
   "MENTOR_EXTERNAL_REVIEWER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalReviewer",
   "MENTOR_EXTERNAL_TUTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalTutor",
-  "MENTOR_EXTERNAL_LEARNING_FACILITATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor/ExternalLearningFacilitator",
+  "MENTOR_EXTERNAL_LEARNING_FACILITATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalLearningFacilitator",
 
   "TEACHING_ASSISTANT": "http://purl.imsglobal.org/vocab/lis/v2/membership#TeachingAssistant",
   "TEACHING_ASSISTANT_TEACHING_ASSISTANT": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistant",
