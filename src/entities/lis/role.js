@@ -36,8 +36,8 @@ var role = {
   "ADMINISTRATOR_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#Support",
   "ADMINISTRATOR_SYSTEM_ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#SystemAdministrator",
 
-  "ADMINISTRATOR_EXTERNAL_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSupport",
-  "ADMINISTRATOR_EXTERNAL_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalDeveloper",
+  "ADMINISTRATOR_EXTERNAL_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalDeveloper",
+  "ADMINISTRATOR_EXTERNAL_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSupport",
   "ADMINISTRATOR_EXTERNAL_SYSTEM_ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSystemAdministrator",
 
   "CONTENT_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership#ContentDeveloper",
