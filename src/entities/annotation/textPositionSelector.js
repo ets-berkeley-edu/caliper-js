@@ -25,6 +25,7 @@ var _ = require('lodash');
  * type {Object}
  */
 var textPositionSelector = {
+  type: "TextPositionSelector",
   start: null,
   end: null
 };
