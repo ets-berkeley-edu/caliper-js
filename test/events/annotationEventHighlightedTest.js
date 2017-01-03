@@ -88,7 +88,7 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
     member: actor,
     organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.LEARNER],
-    status: Status.ACTIVE,
+    status: Status.active.term,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 

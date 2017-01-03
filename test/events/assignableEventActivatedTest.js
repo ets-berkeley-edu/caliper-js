@@ -82,7 +82,7 @@ test('Create an AssignableEvent (activated) and validate properties', function (
     member: actor,
     organization: _.omit(group, ["courseNumber", "academicSession"]),
     roles: [Role.INSTRUCTOR],
-    status: Status.ACTIVE,
+    status: Status.active.term,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
