@@ -18,7 +18,7 @@
 
 var constants = {
   BLANK_NODE: "_:",
-  CONTEXT: "http://purl.imsglobal.org/ctx/caliper/v1p1/Context",
+  CONTEXT: "http://purl.imsglobal.org/ctx/caliper/v1p1",
   ENTITY: "entity",
   EVENT: "event"
 };
