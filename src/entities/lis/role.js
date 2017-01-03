@@ -16,68 +16,69 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+const BASE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership";
+const ADMIN_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator";
+const CONTENT_DEV_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/ContentDeveloper";
+const INSTR_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor";
+const LEARNER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner";
+const MANAGER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Manager";
+const MEMBER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Member";
+const MENTOR_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor";
+const TEACH_ASST_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant";
+
 var role = {
-  "LEARNER": "http://purl.imsglobal.org/vocab/lis/v2/membership#Learner",
-  "EXTERNAL_LEARNER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner#ExternalLearner",
-  "GUEST_LEARNER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner#GuestLearner",
-  "LEARNER_INSTRUCTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner#Instructor",
-  "LEARNER_LEARNER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner#Learner",
-  "NONCREDIT_LEARNER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner#NonCreditLearner",
-
-  "INSTRUCTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor",
-  "EXTERNAL_INSTRUCTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor#ExternalInstructor",
-  "GUEST_INSTRUCTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor#GuestInstructor",
-  "LECTURER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor#Lecturer",
-  "PRIMARY_INSTRUCTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor#PrimaryInstructor",
-
-  "ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership#Administrator",
-  "ADMINISTRATOR_ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#Administrator",
-  "ADMINISTRATOR_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#Developer",
-  "ADMINISTRATOR_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#Support",
-  "ADMINISTRATOR_SYSTEM_ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#SystemAdministrator",
-
-  "ADMINISTRATOR_EXTERNAL_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalDeveloper",
-  "ADMINISTRATOR_EXTERNAL_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSupport",
-  "ADMINISTRATOR_EXTERNAL_SYSTEM_ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSystemAdministrator",
-
-  "CONTENT_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership#ContentDeveloper",
-  "CONTENT_DEVELOPER_CONTENT_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership/ContentDeveloper#ContentDeveloper",
-  "CONTENT_DEVELOPER_LIBRARIAN": "http://purl.imsglobal.org/vocab/lis/v2/membership/ContentDeveloper#Librarian",
-  "CONTENT_DEVELOPER_CONTENT_EXPERT": "http://purl.imsglobal.org/vocab/lis/v2/membership/ContentDeveloper#ContentExpert",
-  "CONTENT_DEVELOPER_EXTERNAL_CONTENT_EXPERT": "http://purl.imsglobal.org/vocab/lis/v2/membership/ContentDeveloper#ExternalContentExpert",
-
-  "MANAGER": "http://purl.imsglobal.org/vocab/lis/v2/membership#Manager",
-  "MANAGER_AREA_MANAGER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Manager#AreaManager",
-  "MANAGER_COURSE_COORDINATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Manager#CourseCoordinator",
-  "MANAGER_OBSERVER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Manager#Observer",
-  "MANAGER_EXTERNAL_OBSERVER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Manager#ExternalObserver",
-
-  "MEMBER": "http://purl.imsglobal.org/vocab/lis/v2/membership#Member",
-  "MEMBER_MEMBER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Member#Member",
-
-  "MENTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership#Mentor",
-  "MENTOR_MENTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#Mentor",
-  "MENTOR_ADVISOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#Advisor",
-  "MENTOR_AUDITOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#Auditor",
-  "MENTOR_REVIEWER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#Reviewer",
-  "MENTOR_TUTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#Tutor",
-  "MENTOR_LEARNING_FACILITATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#LearningFacilitator",
-
-  "MENTOR_EXTERNAL_MENTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalMentor",
-  "MENTOR_EXTERNAL_ADVISOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalAdvisor",
-  "MENTOR_EXTERNAL_AUDITOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalAuditor",
-  "MENTOR_EXTERNAL_REVIEWER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalReviewer",
-  "MENTOR_EXTERNAL_TUTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalTutor",
-  "MENTOR_EXTERNAL_LEARNING_FACILITATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalLearningFacilitator",
-
-  "TEACHING_ASSISTANT": "http://purl.imsglobal.org/vocab/lis/v2/membership#TeachingAssistant",
-  "TEACHING_ASSISTANT_TEACHING_ASSISTANT": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistant",
-  "TEACHING_ASSISTANT_GRADER": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#Grader",
-  "TEACHING_ASSISTANT_TEACHING_ASSISTANT_SECTION": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistantSection",
-  "TEACHING_ASSISTANT_TEACHING_ASSISTANT_SECTION_ASSOCIATION": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistantSectionAssociation",
-  "TEACHING_ASSISTANT_TEACHING_ASSISTANT_OFFERING": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistantOffering",
-  "TEACHING_ASSISTANT_TEACHING_ASSISTANT_TEMPLATE": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistantTemplate",
-  "TEACHING_ASSISTANT_TEACHING_ASSISTANT_GROUP": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistantGroup"
+  learner: {term: "Learner", iri: BASE_IRI + "#Learner"},
+  learnerExternalLearner: {term: "Learner#ExternalLearner", iri: LEARNER_SUBROLE_IRI + "#ExternalLearner"},
+  learnerGuestLearner: {term: "Learner#GuestLearner", iri: LEARNER_SUBROLE_IRI + "#GuestLearner"},
+  learnerInstructor: {term: "Learner#Instructor", iri: LEARNER_SUBROLE_IRI + "#Instructor"},
+  learnerLearner: {term: "Learner#Learner", iri: LEARNER_SUBROLE_IRI + "#Learner"},
+  learnerNonCreditLearner: {term: "Learner#NonCreditLearner", iri: LEARNER_SUBROLE_IRI + "#NonCreditLearner"},
+  instructor: {term: "Instructor", iri: BASE_IRI + "#Instructor"},
+  instructorExternalInstructor: {term: "Instructor#ExternalInstructor", iri: INSTR_SUBROLE_IRI + "#ExternalInstructor"},
+  instructorGuestInstructor: {term: "Instructor#GuestInstructor", iri: INSTR_SUBROLE_IRI + "#GuestInstructor"},
+  instructorLecturer: {term: "Instructor#Lecturer", iri: INSTR_SUBROLE_IRI + "#Lecturer"},
+  instructorPrimaryInstructor: {term: "Instructor#PrimaryInstructor", iri: INSTR_SUBROLE_IRI + "#PrimaryInstructor"},
+  administrator: {term: "Administrator", iri: BASE_IRI + "#Administrator"},
+  administratorAdministrator: {term: "Administrator#Administrator", iri: ADMIN_SUBROLE_IRI + "#Administrator"},
+  administratorDeveloper: {term: "Administrator#Developer", iri: ADMIN_SUBROLE_IRI + "#Developer"},
+  administratorSupport: {term: "Administrator#Support", iri: ADMIN_SUBROLE_IRI + "#Support"},
+  administratorSystemAdministrator: {term: "Administrator#SystemAdministrator", iri: ADMIN_SUBROLE_IRI + "#SystemAdministrator"},
+  administratorExternalDeveloper: {term: "Administrator#ExternalDeveloper", iri: ADMIN_SUBROLE_IRI + "#ExternalDeveloper"},
+  administratorExternalSupport: {term: "Administrator#ExternalSupport", iri: ADMIN_SUBROLE_IRI + "#ExternalSupport"},
+  administratorExternalSystemAdministrator: {term: "Administrator#ExternalSystemAdministrator", iri: ADMIN_SUBROLE_IRI + "#ExternalSystemAdministrator"},
+  contentDeveloper: {term: "ContentDeveloper", iri: BASE_IRI + "#ContentDeveloper"},
+  contentDeveloperContentDeveloper: {term: "ContentDeveloper#ContentDeveloper", iri: CONTENT_DEV_SUBROLE_IRI + "#ContentDeveloper"},
+  contentDeveloperLibrarian: {term: "ContentDeveloper#Librarian", iri: CONTENT_DEV_SUBROLE_IRI + "#Librarian"},
+  contentDeveloperContentExpert: {term: "ContentDeveloper#ContentExpert", iri: CONTENT_DEV_SUBROLE_IRI + "#ContentExpert"},
+  contentDeveloperExternalContentExpert: {term: "ContentDeveloper#ExternalContentExpert", iri: CONTENT_DEV_SUBROLE_IRI + "#ExternalContentExpert"},
+  manager: {term: "Manager", iri: BASE_IRI + "#Manager"},
+  managerAreaManager: {term: "Manager#AreaManager", iri: MANAGER_SUBROLE_IRI + "#AreaManager"},
+  managerCourseCoordinator: {term: "Manager#CourseCoordinator", iri: MANAGER_SUBROLE_IRI + "#CourseCoordinator"},
+  managerObserver: {term: "Manager#Observer", iri: MANAGER_SUBROLE_IRI + "#Observer"},
+  managerExternalObserver: {term: "Manager#ExternalObserver", iri: MANAGER_SUBROLE_IRI + "#ExternalObserver"},
+  member: {term: "Member", iri: BASE_IRI + "#Member"},
+  memberMember: {term: "Member#Member", iri: MEMBER_SUBROLE_IRI + "#Member"},
+  mentor: {term: "Mentor", iri: BASE_IRI + "#Mentor"},
+  mentorMentor: {term: "Mentor#Mentor", iri: MENTOR_SUBROLE_IRI + "#Mentor"},
+  mentorAdvisor: {term: "Mentor#Advisor", iri: MENTOR_SUBROLE_IRI + "#Advisor"},
+  mentorAuditor: {term: "Mentor#Auditor", iri: MENTOR_SUBROLE_IRI + "#Auditor"},
+  mentorReviewer: {term: "Mentor#Reviewer", iri: MENTOR_SUBROLE_IRI + "#Reviewer"},
+  mentorTutor: {term: "Mentor#Tutor", iri: MENTOR_SUBROLE_IRI + "#Tutor"},
+  mentorLearningFacilitator: {term: "Mentor#LearningFacilitator", iri: MENTOR_SUBROLE_IRI + "#LearningFacilitator"},
+  mentorExternalMentor: {term: "Mentor#ExternalMentor", iri: MENTOR_SUBROLE_IRI + "#ExternalMentor"},
+  mentorExternalAdvisor: {term: "Mentor#ExternalAdvisor", iri: MENTOR_SUBROLE_IRI + "#ExternalAdvisor"},
+  mentorExternalAuditor: {term: "Mentor#ExternalAuditor", iri: MENTOR_SUBROLE_IRI + "#ExternalAuditor"},
+  mentorExternalReviewer: {term: "Mentor#ExternalReviewer", iri: MENTOR_SUBROLE_IRI + "#ExternalReviewer"},
+  mentorExternalTutor: {term: "Mentor#ExternalTutor", iri: MENTOR_SUBROLE_IRI + "#ExternalTutor"},
+  mentorExternalLearningFacilitator: {term: "Mentor#ExternalLearningFacilitator", iri: MENTOR_SUBROLE_IRI + "#ExternalLearningFacilitator"},
+  teachingAssistant: {term: "TeachingAssistant", iri: BASE_IRI + "#TeachingAssistant"},
+  teachingAssistantTeachingAssistant: {term: "TeachingAssistant#TeachingAssistant", iri: TEACH_ASST_SUBROLE_IRI + "#TeachingAssistant"},
+  teachingAssistantGrader: {term: "TeachingAssistant#Grader", iri: TEACH_ASST_SUBROLE_IRI + "#Grader"},
+  teachingAssistantSection: {term: "TeachingAssistantSection", iri: TEACH_ASST_SUBROLE_IRI + "#TeachingAssistantSection"},
+  teachingAssistantTeachingAssistantSectionAssociation: {term: "TeachingAssistant#TeachingAssistantSectionAssociation", iri: TEACH_ASST_SUBROLE_IRI + "#TeachingAssistantSectionAssociation"},
+  teachingAssistantTeachingAssistantOffering: {term: "TeachingAssistant#TeachingAssistantOffering", iri: TEACH_ASST_SUBROLE_IRI + "#TeachingAssistantOffering"},
+  teachingAssistantTeachingAssistantTemplate: {term: "TeachingAssistant#TeachingAssistantTemplate", iri: TEACH_ASST_SUBROLE_IRI + "#TeachingAssistantTemplate"},
+  teachingAssistantTeachingAssistantGroup: {term: "TeachingAssistant#TeachingAssistantGroup", iri: TEACH_ASST_SUBROLE_IRI + "#TeachingAssistantGroup"}
 };
 
 module.exports = role;

@@ -90,8 +90,8 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
   var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
     member: actor,
     organization: _.omit(group, ["courseNumber", "academicSession"]),
-    roles: [Role.LEARNER],
-    status: Status.ACTIVE,
+    roles: [Role.learner.term],
+    status: Status.active.term,
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
