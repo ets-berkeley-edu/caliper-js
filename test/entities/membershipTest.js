@@ -46,8 +46,8 @@ test('Create a Membership entity and validate properties', function (t) {
   var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1/members/554433"), {
     member: member,
     organization: section,
-    roles: [Role.LEARNER],
-    status: Status.ACTIVE,
+    roles: [Role.learner.term],
+    status: Status.active.term,
     dateCreated: moment.utc("2016-11-01T06:00:00.000Z")
   });
 
