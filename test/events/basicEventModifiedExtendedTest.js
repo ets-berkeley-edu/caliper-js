@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var Event = require('../../src/events/Event');
-var Actions = require('../../src/actions/actions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
@@ -42,7 +42,7 @@ test('Create a Basic event (modified) with extensions and validate properties', 
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = Actions.MODIFIED;
+  var action = actions.modified.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(Document, BASE_SECTION_IRI.concat("/resources/123"), {

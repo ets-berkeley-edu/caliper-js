@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var MediaEvent = require('../../src/events/mediaEvent');
-var MediaActions = require('../../src/actions/mediaActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -49,7 +49,7 @@ test('Create a MediaEvent (paused) and validate properties', function (t) {
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = MediaActions.PAUSED;
+  var action = actions.paused.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(VideoObject, BASE_IRI.concat("/UQVK-dsU7-Y"), {

@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AnnotationEvent = require('../../src/events/annotationEvent');
-var AnnotationActions = require('../../src/actions/annotationActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var HighlightAnnotation = require('../../src/entities/annotation/highlightAnnotation');
@@ -51,7 +51,7 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action for the Caliper Event
-  var action = AnnotationActions.HIGHLIGHTED;
+  var action = actions.highlighted.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(Document, BASE_ETEXT_IRI, {

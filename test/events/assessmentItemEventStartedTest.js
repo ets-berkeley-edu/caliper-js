@@ -23,7 +23,7 @@ var test = require('tape');
 // Event
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentItemEvent = require('../../src/events/assessmentItemEvent');
-var AssessmentItemActions = require('../../src/actions/assessmentItemActions');
+var actions = require('../../src/actions/actions');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
@@ -54,7 +54,7 @@ test('Create an AssessmentItemEvent (started) and validate properties', function
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // Action
-  var action = AssessmentItemActions.STARTED;
+  var action = actions.started.term;
 
   // Parent assessment
   var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);

@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var MessageEvent = require('../../src/events/messageEvent');
-var MessageActions = require('../../src/actions/messageActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -52,7 +52,7 @@ test('Create a MessageEvent (posted) and validate properties', function (t) {
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // Action
-  var action = MessageActions.POSTED;
+  var action = actions.posted.term;
 
   // Forum, Thread context
   var forum = entityFactory().create(Forum, BASE_FORUM_IRI, { name: "Caliper Forum" });

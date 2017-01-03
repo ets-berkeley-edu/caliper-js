@@ -23,6 +23,7 @@ var test = require('tape');
 // Event
 var eventFactory = require('../../src/events/eventFactory');
 var ForumEvent = require('../../src/events/forumEvent');
+var actions = require('../../src/actions/actions');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
@@ -32,9 +33,6 @@ var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Session = require('../../src/entities/session/Session');
-
-// Action
-var ForumActions = require('../../src/actions/forumActions');
 
 var Role = require('../../src/entities/lis/role');
 var Status = require('../../src/entities/lis/status');
@@ -53,7 +51,7 @@ test('Create a ForumEvent (subscribed) and validate properties', function (t) {
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = ForumActions.SUBSCRIBED;
+  var action = actions.subscribed.term;
 
   // Course Section (Group context)
   var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {

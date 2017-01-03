@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AnnotationEvent = require('../../src/events/annotationEvent');
-var AnnotationActions = require('../../src/actions/annotationActions');
+var actions = require('../../src/actions/actions');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
@@ -52,7 +52,7 @@ test('Create an AnnotationEvent (tagged) and validate properties', function (t) 
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action for the Caliper Event
-  var action = AnnotationActions.TAGGED;
+  var action = actions.tagged.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(Document, BASE_ETEXT_IRI, {

@@ -89,19 +89,7 @@ Caliper.Request = {};
 Caliper.Validator = {};
 
 // Actions
-Caliper.Actions.Actions               = require('./actions/actions');
-Caliper.Actions.AnnotationActions     = require('./actions/annotationActions');
-Caliper.Actions.AssessmentActions     = require('./actions/assessmentActions');
-Caliper.Actions.AssessmentItemActions = require('./actions/assessmentItemActions');
-Caliper.Actions.AssignableActions     = require('./actions/assignableActions');
-Caliper.Actions.ForumActions          = require('./actions/forumActions');
-Caliper.Actions.MediaActions          = require('./actions/mediaActions');
-Caliper.Actions.MessageActions        = require('./actions/messageActions');
-Caliper.Actions.NavigationActions     = require('./actions/navigationActions');
-Caliper.Actions.OutcomeActions        = require('./actions/outcomeActions');
-Caliper.Actions.SessionActions        = require('./actions/sessionActions');
-Caliper.Actions.ThreadActions         = require('./actions/threadActions');
-Caliper.Actions.ViewActions           = require('./actions/viewActions');
+Caliper.Actions.Actions = require('./actions/actions');
 
 // Misc. constants
 Caliper.Constants.Constants = require('./constants');

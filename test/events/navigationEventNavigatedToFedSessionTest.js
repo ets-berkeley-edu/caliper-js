@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var NavigationEvent = require('../../src/events/navigationEvent');
-var NavigationActions = require('../../src/actions/navigationActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -51,7 +51,7 @@ test('Create a NavigationEvent (navigatedTo) with a Federated Session and valida
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = NavigationActions.NAVIGATED_TO;
+  var action = actions.navigatedTo.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(Document, BASE_COM_IRI.concat("/lti/reader/202.epub"), {
