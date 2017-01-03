@@ -36,8 +36,8 @@ var role = {
   "ADMINISTRATOR_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#Support",
   "ADMINISTRATOR_SYSTEM_ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#SystemAdministrator",
 
-  "ADMINISTRATOR_EXTERNAL_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSupport",
-  "ADMINISTRATOR_EXTERNAL_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalDeveloper",
+  "ADMINISTRATOR_EXTERNAL_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalDeveloper",
+  "ADMINISTRATOR_EXTERNAL_SUPPORT": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSupport",
   "ADMINISTRATOR_EXTERNAL_SYSTEM_ADMINISTRATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator#ExternalSystemAdministrator",
 
   "CONTENT_DEVELOPER": "http://purl.imsglobal.org/vocab/lis/v2/membership#ContentDeveloper",
@@ -68,7 +68,7 @@ var role = {
   "MENTOR_EXTERNAL_AUDITOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalAuditor",
   "MENTOR_EXTERNAL_REVIEWER": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalReviewer",
   "MENTOR_EXTERNAL_TUTOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalTutor",
-  "MENTOR_EXTERNAL_LEARNING_FACILITATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor/ExternalLearningFacilitator",
+  "MENTOR_EXTERNAL_LEARNING_FACILITATOR": "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor#ExternalLearningFacilitator",
 
   "TEACHING_ASSISTANT": "http://purl.imsglobal.org/vocab/lis/v2/membership#TeachingAssistant",
   "TEACHING_ASSISTANT_TEACHING_ASSISTANT": "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant#TeachingAssistant",
