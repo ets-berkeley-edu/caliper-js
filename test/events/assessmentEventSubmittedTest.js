@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
-var AssessmentActions = require('../../src/actions/assessmentActions');
+var actions = require('../../src/actions/actions');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
@@ -51,7 +51,7 @@ test('Create an AssessmentEvent (submitted) and validate properties', function (
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = AssessmentActions.SUBMITTED;
+  var action = actions.submitted.term;
 
   // The Assessment
   var assignable = entityFactory().create(Assessment, BASE_ASSESS_IRI, {

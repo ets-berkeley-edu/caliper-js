@@ -17,73 +17,292 @@
  */
 
 /**
- * Enum representing all event actions.
- * @enum
+ * Actions
  */
 var actions = {
-  "ABANDONED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Abandoned",
-  "ACTIVATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Activated",
-  "ADDED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Added",
-  "ATTACHED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Attached",
-  "BOOKMARKED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Bookmarked",
-  "CHANGED_RESOLUTION": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedResolution",
-  "CHANGED_SIZE": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSize",
-  "CHANGED_SPEED": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedSpeed",
-  "CHANGED_VOLUME": "http://purl.imsglobal.org/vocab/caliper/v1/action#ChangedVolume",
-  "CLASSIFIED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Classified",
-  "CLOSED_POPOUT": "http://purl.imsglobal.org/vocab/caliper/v1/action#ClosedPopout",
-  "COMMENTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Commented",
-  "COMPLETED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Completed",
-  "CREATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Created",
-  "DEACTIVATED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deactivated",
-  "DELETED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Deleted",
-  "DESCRIBED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Described",
-  "DISABLED_CLOSED_CAPTIONING": "http://purl.imsglobal.org/vocab/caliper/v1/action#DisabledCloseCaptioning",
-  "DISLIKED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Disliked",
-  "ENABLED_CLOSE_CAPTIONING": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnabledCloseCaptioning",
-  "ENDED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ended",
-  "ENTERED_FULLSCREEN": "http://purl.imsglobal.org/vocab/caliper/v1/action#EnteredFullScreen",
-  "EXITED_FULLSCREEN": "http://purl.imsglobal.org/vocab/caliper/v1/action#ExitedFullScreen",
-  "FORWARDED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#ForwardedTo",
-  "GRADED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Graded",
-  "HID": "http://purl.imsglobal.org/vocab/caliper/v1/action#Hid",
-  "HIGHLIGHTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Highlighted",
-  "IDENTIFIED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Identified",
-  "JUMPED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#JumpedTo",
-  "LIKED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Liked",
-  "LINKED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Linked",
-  "LOGGED_IN": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedIn",
-  "LOGGED_OUT": "http://purl.imsglobal.org/vocab/caliper/v1/action#LoggedOut",
-  "MARKED_AS_READ": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsRead",
-  "MARKED_AS_UNREAD": "http://purl.imsglobal.org/vocab/caliper/v1/action#MarkedAsUnread",
-  "MODIFIED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Modified",
-  "MUTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Muted",
-  "NAVIGATED_TO": "http://purl.imsglobal.org/vocab/caliper/v1/action#NavigatedTo",
-  "OPENED_POPOUT": "http://purl.imsglobal.org/vocab/caliper/v1/action#OpenedPopout",
-  "PAUSED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Paused",
-  "POSTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Posted",
-  "QUESTIONED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Questioned",
-  "RANKED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Ranked",
-  "RECOMMENDED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Recommended",
-  "REMOVED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Removed",
-  "RESET": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reset",
-  "RESTARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Restarted",
-  "RESUMED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Resumed",
-  "RETRIEVED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Retrieved",
-  "REVIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Reviewed",
-  "REWOUND": "http://purl.imsglobal.org/vocab/caliper/v1/action#Rewound",
-  "SEARCHED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Searched",
-  "SHARED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Shared",
-  "SHOWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Showed",
-  "SKIPPED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Skipped",
-  "STARTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Started",
-  "SUBMITTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Submitted",
-  "SUBSCRIBED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Subscribed",
-  "TAGGED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Tagged",
-  "TIMED_OUT": "http://purl.imsglobal.org/vocab/caliper/v1/action#TimedOut",
-  "UNMUTED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unmuted",
-  "UNSUBSCRIBED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Unsubscribed",
-  "VIEWED": "http://purl.imsglobal.org/vocab/caliper/v1/action#Viewed"
+  added: {
+    term: "Added",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Added",
+    events: []},
+  abandoned: {
+    term: "Abandoned",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Abandoned",
+    events: ["assignableEvent"]
+  },
+  activated: {
+    term: "Activated",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Activated",
+    events: ["assignableEvent"]
+  },
+  attached: {
+    term: "Attached",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Attached",
+    events: []},
+  bookmarked: {
+    term: "Bookmarked",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Bookmarked",
+    events: ["annotationEvent"]
+  },
+  changedResolution: {
+    term: "ChangedResolution",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#ChangedResolution",
+    events: ["mediaEvent"]
+  },
+  changedSize: {
+    term: "ChangedSize",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#ChangedSize",
+    events: ["mediaEvent"]
+  },
+  changedSpeed: {
+    term: "ChangedSpeed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#ChangedSpeed",
+    events: ["mediaEvent"]
+  },
+  changedVolume: {
+    term: "ChangedVolume",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#ChangedVolume",
+    events: ["mediaEvent"]
+  },
+  classified: {
+    term: "Classified",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Classified",
+    events: []},
+  closedPopout: {
+    term: "ClosedPopout",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#ClosedPopout",
+    events: ["mediaEvent"]
+  },
+  commented: {
+    term: "Commented",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Commented",
+    events: []},
+  completed: {
+    term: "Completed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Completed",
+    events: ["assessmentItemEvent", "assignableEvent"]
+  },
+  created: {
+    term: "Created",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Created",
+    events: []},
+  deactivated: {
+    term: "Deactivated",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Deactivated",
+    events: ["assignableEvent"]
+  },
+  deleted: {
+    term: "Deleted",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Deleted",
+    events: []},
+  described: {
+    term: "Described",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Described",
+    events: []},
+  disabledCloseCaptioning: {
+    term: "DisabledCloseCaptioning",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#DisabledCloseCaptioning",
+    events: ["mediaEvent"]
+  },
+  disliked: {
+    term: "Disliked",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Disliked",
+    events: []},
+  enabledCloseCaptioning: {
+    term: "EnabledCloseCaptioning",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#EnabledCloseCaptioning",
+    events: ["mediaEvent"]
+  },
+  ended: {
+    term: "Ended",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Ended",
+    events: ["mediaEvent"]},
+  enteredFullScreen: {
+    term: "EnteredFullScreen",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#EnteredFullScreen",
+    events: ["mediaEvent"]
+  },
+  exitedFullScreen: {
+    term: "ExitedFullScreen",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#ExitedFullScreen",
+    events: ["mediaEvent"]
+  },
+  forwardedTo: {
+    term: "ForwardedTo",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#ForwardedTo",
+    events: ["mediaEvent"]
+  },
+  graded: {
+    term: "Graded",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Graded",
+    events: ["outcomeEvent"]},
+  hid: {
+    term: "Hid",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Hid",
+    events: ["assignableEvent"]},
+  highlighted: {
+    term: "Highlighted",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Highlighted",
+    events: ["annotationEvent"]
+  },
+  identified: {
+    term: "Identified",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Identified",
+    events: []},
+  jumpedTo: {
+    term: "JumpedTo",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#JumpedTo",
+    events: ["mediaEvent"]},
+  liked: {
+    term: "Liked",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Liked",
+    events: []},
+  linked: {
+    term: "Linked",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Linked",
+    events: []},
+  loggedIn: {
+    term: "LoggedIn",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#LoggedIn",
+    events: ["sessionEvent"]
+  },
+  loggedOut: {
+    term: "LoggedOut",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#LoggedOut",
+    events: ["sessionEvent"]
+  },
+  markedAsRead: {
+    term: "MarkedAsRead",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#MarkedAsRead",
+    events: ["messageEvent", "threadEvent"]
+  },
+  markedAsUnread: {
+    term: "MarkedAsUnread",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#MarkedAsUnread",
+    events: ["messageEvent", "threadEvent"]
+  },
+  modified: {
+    term: "Modified",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Modified",
+    events: []},
+  muted: {
+    term: "Muted",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Muted",
+    events: ["mediaEvent"]},
+  navigatedTo: {
+    term: "NavigatedTo",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#NavigatedTo",
+    events: ["navigationEvent"]
+  },
+  openedPopout: {
+    term: "OpenedPopout",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#OpenedPopout",
+    events: ["mediaEvent"]
+  },
+  paused: {
+    term: "Paused",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Paused",
+    events: ["assessmentEvent", "mediaEvent"]
+  },
+  posted: {
+    term: "Posted",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Posted",
+    events: ["messageEvent"]},
+  questioned: {
+    term: "Questioned",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Questioned",
+    events: []},
+  ranked: {
+    term: "Ranked",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Ranked",
+    events: []},
+  recommended: {
+    term: "Recommended",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Recommended",
+    events: []},
+  removed: {
+    term: "Removed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Removed",
+    events: []},
+  reset: {
+    term: "Reset",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Reset",
+    events: []},
+  restarted: {
+    term: "Restarted",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Restarted",
+    events: ["assessmentEvent"]
+  },
+  resumed: {
+    term: "Resumed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Resumed",
+    events: ["mediaEvent"]},
+  retrieved: {
+    term: "Retrieved",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Retrieved",
+    events: []},
+  reviewed: {
+    term: "Reviewed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Reviewed",
+    events: ["assignableEvent"]
+  },
+  rewound: {
+    term: "Rewound",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Rewound",
+    events: ["mediaEvent"]},
+  searched: {
+    term: "Searched",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Searched",
+    events: []},
+  shared: {
+    term: "Shared",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Shared",
+    events: ["annotationEvent"]},
+  showed: {
+    term: "Showed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Showed",
+    events: ["assignableEvent"]},
+  skipped: {
+    term: "Skipped",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Skipped",
+    events: ["assessmentItemEvent"]
+  },
+  started: {
+    term: "Started",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Started",
+    events: ["assessmentEvent", "assessmentItemEvent", "assignableEvent", "mediaEvent"]
+  },
+  submitted: {
+    term: "Submitted",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Submitted",
+    events: ["assessmentEvent", "assignableEvent"]
+  },
+  subscribed: {
+    term: "Subscribed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Subscribed",
+    events: ["forumEvent"]
+  },
+  tagged: {
+    term: "Tagged",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Tagged",
+    events: ["annotationEvent"]},
+  timedOut: {
+    term: "TimedOut",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#TimedOut",
+    events: ["sessionEvent"]
+  },
+  unmuted: {
+    term: "Unmuted",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Unmuted",
+    events: ["mediaEvent"]},
+  unsubscribed: {
+    term: "Unsubscribed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Unsubscribed",
+    events: ["forumEvent"]
+  },
+  viewed: {
+    term: "Viewed",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Viewed",
+    events: ["viewEvent"]}
 };
 
 module.exports = actions;

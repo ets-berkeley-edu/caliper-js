@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var NavigationEvent = require('../../src/events/navigationEvent');
-var NavigationActions = require('../../src/actions/navigationActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -48,7 +48,7 @@ test('Create a NavigationEvent (navigatedTo) and validate properties', function 
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = NavigationActions.NAVIGATED_TO;
+  var action = actions.navigatedTo.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/2"), {

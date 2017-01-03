@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentItemEvent = require('../../src/events/assessmentItemEvent');
-var AssessmentItemActions = require('../../src/actions/assessmentItemActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
@@ -53,7 +53,7 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action for the Caliper Event
-  var action = AssessmentItemActions.COMPLETED;
+  var action = actions.completed.term;
 
   // Parent assessment
   var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);

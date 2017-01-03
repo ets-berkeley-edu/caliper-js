@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var ViewEvent = require('../../src/events/viewEvent');
-var ViewActions = require('../../src/actions/viewActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -50,7 +50,7 @@ test('Create a ViewEvent (viewed) moving top-level custom properties to extensio
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = ViewActions.VIEWED;
+  var action = actions.viewed.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(Document, BASE_IRI.concat("/etexts/200.epub"), {

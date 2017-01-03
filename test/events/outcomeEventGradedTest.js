@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var OutcomeEvent = require('../../src/events/outcomeEvent');
-var OutcomeActions = require('../../src/actions/outcomeActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
@@ -46,7 +46,7 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
   var actor = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), { version: "v2" });
 
   // The Action
-  var action = OutcomeActions.GRADED;
+  var action = actions.graded.term;
 
   // The Learner and the Assignment
   var learner = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));

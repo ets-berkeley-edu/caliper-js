@@ -21,7 +21,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var SessionEvent = require('../../src/events/sessionEvent');
-var SessionActions = require('../../src/actions/sessionActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
@@ -41,7 +41,7 @@ test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = SessionActions.LOGGED_IN;
+  var action = actions.loggedIn.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
@@ -57,11 +57,11 @@ test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
   });
 
   // Event Id GUID
-  var eventId = "341db3d9-71cc-4081-9423-cbed73cb0179";
+  var uuid = "fcd495d0-3740-4298-9bec-1154571dc211";
 
   // Assert that key attributes are the same
   var event = eventFactory().create(SessionEvent, {
-    uuid: eventId,
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,

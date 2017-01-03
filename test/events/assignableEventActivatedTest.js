@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AssignableEvent = require('../../src/events/assignableEvent');
-var AssignableActions = require('../../src/actions/assignableActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
@@ -48,7 +48,7 @@ test('Create an AssignableEvent (activated) and validate properties', function (
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/112233"));
 
   // The Action
-  var action = AssignableActions.ACTIVATED;
+  var action = actions.activated.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(Assessment, BASE_SECTION_IRI.concat("/assess/1"), {

@@ -22,11 +22,9 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AnnotationEvent = require('../../src/events/annotationEvent');
-var AnnotationActions = require('../../src/actions/annotationActions');
 var NavigationEvent = require('../../src/events/navigationEvent');
-var NavigationActions = require('../../src/actions/navigationActions');
 var ViewEvent = require('../../src/events/viewEvent');
-var ViewActions = require('../../src/actions/viewActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var BookmarkAnnotation = require('../../src/entities/annotation/bookmarkAnnotation');
@@ -88,7 +86,7 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
    */
 
   // The Action
-  var navAction = NavigationActions.NAVIGATED_TO;
+  var navAction = actions.navigatedTo.term;
 
   // The Object of the interaction
   var navObj = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/2"), {
@@ -121,7 +119,7 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
    */
 
   // The Action
-  var bookmarkAction = AnnotationActions.BOOKMARKED;
+  var bookmarkAction = actions.bookmarked.term;
 
   // The Object of the interaction
   var bookmarkObj = entityFactory().create(Document, BASE_ETEXT_IRI, {
@@ -167,7 +165,7 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
    */
 
   // The Action
-  var viewAction = ViewActions.VIEWED;
+  var viewAction = actions.viewed.term
 
   // The Object of the interaction
   var viewObj = entityFactory().create(Document, BASE_IRI.concat("/etexts/201.epub"), {

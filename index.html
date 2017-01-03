@@ -40,7 +40,7 @@
         });
 
         // The Action for the Caliper Event
-        var action = Caliper.Actions.NavigationActions.NAVIGATED_TO;
+        var action = Caliper.Actions.Actions.navigatedTo.term;
 
         // The Object being interacted with by the Actor
         var obj = Caliper.Entities.EntityFactory().create(Caliper.Entities.EPubVolume, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {

@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var ThreadEvent = require('../../src/events/threadEvent');
-var ThreadActions = require('../../src/actions/threadActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -49,7 +49,7 @@ test('Create a ThreadEvent (markedAsRead) and validate properties', function (t)
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action for the Caliper Event
-  var action = ThreadActions.MARKED_AS_READ;
+  var action = actions.markedAsRead.term;
 
   // Forum context
   var forum = entityFactory().create(Forum, BASE_SECTION_IRI.concat("/forums/1"), {

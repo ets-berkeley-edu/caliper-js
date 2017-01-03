@@ -22,7 +22,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
-var AssessmentActions = require('../../src/actions/assessmentActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Attempt = require('../../src/entities/assign/attempt');
@@ -51,7 +51,7 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
   // The Action
-  var action = AssessmentActions.STARTED;
+  var action = actions.started.term;
 
   // The Object of the interaction
   var obj = entityFactory().create(Assessment, BASE_ASSESS_IRI, {

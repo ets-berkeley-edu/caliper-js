@@ -21,7 +21,7 @@ var test = require('tape');
 
 var eventFactory = require('../../src/events/eventFactory');
 var SessionEvent = require('../../src/events/sessionEvent');
-var SessionActions = require('../../src/actions/sessionActions');
+var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
@@ -41,7 +41,7 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
   var actor = entityFactory().create(SoftwareApplication, BASE_IRI);
 
   // The Action
-  var action = SessionActions.TIMED_OUT;
+  var action = actions.timedOut.term;
 
   // The Object of the interaction
   var objId = BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
@@ -57,11 +57,11 @@ test('Create a SessionEvent (timedOut) and validate properties', function(t) {
   var eventTime = moment.utc("2016-11-15T11:15:00.000Z");
 
   // Event Id GUID
-  var eventId = "513d4ca1-0ecf-4234-932d-c4cb287884a3";
+  var uuid = "4e61cf6c-ffbe-45bc-893f-afe7ad4079dc";
 
   // Assert that key attributes are the same
   var event = eventFactory().create(SessionEvent, {
-    uuid: eventId,
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
