@@ -76,7 +76,7 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
   var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
   // The Generated annotation
-  var selector = _.assign(_.create(TextPositionSelector), { start: 2300, end: 2370 });
+  var selector = _.assign({}, TextPositionSelector, { start: 2300, end: 2370 });
   var generated = entityFactory().create(HighlightAnnotation,
     BASE_IRI.concat("/users/554433/etexts/201/highlights?start=2300&end=2370"), {
     actor: actor,
