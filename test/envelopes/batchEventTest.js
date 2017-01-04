@@ -39,7 +39,7 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var Status = require('../../src/entities/lis/status');
 var WebPage = require('../../src/entities/resource/webPage');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
 test('Create an Envelope containing batched Navigation, Annotation, View Events and validate properties', function (t) {
@@ -54,7 +54,6 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
   /*
    * COMMON ENTITIES FOR BATCHED EVENTS
    */
-
   // Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
@@ -85,6 +84,8 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
    * NAVIGATION EVENT
    */
 
+  var navId = "72f66ce5-d2ec-44cc-bce5-41602e1015dc";
+
   // The Action
   var navAction = actions.navigatedTo.term;
 
@@ -103,6 +104,7 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
 
   // Assert that key attributes are the same
   var navigationEvent = eventFactory().create(NavigationEvent, {
+    uuid: navId,
     actor: actor,
     action: navAction,
     object: navObj,
@@ -117,6 +119,9 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
   /*
    * BOOKMARKED ANNOTATION EVENT
    */
+
+  // Id
+  var bookmarkId = "c0afa013-64df-453f-b0a6-50f3efbe4cc0";
 
   // The Action
   var bookmarkAction = actions.bookmarked.term;
@@ -149,6 +154,7 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
 
   // Assert that key attributes are the same
   var annotationEvent = eventFactory().create(AnnotationEvent, {
+    uuid: bookmarkId,
     actor: actor,
     action: bookmarkAction,
     object: bookmarkObj,
@@ -163,6 +169,9 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
   /*
    * VIEW EVENT
    */
+
+  // Id
+  var viewId = "94bad4bd-a7b1-4c3e-ade4-2253efe65172";
 
   // The Action
   var viewAction = actions.viewed.term
@@ -180,6 +189,7 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
 
   // Assert that key attributes are the same
   var viewEvent = eventFactory().create(ViewEvent, {
+    uuid: viewId,
     actor: actor,
     action: viewAction,
     object: viewObj,
@@ -204,8 +214,11 @@ test('Create an Envelope containing batched Navigation, Annotation, View Events 
   data.push(viewEvent);
   var envelope = requestor.createEnvelope(sensor, sendTime, data);
 
-  // Assert that JSON produced is the same
-  jsonCompare('caliperEnvelopeEventBatch', envelope, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEnvelopeEventBatch', envelope);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });
 
 /**

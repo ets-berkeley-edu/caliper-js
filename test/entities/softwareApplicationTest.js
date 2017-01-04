@@ -16,13 +16,14 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a SoftwareApplication entity and validate properties', function (t) {
 
@@ -37,6 +38,9 @@ test('Create a SoftwareApplication entity and validate properties', function (t)
     version: "2.5.2"
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntitySoftwareApplication', app, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntitySoftwareApplication', app);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

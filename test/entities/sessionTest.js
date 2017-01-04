@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -23,7 +24,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Session entity and validate properties', function (t) {
 
@@ -39,6 +40,9 @@ test('Create a Session entity and validate properties', function (t) {
     startedAtTime: moment.utc("2016-09-15T10:00:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntitySession', session, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntitySession', session);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

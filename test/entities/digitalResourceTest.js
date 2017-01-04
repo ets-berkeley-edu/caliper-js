@@ -26,7 +26,7 @@ var DigitalResource = require('../../src/entities/resource/digitalResource');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var Person = require('../../src/entities/agent/person');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a DigitalResource entity and validate properties', function (t) {
 
@@ -54,6 +54,9 @@ test('Create a DigitalResource entity and validate properties', function (t) {
     dateCreated: moment.utc("2016-08-02T11:32:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityDigitalResource', resource, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityDigitalResource', resource);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

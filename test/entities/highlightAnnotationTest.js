@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -24,7 +25,7 @@ var Document = require('../../src/entities/resource/document');
 var HighlightAnnotation = require('../../src/entities/annotation/highlightAnnotation');
 var Person = require('../../src/entities/agent/person');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a HighlightAnnotation entity and validate properties', function (t) {
 
@@ -47,6 +48,9 @@ test('Create a HighlightAnnotation entity and validate properties', function (t)
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityHighlightAnnotation', annotation, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityHighlightAnnotation', annotation);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

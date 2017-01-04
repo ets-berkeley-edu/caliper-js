@@ -16,13 +16,14 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a CourseOffering entity and validate properties', function (t) {
 
@@ -39,6 +40,9 @@ test('Create a CourseOffering entity and validate properties', function (t) {
     dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityCourseOffering', course, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityCourseOffering', course);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

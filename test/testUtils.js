@@ -20,23 +20,22 @@ var _ = require('lodash');
 var diff = require('deep-diff').diff;
 var jf = require('jsonfile');
 //var logger = require("../src/logger");
+var config = require('../src/config');
 var requestUtils = require('../src/request/requestUtils');
 
 /**
  * Utility function to compare JSON (represented by an object) to a JSON fixture.
  * fixture: test fixture (relative to test/resources directory) without .json extension
  * obj: Object to be converted to JSON that will be compared to expected Json
- * t: The Tape test object
  * filterCallback: callback function to filter out JSON attributes, paths that should not be compared.
  * Callback should return TRUE for any key + path combination that should not be analyzed for differences.
  **/
-var jsonCompare = function(fixture, obj, t, filterCallback) {
+module.exports.jsonCompare = function jsonCompare(fixture, obj, filterCallback) {
 
-  const FIXTURES_BASE_DIR = '../caliper-common-fixtures/src/test/resources/fixtures/';
+  const FIXTURES_BASE_DIR = config.testFixturesBaseDir;
+  const file = FIXTURES_BASE_DIR.concat(fixture, ".json");
 
-  var file = FIXTURES_BASE_DIR.concat(fixture, ".json");
   var objJson = requestUtils.parse(obj);
-  //logger.log("info", "Parsed JSON = " + requestUtils.stringify(objJson));
   var differences;
 
   jf.readFile(file, function(err, expectedJson) {
@@ -52,15 +51,11 @@ var jsonCompare = function(fixture, obj, t, filterCallback) {
       }
     }
 
-    t.equal(true, _.isUndefined(differences), "Validate JSON");
-    // console.log("DEBUG: Differences is undefined = " + _.isUndefined(differences) + " equal = " + equal);
-    //logger.log("debug", "ERROR: Differences is undefined = " + _.isUndefined(differences) + " equal = " + t.equal);
-
     if (!_.isUndefined(differences)) {
       //logger.log("debug", "ERROR: JSON Differences = " + requestUtils.stringify(differences));
       console.log("ERROR: JSON Differences = " + requestUtils.stringify(differences));
     }
+
+    return differences;
   })
 };
-
-module.exports = jsonCompare;

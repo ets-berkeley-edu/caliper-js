@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var Event = require('../../src/events/Event');
 var actions = require('../../src/actions/actions');
 
@@ -28,15 +31,24 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
 test('Create an Envelope containing single ViewEvent (viewed) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Generated UUID " + uuid + " failed validation check.");
+
+  // Override ID with canned value
+  uuid = "7025d2f8-c76c-44b8-9d98-593d7969177f";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -52,6 +64,7 @@ test('Create an Envelope containing single ViewEvent (viewed) and validate prope
 
   // Assert that key attributes are the same
   var event = eventFactory().create(Event, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -69,7 +82,13 @@ test('Create an Envelope containing single ViewEvent (viewed) and validate prope
   var envelope = requestor.createEnvelope(sensor, sendTime, event);
 
   // Assert that JSON produced is the same
-  jsonCompare('caliperEnvelopeEventViewViewedMinimal', envelope, t);
+  testUtils.jsonCompare('caliperEnvelopeEventViewViewedMinimal', envelope, t);
+
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEnvelopeEventViewViewedCoerced', envelope);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });
 
 /**

@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -25,7 +26,7 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var VideoObject = require('../../src/entities/resource/videoObject');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a DigitalResourceCollection entity and validate properties', function (t) {
 
@@ -69,6 +70,9 @@ test('Create a DigitalResourceCollection entity and validate properties', functi
     dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityDigitalResourceCollection', collection, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityDigitalResourceCollection', collection);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

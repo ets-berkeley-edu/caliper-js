@@ -16,31 +16,14 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
-var moment = require('moment');
-var test = require('tape');
+/**
+ * Configuration options
+ * testFixturesBaseDir: Base directory for test fixtures.
+ * uuidVersion: UUID versions 1 and 4 supported.
+ */
+var Config = {
+  testFixturesBaseDir: "../caliper-common-fixtures/src/test/resources/fixtures/",
+  uuidVersion: 4
+};
 
-var entityFactory = require('../../src/entities/entityFactory');
-var ImageObject = require('../../src/entities/resource/imageObject');
-
-var testUtils = require('../testUtils');
-
-test('Create an ImageObject entity and validate properties', function (t) {
-
-  // Plan for N assertions
-  t.plan(1);
-
-  const BASE_IRI = "https://example.edu";
-
-  var image = entityFactory().create(ImageObject, BASE_IRI.concat("/images/caliper_lti.jpg"), {
-    name: "IMS Caliper/LTI Integration Work Flow",
-    mediaType: "image/jpeg",
-    dateCreated: moment.utc("2016-09-01T06:00:00.000Z")
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityImageObject', image);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
-});
+module.exports = Config;

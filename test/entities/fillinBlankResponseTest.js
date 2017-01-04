@@ -27,7 +27,7 @@ var Attempt = require('../../src/entities/assign/attempt');
 var FillinBlankResponse = require('../../src/entities/response/fillinBlankResponse');
 var Person = require('../../src/entities/agent/person');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a FillinBlankResponse entity and validate properties', function (t) {
 
@@ -60,6 +60,9 @@ test('Create a FillinBlankResponse entity and validate properties', function (t)
     endedAtTime: moment.utc("2016-11-15T10:15:12.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityFillinBlankResponse', response, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityFillinBlankResponse', response);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

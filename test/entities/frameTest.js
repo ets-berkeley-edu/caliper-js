@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -23,7 +24,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Frame = require('../../src/entities/resource/frame');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Frame entity and validate properties', function (t) {
 
@@ -43,6 +44,9 @@ test('Create a Frame entity and validate properties', function (t) {
     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityFrame', frame, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityFrame', frame);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

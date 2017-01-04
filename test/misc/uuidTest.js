@@ -16,31 +16,18 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
-var moment = require('moment');
 var test = require('tape');
 
-var entityFactory = require('../../src/entities/entityFactory');
-var ImageObject = require('../../src/entities/resource/imageObject');
+var config = require('../../src/config');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 
-var testUtils = require('../testUtils');
+test('Confirm that a UUID is successfully generated and validated.', function (t) {
 
-test('Create an ImageObject entity and validate properties', function (t) {
+  const uuid = eventUtils.generateUUID(config.version);
+  const actual = eventValidator.isUUID(uuid);
 
-  // Plan for N assertions
   t.plan(1);
-
-  const BASE_IRI = "https://example.edu";
-
-  var image = entityFactory().create(ImageObject, BASE_IRI.concat("/images/caliper_lti.jpg"), {
-    name: "IMS Caliper/LTI Integration Work Flow",
-    mediaType: "image/jpeg",
-    dateCreated: moment.utc("2016-09-01T06:00:00.000Z")
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityImageObject', image);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
+  t.equal(true, actual, "UUID v" + config.version + " value=" + uuid + " failed validation check.");
   t.end();
 });

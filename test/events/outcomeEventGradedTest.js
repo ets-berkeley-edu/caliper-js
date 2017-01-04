@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var OutcomeEvent = require('../../src/events/outcomeEvent');
 var actions = require('../../src/actions/actions');
 
@@ -32,15 +35,24 @@ var Person = require('../../src/entities/agent/person');
 var Result = require('../../src/entities/assign/result');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create an OutcomeEvent (graded) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "a50ca17f-5971-47bb-8fca-4e6e6879001d";
 
   // The Actor (grader)
   var actor = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), { version: "v2" });
@@ -85,6 +97,7 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
 
   // Assert that key attributes are the same
   var event = eventFactory().create(OutcomeEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -93,6 +106,9 @@ test('Create an OutcomeEvent (graded) and validate properties', function (t) {
     group: group
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventOutcomeGraded', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventOutcomeGraded', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

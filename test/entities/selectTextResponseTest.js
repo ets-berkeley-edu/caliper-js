@@ -27,7 +27,7 @@ var Attempt = require('../../src/entities/assign/attempt');
 var Person = require('../../src/entities/agent/person');
 var SelectTextResponse = require('../../src/entities/response/selectTextResponse');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a SelectTextResponse entity and validate properties', function (t) {
 
@@ -65,6 +65,9 @@ test('Create a SelectTextResponse entity and validate properties', function (t) 
     endedAtTime: moment.utc("2016-11-15T10:15:38.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntitySelectTextResponse', response, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntitySelectTextResponse', response);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

@@ -17,7 +17,10 @@
  */
 
 var _ = require('lodash');
+var config = require('../config');
+var uuid = require('node-uuid');
 var event = require('./event');
+var utils = require('./eventUtils');
 var validator = require('./eventValidator');
 
 /**
@@ -31,6 +34,11 @@ function eventFactory() {
     create: function create(delegate, opts) {
       var proto = delegate || event;
       var options = opts || {};
+
+      // Generate a UUID if needed
+      if (!(options.hasOwnProperty("uuid") && validator.isUUID(options.uuid))) {
+          options.uuid = utils.generateUUID(config.version);
+      }
 
       // Validation checks
       options = validator.checkContext(proto, options);
