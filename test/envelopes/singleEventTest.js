@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
 var actions = require('../../src/actions/actions');
 
@@ -35,17 +38,26 @@ var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
 test('Create an Envelope containing single NavigationEvent (navigatedTo) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
   const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Generated UUID " + uuid + " failed validation check.");
+
+  // Override ID with canned value
+  uuid = "c51570e4-f8ed-4c18-bb3a-dfe51b2cc594";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -102,6 +114,7 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
 
   // Assert that key attributes are the same
   var event = eventFactory().create(AssessmentEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -122,9 +135,12 @@ test('Create an Envelope containing single NavigationEvent (navigatedTo) and val
 
   var sendTime = moment.utc("2016-11-15T11:05:01.000Z");
   var envelope = requestor.createEnvelope(sensor, sendTime, event);
-  
-  // Assert that JSON produced is the same
-  jsonCompare('caliperEnvelopeEventSingle', envelope, t);
+
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEnvelopeEventSingle', envelope);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });
 
 /**

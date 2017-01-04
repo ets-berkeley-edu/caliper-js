@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -25,7 +26,7 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var Forum = require('../../src/entities/resource/forum');
 var Thread = require('../../src/entities/resource/thread');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Forum entity and validate properties', function (t) {
 
@@ -64,6 +65,9 @@ test('Create a Forum entity and validate properties', function (t) {
     dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityForum', forum, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityForum', forum);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

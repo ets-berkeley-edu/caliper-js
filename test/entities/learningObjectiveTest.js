@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -23,7 +24,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var AssignableDigitalResource = require('../../src/entities/resource/assignableDigitalResource');
 var LearningObjective = require('../../src/entities/assign/learningObjective');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a LearningObjective entity, assign it to a AssignableDigitalResource and validate properties', function (t) {
 
@@ -53,6 +54,9 @@ test('Create a LearningObjective entity, assign it to a AssignableDigitalResourc
     maxScore: 50
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityLearningObjective', assignable, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityLearningObjective', assignable);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

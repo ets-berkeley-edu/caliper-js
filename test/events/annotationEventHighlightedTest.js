@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var AnnotationEvent = require('../../src/events/annotationEvent');
 var actions = require('../../src/actions/actions');
 
@@ -36,16 +39,25 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var Status = require('../../src/entities/lis/status');
 var TextPositionSelector = require('../../src/entities/annotation/textPositionSelector');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create an AnnotationEvent (highlighted) event and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_ETEXT_IRI = "https://example.edu/etexts/201";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "0067a052-9bb4-4b49-9d1a-87cd43da488a";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -99,6 +111,7 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
 
   // Assert that key attributes are the same
   var event = eventFactory().create(AnnotationEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -110,6 +123,9 @@ test('Create an AnnotationEvent (highlighted) event and validate properties', fu
     session: session
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventAnnotationHighlighted', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventAnnotationHighlighted', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

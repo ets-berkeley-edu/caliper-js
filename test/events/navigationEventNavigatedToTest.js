@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var NavigationEvent = require('../../src/events/navigationEvent');
 var actions = require('../../src/actions/actions');
 
@@ -34,15 +37,24 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var WebPage = require('../../src/entities/resource/webPage');
 var Status = require('../../src/entities/lis/status');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a NavigationEvent (navigatedTo) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "ff9ec22a-fc59-4ae1-ae8d-2c9463ee2f8f";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -88,6 +100,7 @@ test('Create a NavigationEvent (navigatedTo) and validate properties', function 
 
   // Assert that key attributes are the same
   var event = eventFactory().create(NavigationEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -99,6 +112,9 @@ test('Create a NavigationEvent (navigatedTo) and validate properties', function 
     session: session
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventNavigationNavigatedTo', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventNavigationNavigatedTo', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

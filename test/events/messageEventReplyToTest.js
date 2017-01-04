@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var MessageEvent = require('../../src/events/messageEvent');
 var actions = require('../../src/actions/actions');
 
@@ -36,17 +39,26 @@ var Session = require('../../src/entities/session/Session');
 var Thread = require('../../src/entities/resource/thread');
 var Status = require('../../src/entities/lis/status');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a MessageEvent (reply) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
   const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2";
   const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "aed54386-a3fb-45ff-90f9-a35d3daaf031";
 
   // Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/778899"));
@@ -97,6 +109,7 @@ test('Create a MessageEvent (reply) and validate properties', function (t) {
 
   // Assert that key attributes are the same
   var event = eventFactory().create(MessageEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -107,6 +120,9 @@ test('Create a MessageEvent (reply) and validate properties', function (t) {
     session: session
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventMessageReplied', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventMessageReplied', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

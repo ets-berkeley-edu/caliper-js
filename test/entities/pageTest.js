@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -24,7 +25,7 @@ var Chapter = require('../../src/entities/resource/chapter');
 var Document = require('../../src/entities/resource/document');
 var Page = require('../../src/entities/resource/page');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Page entity and validate properties', function (t) {
 
@@ -49,6 +50,9 @@ test('Create a Page entity and validate properties', function (t) {
     isPartOf: chapter
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityPage', page, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityPage', page);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

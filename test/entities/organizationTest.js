@@ -16,13 +16,14 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Organization = require('../../src/entities/agent/organization');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Organization entity and validate properties', function (t) {
 
@@ -37,6 +38,9 @@ test('Create a Organization entity and validate properties', function (t) {
     subOrganizationOf: college
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityOrganization', organization, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityOrganization', organization);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -24,7 +25,7 @@ var Chapter = require('../../src/entities/resource/chapter');
 var Person = require('../../src/entities/agent/person');
 var TagAnnotation = require('../../src/entities/annotation/tagAnnotation');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a TagAnnotation entity and validate properties', function (t) {
 
@@ -44,6 +45,9 @@ test('Create a TagAnnotation entity and validate properties', function (t) {
     dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityTagAnnotation', annotation, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityTagAnnotation', annotation);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

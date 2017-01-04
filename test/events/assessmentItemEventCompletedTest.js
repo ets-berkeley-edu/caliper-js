@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var AssessmentItemEvent = require('../../src/events/assessmentItemEvent');
 var actions = require('../../src/actions/actions');
 
@@ -37,17 +40,26 @@ var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create an AssessmentItemEvent (completed) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
   const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
   const BASE_ITEM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "e5891791-3d27-4df1-a272-091806a43dfb";
 
   // Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -113,6 +125,7 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
 
   // Assert that key attributes are the same
   var event = eventFactory().create(AssessmentItemEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -124,6 +137,9 @@ test('Create an AssessmentItemEvent (completed) and validate properties', functi
     session: session
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventAssessmentItemCompleted', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventAssessmentItemCompleted', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

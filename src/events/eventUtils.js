@@ -16,31 +16,24 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash');
-var moment = require('moment');
-var test = require('tape');
+var config = require('../config');
+var uuid = require('node-uuid');
 
-var entityFactory = require('../../src/entities/entityFactory');
-var ImageObject = require('../../src/entities/resource/imageObject');
+/**
+ * Generate a RFC 4122 v1 timestamp-based UUID or a v4 "practically random" UUID.  Default is v4.
+ * @returns {*}
+ */
+module.exports.generateUUID = function generateUUID(version) {
+  var v = version || config.uuidVersion;
 
-var testUtils = require('../testUtils');
-
-test('Create an ImageObject entity and validate properties', function (t) {
-
-  // Plan for N assertions
-  t.plan(1);
-
-  const BASE_IRI = "https://example.edu";
-
-  var image = entityFactory().create(ImageObject, BASE_IRI.concat("/images/caliper_lti.jpg"), {
-    name: "IMS Caliper/LTI Integration Work Flow",
-    mediaType: "image/jpeg",
-    dateCreated: moment.utc("2016-09-01T06:00:00.000Z")
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityImageObject', image);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
-});
+  switch(v) {
+    case 4:
+      return uuid.v4();
+      break;
+    case 1:
+      return uuid.v1();
+      break;
+    default:
+      return uuid.v4();
+  }
+};

@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create an Assessment entity and validate properties', function (t) {
 
@@ -55,6 +55,9 @@ test('Create an Assessment entity and validate properties', function (t) {
     version: "1.0"
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityAssessment', assess, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityAssessment', assess);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

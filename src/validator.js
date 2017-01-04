@@ -17,6 +17,7 @@
  */
 
 var _ = require('lodash');
+var validator = require('validator');
 var uuid = require('node-uuid');
 var constants = require('./constants');
 var entityType = require('./entities/entityType');
@@ -183,4 +184,13 @@ module.exports.moveToExtensions = function moveToExtensions(proto, opts) {
   }
 
   return opts;
+};
+
+/**
+ * Validate UUID value
+ * @param uuid
+ * @returns {*}
+ */
+module.exports.isUUID = function isUUID(uuid) {
+  return validator.isUUID(uuid);
 };

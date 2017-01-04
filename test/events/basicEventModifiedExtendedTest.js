@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var Event = require('../../src/events/Event');
 var actions = require('../../src/actions/actions');
 
@@ -28,15 +31,24 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Basic event (modified) with extensions and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "5973dcd9-3126-4dcc-8fd8-8153a155361c";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -73,6 +85,7 @@ test('Create a Basic event (modified) with extensions and validate properties', 
 
   // Assert that key attributes are the same
   var event = eventFactory().create(Event, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -80,6 +93,9 @@ test('Create a Basic event (modified) with extensions and validate properties', 
     extensions: extensions
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventBasicModifiedExtended', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventBasicModifiedExtended', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

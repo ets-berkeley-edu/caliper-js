@@ -16,10 +16,14 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var SessionEvent = require('../../src/events/sessionEvent');
 var actions = require('../../src/actions/actions');
 
@@ -28,14 +32,23 @@ var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "fcd495d0-3740-4298-9bec-1154571dc211";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -56,9 +69,6 @@ test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
     startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
   });
 
-  // Event Id GUID
-  var uuid = "fcd495d0-3740-4298-9bec-1154571dc211";
-
   // Assert that key attributes are the same
   var event = eventFactory().create(SessionEvent, {
     uuid: uuid,
@@ -69,6 +79,9 @@ test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
     session: session
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventSessionLoggedIn', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventSessionLoggedIn', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

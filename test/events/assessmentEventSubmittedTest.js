@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
 var actions = require('../../src/actions/actions');
 
@@ -36,16 +39,25 @@ var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create an AssessmentEvent (submitted) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
   const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "dad88464-0c20-4a19-a1ba-ddf2f9c3ff33";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -103,6 +115,7 @@ test('Create an AssessmentEvent (submitted) and validate properties', function (
 
   // Assert that key attributes are the same
   var event = eventFactory().create(AssessmentEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -113,6 +126,9 @@ test('Create an AssessmentEvent (submitted) and validate properties', function (
     session: session
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventAssessmentSubmitted', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventAssessmentSubmitted', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

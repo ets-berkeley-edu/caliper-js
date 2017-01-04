@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -27,7 +28,7 @@ var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var Status = require('../../src/entities/lis/status');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Membership entity and validate properties', function (t) {
 
@@ -51,6 +52,9 @@ test('Create a Membership entity and validate properties', function (t) {
     dateCreated: moment.utc("2016-11-01T06:00:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityMembership', membership, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityMembership', membership);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

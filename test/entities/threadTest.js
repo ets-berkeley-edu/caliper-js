@@ -27,7 +27,7 @@ var Forum = require('../../src/entities/resource/forum');
 var Message = require('../../src/entities/resource/message');
 var Thread = require('../../src/entities/resource/thread');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Thread entity and validate properties', function (t) {
 
@@ -69,8 +69,9 @@ test('Create a Thread entity and validate properties', function (t) {
     dateModified: moment.utc("2016-09-02T11:30:00.000Z")
   });
 
-  //console.log(thread);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityThread', thread);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityThread', thread, t);
+  t.end();
 });

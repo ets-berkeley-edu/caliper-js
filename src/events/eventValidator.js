@@ -61,3 +61,12 @@ module.exports.checkType = function checkType(event, opts) {
 module.exports.moveToExtensions = function moveToExtensions(event, opts) {
   return validator.moveToExtensions(event, opts);
 };
+
+/**
+ * Validate UUID.
+ * @param uuid
+ * @returns {*}
+ */
+module.exports.isUUID = function isUUID(uuid) {
+  return validator.isUUID(uuid);
+}

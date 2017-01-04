@@ -20,7 +20,10 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
+var eventValidator = require('../../src/events/eventValidator');
+var eventUtils = require('../../src/events/eventUtils');
 var ThreadEvent = require('../../src/events/threadEvent');
 var actions = require('../../src/actions/actions');
 
@@ -35,15 +38,24 @@ var Session = require('../../src/entities/session/Session');
 var Thread = require('../../src/entities/resource/thread');
 var Status = require('../../src/entities/lis/status');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a ThreadEvent (markedAsRead) and validate properties', function (t) {
 
   // Plan for N assertions
-  t.plan(1);
+  t.plan(2);
 
   const BASE_IRI = "https://example.edu";
   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+  // Id
+  var uuid = eventUtils.generateUUID(config.version);
+
+  // Check Id
+  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+
+  // Override ID with canned value
+  uuid = "6b20c5ba-301c-4e56-85a0-2f3d9a94c249";
 
   // The Actor
   var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
@@ -92,6 +104,7 @@ test('Create a ThreadEvent (markedAsRead) and validate properties', function (t)
 
   // Assert that key attributes are the same
   var event = eventFactory().create(ThreadEvent, {
+    uuid: uuid,
     actor: actor,
     action: action,
     object: obj,
@@ -102,6 +115,9 @@ test('Create a ThreadEvent (markedAsRead) and validate properties', function (t)
     session: session
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEventThreadMarkedAsRead', event, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEventThreadMarkedAsRead', event);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

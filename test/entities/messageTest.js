@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -26,7 +27,7 @@ var Message = require('../../src/entities/resource/message');
 var Person = require('../../src/entities/agent/person');
 var Thread = require('../../src/entities/resource/thread');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a Message entity and validate properties', function (t) {
 
@@ -66,6 +67,9 @@ test('Create a Message entity and validate properties', function (t) {
     dateCreated: moment.utc("2016-11-15T10:15:30.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityMessage', message, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityMessage', message);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

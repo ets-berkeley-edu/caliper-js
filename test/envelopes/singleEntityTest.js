@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -26,7 +27,7 @@ var DigitalResource = require('../../src/entities/resource/digitalResource');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var Person = require('../../src/entities/agent/person');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
 test('Create an Envelope containing a single Entity and validate properties', function (t) {
@@ -67,8 +68,11 @@ test('Create an Envelope containing a single Entity and validate properties', fu
   data.push(resource);
   var envelope = requestor.createEnvelope(sensor, sendTime, data);
 
-  // Assert that JSON produced is the same
-  jsonCompare('caliperEnvelopeEntitySingle', envelope, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEnvelopeEntitySingle', envelope);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });
 
 /**

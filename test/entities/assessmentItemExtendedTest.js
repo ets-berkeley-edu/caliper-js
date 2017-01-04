@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create an AssessmentItem entity with extensions and validate properties', function (t) {
 
@@ -66,6 +66,9 @@ test('Create an AssessmentItem entity with extensions and validate properties', 
     extensions: extensions
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntityAssessmentItemExtended', item, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntityAssessmentItemExtended', item);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });

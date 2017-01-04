@@ -16,6 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
@@ -24,7 +25,7 @@ var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
 var SharedAnnotation = require('../../src/entities/annotation/sharedAnnotation');
 
-var jsonCompare = require('../testUtils');
+var testUtils = require('../testUtils');
 
 test('Create a SharedAnnotation entity and validate properties', function (t) {
 
@@ -49,6 +50,9 @@ test('Create a SharedAnnotation entity and validate properties', function (t) {
     dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
   });
 
-  // Assert that the JSON produced is the same
-  jsonCompare('caliperEntitySharedAnnotation', annotation, t);
+  // Compare JSON
+  var diff = testUtils.jsonCompare('caliperEntitySharedAnnotation', annotation);
+  t.equal(true, _.isUndefined(diff), "Validate JSON");
+
+  t.end();
 });
