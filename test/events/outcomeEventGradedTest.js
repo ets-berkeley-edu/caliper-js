@@ -34,81 +34,88 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var Person = require('../../src/entities/agent/person');
 var Result = require('../../src/entities/assign/result');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create an OutcomeEvent (graded) and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEventOutcomeGraded.json";
 
-  // Plan for N assertions
-  t.plan(2);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+  test('Create an OutcomeEvent (graded) and validate properties', function (t) {
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+    // Plan for N assertions
+    t.plan(2);
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    const BASE_IRI = "https://example.edu";
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // Override ID with canned value
-  uuid = "a50ca17f-5971-47bb-8fca-4e6e6879001d";
+    // Id
+    var uuid = eventUtils.generateUUID(config.version);
 
-  // The Actor (grader)
-  var actor = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), { version: "v2" });
+    // Check Id
+    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
-  // The Action
-  var action = actions.graded.term;
+    // Override ID with canned value
+    uuid = "a50ca17f-5971-47bb-8fca-4e6e6879001d";
 
-  // The Learner and the Assignment
-  var learner = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-  var assignable = entityFactory().create(Assessment, BASE_SECTION_IRI.concat("/assess/1"));
+    // The Actor (grader)
+    var actor = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), { version: "v2" });
 
-  // The Object of the interaction
-  var obj = entityFactory().create(Attempt, BASE_SECTION_IRI.concat("/assess/1/users/554433/attempts/1"), {
-    actor: learner,
-    assignable: assignable,
-    count: 1,
-    dateCreated: moment.utc("2016-11-15T10:05:00.000Z"),
-    startedAtTime: moment.utc("2016-11-15T10:05:00.000Z"),
-    endedAtTime: moment.utc("2016-11-15T10:55:12.000Z"),
-    duration: "PT50M12S"
+    // The Action
+    var action = actions.graded.term;
+
+    // The Learner and the Assignment
+    var learner = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    var assignable = entityFactory().create(Assessment, BASE_SECTION_IRI.concat("/assess/1"));
+
+    // The Object of the interaction
+    var obj = entityFactory().create(Attempt, BASE_SECTION_IRI.concat("/assess/1/users/554433/attempts/1"), {
+      actor: learner,
+      assignable: assignable,
+      count: 1,
+      dateCreated: moment.utc("2016-11-15T10:05:00.000Z"),
+      startedAtTime: moment.utc("2016-11-15T10:05:00.000Z"),
+      endedAtTime: moment.utc("2016-11-15T10:55:12.000Z"),
+      duration: "PT50M12S"
+    });
+
+    // Event time
+    var eventTime = moment.utc("2016-11-15T10:57:06.000Z");
+
+    // Generated result
+    var attempt = _.omit(obj, ["actor", "assignable", "count", "dateCreated", "startedAtTime", "endedAtTime", "duration"]);
+    var scoredBy = _.omit(actor, ["version"]);
+    var generated = entityFactory().create(Result, BASE_SECTION_IRI.concat("/assess/1/users/554433/results/1"), {
+      attempt: attempt,
+      normalScore: 15,
+      totalScore: 15,
+      scoredBy: scoredBy,
+      dateCreated: moment.utc("2016-11-15T10:55:05.000Z")
+    });
+
+    // Group context
+    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+      courseNumber: "CPS 435-01",
+      academicSession: "Fall 2016"
+    });
+
+    // Assert that key attributes are the same
+    var event = eventFactory().create(OutcomeEvent, {
+      uuid: uuid,
+      actor: actor,
+      action: action,
+      object: obj,
+      eventTime: eventTime,
+      generated: generated,
+      group: group
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Event time
-  var eventTime = moment.utc("2016-11-15T10:57:06.000Z");
-
-  // Generated result
-  var attempt = _.omit(obj, ["actor", "assignable", "count", "dateCreated", "startedAtTime", "endedAtTime", "duration"]);
-  var scoredBy = _.omit(actor, ["version"]);
-  var generated = entityFactory().create(Result, BASE_SECTION_IRI.concat("/assess/1/users/554433/results/1"), {
-    attempt: attempt,
-    normalScore: 15,
-    totalScore: 15,
-    scoredBy: scoredBy,
-    dateCreated: moment.utc("2016-11-15T10:55:05.000Z")
-  });
-
-  // Group context
-  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-    courseNumber: "CPS 435-01",
-    academicSession: "Fall 2016"
-  });
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(OutcomeEvent, {
-    uuid: uuid,
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime,
-    generated: generated,
-    group: group
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEventOutcomeGraded', event);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

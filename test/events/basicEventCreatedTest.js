@@ -24,60 +24,67 @@ var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
 var eventValidator = require('../../src/events/eventValidator');
 var eventUtils = require('../../src/events/eventUtils');
-var Event = require('../../src/events/Event');
+var Event = require('../../src/events/event');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a Basic event (created) and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEventBasicCreated.json";
 
-  // Plan for N assertions
-  t.plan(2);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+  test('Create a Basic event (created) and validate properties', function (t) {
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+    // Plan for N assertions
+    t.plan(2);
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    const BASE_IRI = "https://example.edu";
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // Override ID with canned value
-  uuid = "3a648e68-f00d-4c08-aa59-8738e1884f2c";
+    // Id
+    var uuid = eventUtils.generateUUID(config.version);
 
-  // The Actor
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    // Check Id
+    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
-  // The Action
-  var action = actions.created.term;
+    // Override ID with canned value
+    uuid = "3a648e68-f00d-4c08-aa59-8738e1884f2c";
 
-  // The Object of the interaction
-  var obj = entityFactory().create(Document, BASE_SECTION_IRI.concat("/resources/123"), {
-    name: "Course Syllabus",
-    dateCreated: moment.utc("2016-11-12T07:15:00.000Z"),
-    version: "1"
+    // The Actor
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+
+    // The Action
+    var action = actions.created.term;
+
+    // The Object of the interaction
+    var obj = entityFactory().create(Document, BASE_SECTION_IRI.concat("/resources/123"), {
+      name: "Course Syllabus",
+      dateCreated: moment.utc("2016-11-12T07:15:00.000Z"),
+      version: "1"
+    });
+
+    // Event time
+    var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
+
+    // Assert that key attributes are the same
+    var event = eventFactory().create(Event, {
+      uuid: uuid,
+      actor: actor,
+      action: action,
+      object: obj,
+      eventTime: eventTime
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Event time
-  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(Event, {
-    uuid: uuid,
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEventBasicCreated', event);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

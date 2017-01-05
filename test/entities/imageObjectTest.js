@@ -20,27 +20,35 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var ImageObject = require('../../src/entities/resource/imageObject');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create an ImageObject entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityImageObject.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create an ImageObject entity and validate properties', function (t) {
 
-  var image = entityFactory().create(ImageObject, BASE_IRI.concat("/images/caliper_lti.jpg"), {
-    name: "IMS Caliper/LTI Integration Work Flow",
-    mediaType: "image/jpeg",
-    dateCreated: moment.utc("2016-09-01T06:00:00.000Z")
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu";
+
+    var entity = entityFactory().create(ImageObject, BASE_IRI.concat("/images/caliper_lti.jpg"), {
+      name: "IMS Caliper/LTI Integration Work Flow",
+      mediaType: "image/jpeg",
+      dateCreated: moment.utc("2016-09-01T06:00:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityImageObject', image);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

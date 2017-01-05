@@ -38,5 +38,5 @@ test('Confirm that two JSON objects with varying property orders match', functio
   var differences = diff(lhs, rhs);
 
   t.equal(true, _.isUndefined(differences), "Validate JSON with different property order");
-  t.end();
+  //t.end();
 });

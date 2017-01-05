@@ -20,36 +20,44 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a Document entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityDocument.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_EDU_IRI = "https://example.edu";
-  const BASE_COM_IRI = "https://example.com";
+  test('Create a Document entity and validate properties', function (t) {
 
-  var creators = [];
-  creators.push(entityFactory().create(Person, BASE_EDU_IRI.concat("/people/12345")));
-  creators.push(entityFactory().create(Person, BASE_COM_IRI.concat("/staff/56789")));
+    // Plan for N assertions
+    t.plan(1);
 
-  var document = entityFactory().create(Document, BASE_EDU_IRI.concat("/etexts/201.epub"), {
-    name: "IMS Caliper Implementation Guide",
-    mediaType: "application/epub+zip",
-    creators: creators,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
-    datePublished: moment.utc("2016-10-01T06:00:00.000Z"),
-    version: "1.1"
+    const BASE_EDU_IRI = "https://example.edu";
+    const BASE_COM_IRI = "https://example.com";
+
+    var creators = [];
+    creators.push(entityFactory().create(Person, BASE_EDU_IRI.concat("/people/12345")));
+    creators.push(entityFactory().create(Person, BASE_COM_IRI.concat("/staff/56789")));
+
+    var entity = entityFactory().create(Document, BASE_EDU_IRI.concat("/etexts/201.epub"), {
+      name: "IMS Caliper Implementation Guide",
+      mediaType: "application/epub+zip",
+      creators: creators,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+      datePublished: moment.utc("2016-10-01T06:00:00.000Z"),
+      version: "1.1"
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityDocument', document);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

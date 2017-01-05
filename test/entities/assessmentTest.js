@@ -20,44 +20,51 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-// Entity
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create an Assessment entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityAssessment.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+  test('Create an Assessment entity and validate properties', function (t) {
 
-  var items = [];
-  items.push(entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/1")));
-  items.push(entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/2")));
-  items.push(entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3")));
+    // Plan for N assertions
+    t.plan(1);
 
-  var assess = entityFactory().create(Assessment, BASE_ASSESS_IRI, {
-    name: "Quiz One",
-    items: items,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2016-09-02T11:30:00.000Z"),
-    datePublished: moment.utc("2016-08-15T09:30:00.000Z"),
-    dateToActivate: moment.utc("2016-08-16T05:00:00.000Z"),
-    dateToShow: moment.utc("2016-08-16T05:00:00.000Z"),
-    dateToStartOn: moment.utc("2016-08-16T05:00:00.000Z"),
-    dateToSubmit: moment.utc("2016-09-28T11:59:59.000Z"),
-    maxAttempts: 2,
-    maxSubmits: 2,
-    maxScore: 15,
-    version: "1.0"
+    const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+
+    var items = [];
+    items.push(entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/1")));
+    items.push(entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/2")));
+    items.push(entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3")));
+
+    var entity = entityFactory().create(Assessment, BASE_ASSESS_IRI, {
+      name: "Quiz One",
+      items: items,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+      dateModified: moment.utc("2016-09-02T11:30:00.000Z"),
+      datePublished: moment.utc("2016-08-15T09:30:00.000Z"),
+      dateToActivate: moment.utc("2016-08-16T05:00:00.000Z"),
+      dateToShow: moment.utc("2016-08-16T05:00:00.000Z"),
+      dateToStartOn: moment.utc("2016-08-16T05:00:00.000Z"),
+      dateToSubmit: moment.utc("2016-09-28T11:59:59.000Z"),
+      maxAttempts: 2,
+      maxSubmits: 2,
+      maxScore: 15,
+      version: "1.0"
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    ////t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityAssessment', assess);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

@@ -20,55 +20,62 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-// Entity
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create an AssessmentItem entity with extensions and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityAssessmentItemExtended.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+  test('Create an AssessmentItem entity with extensions and validate properties', function (t) {
 
-  var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);
+    // Plan for N assertions
+    t.plan(1);
 
-  // Custom extension
-  var question = {
-    "@context": {
-      id: "@id",
-      type: "@type",
-      example: "http://example.edu/ctx/edu",
-      xsd: "http://www.w3.org/2001/XMLSchema#",
-      itemType: { id: "example:itemType", type: "xsd:string" },
-      itemText: { id: "example:itemText", type: "xsd:string" },
-      itemCorrectResponse: { id: "example:itemCorrectResponse", type: "xsd:boolean" }
-    },
-    itemType: "true/false",
-    itemText: "In Caliper event actors are limited to people only.",
-    itemCorrectResponse: false
-  };
+    const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
 
-  var extensions = [];
-  extensions.push(question);
+    var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);
 
-  var item = entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3"), {
-    isPartOf: parent,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
-    datePublished: moment.utc("2016-08-15T09:30:00.000Z"),
-    maxAttempts: 2,
-    maxSubmits: 2,
-    maxScore: 5,
-    isTimeDependent: false,
-    extensions: extensions
+    // Custom extension
+    var question = {
+      "@context": {
+        id: "@id",
+        type: "@type",
+        example: "http://example.edu/ctx/edu",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        itemType: { id: "example:itemType", type: "xsd:string" },
+        itemText: { id: "example:itemText", type: "xsd:string" },
+        itemCorrectResponse: { id: "example:itemCorrectResponse", type: "xsd:boolean" }
+      },
+      itemType: "true/false",
+      itemText: "In Caliper event actors are limited to people only.",
+      itemCorrectResponse: false
+    };
+
+    var extensions = [];
+    extensions.push(question);
+
+    var entity = entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3"), {
+      isPartOf: parent,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+      datePublished: moment.utc("2016-08-15T09:30:00.000Z"),
+      maxAttempts: 2,
+      maxSubmits: 2,
+      maxScore: 5,
+      isTimeDependent: false,
+      extensions: extensions
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityAssessmentItemExtended', item);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

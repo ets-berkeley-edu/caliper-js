@@ -20,39 +20,47 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
 var SharedAnnotation = require('../../src/entities/annotation/sharedAnnotation');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a SharedAnnotation entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntitySharedAnnotation.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
+  test('Create a SharedAnnotation entity and validate properties', function (t) {
 
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-  var annotated = entityFactory().create(Document, BASE_EPUB_IRI);
+    // Plan for N assertions
+    t.plan(1);
 
-  // Shares
-  var sharedWith = [];
-  sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/657585")));
-  sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/667788")));
+    const BASE_IRI = "https://example.edu";
+    const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
 
-  var annotation = entityFactory().create(SharedAnnotation, BASE_IRI.concat("/users/554433/etexts/201/shares/1"), {
-    actor: actor,
-    annotated: annotated,
-    withAgents: sharedWith,
-    dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    var annotated = entityFactory().create(Document, BASE_EPUB_IRI);
+
+    // Shares
+    var sharedWith = [];
+    sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/657585")));
+    sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/667788")));
+
+    var entity = entityFactory().create(SharedAnnotation, BASE_IRI.concat("/users/554433/etexts/201/shares/1"), {
+      actor: actor,
+      annotated: annotated,
+      withAgents: sharedWith,
+      dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntitySharedAnnotation', annotation);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

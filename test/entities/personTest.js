@@ -20,26 +20,34 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a Person entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityPerson.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create a Person entity and validate properties', function (t) {
 
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"), {
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("20160902T113000.000Z")
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu";
+
+    var entity = entityFactory().create(Person, BASE_IRI.concat("/users/554433"), {
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+      dateModified: moment.utc("20160902T113000.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityPerson', actor);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

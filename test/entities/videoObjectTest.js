@@ -20,30 +20,38 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var VideoObject = require('../../src/entities/resource/videoObject');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a VideoObject entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityVideoObject.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create a VideoObject entity and validate properties', function (t) {
 
-  var video = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
-    name: "Introduction to IMS Caliper",
-    mediaType: "video/ogg",
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2016-09-02T11:30:00.000Z"),
-    duration: "PT1H12M27S",
-    version: "1.1"
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu";
+
+    var entity = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
+      name: "Introduction to IMS Caliper",
+      mediaType: "video/ogg",
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+      dateModified: moment.utc("2016-09-02T11:30:00.000Z"),
+      duration: "PT1H12M27S",
+      version: "1.1"
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityVideoObject', video);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

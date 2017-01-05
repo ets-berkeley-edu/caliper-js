@@ -20,34 +20,42 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AssignableDigitalResource = require('../../src/entities/resource/assignableDigitalResource');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create an AssignableDigitalResource entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityAssignableDigitalResource.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+  test('Create an AssignableDigitalResource entity and validate properties', function (t) {
 
-  var assignable = entityFactory().create(AssignableDigitalResource, BASE_SECTION_IRI.concat("/assign/2"), {
-    name: "Week 9 Reflection",
-    description: "3-5 page reflection on this week's assigned readings.",
-    dateCreated: moment.utc("2016-11-01T06:00:00.000Z"),
-    dateToActivate: moment.utc("2016-11-10T11:59:59.000Z"),
-    dateToShow: moment.utc("2016-11-10T11:59:59.000Z"),
-    dateToStartOn: moment.utc("2016-11-10T11:59:59.000Z"),
-    dateToSubmit: moment.utc("2016-11-14T11:59:59.000Z"),
-    maxAttempts: 2,
-    maxSubmits: 2,
-    maxScore: 50
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+    var entity = entityFactory().create(AssignableDigitalResource, BASE_SECTION_IRI.concat("/assign/2"), {
+      name: "Week 9 Reflection",
+      description: "3-5 page reflection on this week's assigned readings.",
+      dateCreated: moment.utc("2016-11-01T06:00:00.000Z"),
+      dateToActivate: moment.utc("2016-11-10T11:59:59.000Z"),
+      dateToShow: moment.utc("2016-11-10T11:59:59.000Z"),
+      dateToStartOn: moment.utc("2016-11-10T11:59:59.000Z"),
+      dateToSubmit: moment.utc("2016-11-14T11:59:59.000Z"),
+      maxAttempts: 2,
+      maxSubmits: 2,
+      maxScore: 50
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityAssignableDigitalResource', assignable);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

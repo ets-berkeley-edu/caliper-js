@@ -31,60 +31,67 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a SessionEvent (loggedOut) and validate properties', function(t) {
+const path = config.testFixturesBaseDir + "caliperEventSessionLoggedOut.json";
 
-  // Plan for N assertions
-  t.plan(2);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create a SessionEvent (loggedOut) and validate properties', function(t) {
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+    // Plan for N assertions
+    t.plan(2);
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    const BASE_IRI = "https://example.edu";
 
-  // Override ID with canned value
-  uuid = "a438f8ac-1da3-4d48-8c86-94a1b387e0f6";
+    // Id
+    var uuid = eventUtils.generateUUID(config.version);
 
-  // The Actor
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    // Check Id
+    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
-  // The Action
-  var action = actions.loggedOut.term;
+    // Override ID with canned value
+    uuid = "a438f8ac-1da3-4d48-8c86-94a1b387e0f6";
 
-  // The Object of the interaction
-  var obj = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
+    // The Actor
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // Event time
-  var eventTime = moment.utc("2016-11-15T11:05:00.000Z");
+    // The Action
+    var action = actions.loggedOut.term;
 
-  // Session
-  var sessionId = BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259");
-  var session = entityFactory().create(Session, sessionId, {
-    actor: actor,
-    dateCreated: moment.utc("2016-11-15T10:00:00.000Z"),
-    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z"),
-    endedAtTime: moment.utc("2016-11-15T11:05:00.000Z"),
-    duration: "PT3000S"
+    // The Object of the interaction
+    var obj = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
+
+    // Event time
+    var eventTime = moment.utc("2016-11-15T11:05:00.000Z");
+
+    // Session
+    var sessionId = BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259");
+    var session = entityFactory().create(Session, sessionId, {
+      actor: actor,
+      dateCreated: moment.utc("2016-11-15T10:00:00.000Z"),
+      startedAtTime: moment.utc("2016-11-15T10:00:00.000Z"),
+      endedAtTime: moment.utc("2016-11-15T11:05:00.000Z"),
+      duration: "PT3000S"
+    });
+
+    // Assert that key attributes are the same
+    var event = eventFactory().create(SessionEvent, {
+      uuid: uuid,
+      actor: actor,
+      action: action,
+      object: obj,
+      eventTime: eventTime,
+      session: session
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(SessionEvent, {
-    uuid: uuid,
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime,
-    session: session
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEventSessionLoggedOut', event);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

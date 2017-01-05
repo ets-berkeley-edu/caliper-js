@@ -20,42 +20,50 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Group = require('../../src/entities/agent/group');
 var Person = require('../../src/entities/agent/person');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a Group entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityGroup.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu/terms/201601/courses/7";
-  const PERSON_IRI = "https://example.edu/users";
+  test('Create a Group entity and validate properties', function (t) {
 
-  var course = entityFactory().create(CourseOffering, BASE_IRI);
-  var section = entityFactory().create(CourseSection, BASE_IRI.concat("/sections/1"), { subOrganizationOf: course });
+    // Plan for N assertions
+    t.plan(1);
 
-  var members = [];
-  members.push(entityFactory().create(Person, PERSON_IRI.concat("/554433")));
-  members.push(entityFactory().create(Person, PERSON_IRI.concat("/778899")));
-  members.push(entityFactory().create(Person, PERSON_IRI.concat("/445566")));
-  members.push(entityFactory().create(Person, PERSON_IRI.concat("/667788")));
-  members.push(entityFactory().create(Person, PERSON_IRI.concat("/889900")));
-  
-  var group = entityFactory().create(Group, BASE_IRI.concat("/sections/1/groups/2"), {
-    name: "Discussion Group 2",
-    subOrganizationOf: section,
-    members: members,
-    dateCreated: moment.utc("2016-11-01T06:00:00.000Z")
+    const BASE_IRI = "https://example.edu/terms/201601/courses/7";
+    const PERSON_IRI = "https://example.edu/users";
+
+    var course = entityFactory().create(CourseOffering, BASE_IRI);
+    var section = entityFactory().create(CourseSection, BASE_IRI.concat("/sections/1"), { subOrganizationOf: course });
+
+    var members = [];
+    members.push(entityFactory().create(Person, PERSON_IRI.concat("/554433")));
+    members.push(entityFactory().create(Person, PERSON_IRI.concat("/778899")));
+    members.push(entityFactory().create(Person, PERSON_IRI.concat("/445566")));
+    members.push(entityFactory().create(Person, PERSON_IRI.concat("/667788")));
+    members.push(entityFactory().create(Person, PERSON_IRI.concat("/889900")));
+
+    var entity = entityFactory().create(Group, BASE_IRI.concat("/sections/1/groups/2"), {
+      name: "Discussion Group 2",
+      subOrganizationOf: section,
+      members: members,
+      dateCreated: moment.utc("2016-11-01T06:00:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityGroup', group);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

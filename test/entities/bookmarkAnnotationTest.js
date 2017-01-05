@@ -20,34 +20,42 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var BookmarkAnnotation = require('../../src/entities/annotation/bookmarkAnnotation');
 var Chapter = require('../../src/entities/resource/chapter');
 var Person = require('../../src/entities/agent/person');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a BookmarkAnnotation entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityBookmarkAnnotation.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
+  test('Create a BookmarkAnnotation entity and validate properties', function (t) {
 
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-  var annotated = entityFactory().create(Chapter, BASE_EPUB_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/10[para05]/1:20)"));
+    // Plan for N assertions
+    t.plan(1);
 
-  var annotation = entityFactory().create(BookmarkAnnotation, BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"), {
-    actor: actor,
-    annotated: annotated,
-    bookmarkNotes: "Caliper profiles model discrete learning activities or supporting activities that facilitate learning.",
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    const BASE_IRI = "https://example.edu";
+    const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
+
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    var annotated = entityFactory().create(Chapter, BASE_EPUB_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/10[para05]/1:20)"));
+
+    var entity = entityFactory().create(BookmarkAnnotation, BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"), {
+      actor: actor,
+      annotated: annotated,
+      bookmarkNotes: "Caliper profiles model discrete learning activities or supporting activities that facilitate learning.",
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityBookmarkAnnotation', annotation);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });
