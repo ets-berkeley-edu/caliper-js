@@ -18,6 +18,7 @@
 
 var _ = require('lodash');
 var moment = require('moment');
+var config = require('../config');
 var envelope = require('./envelope');
 var requestUtils = require('./requestUtils')
 
@@ -52,9 +53,11 @@ self.initialize = function(sensorOptions) {
  * @param sensor
  * @param data
  */
-self.createEnvelope = function(sensor, sendTime, data) {
-  var id = sensor.id;
-  var sendTime = sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+self.createEnvelope = function(id, sendTime, dataVersion, data) {
+  id = id || config.sensorId;
+  sendTime = sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  dataVersion = dataVersion || config.dataVersion;
+
   var payload = [];
   if (Array.isArray(data)) {
     payload = data.slice();
@@ -62,7 +65,7 @@ self.createEnvelope = function(sensor, sendTime, data) {
     payload.push(data);
   }
 
-  return _.assign({}, envelope, { sensor: id, sendTime: sendTime, data: payload });
+  return _.assign({}, envelope, { sensor: id, sendTime: sendTime, dataVersion: dataVersion, data: payload });
 };
 
 /**
@@ -78,19 +81,8 @@ self.describe = function(sensor, data) {
  * Generate JSON. Private method that is not exported.
  * @param payload
  */
-self.generateJsonPayload = function generateJsonPayload(payload) {
+self.serialize = function serialize(payload) {
   return requestUtils.serialize(payload);
-}
-
-/**
- * Retrieve payload.
- * @param sensor
- * @param data
- * @returns payload
- */
-self.getJsonPayload = function(sensor, data) {
-  var envelope = self.createEnvelope(sensor, data);
-  return self.generateJsonPayload(envelope);
 };
 
 /**
@@ -105,6 +97,6 @@ self.send = function(sensor, data) {
 module.exports = {
   initialize: self.initialize,
   createEnvelope: self.createEnvelope,
-  getJsonPayload: self.getJsonPayload,
+  serialize: self.serialize,
   send: self.send
 };
