@@ -102,12 +102,12 @@ testUtils.readFile(path, function(err, fixture) {
     // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
     requestor.initialize(options);
 
-    var sendTime = moment.utc("2016-11-15T11:05:01.000Z");
     var data = [];
     data.push(person);
     data.push(document);
     data.push(collection);
-    var envelope = requestor.createEnvelope(sensor, sendTime, data);
+
+    var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, data);
 
     // Compare
     var diff = testUtils.compare(fixture, requestUtils.parse(envelope));

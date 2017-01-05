@@ -18,11 +18,12 @@
 
 /**
  * Caliper envelope
- * @type {{sensor: null, sendTime: null, data: Array}}
+ * @type {{sensor: null, sendTime: null, dataVersion: null, data: Array}}
  */
 var Envelope = {
   sensor: null,
   sendTime: null,
+  dataVersion: null,
   data: []
 };
 

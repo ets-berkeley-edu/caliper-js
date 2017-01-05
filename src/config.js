@@ -19,9 +19,12 @@
 /**
  * Configuration options
  * testFixturesBaseDir: Base directory for test fixtures.
+ * sensorId: REPLACE with an IRI/URI identifier for this sensor
  * uuidVersion: UUID versions 1 and 4 supported.
  */
 var Config = {
+  dataVersion: "http://purl.imsglobal.org/ctx/caliper/v1p1",
+  sensorId: "https://example.org/caliper/sensor/1",
   testFixturesBaseDir: "../caliper-common-fixtures/src/test/resources/fixtures/",
   uuidVersion: 4
 };

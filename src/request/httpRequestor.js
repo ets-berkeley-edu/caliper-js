@@ -50,13 +50,14 @@ self.initialize = function(sensorOptions) {
 
 /**
  * Create envelope.
- * @param sensor
+ * @param id
  * @param sendTime
+ * @param dataVersion
  * @param data
  * @returns {*}
  */
-self.createEnvelope = function(sensor, sendTime, data) {
-  return requestor.createEnvelope(sensor, sendTime, data);
+self.createEnvelope = function(id, sendTime, dataVersion, data) {
+  return requestor.createEnvelope(id, sendTime, dataVersion, data);
 };
 
 /**
@@ -69,16 +70,6 @@ self.describe = function(sensor, data) {
 };
 
 /**
- * Retrieve payload.
- * @param sensor
- * @param data
- * @returns payload
- */
-self.getJsonPayload = function(sensor, data) {
-  return requestor.getJsonPayload(sensor, data);
-};
-
-/**
  * Issue a POST request.
  * @param sensor
  * @param data
@@ -86,17 +77,17 @@ self.getJsonPayload = function(sensor, data) {
 self.post = function(sensor, data) {
   if (initialized()) {
 
-    logger.log('debug', "Sending data " + JSON.stringify(data));
+    // Create and Serialize envelope payload
+    var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+    var envelope = self.createEnvelope(sensor.id, sendTime, config.dataVersion, data);
+    var payload = self.serialize(envelope);
 
-    // Create the Envelope payload
-    var jsonPayload = requestor.getJsonPayload(sensor, data);
-
-    logger.log('debug', "Added data to envelope " + JSON.stringify(jsonPayload));
+    logger.log('debug', "Payload created.");
 
     // Add Headers
     var headers = {
       'Content-Type': 'application/json',
-      'Content-Length': jsonPayload.length
+      'Content-Length': payload.length
     };
 
     // Merge headers
@@ -106,13 +97,13 @@ self.post = function(sensor, data) {
 
     // Create request
     var request = http.request(sendOptions, function (response) {
-      logger.log('info', "finished sending. Response = " + JSON.stringify(response));
+      logger.log('info', "finished sending. Response= " + JSON.stringify(response));
     }, function(error){
       logger.log('error', "ERROR sending event = " + error);
     });
 
     // Write request
-    request.write(jsonPayload);
+    request.write(payload);
     request.end();
 
   } else {
@@ -130,11 +121,20 @@ self.send = function(sensor, data) {
   self.post(sensor, data);
 };
 
+/**
+ * Serialize payload.
+ * @param payload
+ * @returns {*}
+ */
+self.serialize = function(payload) {
+  return requestor.serialize(payload);
+};
+
 module.exports = {
   initialize: self.initialize,
   createEnvelope: self.createEnvelope,
   describe: self.describe,
-  getJsonPayload: self.getJsonPayload,
   post: self.post,
-  send: self.send
+  send: self.send,
+  serialize: self.serialize
 };
