@@ -20,29 +20,38 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a CourseOffering entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityCourseOffering.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu/terms/201601/courses/7";
+  test('Create a CourseOffering entity and validate properties', function (t) {
 
-  var course = entityFactory().create(CourseOffering, BASE_IRI, {
-    academicSession: "Fall 2016",
-    courseNumber: "CPS 435",
-    name: "CPS 435 Learning Analytics",
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
-    dateModified: moment.utc("2016-09-02T11:30:00.000Z")
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu/terms/201601/courses/7";
+
+    var entity = entityFactory().create(CourseOffering, BASE_IRI, {
+      academicSession: "Fall 2016",
+      courseNumber: "CPS 435",
+      name: "CPS 435 Learning Analytics",
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
+      dateModified: moment.utc("2016-09-02T11:30:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
 
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityCourseOffering', course);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

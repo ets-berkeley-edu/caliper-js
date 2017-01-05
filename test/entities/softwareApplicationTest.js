@@ -20,27 +20,35 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a SoftwareApplication entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntitySoftwareApplication.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create a SoftwareApplication entity and validate properties', function (t) {
 
-  var app = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), {
-    name: "Auto Grader",
-    description: "Automates assignment scoring.",
-    version: "2.5.2"
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu";
+
+    var entity = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), {
+      name: "Auto Grader",
+      description: "Automates assignment scoring.",
+      version: "2.5.2"
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntitySoftwareApplication', app);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

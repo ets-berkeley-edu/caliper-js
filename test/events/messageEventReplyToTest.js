@@ -35,94 +35,101 @@ var Message = require('../../src/entities/resource/message');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Session = require('../../src/entities/session/Session');
+var Session = require('../../src/entities/session/session');
 var Thread = require('../../src/entities/resource/thread');
 var Status = require('../../src/entities/lis/status');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a MessageEvent (reply) and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEventMessageReplied.json";
 
-  // Plan for N assertions
-  t.plan(2);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-  const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2";
-  const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
+  test('Create a MessageEvent (reply) and validate properties', function (t) {
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+    // Plan for N assertions
+    t.plan(2);
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    const BASE_IRI = "https://example.edu";
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2";
+    const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
 
-  // Override ID with canned value
-  uuid = "aed54386-a3fb-45ff-90f9-a35d3daaf031";
+    // Id
+    var uuid = eventUtils.generateUUID(config.version);
 
-  // Actor
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/778899"));
+    // Check Id
+    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
-  // Action
-  var action = actions.posted.term;
+    // Override ID with canned value
+    uuid = "aed54386-a3fb-45ff-90f9-a35d3daaf031";
 
-  // Forum, Thread context
-  var forum = entityFactory().create(Forum, BASE_FORUM_IRI);
-  var thread = entityFactory().create(Thread, BASE_THREAD_IRI, { isPartOf: forum });
+    // Actor
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/778899"));
 
-  // ReplyTo
-  var replyTo = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/2"));
+    // Action
+    var action = actions.posted.term;
 
-  // Message object
-  var obj = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/3"), {
-    creators: [ actor ],
-    replyTo: replyTo,
-    isPartOf: thread,
-    dateCreated: moment.utc("2016-11-15T10:15:30.000Z")
+    // Forum, Thread context
+    var forum = entityFactory().create(Forum, BASE_FORUM_IRI);
+    var thread = entityFactory().create(Thread, BASE_THREAD_IRI, { isPartOf: forum });
+
+    // ReplyTo
+    var replyTo = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/2"));
+
+    // Message object
+    var obj = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/3"), {
+      creators: [ actor ],
+      replyTo: replyTo,
+      isPartOf: thread,
+      dateCreated: moment.utc("2016-11-15T10:15:30.000Z")
+    });
+
+    // Event time
+    var eventTime = moment.utc("2016-11-15T10:15:30.000Z");
+
+    // edApp context
+    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/forums"), { version: "v2" });
+
+    // Group
+    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+      courseNumber: "CPS 435-01",
+      academicSession: "Fall 2016"
+    });
+
+    // Membership
+    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+      member: actor,
+      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      roles: [Role.learner.term],
+      status: Status.active.term,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    });
+
+    // Session
+    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1d6fa9adf16f4892650e4305f6cf16610905cd50"), {
+      startedAtTime: moment.utc("2016-11-15T10:12:00.000Z")
+    });
+
+    // Assert that key attributes are the same
+    var event = eventFactory().create(MessageEvent, {
+      uuid: uuid,
+      actor: actor,
+      action: action,
+      object: obj,
+      eventTime: eventTime,
+      edApp: edApp,
+      group: group,
+      membership: membership,
+      session: session
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Event time
-  var eventTime = moment.utc("2016-11-15T10:15:30.000Z");
-
-  // edApp context
-  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/forums"), { version: "v2" });
-
-  // Group
-  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-    courseNumber: "CPS 435-01",
-    academicSession: "Fall 2016"
-  });
-
-  // Membership
-  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
-    member: actor,
-    organization: _.omit(group, ["courseNumber", "academicSession"]),
-    roles: [Role.learner.term],
-    status: Status.active.term,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-  });
-
-  // Session
-  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1d6fa9adf16f4892650e4305f6cf16610905cd50"), {
-    startedAtTime: moment.utc("2016-11-15T10:12:00.000Z")
-  });
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(MessageEvent, {
-    uuid: uuid,
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime,
-    edApp: edApp,
-    group: group,
-    membership: membership,
-    session: session
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEventMessageReplied', event);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

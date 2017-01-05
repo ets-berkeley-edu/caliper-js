@@ -24,34 +24,27 @@ var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
 var eventValidator = require('../../src/events/eventValidator');
 var eventUtils = require('../../src/events/eventUtils');
-var MediaEvent = require('../../src/events/mediaEvent');
+var SessionEvent = require('../../src/events/sessionEvent');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseSection = require('../../src/entities/lis/courseSection');
-var MediaLocation = require('../../src/entities/resource/mediaLocation');
-var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
-var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Status = require('../../src/entities/lis/status');
-var VideoObject = require('../../src/entities/resource/videoObject');
 var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventMediaPausedVideo.json";
+const path = config.testFixturesBaseDir + "caliperEventSessionLoggedInExtended.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a MediaEvent (paused) and validate properties', function (t) {
+  test('Create a SessionEvent (loggedIn) with extensions and validate properties', function (t) {
 
     // Plan for N assertions
     t.plan(2);
 
     const BASE_IRI = "https://example.edu";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Id
     var uuid = eventUtils.generateUUID(config.version);
@@ -60,64 +53,64 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "956b4a02-8de0-4991-b8c5-b6eebb6b4cab";
+    uuid = "4ec2c31e-3ec0-4fe1-a017-b81561b075d7";
 
     // The Actor
     var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
     // The Action
-    var action = actions.paused.term;
+    var action = actions.loggedIn.term;
 
     // The Object of the interaction
-    var obj = entityFactory().create(VideoObject, BASE_IRI.concat("/UQVK-dsU7-Y"), {
-      name: "Information and Welcome",
-      mediaType: "video/ogg",
-      duration: "PT20M20S"
-    });
-
-    // The Target location
-    var target = entityFactory().create(MediaLocation, BASE_IRI.concat("/UQVK-dsU7-Y?t=321"), {
-      currentTime: "PT05M21S"
-    });
+    var obj = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
 
     // Event time
-    var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
-
-    // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/player"));
-
-    // Group
-    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-      courseNumber: "CPS 435-01",
-      academicSession: "Fall 2016"
-    });
-
-    // The Actor's Membership
-    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
-      roles: [Role.learner.term],
-      status: Status.active.term,
-      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-    });
+    var eventTime = moment.utc("2016-11-15T20:11:15.000Z");
 
     // Session
     var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
-      startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+      actor: actor,
+      dateCreated: eventTime,
+      startedAtTime: eventTime
     });
 
+    // Custom extension: request
+    var request = {
+      "requestId": "d71016dc-ed2f-46f9-ac2c-b93f15f38fdc",
+      "hostname": "example.com",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+    };
+
+    // Custom extension: GeoLocation
+    var geo = {
+      "@context": {
+        id: "@id",
+        type: "@type",
+        sdo: "http://schema.org",
+        xsd: "http://www.w3.org/2001/XMLSchema#",
+        GeoCoordinates: "sdo:GeoCoordinates",
+        latitude: { id: "sdo:latitude", type: "xsd:decimal" },
+        longitude: { id: "sdo:longitude", type: "xsd:decimal" }
+      },
+      id: "https://example.com/maps/@42.27611,-83.73778,19z",
+      type: "GeoCoordinates",
+      latitude: 42.2761100,
+      longitude: -83.7377800
+    };
+
+    var extensions = [];
+    extensions.push(request);
+    extensions.push(geo);
+
     // Assert that key attributes are the same
-    var event = eventFactory().create(MediaEvent, {
+    var event = eventFactory().create(SessionEvent, {
       uuid: uuid,
       actor: actor,
       action: action,
       object: obj,
       eventTime: eventTime,
-      target: target,
-      edApp: edApp,
-      group: group,
-      membership: membership,
-      session: session
+      session: session,
+      extensions: extensions
     });
 
     // Compare

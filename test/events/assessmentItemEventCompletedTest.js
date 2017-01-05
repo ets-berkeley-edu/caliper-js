@@ -39,107 +39,114 @@ var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create an AssessmentItemEvent (completed) and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEventAssessmentItemCompleted.json";
 
-  // Plan for N assertions
-  t.plan(2);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-  const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
-  const BASE_ITEM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3";
+  test('Create an AssessmentItemEvent (completed) and validate properties', function (t) {
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+    // Plan for N assertions
+    t.plan(2);
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    const BASE_IRI = "https://example.edu";
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+    const BASE_ITEM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3";
 
-  // Override ID with canned value
-  uuid = "e5891791-3d27-4df1-a272-091806a43dfb";
+    // Id
+    var uuid = eventUtils.generateUUID(config.version);
 
-  // Actor
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    // Check Id
+    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
-  // The Action for the Caliper Event
-  var action = actions.completed.term;
+    // Override ID with canned value
+    uuid = "e5891791-3d27-4df1-a272-091806a43dfb";
 
-  // Parent assessment
-  var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);
-  var parentAttempt = entityFactory().create(Attempt, BASE_ASSESS_IRI.concat("/users/554433/attempts/1"));
+    // Actor
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
 
-  // Item
-  var item = entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3"), {
-    name: "Assessment Item 3",
-    isPartOf: parent
+    // The Action for the Caliper Event
+    var action = actions.completed.term;
+
+    // Parent assessment
+    var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);
+    var parentAttempt = entityFactory().create(Attempt, BASE_ASSESS_IRI.concat("/users/554433/attempts/1"));
+
+    // Item
+    var item = entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3"), {
+      name: "Assessment Item 3",
+      isPartOf: parent
+    });
+
+    // The Object of the interaction
+    var obj = entityFactory().create(Attempt, BASE_ITEM_IRI.concat("/users/554433/attempts/1"), {
+      actor: actor,
+      assignable: item,
+      isPartOf: parentAttempt,
+      dateCreated: moment.utc("2016-11-15T10:15:02.000Z"),
+      startedAtTime: moment.utc("2016-11-15T10:15:02.000Z"),
+      endedAtTime: moment.utc("2016-11-15T10:15:12.000Z"),
+      count: 1
+    });
+
+    // Event time
+    var eventTime = moment.utc("2016-11-15T10:15:12.000Z");
+
+    // The generated response
+    var generated = entityFactory().create(FillinBlankResponse, BASE_ITEM_IRI.concat("/users/554433/responses/1"), {
+      attempt: _.omit(obj, [ "actor", "assignable", "isPartOf", "dateCreated", "startedAtTime", "endedAtTime", "count" ]),
+      values: [ "subject", "object", "predicate" ],
+      dateCreated: moment.utc("2016-11-15T10:15:12.000Z"),
+      startedAtTime: moment.utc("2016-11-15T10:15:02.000Z"),
+      endedAtTime: moment.utc("2016-11-15T10:15:12.000Z")
+    });
+
+    // The edApp
+    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
+
+    // Group
+    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+      courseNumber: "CPS 435-01",
+      academicSession: "Fall 2016"
+    });
+
+    // Membership
+    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+      member: actor,
+      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      roles: [Role.learner.term],
+      status: Status.active.term,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    });
+
+    // Session
+    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+      startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+    });
+
+    // Assert that key attributes are the same
+    var event = eventFactory().create(AssessmentItemEvent, {
+      uuid: uuid,
+      actor: actor,
+      action: action,
+      object: obj,
+      eventTime: eventTime,
+      generated: generated,
+      edApp: edApp,
+      group: group,
+      membership: membership,
+      session: session
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // The Object of the interaction
-  var obj = entityFactory().create(Attempt, BASE_ITEM_IRI.concat("/users/554433/attempts/1"), {
-    actor: actor,
-    assignable: item,
-    isPartOf: parentAttempt,
-    dateCreated: moment.utc("2016-11-15T10:15:02.000Z"),
-    startedAtTime: moment.utc("2016-11-15T10:15:02.000Z"),
-    endedAtTime: moment.utc("2016-11-15T10:15:12.000Z"),
-    count: 1
-  });
-
-  // Event time
-  var eventTime = moment.utc("2016-11-15T10:15:12.000Z");
-
-  // The generated response
-  var generated = entityFactory().create(FillinBlankResponse, BASE_ITEM_IRI.concat("/users/554433/responses/1"), {
-    attempt: _.omit(obj, [ "actor", "assignable", "isPartOf", "dateCreated", "startedAtTime", "endedAtTime", "count" ]),
-    values: [ "subject", "object", "predicate" ],
-    dateCreated: moment.utc("2016-11-15T10:15:12.000Z"),
-    startedAtTime: moment.utc("2016-11-15T10:15:02.000Z"),
-    endedAtTime: moment.utc("2016-11-15T10:15:12.000Z")
-  });
-
-  // The edApp
-  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
-
-  // Group
-  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-    courseNumber: "CPS 435-01",
-    academicSession: "Fall 2016"
-  });
-
-  // Membership
-  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
-    member: actor,
-    organization: _.omit(group, ["courseNumber", "academicSession"]),
-    roles: [Role.learner.term],
-    status: Status.active.term,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-  });
-
-  // Session
-  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
-    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
-  });
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(AssessmentItemEvent, {
-    uuid: uuid,
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime,
-    generated: generated,
-    edApp: edApp,
-    group: group,
-    membership: membership,
-    session: session
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEventAssessmentItemCompleted', event);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

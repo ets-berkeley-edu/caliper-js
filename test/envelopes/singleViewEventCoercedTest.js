@@ -36,115 +36,123 @@ var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
 /**
-test('Create an Envelope containing single ViewEvent (viewed), coerce actor, object, edApp and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEnvelopeEventViewViewedCoerced.json";
 
-  // Plan for N assertions
-  t.plan(2);
+testUtils.readFile(path, function(err, fixture) {
+ if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+ test('Create an Envelope containing single ViewEvent (viewed), coerce actor, object, edApp and validate properties', function (t) {
 
-  // Override default context
-  var context = [];
-    context.push("http://purl.imsglobal.org/ctx/caliper/v1/Context");
-    context.push({
-      "actor": {
-        "id": "http://purl.imsglobal.org/caliper/v1/Person",
-        "@type": "id"
-      }
-    });
-    context.push({
-      "object": {
-        "id": "http://purl.imsglobal.org/caliper/v1/Document",
-        "@type": "id"
-      }
-    });
-    context.push({
-      "edApp": {
-        "id": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication",
-        "@type": "id"
-      }
-    });
+   // Plan for N assertions
+   t.plan(2);
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+   const BASE_IRI = "https://example.edu";
+   const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Generated UUID " + uuid + " failed validation check.");
+   // Override default context
+   var context = [];
+   context.push("http://purl.imsglobal.org/ctx/caliper/v1/Context");
+   context.push({
+     "actor": {
+       "id": "http://purl.imsglobal.org/caliper/v1/Person",
+       "@type": "id"
+     }
+   });
+   context.push({
+     "object": {
+       "id": "http://purl.imsglobal.org/caliper/v1/Document",
+       "@type": "id"
+     }
+   });
+   context.push({
+     "edApp": {
+       "id": "http://purl.imsglobal.org/caliper/v1/SoftwareApplication",
+       "@type": "id"
+     }
+   });
 
-  // Override ID with canned value
-  uuid = "c51570e4-f8ed-4c18-bb3a-dfe51b2cc594";
+   // Id
+   var uuid = eventUtils.generateUUID(config.version);
 
-  // The Actor (coerced)
-  var actor = BASE_IRI.concat("/users/554433");
+   // Check Id
+   t.equal(true, eventValidator.isUUID(uuid), "Generated UUID " + uuid + " failed validation check.");
 
-  // The Action
-  var action = actions.viewed.term;
+   // Override ID with canned value
+   uuid = "c51570e4-f8ed-4c18-bb3a-dfe51b2cc594";
 
-  // The Object of the interaction (coerced)
-  var obj = BASE_IRI.concat("/etexts/201.epub");
+   // The Actor (coerced)
+   var actor = BASE_IRI.concat("/users/554433");
 
-  // Event time
-  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
+   // The Action
+   var action = actions.viewed.term;
 
-  // The edApp (coerced)
-  var edApp = BASE_IRI;
+   // The Object of the interaction (coerced)
+   var obj = BASE_IRI.concat("/etexts/201.epub");
 
-  // Group
-  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-    courseNumber: "CPS 435-01",
-    academicSession: "Fall 2016"
-  });
+   // Event time
+   var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
-  // The Actor's Membership
-  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
-    member: entityFactory().create(Person, BASE_IRI.concat("/users/554433")),
-    organization: _.omit(group, ["courseNumber", "academicSession"]),
-    roles: [Role.learner.term],
-    status: Status.active.term,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-  });
+   // The edApp (coerced)
+   var edApp = BASE_IRI;
 
-  // Session
-  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
-    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
-  });
+   // Group
+   var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+     courseNumber: "CPS 435-01",
+     academicSession: "Fall 2016"
+   });
 
-  // Assert that key attributes are the same
-  var event = eventFactory().create(ViewEvent, {
-    "@context": context,
-    uuid: uuid,
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime,
-    edApp: edApp,
-    group: group,
-    membership: membership,
-    session: session
-  });
+   // The Actor's Membership
+   var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+     member: entityFactory().create(Person, BASE_IRI.concat("/users/554433")),
+     organization: _.omit(group, ["courseNumber", "academicSession"]),
+     roles: [Role.learner.term],
+     status: Status.active.term,
+     dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+   });
 
-  // Initialize faux sensor and default options
-  var sensor = createFauxSensor(BASE_IRI.concat("/sensors/1"));
-  var options = {};
+   // Session
+   var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+     startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+   });
 
-  // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
-  requestor.initialize(options);
+   // Assert that key attributes are the same
+   var event = eventFactory().create(ViewEvent, {
+     "@context": context,
+     uuid: uuid,
+     actor: actor,
+     action: action,
+     object: obj,
+     eventTime: eventTime,
+     edApp: edApp,
+     group: group,
+     membership: membership,
+     session: session
+   });
 
-  var sendTime = moment.utc("2016-11-15T11:05:01.000Z");
-  var envelope = requestor.createEnvelope(sensor, sendTime, event);
+   // Initialize faux sensor and default options
+   var sensor = createFauxSensor(BASE_IRI.concat("/sensors/1"));
+   var options = {};
 
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEnvelopeEventViewViewedCoerced', envelope);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
+   // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
+   requestor.initialize(options);
 
-  t.end();
+   var sendTime = moment.utc("2016-11-15T11:05:01.000Z");
+   var envelope = requestor.createEnvelope(sensor, sendTime, event);
+
+   // Compare
+   var diff = testUtils.compare(fixture, requestUtils.parse(envelope));
+   var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+   t.equal(true, _.isUndefined(diff), diffMsg);
+   //t.end();
+ });
 });
+
  */
 
 /**

@@ -31,57 +31,64 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a SessionEvent (timedOut) and validate properties', function(t) {
+const path = config.testFixturesBaseDir + "caliperEventSessionTimedOut.json";
 
-  // Plan for N assertions
-  t.plan(2);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create a SessionEvent (timedOut) and validate properties', function(t) {
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+    // Plan for N assertions
+    t.plan(2);
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    const BASE_IRI = "https://example.edu";
 
-  // Override ID with canned value
-  uuid = "4e61cf6c-ffbe-45bc-893f-afe7ad4079dc";
+    // Id
+    var uuid = eventUtils.generateUUID(config.version);
 
-  // The Actor
-  var actor = entityFactory().create(SoftwareApplication, BASE_IRI);
+    // Check Id
+    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
-  // The Action
-  var action = actions.timedOut.term;
+    // Override ID with canned value
+    uuid = "4e61cf6c-ffbe-45bc-893f-afe7ad4079dc";
 
-  // The Object of the interaction
-  var objId = BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
-  var obj = entityFactory().create(Session, objId, {
-    actor: entityFactory().create(Person, BASE_IRI.concat("/users/112233")),
-    dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
-    startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
-    endedAtTime: moment.utc("2016-11-15T11:15:00.000Z"),
-    duration: "PT3600S"
+    // The Actor
+    var actor = entityFactory().create(SoftwareApplication, BASE_IRI);
+
+    // The Action
+    var action = actions.timedOut.term;
+
+    // The Object of the interaction
+    var objId = BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
+    var obj = entityFactory().create(Session, objId, {
+      actor: entityFactory().create(Person, BASE_IRI.concat("/users/112233")),
+      dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
+      startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
+      endedAtTime: moment.utc("2016-11-15T11:15:00.000Z"),
+      duration: "PT3600S"
+    });
+
+    // Event time
+    var eventTime = moment.utc("2016-11-15T11:15:00.000Z");
+
+    // Assert that key attributes are the same
+    var event = eventFactory().create(SessionEvent, {
+      uuid: uuid,
+      actor: actor,
+      action: action,
+      object: obj,
+      eventTime: eventTime,
+      edApp: actor
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Event time
-  var eventTime = moment.utc("2016-11-15T11:15:00.000Z");
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(SessionEvent, {
-    uuid: uuid,
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime,
-    edApp: actor
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEventSessionTimedOut', event);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

@@ -20,29 +20,37 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a Session entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntitySession.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create a Session entity and validate properties', function (t) {
 
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    // Plan for N assertions
+    t.plan(1);
 
-  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
-    actor: actor,
-    startedAtTime: moment.utc("2016-09-15T10:00:00.000Z")
+    const BASE_IRI = "https://example.edu";
+
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+
+    var entity = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+      actor: actor,
+      startedAtTime: moment.utc("2016-09-15T10:00:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntitySession', session);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

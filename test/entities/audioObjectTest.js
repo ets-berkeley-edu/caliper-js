@@ -20,28 +20,36 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AudioObject = require('../../src/entities/resource/audioObject');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create an AudioObject entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityAudioObject.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create an AudioObject entity and validate properties', function (t) {
 
-  var audio = entityFactory().create(AudioObject, BASE_IRI.concat("/audio/765"), {
-    name: "Audio Recording: IMS Caliper Sensor API Q&A.",
-    mediaType: "audio/ogg",
-    datePublished: moment.utc("2016-12-01T06:00:00.000Z"),
-    duration: "PT55M13S"
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu";
+
+    var entity = entityFactory().create(AudioObject, BASE_IRI.concat("/audio/765"), {
+      name: "Audio Recording: IMS Caliper Sensor API Q&A.",
+      mediaType: "audio/ogg",
+      datePublished: moment.utc("2016-12-01T06:00:00.000Z"),
+      duration: "PT55M13S"
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityAudioObject', audio);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

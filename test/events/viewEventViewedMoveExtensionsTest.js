@@ -16,7 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-/**
+
 var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
@@ -36,96 +36,103 @@ var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-
 var Status = require('../../src/entities/lis/status');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a ViewEvent (viewed) moving top-level custom properties to extensions and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEventViewViewedMoveExtensions.json";
 
-  // Plan for N assertions
-  t.plan(2);
+/**
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+  test('Create a ViewEvent (viewed) moving top-level custom properties to extensions and validate properties', function (t) {
 
-  // Id
-  var uuid = eventUtils.generateUUID(config.version);
+    // Plan for N assertions
+    t.plan(2);
 
-  // Check Id
-  t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    const BASE_IRI = "https://example.edu";
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-  // Override ID with canned value
-  uuid = "cd088ca7-c044-405c-bb41-0b2a8506f907";
+    // Id
+    var uuid = eventUtils.generateUUID(config.version);
 
-  // The Actor
-  var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    // Check Id
+    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
 
-  // The Action
-  var action = actions.viewed.term;
+    // Override ID with canned value
+    uuid = "cd088ca7-c044-405c-bb41-0b2a8506f907";
 
-  // The Object of the interaction
-  var obj = entityFactory().create(Document, BASE_IRI.concat("/etexts/200.epub"), {
-    name: "IMS Caliper Specification",
-    version: "1.1"
+    // The Actor
+    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+
+    // The Action
+    var action = actions.viewed.term;
+
+    // The Object of the interaction
+    var obj = entityFactory().create(Document, BASE_IRI.concat("/etexts/200.epub"), {
+      name: "IMS Caliper Specification",
+      version: "1.1"
+    });
+
+    // Event time
+    var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
+
+    // The edApp
+    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI);
+
+    // Group
+    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+      courseNumber: "CPS 435-01",
+      academicSession: "Fall 2016"
+    });
+
+    // The Actor's Membership
+    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+      member: actor,
+      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      roles: [Role.learner.term],
+      status: Status.active.term,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    });
+
+    // Session
+    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+      startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+    });
+
+    // Custom extension appended to the event as a top-level property (move to extensions)
+    var chron = {
+      "@context": {
+        "@vocab": "http://example.edu/ctx/edu.jsonld"
+      },
+      job: {
+        id: "https://example.edu/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7",
+        type: "ChronJob",
+        jobTag: "caliper",
+        jobDate: moment.utc("2016-11-16T01:01:00.000Z")
+      }
+    };
+
+    // Assert that key attributes are the same
+    var event = eventFactory().create(ViewEvent, {
+      actor: actor,
+      action: action,
+      object: obj,
+      eventTime: eventTime,
+      edApp: edApp,
+      group: group,
+      membership: membership,
+      session: session,
+      job: chron
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Event time
-  var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
-
-  // The edApp
-  var edApp = entityFactory().create(SoftwareApplication, BASE_IRI);
-
-  // Group
-  var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-    courseNumber: "CPS 435-01",
-    academicSession: "Fall 2016"
-  });
-
-  // The Actor's Membership
-  var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
-    member: actor,
-    organization: _.omit(group, ["courseNumber", "academicSession"]),
-    roles: [Role.learner.term],
-    status: Status.active.term,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-  });
-
-  // Session
-  var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
-    startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
-  });
-
-  // Custom extension appended to the event as a top-level property (move to extensions)
-  var chron = {
-    "@context": {
-      "@vocab": "http://example.edu/ctx/edu.jsonld"
-    },
-    job: {
-      id: "https://example.edu/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7",
-      type: "ChronJob",
-      jobTag: "caliper",
-      jobDate: moment.utc("2016-11-16T01:01:00.000Z")
-    }
-  };
-
-  // Assert that key attributes are the same
-  var event = eventFactory().create(ViewEvent, {
-    actor: actor,
-    action: action,
-    object: obj,
-    eventTime: eventTime,
-    edApp: edApp,
-    group: group,
-    membership: membership,
-    session: session,
-    job: chron
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEventViewViewedExtended', event);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });
  */

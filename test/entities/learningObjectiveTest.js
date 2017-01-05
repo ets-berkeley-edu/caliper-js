@@ -20,43 +20,51 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AssignableDigitalResource = require('../../src/entities/resource/assignableDigitalResource');
 var LearningObjective = require('../../src/entities/assign/learningObjective');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a LearningObjective entity, assign it to a AssignableDigitalResource and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityLearningObjective.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+  test('Create a LearningObjective entity, assign it to a AssignableDigitalResource and validate properties', function (t) {
 
-  var learningObjectives = [];
-  learningObjectives.push(entityFactory().create(LearningObjective, BASE_SECTION_IRI.concat("/objectives/1"), {
-    name: "Research techniques",
-    description: "Demonstrate ability to model a learning activity as a Caliper profile.",
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-  }));
+    // Plan for N assertions
+    t.plan(1);
 
-  var assignable = entityFactory().create(AssignableDigitalResource, BASE_SECTION_IRI.concat("/assign/2"), {
-    name: "Caliper Profile Design",
-    description: "Choose a learning activity and describe the actions, entities and events that comprise it.",
-    learningObjectives: learningObjectives,
-    dateCreated: moment.utc("2016-11-01T06:00:00.000Z"),
-    dateToActivate: moment.utc("2016-11-10T11:59:59.000Z"),
-    dateToShow: moment.utc("2016-11-10T11:59:59.000Z"),
-    dateToStartOn: moment.utc("2016-11-15T11:59:59.000Z"),
-    dateToSubmit: moment.utc("2016-11-14T11:59:59.000Z"),
-    maxAttempts: 2,
-    maxSubmits: 2,
-    maxScore: 50
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+    var learningObjectives = [];
+    learningObjectives.push(entityFactory().create(LearningObjective, BASE_SECTION_IRI.concat("/objectives/1"), {
+      name: "Research techniques",
+      description: "Demonstrate ability to model a learning activity as a Caliper profile.",
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    }));
+
+    var entity = entityFactory().create(AssignableDigitalResource, BASE_SECTION_IRI.concat("/assign/2"), {
+      name: "Caliper Profile Design",
+      description: "Choose a learning activity and describe the actions, entities and events that comprise it.",
+      learningObjectives: learningObjectives,
+      dateCreated: moment.utc("2016-11-01T06:00:00.000Z"),
+      dateToActivate: moment.utc("2016-11-10T11:59:59.000Z"),
+      dateToShow: moment.utc("2016-11-10T11:59:59.000Z"),
+      dateToStartOn: moment.utc("2016-11-15T11:59:59.000Z"),
+      dateToSubmit: moment.utc("2016-11-14T11:59:59.000Z"),
+      maxAttempts: 2,
+      maxSubmits: 2,
+      maxScore: 50
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityLearningObjective', assignable);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

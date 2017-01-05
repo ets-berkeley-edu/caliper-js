@@ -20,33 +20,41 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Chapter = require('../../src/entities/resource/chapter');
 var Document = require('../../src/entities/resource/document');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a Chapter entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityChapter.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu/etexts/201.epub";
+  test('Create a Chapter entity and validate properties', function (t) {
 
-  var parent = entityFactory().create(Document, BASE_IRI, {
-    name: "IMS Caliper Implementation Guide",
-    dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
-    version: "1.1"
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu/etexts/201.epub";
+
+    var parent = entityFactory().create(Document, BASE_IRI, {
+      name: "IMS Caliper Implementation Guide",
+      dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
+      version: "1.1"
+    });
+
+    var entity = entityFactory().create(Chapter, BASE_IRI.concat("#epubcfi(/6/4[chap01]!)"), {
+      name: "The Caliper Information Model",
+      isPartOf: parent
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  var chapter = entityFactory().create(Chapter, BASE_IRI.concat("#epubcfi(/6/4[chap01]!)"), {
-    name: "The Caliper Information Model",
-    isPartOf: parent
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityChapter', chapter);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

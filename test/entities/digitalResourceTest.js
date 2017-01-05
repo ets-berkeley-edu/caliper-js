@@ -20,43 +20,52 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResource = require('../../src/entities/resource/digitalResource');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var Person = require('../../src/entities/agent/person');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a DigitalResource entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityDigitalResource.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
-  const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-  const BASE_COLLECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1/resources/1";
+  test('Create a DigitalResource entity and validate properties', function (t) {
 
-  var creators = [];
-  creators.push(entityFactory().create(Person, BASE_IRI.concat("/users/223344")));
+    // Plan for N assertions
+    t.plan(1);
 
-  var section = entityFactory().create(CourseSection, BASE_SECTION_IRI);
-  var collection = entityFactory().create(DigitalResourceCollection, BASE_COLLECTION_IRI, {
-    name: "Course Assets",
-    isPartOf: section
+    const BASE_IRI = "https://example.edu";
+    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    const BASE_COLLECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1/resources/1";
+
+    var creators = [];
+    creators.push(entityFactory().create(Person, BASE_IRI.concat("/users/223344")));
+
+    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI);
+    var collection = entityFactory().create(DigitalResourceCollection, BASE_COLLECTION_IRI, {
+      name: "Course Assets",
+      isPartOf: section
+    });
+
+    var entity = entityFactory().create(DigitalResource, BASE_COLLECTION_IRI.concat("/syllabus.pdf"), {
+      name: "Course Syllabus",
+      mediaType: "application/pdf",
+      creators: creators,
+      isPartOf: collection,
+      dateCreated: moment.utc("2016-08-02T11:32:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
 
-  var resource = entityFactory().create(DigitalResource, BASE_COLLECTION_IRI.concat("/syllabus.pdf"), {
-    name: "Course Syllabus",
-    mediaType: "application/pdf",
-    creators: creators,
-    isPartOf: collection,
-    dateCreated: moment.utc("2016-08-02T11:32:00.000Z")
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityDigitalResource', resource);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

@@ -20,32 +20,41 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a CourseSection entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityCourseSection.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu/terms/201601/courses/7";
+  test('Create a CourseSection entity and validate properties', function (t) {
 
-  var course = entityFactory().create(CourseOffering, BASE_IRI, { courseNumber: "CPS 435" });
-  var section = entityFactory().create(CourseSection, BASE_IRI.concat("/sections/1"), {
-    academicSession: "Fall 2016",
-    courseNumber: "CPS 435-01",
-    name: "CPS 435 Learning Analytics, Section 01",
-    category: "seminar",
-    subOrganizationOf: course,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu/terms/201601/courses/7";
+
+    var course = entityFactory().create(CourseOffering, BASE_IRI, { courseNumber: "CPS 435" });
+
+    var entity = entityFactory().create(CourseSection, BASE_IRI.concat("/sections/1"), {
+      academicSession: "Fall 2016",
+      courseNumber: "CPS 435-01",
+      name: "CPS 435 Learning Analytics, Section 01",
+      category: "seminar",
+      subOrganizationOf: course,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityCourseSection', section);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

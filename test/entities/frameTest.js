@@ -20,33 +20,41 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
+var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Frame = require('../../src/entities/resource/frame');
-
+var requestUtils = require('../../src/request/requestUtils');
 var testUtils = require('../testUtils');
 
-test('Create a Frame entity and validate properties', function (t) {
+const path = config.testFixturesBaseDir + "caliperEntityFrame.json";
 
-  // Plan for N assertions
-  t.plan(1);
+testUtils.readFile(path, function(err, fixture) {
+  if (err) throw err;
 
-  const BASE_IRI = "https://example.edu";
+  test('Create a Frame entity and validate properties', function (t) {
 
-  var document = entityFactory().create(Document, BASE_IRI.concat("/etexts/201"), {
-    name: "IMS Caliper Implementation Guide",
-    version: "1.1"
+    // Plan for N assertions
+    t.plan(1);
+
+    const BASE_IRI = "https://example.edu";
+
+    var document = entityFactory().create(Document, BASE_IRI.concat("/etexts/201"), {
+      name: "IMS Caliper Implementation Guide",
+      version: "1.1"
+    });
+
+    var entity = entityFactory().create(Frame, BASE_IRI.concat("/etexts/201?index=2502"), {
+      index: 2502,
+      isPartOf: document,
+      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
+    });
+
+    // Compare
+    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+
+    t.equal(true, _.isUndefined(diff), diffMsg);
+    //t.end();
   });
-
-  var frame = entityFactory().create(Frame, BASE_IRI.concat("/etexts/201?index=2502"), {
-    index: 2502,
-    isPartOf: document,
-    dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-  });
-
-  // Compare JSON
-  var diff = testUtils.jsonCompare('caliperEntityFrame', frame);
-  t.equal(true, _.isUndefined(diff), "Validate JSON");
-
-  t.end();
 });

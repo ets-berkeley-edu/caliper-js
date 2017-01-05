@@ -19,43 +19,34 @@
 var _ = require('lodash');
 var diff = require('deep-diff').diff;
 var jf = require('jsonfile');
-//var logger = require("../src/logger");
-var config = require('../src/config');
-var requestUtils = require('../src/request/requestUtils');
 
 /**
- * Utility function to compare JSON (represented by an object) to a JSON fixture.
- * fixture: test fixture (relative to test/resources directory) without .json extension
- * obj: Object to be converted to JSON that will be compared to expected Json
- * filterCallback: callback function to filter out JSON attributes, paths that should not be compared.
- * Callback should return TRUE for any key + path combination that should not be analyzed for differences.
- **/
-module.exports.jsonCompare = function jsonCompare(fixture, obj, filterCallback) {
-
-  const FIXTURES_BASE_DIR = config.testFixturesBaseDir;
-  const file = FIXTURES_BASE_DIR.concat(fixture, ".json");
-
-  var objJson = requestUtils.parse(obj);
+ * Calculate deep-level differences between two objects.
+ * @param expected
+ * @param actual
+ * @param filter signature should be function(path, key) and should return a truthy value for any path-key combination to be filtered. If filtered, the difference analysis does no further analysis of the identified object-property path.
+ * @returns {*}
+ */
+module.exports.compare = function compare(expected, actual, filter) {
   var differences;
 
-  jf.readFile(file, function(err, expectedJson) {
-    if (_.isNull(expectedJson)) {
-      var errMsg = "ERROR: Unable to load specified JSON fixture: " + file;
-      //logger.log("debug", errMsg);
-      differences = errMsg; // define so we trigger failure;
-    } else {
-      if (_.isUndefined(filterCallback)) {
-        differences = diff(expectedJson, objJson);
-      } else {
-        differences = diff(expectedJson, objJson, filterCallback);
-      }
-    }
+  if (_.isUndefined(filter)) {
+    differences = diff(expected, actual);
+  } else {
+    differences = diff(expected, actual, filter);
+  }
 
-    if (!_.isUndefined(differences)) {
-      //logger.log("debug", "ERROR: JSON Differences = " + requestUtils.stringify(differences));
-      console.log("ERROR: JSON Differences = " + requestUtils.stringify(differences));
-    }
+  return differences;
+};
 
-    return differences;
-  })
+/**
+ * Read test fixture asynchronously and return content via callback
+ * @param path
+ * @param callback function that returns file content.
+ */
+module.exports.readFile = function readFile(path, callback) {
+  jf.readFile(path, function(err, content) {
+    if (err) throw err;
+    return callback(null, content);
+  });
 };

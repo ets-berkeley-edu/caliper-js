@@ -28,6 +28,6 @@ test('Confirm that a UUID is successfully generated and validated.', function (t
   const actual = eventValidator.isUUID(uuid);
 
   t.plan(1);
-  t.equal(true, actual, "UUID v" + config.version + " value=" + uuid + " failed validation check.");
-  t.end();
+  t.equal(true, actual, "Validate generated UUID.");
+  //t.end();
 });
