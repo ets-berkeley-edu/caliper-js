@@ -30,6 +30,7 @@ var eventType = {
   reading: {term: "ReadingEvent", iri: "http://purl.imsglobal.org/caliper/ReadingEvent"},
   session: {term: "SessionEvent", iri: "http://purl.imsglobal.org/caliper/SessionEvent"},
   thread: {term: "ThreadEvent", iri: "http://purl.imsglobal.org/caliper/ThreadEvent"},
+  toolUse: {term: "ToolUseEvent", iri: "http://purl.imsglobal.org/caliper/ToolUseEvent"},
   view: {term: "ViewEvent", iri: "http://purl.imsglobal.org/caliper/ViewEvent"}
 };
 

@@ -166,6 +166,7 @@ Caliper.Entities.LtiSession = require('./entities/session/ltiSession');
 Caliper.Events.Event               = require('./events/event');
 Caliper.Events.EventFactory        = require('./events/eventFactory');
 Caliper.Events.EventType           = require('./events/eventType');
+Caliper.Events.EventUtils          = require('./events/eventUtils');
 Caliper.Events.AnnotationEvent     = require('./events/annotationEvent');
 Caliper.Events.AssessmentEvent     = require('./events/assessmentEvent');
 Caliper.Events.AssessmentItemEvent = require('./events/assessmentItemEvent');
@@ -177,6 +178,7 @@ Caliper.Events.NavigationEvent     = require('./events/navigationEvent');
 Caliper.Events.OutcomeEvent        = require('./events/outcomeEvent');
 Caliper.Events.SessionEvent        = require('./events/sessionEvent');
 Caliper.Events.ThreadEvent         = require('./events/threadEvent');
+Caliper.Events.ToolUseEvent        = require('./events/toolUseEvent');
 Caliper.Events.ViewEvent           = require('./events/viewEvent');
 
 // Request

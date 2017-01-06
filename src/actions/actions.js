@@ -299,6 +299,11 @@ var actions = {
     iri: "http://purl.imsglobal.org/vocab/caliper/action#Unsubscribed",
     events: ["forumEvent"]
   },
+  used: {
+    term: "Used",
+    iri: "http://purl.imsglobal.org/vocab/caliper/action#Used",
+    events: ["toolUseEvent"]
+  },
   viewed: {
     term: "Viewed",
     iri: "http://purl.imsglobal.org/vocab/caliper/action#Viewed",
