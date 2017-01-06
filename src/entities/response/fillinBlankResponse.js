@@ -24,10 +24,6 @@ var entityType = require('../entityType');
 /**
  * Link FillinBlankResponse to delegate Response and assign default property values.
  */
-var FillinBlankResponse = _.assign({}, response, {
-  '@context': constants.CONTEXT,
-  'type': entityType.FILLINBLANK,
-  values: []
-});
+var FillinBlankResponse = _.assign({}, response, {type: entityType.fillinBlankResponse.term, values: []});
 
 module.exports = FillinBlankResponse;

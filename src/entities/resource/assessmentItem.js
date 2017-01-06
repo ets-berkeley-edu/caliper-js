@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose AssessmentItem from AssignableDigitalResource and set default properties.
  */
-var AssessmentItem = _.assign({}, assignable, { type: entityType.ASSESSMENT_ITEM, isTimeDependent: null });
+var AssessmentItem = _.assign({}, assignable, {type: entityType.assessmentItem.term, isTimeDependent: null});
 
 module.exports = AssessmentItem;

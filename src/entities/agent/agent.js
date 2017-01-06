@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Agent from Entity and set default properties.
  */
-var Agent = _.assign({}, entity, { type: entityType.AGENT });
+var Agent = _.assign({}, entity, {type: entityType.agent.term});
 
 module.exports = Agent;

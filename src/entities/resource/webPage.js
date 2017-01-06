@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose WebPage from DigitalResource and set default properties.
  */
-var WebPage = _.assign({}, digitalResource, { type: entityType.WEB_PAGE });
+var WebPage = _.assign({}, digitalResource, {type: entityType.webPage.term});
 
 module.exports = WebPage;

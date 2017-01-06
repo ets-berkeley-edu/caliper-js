@@ -24,10 +24,6 @@ var entityType = require('../entityType');
 /**
  * Link MultipleResponseResponse to delegate Response and assign default property values.
  */
-var MultipleResponseResponse = _.assign({}, response, {
-  '@context': constants.CONTEXT,
-  'type': entityType.MULTIPLERESPONSE,
-  values: []
-});
+var MultipleResponseResponse = _.assign({}, response, {type: entityType.multipleResponseResponse.term, values: []});
 
 module.exports = MultipleResponseResponse;

@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose LearningObjective from Entity and set default properties.
  */
-var LearningObjective = _.assign({}, entity, { type: entityType.LEARNING_OBJECTIVE });
+var LearningObjective = _.assign({}, entity, {type: entityType.learningObjective.term});
 
 module.exports = LearningObjective;

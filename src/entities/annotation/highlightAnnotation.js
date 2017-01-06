@@ -24,7 +24,7 @@ var entityType = require('../entityType');
  * Compose HighlightAnnotation from Annotation and set default properties.
  */
 var HighlightAnnotation = _.assign({}, annotation, {
-  type: entityType.HIGHLIGHT_ANNOTATION,
+  type: entityType.highlightAnnotation.term,
   selection: {},
   selectionText: null
 });

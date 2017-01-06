@@ -25,8 +25,7 @@ var entityType = require('../entityType');
  * Link CourseOffering to delegate Organization and assign default property values.
  */
 var CourseOffering = _.assign({}, organization, {
-  '@context': constants.CONTEXT,
-  'type': entityType.COURSE_OFFERING,
+  type: entityType.courseOffering.term,
   courseNumber: null,
   academicSession: null
 });
