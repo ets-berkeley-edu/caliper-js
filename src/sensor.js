@@ -82,6 +82,7 @@ Sensor.send = function(event) {
  * dependency graph and load everything correctly.
  */
 Caliper.Actions = {};
+Caliper.Config = {};
 Caliper.Constants = {};
 Caliper.Entities = {};
 Caliper.Events = {};
@@ -90,6 +91,9 @@ Caliper.Validator = {};
 
 // Actions
 Caliper.Actions.Actions = require('./actions/actions');
+
+// Config
+Caliper.Config.Config = require('./config');
 
 // Misc. constants
 Caliper.Constants.Constants = require('./constants');
