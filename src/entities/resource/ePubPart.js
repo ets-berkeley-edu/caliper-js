@@ -24,6 +24,6 @@ var entityType = require('../entityType');
  * Compose EpubPart from DigitalResource and set default properties.
  * @deprecated
  */
-var EPubPart = _.assign({}, digitalResource, { type: entityType.EPUB_PART });
+var EPubPart = _.assign({}, digitalResource, {type: entityType.epubPart.term});
 
 module.exports = EPubPart;

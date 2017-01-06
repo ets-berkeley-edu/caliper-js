@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose SoftwareApplication from Agent and set default properties.
  */
-var SoftwareApplication = _.assign({}, agent, { type: entityType.SOFTWARE_APPLICATION, version: null });
+var SoftwareApplication = _.assign({}, agent, {type: entityType.softwareApplication.term, version: null});
 
 module.exports = SoftwareApplication;

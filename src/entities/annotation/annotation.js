@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose Annotation from Entity and set default properties.
  */
-var Annotation = _.assign({}, entity, { type: entityType.ANNOTATION, actor: {}, annotated: {} });
+var Annotation = _.assign({}, entity, {type: entityType.annotation.term, actor: {}, annotated: {}});
 
 module.exports = Annotation;

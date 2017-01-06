@@ -22,7 +22,7 @@ var eventType = require('./eventType');
 var Event = {
   '@context': constants.CONTEXT,
   uuid: null,
-  type: eventType.EVENT,
+  type: eventType.event.term,
   actor: {},
   action: null,
   object: {},

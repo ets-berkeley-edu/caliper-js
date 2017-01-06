@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose VideoObject from MediaObject and set default properties.
  */
-var VideoObject = _.assign({}, mediaObject, { type: entityType.VIDEO_OBJECT });
+var VideoObject = _.assign({}, mediaObject, {type: entityType.videoObject.term});
 
 module.exports = VideoObject;

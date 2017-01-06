@@ -24,7 +24,7 @@ var entityType = require('../entityType');
  * Compose Result from Entity and set default properties.
  */
 var Result = _.assign({}, entity, {
-  type: entityType.RESULT,
+  type: entityType.result.term,
   attempt: {},
   normalScore: null,
   penaltyScore: null,

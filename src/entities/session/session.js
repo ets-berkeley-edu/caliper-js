@@ -25,8 +25,7 @@ var entityType = require('../entityType');
  * Link Session to delegate Entity and assign default property values.
  */
 var Session = _.assign({}, entity, {
-  '@context': constants.CONTEXT,
-  'type': entityType.SESSION,
+  type: entityType.session.term,
   actor: {},
   startedAtTime: null,
   endedAtTime: null,

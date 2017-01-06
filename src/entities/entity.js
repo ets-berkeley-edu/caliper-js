@@ -22,7 +22,7 @@ var entityType = require('./entityType');
 var Entity = {
   '@context': constants.CONTEXT,
   id: null,
-  type: entityType.ENTITY,
+  type: entityType.entity.term,
   name: null,
   description: null,
   dateCreated: null,

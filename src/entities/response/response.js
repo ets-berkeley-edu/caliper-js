@@ -25,8 +25,7 @@ var entityType = require('../entityType');
  * Link Response to delegate Entity and assign default property values.
  */
 var Response = _.assign({}, entity, {
-  '@context': constants.CONTEXT,
-  'type': entityType.RESPONSE,
+  type: entityType.response.term,
   actor: {},
   assignable: {},
   attempt: {},

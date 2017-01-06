@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose MessageEvent from Event and set default properties.
  */
-var MessageEvent = _.assign({}, event, { type: eventType.MESSAGE });
+var MessageEvent = _.assign({}, event, { type: eventType.message.term });
 
 module.exports = MessageEvent;

@@ -24,10 +24,6 @@ var entityType = require('../entityType');
 /**
  * Link CourseSection to delegate CourseOffering and assign default property values.
  */
-var CourseSection = _.assign({}, courseOffering, {
-  '@context': constants.CONTEXT,
-  'type': entityType.COURSE_SECTION,
-  category: null
-});
+var CourseSection = _.assign({}, courseOffering, {type: entityType.courseSection.term, category: null});
 
 module.exports = CourseSection;

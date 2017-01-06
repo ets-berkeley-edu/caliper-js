@@ -24,10 +24,6 @@ var _ = require('lodash');
  * and exactly 1 caliper:end property.
  * type {Object}
  */
-var textPositionSelector = {
-  type: "TextPositionSelector",
-  start: null,
-  end: null
-};
+var textPositionSelector = {type: "TextPositionSelector", start: null, end: null};
 
 module.exports = textPositionSelector;

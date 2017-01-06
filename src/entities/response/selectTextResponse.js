@@ -24,10 +24,6 @@ var entityType = require('../entityType');
 /**
  * Link SelectTextResponse to delegate Response and assign default property values.
  */
-var SelectTextResponse = _.assign({}, response, {
-  '@context': constants.CONTEXT,
-  'type': entityType.SELECTTEXT,
-  values: []
-});
+var SelectTextResponse = _.assign({}, response, {type: entityType.selectTextResponse.term, values: []});
 
 module.exports = SelectTextResponse;

@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose AssignableEvent from Event and set default properties.
  */
-var AssignableEvent = _.assign({}, event, { type: eventType.ASSIGNABLE });
+var AssignableEvent = _.assign({}, event, { type: eventType.assignable.term });
 
 module.exports = AssignableEvent;

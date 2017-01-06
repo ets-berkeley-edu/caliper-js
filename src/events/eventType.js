@@ -17,20 +17,20 @@
  */
 
 var eventType = {
-  "ANNOTATION": "AnnotationEvent",
-  "ASSESSMENT": "AssessmentEvent",
-  "ASSESSMENT_ITEM": "AssessmentItemEvent",
-  "ASSIGNABLE": "AssignableEvent",
-  "EVENT": "Event",
-  "FORUM": "ForumEvent",
-  "MEDIA": "MediaEvent",
-  "MESSAGE": "MessageEvent",
-  "NAVIGATION": "NavigationEvent",
-  "OUTCOME": "OutcomeEvent",
-  "READING": "ReadingEvent",
-  "SESSION": "SessionEvent",
-  "THREAD": "ThreadEvent",
-  "VIEWED": "ViewEvent"
+  annotation: {term: "AnnotationEvent", iri: "http://purl.imsglobal.org/caliper/AnnotationEvent"},
+  assessment: {term: "AssessmentEvent", iri: "http://purl.imsglobal.org/caliper/AssessmentEvent"},
+  assessmentItem: {term: "AssessmentItemEvent", iri: "http://purl.imsglobal.org/caliper/AssessmentItemEvent"},
+  assignable: {term: "AssignableEvent", iri: "http://purl.imsglobal.org/caliper/AssignableEvent"},
+  event: {term: "Event", iri: "http://purl.imsglobal.org/caliper/Event"},
+  forum: {term: "ForumEvent", iri: "http://purl.imsglobal.org/caliper/ForumEvent"},
+  media: {term: "MediaEvent", iri: "http://purl.imsglobal.org/caliper/MediaEvent"},
+  message: {term: "MessageEvent", iri: "http://purl.imsglobal.org/caliper/MessageEvent"},
+  navigation: {term: "NavigationEvent", iri: "http://purl.imsglobal.org/caliper/NavigationEvent"},
+  outcome: {term: "OutcomeEvent", iri: "http://purl.imsglobal.org/caliper/OutcomeEvent"},
+  reading: {term: "ReadingEvent", iri: "http://purl.imsglobal.org/caliper/ReadingEvent"},
+  session: {term: "SessionEvent", iri: "http://purl.imsglobal.org/caliper/SessionEvent"},
+  thread: {term: "ThreadEvent", iri: "http://purl.imsglobal.org/caliper/ThreadEvent"},
+  view: {term: "ViewEvent", iri: "http://purl.imsglobal.org/caliper/ViewEvent"}
 };
 
 module.exports = eventType;

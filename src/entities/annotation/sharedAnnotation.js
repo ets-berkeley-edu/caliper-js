@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Compose SharedAnnotation from Annotation and set default properties.
  */
-var SharedAnnotation = _.assign({}, annotation, { type: entityType.SHARED_ANNOTATION, withAgents: [] });
+var SharedAnnotation = _.assign({}, annotation, {type: entityType.sharedAnnotation.term, withAgents: []});
 
 module.exports = SharedAnnotation;
