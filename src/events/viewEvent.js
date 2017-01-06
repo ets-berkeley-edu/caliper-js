@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose ViewEvent from Event and set default properties.
  */
-var ViewEvent = _.assign({}, event, { type: eventType.VIEWED });
+var ViewEvent = _.assign({}, event, { type: eventType.view.term });
 
 module.exports = ViewEvent;

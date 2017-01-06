@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose ThreadEvent from Event and set default properties.
  */
-var ThreadEvent = _.assign({}, event, { type: eventType.THREAD });
+var ThreadEvent = _.assign({}, event, { type: eventType.thread.term });
 
 module.exports = ThreadEvent;

@@ -24,6 +24,6 @@ var eventType = require('./eventType');
  * Compose ReadingEvent from Event and set default properties.
  * @deprecated
  */
-var ReadingEvent = _.assign({}, event, { type: eventType.READING });
+var ReadingEvent = _.assign({}, event, { type: eventType.reading.term });
 
 module.exports = ReadingEvent;

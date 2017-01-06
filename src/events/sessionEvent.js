@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose SessionEvent from Event and set default properties.
  */
-var SessionEvent = _.assign({}, event, { type: eventType.SESSION });
+var SessionEvent = _.assign({}, event, { type: eventType.session.term });
 
 module.exports = SessionEvent;

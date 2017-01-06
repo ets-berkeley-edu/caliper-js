@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose AnnotationEvent from Event and set default properties.
  */
-var AnnotationEvent = _.assign({}, event, { type: eventType.ANNOTATION });
+var AnnotationEvent = _.assign({}, event, { type: eventType.annotation.term });
 
 module.exports = AnnotationEvent;

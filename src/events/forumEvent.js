@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose ForumEvent from Event and set default properties.
  */
-var ForumEvent = _.assign({}, event, { type: eventType.FORUM });
+var ForumEvent = _.assign({}, event, { type: eventType.forum.term });
 
 module.exports = ForumEvent;
