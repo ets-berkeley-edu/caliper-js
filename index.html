@@ -15,7 +15,7 @@
         // Initialize sensor with options
         var sensor = Caliper.Sensor;
 
-        sensor.initialize('https://example.edu/sensor/001', {
+        sensor.initialize('https://example.edu/sensor/1', {
             host: '127.0.0.1',
             port: '8070',
             path: '/v1p1/custom/eventdata'
@@ -128,18 +128,14 @@
             edApp: edApp,
             group: group,
             membership: membership,
-            federatedSession: session['@id']
+            session: session
         });
 
         console.log('created navigation event %O', event);
 
-        // Send the Event
-        var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-        var envelope = requestor.createEnvelope(sensor, sendTime, event);
+        sensor.send(event);
 
-        console.log('created event envelope %O', envelope);
-
-        sensor.send(envelope);
+        console.log('sent navigation event %O', event);
     });
     </script>
 </body>
