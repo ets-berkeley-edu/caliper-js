@@ -16,19 +16,47 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-// var logger = require("../logger");
+// var logger = require('../logger');
+var validator = require('../validator');
 
-var objPropNames = [ "actor", "annotated", "assignable", "attempt", "edApp", "federatedSession", "generated",
+var objPropNames = ["actor", "annotated", "assignable", "attempt", "edApp", "federatedSession", "generated",
   "group", "isPartOf", "learningObjectives", "member", "membership", "object", "organization", "referrer",
-  "replyTo", "scoredBy", "session", "subOrganizationOf", "target", "withAgents" ];
+  "replyTo", "scoredBy", "session", "subOrganizationOf", "target", "withAgents"];
 
-var regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper/;
+const regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
 
 /**
- * Represents httpRequestor self.
- * @constructor httpRequestor
+ * Represents requestorUtils self.
+ * @constructor requestorUtils
  */
 var self = this;
+
+/**
+ * Delete @context property if value corresponds to the IMS Caliper context IRI.
+ * @param obj
+ * @returns {*}
+ */
+self.deleteContext = function deleteContext(obj) {
+  if (obj.hasOwnProperty("@context")) {
+    if (regexCtx.test(obj["@context"])) {
+      delete obj["@context"];
+    }
+  }
+  return obj;
+};
+
+/**
+ * Convert a JSON string to an object.
+ * @param obj
+ */
+self.parse = function parse(obj) {
+  // if (validator.checkObjectType(obj) === '[object, Object]') { // Error: SyntaxError: Unexpected token o in JSON at position 1
+  if (typeof obj === "object") {
+    return JSON.parse(self.stringify(obj));
+  } else {
+    return JSON.parse(obj);
+  }
+};
 
 /**
  * Serializer replacer function that removes properties with values that are either null or empty or
@@ -39,13 +67,13 @@ var self = this;
  * @param val
  * @returns {*}
  */
-self.replacer = function(key, val) {
+self.replacer = function replacer(key, val) {
   if (val === null) {
     // logger.log("debug", "".concat("REMOVED ", key, " IS NULL"));
     return undefined;
   }
 
-  if (typeof val === "object") {
+  if (validator.checkObjectType(val) === '[object Object]') {
     if (Object.keys(val).length === 0) {
       // logger.log("debug", "".concat("REMOVED ", key, " IS EMPTY"));
       return undefined;
@@ -56,12 +84,14 @@ self.replacer = function(key, val) {
     }
   }
 
-  if (typeof val === "string" && (val.length === 0 || /^\s*$/.test(val))) {
-    // logger.log("debug", "".concat("REMOVED ", key, " IS BLANK"));
-    return undefined;
+  if (validator.checkObjectType(val) === '[object String]') {
+    if (val.length === 0 || /^\s*$/.test(val)) {
+      // logger.log("debug", "".concat("REMOVED ", key, " IS BLANK"));
+      return undefined;
+    }
   }
 
-  if (Array.isArray(val)) {
+  if (validator.checkObjectType(val) === '[object Array]') {
     if (val.length === 0) {
       // logger.log("debug", "".concat("REMOVED ", key, " IS EMPTY"));
       return undefined;
@@ -75,41 +105,14 @@ self.replacer = function(key, val) {
       }
     }
   }
-
-  return val;
-};
-
-/**
- * Delete @context property if value corresponds to the IMS Caliper context IRI.
- * @param obj
- * @returns {*}
- */
-self.deleteContext = function(obj) {
-  if (obj.hasOwnProperty("@context")) {
-    if (regexCtx.test(obj["@context"])) {
-      delete obj["@context"];
-    }
-  }
-  return obj;
-};
-
-/**
- * Convert a JSON string to an object.
- * @param obj
- */
-self.parse = function(obj) {
-  if (typeof obj === "object") {
-    return JSON.parse(self.stringify(obj));
-  } else {
-    return JSON.parse(obj);
-  }
-};
+    return val;
+  };
 
 /**
  * Convert an object to a JSON string after first flattening it and then subjecting to a replacer filter.
  * @param obj
  */
-self.stringify = function(obj) {
+self.stringify = function stringify(obj) {
   return JSON.stringify(obj, self.replacer);
 };
 
