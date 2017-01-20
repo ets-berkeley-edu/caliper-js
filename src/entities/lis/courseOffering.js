@@ -18,7 +18,6 @@
 
 var _ = require('lodash');
 var organization = require('../agent/organization');
-var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**

@@ -96,9 +96,6 @@ Caliper.Actions.Actions = require('./actions/actions');
 // Config
 Caliper.Config.Config = require('./config');
 
-// Misc. constants
-Caliper.Constants.Constants = require('./constants');
-
 // Entities
 Caliper.Entities.Entity          = require('./entities/entity');
 Caliper.Entities.EntityFactory   = require('./entities/entityFactory');

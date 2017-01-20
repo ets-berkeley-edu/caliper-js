@@ -21,7 +21,6 @@ var moment = require('moment');
 var validator = require('validator');
 var uuid = require('node-uuid');
 var config = require('./config');
-var constants = require('./constants');
 var entityType = require('./entities/entityType');
 var eventType = require('./events/eventType');
 

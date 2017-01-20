@@ -17,8 +17,6 @@
  */
 
 var _ = require('lodash');
-var config = require('../config');
-var uuid = require('node-uuid');
 var event = require('./event');
 var validator = require('./eventValidator');
 
