@@ -27,11 +27,11 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResource = require('../../src/entities/resource/digitalResource');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var Person = require('../../src/entities/agent/person');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
-const path = config.testFixturesBaseDir + "caliperEnvelopeEntitySingle.json";
+const path = config.testFixturesBaseDirectory + "caliperEnvelopeEntitySingle.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -46,15 +46,17 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_COLLECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1/resources/1";
 
     var creators = [];
-    creators.push(entityFactory().create(Person, BASE_IRI.concat("/users/223344")));
+    creators.push(entityFactory().create(Person, {id: BASE_IRI.concat("/users/223344")}));
 
-    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI);
-    var collection = entityFactory().create(DigitalResourceCollection, BASE_COLLECTION_IRI, {
+    var section = entityFactory().create(CourseSection, {id: BASE_SECTION_IRI});
+    var collection = entityFactory().create(DigitalResourceCollection, {
+      id: BASE_COLLECTION_IRI,
       name: "Course Assets",
       isPartOf: section
     });
 
-    var resource = entityFactory().create(DigitalResource, BASE_COLLECTION_IRI.concat("/syllabus.pdf"), {
+    var resource = entityFactory().create(DigitalResource, {
+      id: BASE_COLLECTION_IRI.concat("/syllabus.pdf"),
       name: "Course Syllabus",
       mediaType: "application/pdf",
       creators: creators,
@@ -75,8 +77,8 @@ testUtils.readFile(path, function(err, fixture) {
     var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, resource);
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(envelope));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

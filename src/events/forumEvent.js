@@ -17,12 +17,13 @@
  */
 
 var _ = require('lodash');
+var config = require('../config');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
  * Compose ForumEvent from Event and set default properties.
  */
-var ForumEvent = _.assign({}, event, { type: eventType.forum.term });
+var ForumEvent = _.assign({}, event, {type: eventType.forum.term});
 
 module.exports = ForumEvent;

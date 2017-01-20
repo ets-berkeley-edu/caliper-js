@@ -16,13 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var constants = require('../constants');
+var _ = require('lodash');
+var config = require('../config');
 var eventType = require('./eventType');
 
-var Event = {
-  '@context': constants.CONTEXT,
+var proto = {
   uuid: null,
-  type: eventType.event.term,
+  type: null,
   actor: {},
   action: null,
   object: {},
@@ -33,9 +33,23 @@ var Event = {
   edApp: {},
   group: {},
   membership: {},
-  session: null,
-  federatedSession: null,
+  session: {},
+  federatedSession: {},
   extensions: []
 };
 
-module.exports = Event;
+/**
+ * Factory function
+ * @returns {*}
+ */
+var createEvent = function createEvent() {
+  var context = {'@context': config.remoteCaliperJsonldContext};
+  var defaults = {type: eventType.event.term};
+
+  return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)
+};
+
+// Object delegation
+var event = createEvent();
+
+module.exports = event;

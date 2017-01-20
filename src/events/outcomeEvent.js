@@ -23,6 +23,6 @@ var eventType = require('./eventType');
 /**
  * Compose OutcomeEvent from Event and set default properties.
  */
-var OutcomeEvent = _.assign({}, event, { type: eventType.outcome.term });
+var OutcomeEvent = _.assign({}, event, {type: eventType.outcome.term});
 
 module.exports = OutcomeEvent;

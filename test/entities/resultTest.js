@@ -27,10 +27,10 @@ var Attempt = require('../../src/entities/assign/attempt');
 var Person = require('../../src/entities/agent/person');
 var Result = require('../../src/entities/assign/result');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityResult.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityResult.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -44,9 +44,10 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
     const BASE_ATTEMPT_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1";
 
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-    var assignable = entityFactory().create(Assessment, BASE_SECTION_IRI.concat("/assess/1"));
-    var attempt = entityFactory().create(Attempt, BASE_ATTEMPT_IRI, {
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var assignable = entityFactory().create(Assessment, {id: BASE_SECTION_IRI.concat("/assess/1")});
+    var attempt = entityFactory().create(Attempt, {
+      id: BASE_ATTEMPT_IRI,
       actor: actor,
       assignable: assignable,
       count: 1,
@@ -55,11 +56,13 @@ testUtils.readFile(path, function(err, fixture) {
       endedAtTime: "2016-11-15T10:55:30.000Z",
       duration: "PT50M30S"
     });
-    var scorer = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), {
+    var scorer = entityFactory().create(SoftwareApplication, {
+      id: BASE_IRI.concat("/autograder"),
       dateCreated: moment.utc("2016-11-15T10:55:58.000Z")
     });
 
-    var entity = entityFactory().create(Result, BASE_ATTEMPT_IRI.concat("/results/1"), {
+    var entity = entityFactory().create(Result, {
+      id: BASE_ATTEMPT_IRI.concat("/results/1"),
       attempt: attempt,
       comment: "Well done.",
       normalScore: 15.0,
@@ -70,8 +73,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

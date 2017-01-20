@@ -24,10 +24,10 @@ var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntitySession.json";
+const path = config.testFixturesBaseDirectory + "caliperEntitySession.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -39,16 +39,17 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
 
-    var entity = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    var entity = entityFactory().create(Session, {
+      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       actor: actor,
       startedAtTime: moment.utc("2016-09-15T10:00:00.000Z")
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

@@ -24,10 +24,10 @@ var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Chapter = require('../../src/entities/resource/chapter');
 var Document = require('../../src/entities/resource/document');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityChapter.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityChapter.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -39,20 +39,22 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu/etexts/201.epub";
 
-    var parent = entityFactory().create(Document, BASE_IRI, {
+    var parent = entityFactory().create(Document, {
+      id: BASE_IRI,
       name: "IMS Caliper Implementation Guide",
       dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
       version: "1.1"
     });
 
-    var entity = entityFactory().create(Chapter, BASE_IRI.concat("#epubcfi(/6/4[chap01]!)"), {
+    var entity = entityFactory().create(Chapter, {
+      id: BASE_IRI.concat("#epubcfi(/6/4[chap01]!)"),
       name: "The Caliper Information Model",
       isPartOf: parent
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

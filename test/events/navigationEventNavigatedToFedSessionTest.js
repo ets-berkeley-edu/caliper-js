@@ -22,8 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
-var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var validator = require('../../src/validator');
 var NavigationEvent = require('../../src/events/navigationEvent');
 var actions = require('../../src/actions/actions');
 
@@ -38,10 +37,10 @@ var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var WebPage = require('../../src/entities/resource/webPage');
 var Status = require('../../src/entities/lis/status');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventNavigationNavigatedToFedSession.json";
+const path = config.testFixturesBaseDirectory + "caliperEventNavigationNavigatedToFedSession.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -56,22 +55,23 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Id
-    var uuid = eventUtils.generateUUID(config.version);
+    var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "4be6d29d-5728-44cd-8a8f-3d3f07e46b61";
 
     // The Actor
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
 
     // The Action
     var action = actions.navigatedTo.term;
 
     // The Object of the interaction
-    var obj = entityFactory().create(Document, BASE_COM_IRI.concat("/lti/reader/202.epub"), {
+    var obj = entityFactory().create(Document, {
+      id: BASE_COM_IRI.concat("/lti/reader/202.epub"),
       name: "Caliper Case Studies",
       mediaType: "application/epub+zip",
       dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
@@ -81,19 +81,21 @@ testUtils.readFile(path, function(err, fixture) {
     var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
     // Referring resource
-    var referrer = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/4"));
+    var referrer = entityFactory().create(WebPage, {id: BASE_SECTION_IRI.concat("/pages/4")});
 
     // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, BASE_COM_IRI);
+    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_COM_IRI});
 
     // Group
-    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    var group = entityFactory().create(CourseSection, {
+      id: BASE_SECTION_IRI,
       courseNumber: "CPS 435-01",
       academicSession: "Fall 2016"
     });
 
     // The Actor's Membership
-    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    var membership = entityFactory().create(Membership, {
+      id: BASE_SECTION_IRI.concat("/rosters/1"),
       member: actor,
       organization: _.omit(group, ["courseNumber", "academicSession"]),
       roles: [Role.learner.term],
@@ -102,7 +104,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Session
-    var session = entityFactory().create(Session, BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"), {
+    var session = entityFactory().create(Session, {
+      id: BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
@@ -163,7 +166,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Compose launchParameters from objects above
     var launchParameters = _.assign({}, ltiRequired, ltiRecommended, ltiOptional, ltiCustom, ltiExtensions);
 
-    var ltiSession = entityFactory().create(LtiSession, BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"), {
+    var ltiSession = entityFactory().create(LtiSession, {
+      id: BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
       actor: actor,
       launchParameters: launchParameters,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
@@ -186,8 +190,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(event));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

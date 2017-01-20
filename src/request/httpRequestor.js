@@ -19,7 +19,7 @@
 var _ = require('lodash');
 var http = require('https');
 var logger = require('../logger');
-var requestor = require('./eventStoreRequestor');
+var requestor = require('./requestor');
 
 /**
  * Represents httpRequestor self.
@@ -40,7 +40,7 @@ var initialized = function() {
  * @function initialize
  * @param sensorOptions $options passed straight to the self
  */
-self.initialize = function(sensorOptions) {
+self.initialize = function initialize(sensorOptions) {
   if (!_.isUndefined(sensorOptions)) {
       options = sensorOptions;
   }
@@ -56,7 +56,7 @@ self.initialize = function(sensorOptions) {
  * @param data
  * @returns {*}
  */
-self.createEnvelope = function(id, sendTime, dataVersion, data) {
+self.createEnvelope = function createEnvelope(id, sendTime, dataVersion, data) {
   return requestor.createEnvelope(id, sendTime, dataVersion, data);
 };
 
@@ -74,13 +74,13 @@ self.describe = function(sensor, data) {
  * @param sensor
  * @param data
  */
-self.post = function(sensor, data) {
+self.post = function post(sensor, data) {
   if (initialized()) {
 
     // Create and Serialize envelope payload
     var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
     var envelope = self.createEnvelope(sensor.id, sendTime, config.dataVersion, data);
-    var payload = self.serialize(envelope);
+    var payload = self.stringify(envelope);
 
     logger.log('debug', "Payload created.");
 
@@ -117,17 +117,17 @@ self.post = function(sensor, data) {
  * @param sensor
  * @param data
  */
-self.send = function(sensor, data) {
+self.send = function send(sensor, data) {
   self.post(sensor, data);
 };
 
 /**
- * Serialize payload.
+ * Stringify payload.
  * @param payload
  * @returns {*}
  */
-self.serialize = function(payload) {
-  return requestor.serialize(payload);
+self.stringify = function stringify(payload) {
+  return requestor.stringify(payload);
 };
 
 module.exports = {
@@ -136,5 +136,5 @@ module.exports = {
   describe: self.describe,
   post: self.post,
   send: self.send,
-  serialize: self.serialize
+  stringify: self.stringify
 };

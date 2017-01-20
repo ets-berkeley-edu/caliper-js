@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var VideoObject = require('../../src/entities/resource/videoObject');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityVideoObject.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityVideoObject.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,7 +38,8 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var entity = entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
+    var entity = entityFactory().create(VideoObject, {
+      id: BASE_IRI.concat("/videos/1225"),
       name: "Introduction to IMS Caliper",
       mediaType: "video/ogg",
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
@@ -48,8 +49,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

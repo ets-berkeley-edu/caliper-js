@@ -39,11 +39,11 @@ var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
 var WebPage = require('../../src/entities/resource/webPage');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
-const path = config.testFixturesBaseDir + "caliperEnvelopeEventBatch.json";
+const path = config.testFixturesBaseDirectory + "caliperEnvelopeEventBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -61,19 +61,21 @@ testUtils.readFile(path, function(err, fixture) {
      * COMMON ENTITIES FOR BATCHED EVENTS
      */
     // Actor
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
 
     // edApp
-    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI);
+    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI});
 
     // Group
-    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    var group = entityFactory().create(CourseSection, {
+      id: BASE_SECTION_IRI,
       courseNumber: "CPS 435-01",
       academicSession: "Fall 2016"
     });
 
     // Membership
-    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    var membership = entityFactory().create(Membership, {
+      id: BASE_SECTION_IRI.concat("/rosters/1"),
       member: actor,
       organization: _.omit(group, ["courseNumber", "academicSession"]),
       roles: [Role.learner.term],
@@ -82,7 +84,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Session
-    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    var session = entityFactory().create(Session, {
+      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
@@ -96,7 +99,8 @@ testUtils.readFile(path, function(err, fixture) {
     var navAction = actions.navigatedTo.term;
 
     // The Object of the interaction
-    var navObj = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/2"), {
+    var navObj = entityFactory().create(WebPage, {
+      id: BASE_SECTION_IRI.concat("/pages/2"),
       name: "Learning Analytics Specifications",
       description: "Overview of Learning Analytics Specifications with particular emphasis on IMS Caliper.",
       dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
@@ -106,7 +110,7 @@ testUtils.readFile(path, function(err, fixture) {
     var navEventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
     // Referring resource
-    var referrer = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/1"));
+    var referrer = entityFactory().create(WebPage, {id: BASE_SECTION_IRI.concat("/pages/1")});
 
     // Assert that key attributes are the same
     var navigationEvent = eventFactory().create(NavigationEvent, {
@@ -133,19 +137,23 @@ testUtils.readFile(path, function(err, fixture) {
     var bookmarkAction = actions.bookmarked.term;
 
     // The Object of the interaction
-    var bookmarkObj = entityFactory().create(Document, BASE_ETEXT_IRI, {
+    var bookmarkObj = entityFactory().create(Document, {
+      id: BASE_ETEXT_IRI,
       name: "IMS Caliper Implementation Guide",
       version: "1.1"
     });
 
     // Annotated cfi
-    var annotated = entityFactory().create(Chapter, BASE_ETEXT_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/10[para05]/1:20)"));
+    var annotated = entityFactory().create(Chapter, {
+      id: BASE_ETEXT_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/10[para05]/1:20)")
+    });
 
     // Event time
     var bookmarkEventTime = moment.utc("2016-11-15T10:20:00.000Z");
 
     // The generated Annotation
-    var generated = entityFactory().create(BookmarkAnnotation, BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"), {
+    var generated = entityFactory().create(BookmarkAnnotation, {
+      id: BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"),
       actor: actor,
       annotated: annotated,
       bookmarkNotes: "Caliper profiles model discrete learning activities or supporting activities that enable learning.",
@@ -153,7 +161,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // The edApp
-    var reader = entityFactory().create(SoftwareApplication, BASE_IRI, {
+    var reader = entityFactory().create(SoftwareApplication, {
+      id: BASE_IRI,
       name: "ePub Reader",
       version: "1.2.3"
     });
@@ -183,7 +192,8 @@ testUtils.readFile(path, function(err, fixture) {
     var viewAction = actions.viewed.term
 
     // The Object of the interaction
-    var viewObj = entityFactory().create(Document, BASE_IRI.concat("/etexts/201.epub"), {
+    var viewObj = entityFactory().create(Document, {
+      id: BASE_IRI.concat("/etexts/201.epub"),
       name: "IMS Caliper Implementation Guide",
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
       datePublished: moment.utc("2016-10-01T06:00:00.000Z"),
@@ -221,8 +231,8 @@ testUtils.readFile(path, function(err, fixture) {
     var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, data);
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(envelope));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

@@ -25,10 +25,10 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var HighlightAnnotation = require('../../src/entities/annotation/highlightAnnotation');
 var Person = require('../../src/entities/agent/person');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityHighlightAnnotation.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityHighlightAnnotation.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -40,10 +40,11 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-    var annotated = entityFactory().create(Document, BASE_IRI.concat("/etexts/201"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var annotated = entityFactory().create(Document, {id: BASE_IRI.concat("/etexts/201")});
 
-    var entity = entityFactory().create(HighlightAnnotation, BASE_IRI.concat("/users/554433/etexts/201/highlights/20"), {
+    var entity = entityFactory().create(HighlightAnnotation, {
+      id: BASE_IRI.concat("/users/554433/etexts/201/highlights/20"),
       actor: actor,
       annotated: annotated,
       selection: {
@@ -56,8 +57,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

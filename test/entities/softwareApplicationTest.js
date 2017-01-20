@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntitySoftwareApplication.json";
+const path = config.testFixturesBaseDirectory + "caliperEntitySoftwareApplication.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,15 +38,16 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var entity = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/autograder"), {
+    var entity = entityFactory().create(SoftwareApplication, {
+      id: BASE_IRI.concat("/autograder"),
       name: "Auto Grader",
       description: "Automates assignment scoring.",
       version: "2.5.2"
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

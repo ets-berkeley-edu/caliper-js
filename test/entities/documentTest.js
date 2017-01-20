@@ -24,10 +24,10 @@ var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityDocument.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityDocument.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -41,10 +41,11 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_COM_IRI = "https://example.com";
 
     var creators = [];
-    creators.push(entityFactory().create(Person, BASE_EDU_IRI.concat("/people/12345")));
-    creators.push(entityFactory().create(Person, BASE_COM_IRI.concat("/staff/56789")));
+    creators.push(entityFactory().create(Person, {id: BASE_EDU_IRI.concat("/people/12345")}));
+    creators.push(entityFactory().create(Person, {id: BASE_COM_IRI.concat("/staff/56789")}));
 
-    var entity = entityFactory().create(Document, BASE_EDU_IRI.concat("/etexts/201.epub"), {
+    var entity = entityFactory().create(Document, {
+      id: BASE_EDU_IRI.concat("/etexts/201.epub"),
       name: "IMS Caliper Implementation Guide",
       mediaType: "application/epub+zip",
       creators: creators,
@@ -54,8 +55,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

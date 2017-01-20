@@ -18,14 +18,19 @@
 
 /**
  * Configuration options
- * testFixturesBaseDir: Base directory for test fixtures.
- * sensorId: REPLACE with an IRI/URI identifier for this sensor
- * uuidVersion: UUID versions 1 and 4 supported.
+ * dataFormat:          Default value is JSON-LD.
+ * dataVersion:                 Caliper version for Envelope data.
+ * remoteCaliperJsonldContext:  Versioned Caliper remote context IRI.
+ * sensorId:                    REPLACE default with a unique IRI/URI identifier for this sensor.
+ * testFixturesBaseDirectory:         Base directory for test fixtures.
+ * uuidVersion:                 UUID versions 1 and 4 supported.
  */
 var Config = {
+  dataFormat: "JSON-LD",
   dataVersion: "http://purl.imsglobal.org/ctx/caliper/v1p1",
   sensorId: "https://example.org/caliper/sensor/1",
-  testFixturesBaseDir: "../caliper-common-fixtures/src/test/resources/fixtures/",
+  remoteCaliperJsonldContext: "http://purl.imsglobal.org/ctx/caliper/v1p1",
+  testFixturesBaseDirectory: "../caliper-common-fixtures/src/test/resources/fixtures/",
   uuidVersion: 4
 };
 

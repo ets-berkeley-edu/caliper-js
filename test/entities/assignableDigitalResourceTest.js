@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AssignableDigitalResource = require('../../src/entities/resource/assignableDigitalResource');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityAssignableDigitalResource.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityAssignableDigitalResource.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,7 +38,8 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-    var entity = entityFactory().create(AssignableDigitalResource, BASE_SECTION_IRI.concat("/assign/2"), {
+    var entity = entityFactory().create(AssignableDigitalResource, {
+      id: BASE_SECTION_IRI.concat("/assign/2"),
       name: "Week 9 Reflection",
       description: "3-5 page reflection on this week's assigned readings.",
       dateCreated: moment.utc("2016-11-01T06:00:00.000Z"),
@@ -52,8 +53,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

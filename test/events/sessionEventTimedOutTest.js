@@ -22,8 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
-var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var validator = require('../../src/validator');
 var SessionEvent = require('../../src/events/sessionEvent');
 var actions = require('../../src/actions/actions');
 
@@ -31,10 +30,10 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventSessionTimedOut.json";
+const path = config.testFixturesBaseDirectory + "caliperEventSessionTimedOut.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -47,24 +46,24 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_IRI = "https://example.edu";
 
     // Id
-    var uuid = eventUtils.generateUUID(config.version);
+    var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "4e61cf6c-ffbe-45bc-893f-afe7ad4079dc";
 
     // The Actor
-    var actor = entityFactory().create(SoftwareApplication, BASE_IRI);
+    var actor = entityFactory().create(SoftwareApplication, {id: BASE_IRI});
 
     // The Action
     var action = actions.timedOut.term;
 
     // The Object of the interaction
-    var objId = BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864");
-    var obj = entityFactory().create(Session, objId, {
-      actor: entityFactory().create(Person, BASE_IRI.concat("/users/112233")),
+    var obj = entityFactory().create(Session, {
+      id: BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864"),
+      actor: entityFactory().create(Person, {id: BASE_IRI.concat("/users/112233")}),
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
       endedAtTime: moment.utc("2016-11-15T11:15:00.000Z"),
@@ -85,8 +84,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(event));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

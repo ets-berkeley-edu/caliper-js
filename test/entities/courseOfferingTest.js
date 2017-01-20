@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityCourseOffering.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityCourseOffering.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,7 +38,8 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu/terms/201601/courses/7";
 
-    var entity = entityFactory().create(CourseOffering, BASE_IRI, {
+    var entity = entityFactory().create(CourseOffering, {
+      id: BASE_IRI,
       academicSession: "Fall 2016",
       courseNumber: "CPS 435",
       name: "CPS 435 Learning Analytics",
@@ -47,8 +48,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

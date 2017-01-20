@@ -27,10 +27,10 @@ var Forum = require('../../src/entities/resource/forum');
 var Message = require('../../src/entities/resource/message');
 var Person = require('../../src/entities/agent/person');
 var Thread = require('../../src/entities/resource/thread');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityMessage.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityMessage.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -45,26 +45,28 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
 
     // Forum, Thread context
-    var forum = entityFactory().create(Forum, BASE_FORUM_IRI);
-    var thread = entityFactory().create(Thread, BASE_THREAD_IRI, { isPartOf: forum });
+    var forum = entityFactory().create(Forum, {id: BASE_FORUM_IRI});
+    var thread = entityFactory().create(Thread, {id: BASE_THREAD_IRI, isPartOf: forum});
 
     // Message creators
     var creators = [];
-    creators.push(entityFactory().create(Person, BASE_IRI.concat("/users/778899")));
+    creators.push(entityFactory().create(Person, {id: BASE_IRI.concat("/users/778899")}));
 
     // replyTo
-    var replyTo = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/2"));
+    var replyTo = entityFactory().create(Message, {id: BASE_THREAD_IRI.concat("/messages/2")});
 
     // Attachments
     var attachments = [];
-    attachments.push(entityFactory().create(Document, BASE_IRI.concat("/etexts/201.epub"), {
+    attachments.push(entityFactory().create(Document, {
+      id: BASE_IRI.concat("/etexts/201.epub"),
       name: "IMS Caliper Implementation Guide",
       dateCreated: "2016-10-01T06:00:00.000Z",
       version: "1.1"
     }));
 
     // Message
-    var entity = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/3"), {
+    var entity = entityFactory().create(Message, {
+      id: BASE_THREAD_IRI.concat("/messages/3"),
       creators: creators,
       body: "The Caliper working group provides a set of Caliper Sensor reference implementations for the purposes of education and experimentation.  They have not been tested for use in a production environment.  See the Caliper Implementation Guide for more details.",
       replyTo: replyTo,
@@ -74,8 +76,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

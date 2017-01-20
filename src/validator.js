@@ -17,128 +17,182 @@
  */
 
 var _ = require('lodash');
+var moment = require('moment');
 var validator = require('validator');
 var uuid = require('node-uuid');
+var config = require('./config');
 var constants = require('./constants');
 var entityType = require('./entities/entityType');
 var eventType = require('./events/eventType');
 
-//var regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper/;
-// var regexType = /^http:\/\/purl.imsglobal.org\/caliper\/v?[0-9]*p?[0-9]*\/?[A-Z]?[a-z]*/;
-
-var validate = {
-  hasCaliperContext: function hasCaliperContext(obj) {
-    if (obj.hasOwnProperty('@context')) {
-      var regex = /^http:\/\/purl.imsglobal.org\/ctx\/caliper/;
-      return regex.test(obj['@context']);
-    } else {
-      return false;
-    }
-  },
-  hasCaliperType: function hasCaliperType(obj) {
-    if (obj.hasOwnProperty('type')) {
-      // var regex = /^http:\/\/purl.imsglobal.org\/caliper\/v?[0-9]*p?[0-9]*\/?[A-Z]?[a-z]*/;  // TODO lookup instead?
-      // return regex.test(obj.type);
-      return true;  // TODO REFACTOR THIS CHECK
-    } else {
-      return false;
-    }
-  },
-  hasJsonldId: function hasJsonldId(obj) {
-    return (obj.hasOwnProperty('@id') && obj['@id']);
-  },
-  hasId: function hasId(obj) {
-    return (obj.hasOwnProperty('id') && obj.id);
-  }
-};
-
 /**
- * Create a blank node with randomly generated UUID.
- * @returns {string}
- */
-var createBlankNode = function createBlankNode() {
-  return "".concat(constants.BLANK_NODE, uuid.v4);
-};
-
-/**
- * Check for Caliper @context.  If found, suppress any attempt to replace value.
- * @param proto
- * @param opts
+ * Check Javascript object type.
+ * @param obj
  * @returns {*}
  */
-module.exports.checkContext = function checkContext(proto, opts) {
-  var options = opts || {};
-  if (validate.hasCaliperContext(proto) && options.hasOwnProperty('@context')) {
-    delete options['@context'];
-  }
-  return options;
+var checkObjectType = module.exports.checkObjectType = function checkObjectType(obj) {
+  return Object.prototype.toString.call(obj);
 };
 
 /**
- * Check if id provided (minimal check). If an Entity lacks an id mint a blank node; if an Event lacks an id do nothing.
- * @param opts
- * @param type
- * @returns {*|{}}
+ * Generate a RFC 4122 v1 timestamp-based UUID or a v4 "practically random" UUID.  Default is v4.
+ * @returns {*}
  */
-module.exports.checkId = function checkId(opts, type) {
-  var options = opts || {};
-  if (!(validate.hasId(options))) {
-   // options.id = createBlankNode();
-  }
+module.exports.generateUUID = function generateUUID(version) {
+  version = version || config.uuidVersion;
 
-  /*
-  switch (type) {
-    case constants.ENTITY:
-      if (!validate.hasJsonldId(options)) {
-        options.id = createBlankNode(); // TODO add config for minting blank node
-      }
+  switch(version) {
+    case 4:
+      return uuid.v4();
       break;
-    case constants.EVENT:
-      if (validate.hasId(options)) {
-        // options.id = options['@id'];
-        delete options.id;
-      }
-
-      if (!validate.hasLocalId(options)) {
-        // options['id'] = createBlankNode(); // TODO add config for minting blank node
-      }
+    case 1:
+      return uuid.v1();
       break;
     default:
-    // do nothing
+      return uuid.v4();
   }
-  */
-  return options;
 };
 
 /**
- * Check for Caliper type.  If found, suppress any attempt to replace value.
- * If no type property is found insert appropriate default type.
- * @param proto
- * @param opts
- * @param type
- * @returns {*|{}}
+ * Check if object has JSON-LD @context property
+ * @param obj
+ * @returns {boolean}
  */
-module.exports.checkType = function checkType(proto, opts, type) {
-  var options = opts || {};
-  if (validate.hasCaliperType(proto)) {
-    if (options.hasOwnProperty('type')) {
-      delete options.type;
-    }
-  } else {
-    if (!(options.hasOwnProperty('type') && options.type)) {
-      switch (type) {
-        case constants.ENTITY:
-          options.type = entityType.ENTITY;
+module.exports.hasCaliperContext = function hasCaliperContext(obj) {
+  const regex = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
+  var hasCaliperContext = false;
+
+  if (obj.hasOwnProperty('@context')) {
+    switch(checkObjectType(obj['@context'])) {
+      case '[object String]':
+        hasCaliperContext = regex.test(obj['@context']);
+        break;
+      case '[object Array]':
+        for (var i = 0, len = obj['@context'].length; i < len; i++) {
+          if (checkObjectType(obj['@context'][i]) === '[object String]') {
+            if (regex.text(obj['@context'][i])) {
+              hasCaliperContext = true;
+              break;
+            }
+          }
+        }
+        break;
+      case '[object Object]':
+        if (obj['@context'].hasOwnProperty('@vocab')) {
+          hasCaliperContext = regex.test(obj['@context']['@vocab']);
+        }
+
+        if (hasCaliperContext) {
           break;
-        case constants.EVENT:
-          options.type = eventType.EVENT;
-          break;
-        default:
-        // do nothing
-      }
+        }
+
+        if (obj['@context'].hasOwnProperty('@base')) {
+          hasCaliperContext = regex.test(obj['@context']['@base']);
+        }
+        break;
     }
   }
-  return options;
+
+  return hasCaliperContext;
+};
+
+/**
+ * Check for JSON-LD context
+ * @returns {boolean}
+ */
+module.exports.hasContext = function hasContext() {
+
+  return !_.isNil(obj.id);
+};
+
+/**
+ * Check if id is undefined, null or empty.
+ * @param obj
+ * @returns {boolean}
+ */
+module.exports.hasId = function hasId(obj) {
+  return !(_.isNil(obj.id) && _.isEmpty(obj.id));
+};
+
+/**
+ * Check if type is undefined, null or empty.
+ * @param obj
+ * @returns {boolean}
+ */
+module.exports.hasType = function hasType(obj) {
+  return !(_.isNil(obj.type) && _.isEmpty(obj.type));
+};
+
+/**
+ * Check actor
+ * @param obj
+ */
+module.exports.hasActor = function hasActor(obj) {
+  return !_.isNil(obj.actor);
+};
+
+/**
+ * Check action
+ * @param obj
+ * @returns {boolean}
+ */
+module.exports.hasAction = function hasAction(obj) {
+  // TODO lookup action based on event
+  return !(_.isNil(obj.action) && _.isEmpty(obj.action));
+};
+
+/**
+ * Check object
+ * @param obj
+ * @returns {boolean}
+ */
+module.exports.hasObject = function hasObject(obj) {
+  return !_.isNil(obj.object);
+};
+
+/**
+ * Check if eventTime is null, undefined or invalid.
+ * @param obj
+ * @returns {boolean|*}
+ */
+module.exports.hasEventTime = function hasEventTime(obj) {
+  var hasDateTime = false;
+  if (!(_.isNil(obj.eventTime) && _.isEmpty(obj.eventTime))) {
+    if (moment.isMoment(obj.eventTime)) {
+      hasDateTime = true;
+    } else {
+      hasDateTime = moment(obj.eventTime).isValid();
+      //hasDateTime = isISO8601(obj.eventTime);
+    }
+  }
+  return hasDateTime;
+};
+
+/**
+ * Check if UUID is null, undefined or invalid.
+ * @param obj
+ * @returns {boolean|*}
+ */
+module.exports.hasUUID = function hasUUID(obj) {
+  return !(_.isNil(obj.uuid) && _.isEmpty(obj.uuid)) && isUUID(obj.uuid);
+};
+
+/**
+ * Check if date string is ISO 8601 compliant.
+ * @param str
+ * @returns {*}
+ */
+var isISO8601 = module.exports.isISO8601 = function isISO8601(str) {
+  return validator.isISO8601(str);
+};
+
+/**
+ * Validate UUID value. validator.isUUID(str [, version]) - check if the string is a UUID (version 3, 4 or 5).
+ * @param uuid
+ * @returns {*}
+ */
+var isUUID = module.exports.isUUID = function isUUID(uuid) {
+  return validator.isUUID(uuid);
 };
 
 /**
@@ -184,13 +238,4 @@ module.exports.moveToExtensions = function moveToExtensions(proto, opts) {
   }
 
   return opts;
-};
-
-/**
- * Validate UUID value
- * @param uuid
- * @returns {*}
- */
-module.exports.isUUID = function isUUID(uuid) {
-  return validator.isUUID(uuid);
 };

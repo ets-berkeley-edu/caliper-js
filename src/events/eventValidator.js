@@ -21,52 +21,54 @@ var constants = require('../constants');
 var validator = require('../validator');
 
 /**
- * Check @context value.
- * @param event
+ * Check required Event properties against set of user-supplied values
+ * @param delegate
  * @param opts
  * @returns {*}
  */
-module.exports.checkContext = function checkContext(event, opts) {
-  return validator.checkContext(event, opts);
+module.exports.checkOpts = function opts(delegate, opts) {
+  Object.keys(delegate).forEach(function(key) {
+    switch (key) {
+      case "@context":
+        if (validator.hasCaliperContext(delegate)) {
+          delete opts['@context']; // suppress
+        }
+        break;
+      case "type":
+        if (validator.hasType(delegate)) {
+          delete opts.type; // suppress
+        } else {
+          if (!validator.hasType(opts.type)) {
+            throw new Error("Required type not provided");
+          }
+        }
+        break;
+      case "uuid":
+        if (!validator.hasUUID(opts)) {
+          opts.uuid = validator.generateUUID(config.uuidVersion);
+        }
+        break;
+      case "actor":
+        if (!validator.hasActor(opts)) {
+          throw new Error("Required actor not provided");
+        }
+        break;
+      case "action":
+        if (!validator.hasAction(opts)) {
+          throw new Error("Required action not provided");
+        }
+        break;
+      case "object":
+        if (!validator.hasObject(opts)) {
+          throw new Error("Required object not provided");
+        }
+        break;
+      case "eventTime":
+        if (!validator.hasEventTime(opts)) {
+          throw new Error("Required ISO 8601 formatted eventTime not provided");
+        }
+        break;
+    }
+  });
+  return opts;
 };
-
-/**
- * check id
- * @param id
- * @returns {*}
- */
-module.exports.checkId = function checkId(opts) {
-  return validator.checkId(opts, constants.EVENT);
-};
-
-/**
- * Check type value.
- * @param event
- * @param opts
- * @returns {*}
- */
-module.exports.checkType = function checkType(event, opts) {
-  return validator.checkType(event, opts, constants.EVENT);
-};
-
-/**
- * Check for top-level user-defined custom Entity properties against linked event own and inherited
- * enumerable property keys (using _.keysIn()) and move custom properties to Entity.extensions. Use the
- * good 'ole for loop in preference to the for..in loop in order to avoid iterating over both enumerable
- * and inherited properties of the opts object.
- * @param event
- * @param opts
- * @returns {*}
- */
-module.exports.moveToExtensions = function moveToExtensions(event, opts) {
-  return validator.moveToExtensions(event, opts);
-};
-
-/**
- * Validate UUID.
- * @param uuid
- * @returns {*}
- */
-module.exports.isUUID = function isUUID(uuid) {
-  return validator.isUUID(uuid);
-}

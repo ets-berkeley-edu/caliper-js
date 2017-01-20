@@ -20,7 +20,7 @@ var _ = require('lodash');
 var moment = require('moment');
 var config = require('../config');
 var envelope = require('./envelope');
-var requestUtils = require('./requestUtils')
+var requestorUtils = require('./requestorUtils')
 
 /**
  * Represents eventStoreRequestor self.
@@ -81,8 +81,8 @@ self.describe = function(sensor, data) {
  * Generate JSON. Private method that is not exported.
  * @param payload
  */
-self.serialize = function serialize(payload) {
-  return requestUtils.serialize(payload);
+self.stringify = function stringify(payload) {
+  return requestorUtils.stringify(payload);
 };
 
 /**
@@ -97,6 +97,6 @@ self.send = function(sensor, data) {
 module.exports = {
   initialize: self.initialize,
   createEnvelope: self.createEnvelope,
-  serialize: self.serialize,
+  stringify: self.stringify,
   send: self.send
 };

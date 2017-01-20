@@ -21,43 +21,30 @@ var constants = require('../constants');
 var validator = require('../validator');
 
 /**
- * Check @context value.
- * @param entity
+ * Check required Entity properties against set of user-supplied values
+ * @param delegate
  * @param opts
  * @returns {*}
  */
-module.exports.checkContext = function checkContext(entity, opts) {
-  return validator.checkContext(entity, opts);
-};
-
-/**
- * TODO STUB - WEAK; CHECK FOR IRI
- * @param id
- * @returns {*}
- */
-module.exports.checkId = function checkId(opts) {
-  return validator.checkId(opts, constants.ENTITY);
-};
-
-/**
- * Check type value.
- * @param entity
- * @param opts
- * @returns {*}
- */
-module.exports.checkType = function checkType(entity, opts) {
-  return validator.checkType(entity, opts, constants.ENTITY);
-};
-
-/**
- * Check for top-level user-defined custom Entity properties against linked entity own and inherited
- * enumerable property keys (using _.keysIn()) and move custom properties to Entity.extensions. Use the
- * good 'ole for loop in preference to the for..in loop in order to avoid iterating over both enumerable
- * and inherited properties of the opts object.
- * @param entity
- * @param opts
- * @returns {*}
- */
-module.exports.moveToExtensions = function moveToExtensions(entity, opts) {
-  return validator.moveToExtensions(entity, opts);
+module.exports.checkOpts = function opts(delegate, opts) {
+  Object.keys(opts).forEach(function(key) {
+    switch (key) {
+      case "@context":
+        if (validator.hasCaliperContext(delegate)) {
+          delete opts['@context']; // suppress
+        }
+        break;
+      case "type":
+        if (validator.hasType(delegate)) {
+          delete opts.type; // suppress
+        }
+        break;
+      case "id":
+        if (!validator.hasId(opts)) {
+          throw new Error("Required identifier not provided");
+        }
+        break;
+    }
+  });
+  return opts;
 };

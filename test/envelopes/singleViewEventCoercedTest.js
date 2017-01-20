@@ -22,8 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
-var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var validator = require('../../src/validator');
 var ViewEvent = require('../../src/events/viewEvent');
 var actions = require('../../src/actions/actions');
 
@@ -36,12 +35,12 @@ var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 var requestor = require('../../src/request/httpRequestor');
 
 /**
-const path = config.testFixturesBaseDir + "caliperEnvelopeEventViewViewedCoerced.json";
+const path = config.testFixturesBaseDirectory + "caliperEnvelopeEventViewViewedCoerced.json";
 
 testUtils.readFile(path, function(err, fixture) {
  if (err) throw err;
@@ -77,10 +76,10 @@ testUtils.readFile(path, function(err, fixture) {
    });
 
    // Id
-   var uuid = eventUtils.generateUUID(config.version);
+   var uuid = validator.generateUUID(config.uuidVersion);
 
    // Check Id
-   t.equal(true, eventValidator.isUUID(uuid), "Generated UUID " + uuid + " failed validation check.");
+   t.equal(true, validator.isUUID(uuid), "Generated UUID " + uuid + " failed validation check.");
 
    // Override ID with canned value
    uuid = "c51570e4-f8ed-4c18-bb3a-dfe51b2cc594";
@@ -101,14 +100,16 @@ testUtils.readFile(path, function(err, fixture) {
    var edApp = BASE_IRI;
 
    // Group
-   var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+   var group = entityFactory().create(CourseSection, {
+     id: BASE_SECTION_IRI,
      courseNumber: "CPS 435-01",
      academicSession: "Fall 2016"
    });
 
    // The Actor's Membership
-   var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
-     member: entityFactory().create(Person, BASE_IRI.concat("/users/554433")),
+   var membership = entityFactory().create(Membership, {
+     id: BASE_SECTION_IRI.concat("/rosters/1"),
+     member: entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")}),
      organization: _.omit(group, ["courseNumber", "academicSession"]),
      roles: [Role.learner.term],
      status: Status.active.term,
@@ -116,13 +117,13 @@ testUtils.readFile(path, function(err, fixture) {
    });
 
    // Session
-   var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+   var session = entityFactory().create(Session, {
+     id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
      startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
    });
 
    // Assert that key attributes are the same
    var event = eventFactory().create(ViewEvent, {
-     "@context": context,
      uuid: uuid,
      actor: actor,
      action: action,
@@ -144,8 +145,8 @@ testUtils.readFile(path, function(err, fixture) {
    var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, event);
 
    // Compare
-   var diff = testUtils.compare(fixture, requestUtils.parse(envelope));
-   var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+   var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
+   var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
    t.equal(true, _.isUndefined(diff), diffMsg);
    //t.end();
