@@ -88,6 +88,7 @@ Caliper.Entities = {};
 Caliper.Events = {};
 Caliper.Request = {};
 Caliper.Validator = {};
+Caliper.Utils = {};
 
 // Actions
 Caliper.Actions.Actions = require('./actions/actions');
@@ -166,7 +167,6 @@ Caliper.Entities.LtiSession = require('./entities/session/ltiSession');
 Caliper.Events.Event               = require('./events/event');
 Caliper.Events.EventFactory        = require('./events/eventFactory');
 Caliper.Events.EventType           = require('./events/eventType');
-Caliper.Events.EventUtils          = require('./events/eventUtils');
 Caliper.Events.AnnotationEvent     = require('./events/annotationEvent');
 Caliper.Events.AssessmentEvent     = require('./events/assessmentEvent');
 Caliper.Events.AssessmentItemEvent = require('./events/assessmentItemEvent');
@@ -183,7 +183,7 @@ Caliper.Events.ViewEvent           = require('./events/viewEvent');
 
 // Request
 Caliper.Request.Envelope            = require('./request/envelope');
-Caliper.Request.EventStoreRequestor = require('./request/eventStoreRequestor');
+Caliper.Request.Requestor           = require('./request/requestor');
 Caliper.Request.HttpRequestor       = require('./request/httpRequestor');
 
 // Validators
