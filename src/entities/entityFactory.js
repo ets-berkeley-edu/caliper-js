@@ -17,9 +17,7 @@
  */
 
 var _ = require('lodash');
-var config = require('../config');
 var entity = require('./entity');
-var entityType = require('./entityType');
 var validator = require('./entityValidator');
 
 /**

@@ -17,7 +17,6 @@
  */
 
 var _ = require('lodash');
-var config = require('../config');
 var event = require('./event');
 var eventType = require('./eventType');
 

@@ -17,7 +17,6 @@
  */
 
 var _ = require('lodash');
-var constants = require('../../constants');
 var response = require('./response');
 var entityType = require('../entityType');
 

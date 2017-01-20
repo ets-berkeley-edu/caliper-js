@@ -18,7 +18,6 @@
 
 var _ = require('lodash');
 var courseOffering = require('./courseOffering');
-var constants = require('../../constants');
 var entityType = require('../entityType');
 
 /**
