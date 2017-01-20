@@ -17,12 +17,13 @@
  */
 
 var _ = require('lodash');
+var config = require('../config');
 var event = require('./event');
 var eventType = require('./eventType');
 
 /**
  * Compose ViewEvent from Event and set default properties.
  */
-var ViewEvent = _.assign({}, event, { type: eventType.view.term });
+var ViewEvent = _.assign({}, event, {type: eventType.view.term});
 
 module.exports = ViewEvent;

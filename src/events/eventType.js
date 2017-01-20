@@ -16,22 +16,84 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var config = ('../config');
+
 var eventType = {
-  annotation: {term: "AnnotationEvent", iri: "http://purl.imsglobal.org/caliper/AnnotationEvent"},
-  assessment: {term: "AssessmentEvent", iri: "http://purl.imsglobal.org/caliper/AssessmentEvent"},
-  assessmentItem: {term: "AssessmentItemEvent", iri: "http://purl.imsglobal.org/caliper/AssessmentItemEvent"},
-  assignable: {term: "AssignableEvent", iri: "http://purl.imsglobal.org/caliper/AssignableEvent"},
-  event: {term: "Event", iri: "http://purl.imsglobal.org/caliper/Event"},
-  forum: {term: "ForumEvent", iri: "http://purl.imsglobal.org/caliper/ForumEvent"},
-  media: {term: "MediaEvent", iri: "http://purl.imsglobal.org/caliper/MediaEvent"},
-  message: {term: "MessageEvent", iri: "http://purl.imsglobal.org/caliper/MessageEvent"},
-  navigation: {term: "NavigationEvent", iri: "http://purl.imsglobal.org/caliper/NavigationEvent"},
-  outcome: {term: "OutcomeEvent", iri: "http://purl.imsglobal.org/caliper/OutcomeEvent"},
-  reading: {term: "ReadingEvent", iri: "http://purl.imsglobal.org/caliper/ReadingEvent"},
-  session: {term: "SessionEvent", iri: "http://purl.imsglobal.org/caliper/SessionEvent"},
-  thread: {term: "ThreadEvent", iri: "http://purl.imsglobal.org/caliper/ThreadEvent"},
-  toolUse: {term: "ToolUseEvent", iri: "http://purl.imsglobal.org/caliper/ToolUseEvent"},
-  view: {term: "ViewEvent", iri: "http://purl.imsglobal.org/caliper/ViewEvent"}
+  annotation: {
+    context: config.remoteCaliperJsonldContext,
+    term: "AnnotationEvent",
+    iri: "http://purl.imsglobal.org/caliper/AnnotationEvent"
+  },
+  assessment: {
+    context: config.remoteCaliperJsonldContext,
+    term: "AssessmentEvent",
+    iri: "http://purl.imsglobal.org/caliper/AssessmentEvent"
+  },
+  assessmentItem: {
+    context: config.remoteCaliperJsonldContext,
+    term: "AssessmentItemEvent",
+    iri: "http://purl.imsglobal.org/caliper/AssessmentItemEvent"
+  },
+  assignable: {
+    context: config.remoteCaliperJsonldContext,
+    term: "AssignableEvent",
+    iri: "http://purl.imsglobal.org/caliper/AssignableEvent"
+  },
+  event: {
+    context: config.remoteCaliperJsonldContext,
+    term: "Event",
+    iri: "http://purl.imsglobal.org/caliper/Event"
+  },
+  forum: {
+    context: config.remoteCaliperJsonldContext,
+    term: "ForumEvent",
+    iri: "http://purl.imsglobal.org/caliper/ForumEvent"
+  },
+  media: {
+    context: config.remoteCaliperJsonldContext,
+    term: "MediaEvent",
+    iri: "http://purl.imsglobal.org/caliper/MediaEvent"
+  },
+  message: {
+    context: config.remoteCaliperJsonldContext,
+    term: "MessageEvent",
+    iri: "http://purl.imsglobal.org/caliper/MessageEvent"
+  },
+  navigation: {
+    context: config.remoteCaliperJsonldContext,
+    term: "NavigationEvent",
+    iri: "http://purl.imsglobal.org/caliper/NavigationEvent"
+  },
+  outcome: {
+    context: config.remoteCaliperJsonldContext,
+    term: "OutcomeEvent",
+    iri: "http://purl.imsglobal.org/caliper/OutcomeEvent"
+  },
+  reading: {
+    context: config.remoteCaliperJsonldContext,
+    term: "ReadingEvent",
+    iri: "http://purl.imsglobal.org/caliper/ReadingEvent"
+  },
+  session: {
+    context: config.remoteCaliperJsonldContext,
+    term: "SessionEvent",
+    iri: "http://purl.imsglobal.org/caliper/SessionEvent"
+  },
+  thread: {
+    context: config.remoteCaliperJsonldContext,
+    term: "ThreadEvent",
+    iri: "http://purl.imsglobal.org/caliper/ThreadEvent"
+  },
+  toolUse: {
+    context: config.remoteCaliperJsonldContext,
+    term: "ToolUseEvent",
+    iri: "http://purl.imsglobal.org/caliper/ToolUseEvent"
+  },
+  view: {
+    context: config.remoteCaliperJsonldContext,
+    term: "ViewEvent",
+    iri: "http://purl.imsglobal.org/caliper/ViewEvent"
+  }
 };
 
 module.exports = eventType;

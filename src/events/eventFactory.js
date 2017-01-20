@@ -20,7 +20,6 @@ var _ = require('lodash');
 var config = require('../config');
 var uuid = require('node-uuid');
 var event = require('./event');
-var utils = require('./eventUtils');
 var validator = require('./eventValidator');
 
 /**
@@ -29,27 +28,21 @@ var validator = require('./eventValidator');
  * the other sources are also assigned to the created object in the order provided.
  * @returns {{create: create}}
  */
-function eventFactory() {
+var eventFactory = function eventFactory() {
   return {
     create: function create(delegate, opts) {
-      var proto = delegate || event;
-      var options = opts || {};
+      delegate = delegate || event;
+      opts = opts || {};
 
-      // Generate a UUID if needed
-      if (!(options.hasOwnProperty("uuid") && validator.isUUID(options.uuid))) {
-          options.uuid = utils.generateUUID(config.version);
+      // Validate user-supplied values
+      if (!_.isEmpty(opts)) {
+        opts = validator.checkOpts(delegate, opts);
       }
 
-      // Validation checks
-      options = validator.checkContext(proto, options);
-      options = validator.checkId(options);
-      options = validator.checkType(proto, options);
-      // options = validator.moveToExtensions(proto, options);
-
-      // Combine objects (composition) against an empty target literal
-      return _.assign({}, proto, options);
+      // Compose object
+      return _.assign({}, delegate, opts);
     }
   }
-}
+};
 
 module.exports = eventFactory;
