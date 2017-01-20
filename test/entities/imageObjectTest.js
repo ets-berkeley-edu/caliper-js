@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var ImageObject = require('../../src/entities/resource/imageObject');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityImageObject.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityImageObject.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,15 +38,16 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var entity = entityFactory().create(ImageObject, BASE_IRI.concat("/images/caliper_lti.jpg"), {
+    var entity = entityFactory().create(ImageObject, {
+      id: BASE_IRI.concat("/images/caliper_lti.jpg"),
       name: "IMS Caliper/LTI Integration Work Flow",
       mediaType: "image/jpeg",
       dateCreated: moment.utc("2016-09-01T06:00:00.000Z")
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

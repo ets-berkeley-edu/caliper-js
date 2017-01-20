@@ -26,10 +26,10 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResource = require('../../src/entities/resource/digitalResource');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var Person = require('../../src/entities/agent/person');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityDigitalResource.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityDigitalResource.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -44,15 +44,17 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_COLLECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1/resources/1";
 
     var creators = [];
-    creators.push(entityFactory().create(Person, BASE_IRI.concat("/users/223344")));
+    creators.push(entityFactory().create(Person, {id: BASE_IRI.concat("/users/223344")}));
 
-    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI);
-    var collection = entityFactory().create(DigitalResourceCollection, BASE_COLLECTION_IRI, {
+    var section = entityFactory().create(CourseSection, {id: BASE_SECTION_IRI});
+    var collection = entityFactory().create(DigitalResourceCollection, {
+      id: BASE_COLLECTION_IRI,
       name: "Course Assets",
       isPartOf: section
     });
 
-    var entity = entityFactory().create(DigitalResource, BASE_COLLECTION_IRI.concat("/syllabus.pdf"), {
+    var entity = entityFactory().create(DigitalResource, {
+      id: BASE_COLLECTION_IRI.concat("/syllabus.pdf"),
       name: "Course Syllabus",
       mediaType: "application/pdf",
       creators: creators,
@@ -61,8 +63,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

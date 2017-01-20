@@ -25,10 +25,10 @@ var entityFactory = require('../../src/entities/entityFactory');
 var BookmarkAnnotation = require('../../src/entities/annotation/bookmarkAnnotation');
 var Chapter = require('../../src/entities/resource/chapter');
 var Person = require('../../src/entities/agent/person');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityBookmarkAnnotation.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityBookmarkAnnotation.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -41,10 +41,13 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_IRI = "https://example.edu";
     const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
 
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-    var annotated = entityFactory().create(Chapter, BASE_EPUB_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/10[para05]/1:20)"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var annotated = entityFactory().create(Chapter, {
+      id: BASE_EPUB_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/10[para05]/1:20)"
+    )});
 
-    var entity = entityFactory().create(BookmarkAnnotation, BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"), {
+    var entity = entityFactory().create(BookmarkAnnotation, {
+      id: BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"),
       actor: actor,
       annotated: annotated,
       bookmarkNotes: "Caliper profiles model discrete learning activities or supporting activities that facilitate learning.",
@@ -52,8 +55,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

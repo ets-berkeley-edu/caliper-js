@@ -24,10 +24,10 @@ var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var WebPage = require('../../src/entities/resource/webPage');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityWebPage.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityWebPage.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -39,20 +39,22 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    var section = entityFactory().create(CourseSection, {
+      id: BASE_SECTION_IRI,
       courseNumber: "CPS 435-01",
       academicSession: "Fall 2016"
     })
 
-    var entity = entityFactory().create(WebPage, BASE_SECTION_IRI.concat("/pages/index.html"), {
+    var entity = entityFactory().create(WebPage, {
+      id: BASE_SECTION_IRI.concat("/pages/index.html"),
       name: "CPS 435-01 Landing Page",
       mediaType: "text/html",
       isPartOf: section
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

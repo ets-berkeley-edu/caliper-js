@@ -24,10 +24,10 @@ var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityAssessmentItemExtended.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityAssessmentItemExtended.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -39,7 +39,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
 
-    var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);
+    var parent = entityFactory().create(Assessment, {id: BASE_ASSESS_IRI});
 
     // Custom extension
     var question = {
@@ -60,7 +60,8 @@ testUtils.readFile(path, function(err, fixture) {
     var extensions = [];
     extensions.push(question);
 
-    var entity = entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3"), {
+    var entity = entityFactory().create(AssessmentItem, {
+      id: BASE_ASSESS_IRI.concat("/items/3"),
       isPartOf: parent,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
       datePublished: moment.utc("2016-08-15T09:30:00.000Z"),
@@ -72,8 +73,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

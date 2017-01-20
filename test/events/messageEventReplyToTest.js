@@ -22,8 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
-var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var validator = require('../../src/validator');
 var MessageEvent = require('../../src/events/messageEvent');
 var actions = require('../../src/actions/actions');
 
@@ -38,10 +37,10 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var Session = require('../../src/entities/session/session');
 var Thread = require('../../src/entities/resource/thread');
 var Status = require('../../src/entities/lis/status');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventMessageReplied.json";
+const path = config.testFixturesBaseDirectory + "caliperEventMessageReplied.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -57,29 +56,30 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
 
     // Id
-    var uuid = eventUtils.generateUUID(config.version);
+    var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "aed54386-a3fb-45ff-90f9-a35d3daaf031";
 
     // Actor
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/778899"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/778899")});
 
     // Action
     var action = actions.posted.term;
 
     // Forum, Thread context
-    var forum = entityFactory().create(Forum, BASE_FORUM_IRI);
-    var thread = entityFactory().create(Thread, BASE_THREAD_IRI, { isPartOf: forum });
+    var forum = entityFactory().create(Forum, {id: BASE_FORUM_IRI});
+    var thread = entityFactory().create(Thread, {id: BASE_THREAD_IRI, isPartOf: forum});
 
     // ReplyTo
-    var replyTo = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/2"));
+    var replyTo = entityFactory().create(Message, {id: BASE_THREAD_IRI.concat("/messages/2")});
 
     // Message object
-    var obj = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/3"), {
+    var obj = entityFactory().create(Message, {
+      id: BASE_THREAD_IRI.concat("/messages/3"),
       creators: [ actor ],
       replyTo: replyTo,
       isPartOf: thread,
@@ -90,16 +90,18 @@ testUtils.readFile(path, function(err, fixture) {
     var eventTime = moment.utc("2016-11-15T10:15:30.000Z");
 
     // edApp context
-    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI.concat("/forums"), { version: "v2" });
+    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI.concat("/forums"), version: "v2"});
 
     // Group
-    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    var group = entityFactory().create(CourseSection, {
+      id: BASE_SECTION_IRI,
       courseNumber: "CPS 435-01",
       academicSession: "Fall 2016"
     });
 
     // Membership
-    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    var membership = entityFactory().create(Membership, {
+      id: BASE_SECTION_IRI.concat("/rosters/1"),
       member: actor,
       organization: _.omit(group, ["courseNumber", "academicSession"]),
       roles: [Role.learner.term],
@@ -108,7 +110,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Session
-    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1d6fa9adf16f4892650e4305f6cf16610905cd50"), {
+    var session = entityFactory().create(Session, {
+      id: BASE_IRI.concat("/sessions/1d6fa9adf16f4892650e4305f6cf16610905cd50"),
       startedAtTime: moment.utc("2016-11-15T10:12:00.000Z")
     });
 
@@ -126,8 +129,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(event));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

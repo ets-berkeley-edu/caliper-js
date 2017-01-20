@@ -24,10 +24,10 @@ var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var LtiSession = require('../../src/entities/session/ltiSession');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityLtiSession.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityLtiSession.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -40,7 +40,7 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_COM_IRI = "https://example.com";
     const BASE_EDU_IRI = "https://example.edu";
 
-    var actor = entityFactory().create(Person, BASE_EDU_IRI.concat("/users/554433"));
+    var actor = entityFactory().create(Person, {id: BASE_EDU_IRI.concat("/users/554433")});
 
     var required = {
       lti_message_type: "basic-lti-launch-request",
@@ -99,7 +99,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Compose launchParameters from objects above
     var launchParameters = _.assign({}, required, recommended, optional, custom, extensions);
 
-    var entity = entityFactory().create(LtiSession, BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"), {
+    var entity = entityFactory().create(LtiSession, {
+      id: BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
       actor: actor,
       launchParameters: launchParameters,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
@@ -107,8 +108,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

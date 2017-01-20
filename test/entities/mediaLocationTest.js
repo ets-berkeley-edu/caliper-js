@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var MediaLocation = require('../../src/entities/resource/mediaLocation');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityMediaLocation.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityMediaLocation.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,14 +38,15 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var entity = entityFactory().create(MediaLocation, BASE_IRI.concat("/videos/1225"), {
+    var entity = entityFactory().create(MediaLocation, {
+      id: BASE_IRI.concat("/videos/1225"),
       currentTime: "PT30M54S",
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

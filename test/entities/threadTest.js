@@ -27,10 +27,10 @@ var CourseSection = require('../../src/entities/lis/courseSection');
 var Forum = require('../../src/entities/resource/forum');
 var Message = require('../../src/entities/resource/message');
 var Thread = require('../../src/entities/resource/thread');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityThread.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityThread.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -46,18 +46,14 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/1/topics/1";
 
     // Forum context
-    var course = entityFactory().create(Course, BASE_COURSE_IRI);
-    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-      subOrganizationOf: course });
-    var forum = entityFactory().create(Forum, BASE_FORUM_IRI, {
-      name: "Caliper Forum",
-      isPartOf: section
-    });
+    var course = entityFactory().create(Course, {id: BASE_COURSE_IRI});
+    var section = entityFactory().create(CourseSection, {id: BASE_SECTION_IRI, subOrganizationOf: course });
+    var forum = entityFactory().create(Forum, {id: BASE_FORUM_IRI, name: "Caliper Forum", isPartOf: section});
 
     // Messages
-    var msg1 = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/1"));
-    var msg2 = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/2"), { replyTo: msg1 });
-    var msg3 = entityFactory().create(Message, BASE_THREAD_IRI.concat("/messages/3"), { replyTo: _.omit(msg2, ["replyTo"])});
+    var msg1 = entityFactory().create(Message, {id: BASE_THREAD_IRI.concat("/messages/1")});
+    var msg2 = entityFactory().create(Message, {id: BASE_THREAD_IRI.concat("/messages/2"), replyTo: msg1});
+    var msg3 = entityFactory().create(Message, {id: BASE_THREAD_IRI.concat("/messages/3"), replyTo: _.omit(msg2, ["replyTo"])});
 
     // Items
     var items = [];
@@ -65,7 +61,8 @@ testUtils.readFile(path, function(err, fixture) {
     items.push(msg2);
     items.push(msg3);
 
-    var entity = entityFactory().create(Thread, BASE_THREAD_IRI, {
+    var entity = entityFactory().create(Thread, {
+      id: BASE_THREAD_IRI,
       name: "Caliper Information Model",
       items: items,
       isPartOf: forum,
@@ -74,8 +71,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

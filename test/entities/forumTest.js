@@ -26,10 +26,10 @@ var Course = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var Forum = require('../../src/entities/resource/forum');
 var Thread = require('../../src/entities/resource/thread');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityForum.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityForum.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -44,26 +44,30 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/1";
 
     // Course context
-    var course = entityFactory().create(Course, BASE_COURSE_IRI);
-    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, { subOrganizationOf: course });
+    var course = entityFactory().create(Course, {id: BASE_COURSE_IRI});
+    var section = entityFactory().create(CourseSection, {id: BASE_SECTION_IRI, subOrganizationOf: course});
 
     // Items
     var items = [];
-    items.push(entityFactory().create(Thread, BASE_FORUM_IRI.concat("/topics/1"), {
+    items.push(entityFactory().create(Thread, {
+      id: BASE_FORUM_IRI.concat("/topics/1"),
       name: "Caliper Information Model",
       dateCreated: moment.utc("2016-11-01T09:30:00.000Z")
     }));
-    items.push(entityFactory().create(Thread, BASE_FORUM_IRI.concat("/topics/2"), {
+    items.push(entityFactory().create(Thread, {
+      id: BASE_FORUM_IRI.concat("/topics/2"),
       name: "Caliper Sensor API",
       dateCreated: moment.utc("2016-11-01T09:30:00.000Z")
     }));
-    items.push(entityFactory().create(Thread, BASE_FORUM_IRI.concat("/topics/3"), {
+    items.push(entityFactory().create(Thread, {
+      id: BASE_FORUM_IRI.concat("/topics/3"),
       name: "Caliper Certification",
       dateCreated: moment.utc("2016-11-01T09:30:00.000Z")
     }));
 
     // Forum
-    var entity = entityFactory().create(Forum, BASE_FORUM_IRI, {
+    var entity = entityFactory().create(Forum, {
+      id: BASE_FORUM_IRI,
       name: "Caliper Forum",
       items: items,
       isPartOf: section,
@@ -72,8 +76,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

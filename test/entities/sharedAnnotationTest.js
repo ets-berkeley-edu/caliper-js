@@ -25,10 +25,10 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
 var SharedAnnotation = require('../../src/entities/annotation/sharedAnnotation');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntitySharedAnnotation.json";
+const path = config.testFixturesBaseDirectory + "caliperEntitySharedAnnotation.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -41,15 +41,16 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_IRI = "https://example.edu";
     const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
 
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-    var annotated = entityFactory().create(Document, BASE_EPUB_IRI);
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var annotated = entityFactory().create(Document, {id: BASE_EPUB_IRI});
 
     // Shares
     var sharedWith = [];
-    sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/657585")));
-    sharedWith.push(entityFactory().create(Person, BASE_IRI.concat("/users/667788")));
+    sharedWith.push(entityFactory().create(Person, {id: BASE_IRI.concat("/users/657585")}));
+    sharedWith.push(entityFactory().create(Person, {id: BASE_IRI.concat("/users/667788")}));
 
-    var entity = entityFactory().create(SharedAnnotation, BASE_IRI.concat("/users/554433/etexts/201/shares/1"), {
+    var entity = entityFactory().create(SharedAnnotation, {
+      id: BASE_IRI.concat("/users/554433/etexts/201/shares/1"),
       actor: actor,
       annotated: annotated,
       withAgents: sharedWith,
@@ -57,8 +58,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

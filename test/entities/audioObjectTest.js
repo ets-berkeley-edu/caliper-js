@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AudioObject = require('../../src/entities/resource/audioObject');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityAudioObject.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityAudioObject.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,7 +38,8 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var entity = entityFactory().create(AudioObject, BASE_IRI.concat("/audio/765"), {
+    var entity = entityFactory().create(AudioObject, {
+      id: BASE_IRI.concat("/audio/765"),
       name: "Audio Recording: IMS Caliper Sensor API Q&A.",
       mediaType: "audio/ogg",
       datePublished: moment.utc("2016-12-01T06:00:00.000Z"),
@@ -46,8 +47,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

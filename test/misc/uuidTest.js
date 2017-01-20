@@ -19,13 +19,12 @@
 var test = require('tape');
 
 var config = require('../../src/config');
-var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var validator = require('../../src/validator');
 
 test('Confirm that a UUID is successfully generated and validated.', function (t) {
 
-  const uuid = eventUtils.generateUUID(config.version);
-  const actual = eventValidator.isUUID(uuid);
+  const uuid = validator.generateUUID(config.uuidVersion);
+  const actual = validator.isUUID(uuid);
 
   t.plan(1);
   t.equal(true, actual, "Validate generated UUID.");

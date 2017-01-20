@@ -23,10 +23,10 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Organization = require('../../src/entities/agent/organization');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityOrganization.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityOrganization.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,16 +38,20 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu/colleges/1";
 
-    var college = entityFactory().create(Organization, BASE_IRI, { name: "College of Engineering" });
+    var college = entityFactory().create(Organization, {
+      id: BASE_IRI,
+      name: "College of Engineering"
+    });
 
-    var entity = entityFactory().create(Organization, BASE_IRI.concat("/depts/1"), {
+    var entity = entityFactory().create(Organization, {
+      id: BASE_IRI.concat("/depts/1"),
       name: "Computer Science Department",
       subOrganizationOf: college
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

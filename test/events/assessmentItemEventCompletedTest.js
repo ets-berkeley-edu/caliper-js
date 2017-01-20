@@ -22,8 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
-var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var validator = require('../../src/validator');
 var AssessmentItemEvent = require('../../src/events/assessmentItemEvent');
 var actions = require('../../src/actions/actions');
 
@@ -39,10 +38,10 @@ var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventAssessmentItemCompleted.json";
+const path = config.testFixturesBaseDirectory + "caliperEventAssessmentItemCompleted.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -58,32 +57,34 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_ITEM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3";
 
     // Id
-    var uuid = eventUtils.generateUUID(config.version);
+    var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "e5891791-3d27-4df1-a272-091806a43dfb";
 
     // Actor
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
 
     // The Action for the Caliper Event
     var action = actions.completed.term;
 
     // Parent assessment
-    var parent = entityFactory().create(Assessment, BASE_ASSESS_IRI);
-    var parentAttempt = entityFactory().create(Attempt, BASE_ASSESS_IRI.concat("/users/554433/attempts/1"));
+    var parent = entityFactory().create(Assessment, {id: BASE_ASSESS_IRI});
+    var parentAttempt = entityFactory().create(Attempt, {id: BASE_ASSESS_IRI.concat("/users/554433/attempts/1")});
 
     // Item
-    var item = entityFactory().create(AssessmentItem, BASE_ASSESS_IRI.concat("/items/3"), {
+    var item = entityFactory().create(AssessmentItem, {
+      id: BASE_ASSESS_IRI.concat("/items/3"),
       name: "Assessment Item 3",
       isPartOf: parent
     });
 
     // The Object of the interaction
-    var obj = entityFactory().create(Attempt, BASE_ITEM_IRI.concat("/users/554433/attempts/1"), {
+    var obj = entityFactory().create(Attempt, {
+      id: BASE_ITEM_IRI.concat("/users/554433/attempts/1"),
       actor: actor,
       assignable: item,
       isPartOf: parentAttempt,
@@ -97,7 +98,8 @@ testUtils.readFile(path, function(err, fixture) {
     var eventTime = moment.utc("2016-11-15T10:15:12.000Z");
 
     // The generated response
-    var generated = entityFactory().create(FillinBlankResponse, BASE_ITEM_IRI.concat("/users/554433/responses/1"), {
+    var generated = entityFactory().create(FillinBlankResponse, {
+      id: BASE_ITEM_IRI.concat("/users/554433/responses/1"),
       attempt: _.omit(obj, [ "actor", "assignable", "isPartOf", "dateCreated", "startedAtTime", "endedAtTime", "count" ]),
       values: [ "subject", "object", "predicate" ],
       dateCreated: moment.utc("2016-11-15T10:15:12.000Z"),
@@ -106,16 +108,18 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
+    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI, version: "v2"});
 
     // Group
-    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    var group = entityFactory().create(CourseSection, {
+      id: BASE_SECTION_IRI,
       courseNumber: "CPS 435-01",
       academicSession: "Fall 2016"
     });
 
     // Membership
-    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    var membership = entityFactory().create(Membership, {
+      id: BASE_SECTION_IRI.concat("/rosters/1"),
       member: actor,
       organization: _.omit(group, ["courseNumber", "academicSession"]),
       roles: [Role.learner.term],
@@ -124,7 +128,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Session
-    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    var session = entityFactory().create(Session, {
+      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
@@ -143,8 +148,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(event));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

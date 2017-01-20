@@ -28,10 +28,10 @@ var Membership = require('../../src/entities/lis/membership');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var Status = require('../../src/entities/lis/status');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityMembership.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityMembership.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -45,12 +45,12 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1"
 
-    var member = entityFactory().create(Person, BASE_IRI.concat("/users/554433"));
-    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-      subOrganizationOf: entityFactory().create(CourseOffering, BASE_COURSE_IRI)
-    });
+    var member = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var course = entityFactory().create(CourseOffering, {id: BASE_COURSE_IRI});
+    var section = entityFactory().create(CourseSection, {id: BASE_SECTION_IRI, subOrganizationOf: course});
 
-    var entity = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1/members/554433"), {
+    var entity = entityFactory().create(Membership, {
+      id: BASE_SECTION_IRI.concat("/rosters/1/members/554433"),
       member: member,
       organization: section,
       roles: [Role.learner.term],
@@ -59,8 +59,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

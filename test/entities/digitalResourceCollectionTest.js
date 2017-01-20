@@ -26,10 +26,10 @@ var Course = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var VideoObject = require('../../src/entities/resource/videoObject');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityDigitalResourceCollection.json";
+const path = config.testFixturesBaseDirectory + "caliperEntityDigitalResourceCollection.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -44,21 +44,21 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Course context
-    var course = entityFactory().create(Course, BASE_COURSE_IRI);
-    var section = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
-      subOrganizationOf: course
-    });
+    var course = entityFactory().create(Course, {id: BASE_COURSE_IRI});
+    var section = entityFactory().create(CourseSection, {id: BASE_SECTION_IRI, subOrganizationOf: course});
 
     // Items
     var items = [];
-    items.push(entityFactory().create(VideoObject, BASE_IRI.concat("/videos/1225"), {
+    items.push(entityFactory().create(VideoObject, {
+      id: BASE_IRI.concat("/videos/1225"),
       mediaType: "video/ogg",
       name: "Introduction to IMS Caliper",
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
       duration: "PT1H12M27S",
       version: "1.1"
     }));
-    items.push(entityFactory().create(VideoObject, BASE_IRI.concat("/videos/5629"), {
+    items.push(entityFactory().create(VideoObject, {
+      id: BASE_IRI.concat("/videos/5629"),
       mediaType: "video/ogg",
       name: "IMS Caliper Activity Profiles",
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
@@ -67,7 +67,8 @@ testUtils.readFile(path, function(err, fixture) {
     }));
 
     // Collection
-    var entity = entityFactory().create(DigitalResourceCollection, BASE_SECTION_IRI.concat("/resources/2"), {
+    var entity = entityFactory().create(DigitalResourceCollection, {
+      id: BASE_SECTION_IRI.concat("/resources/2"),
       name: "Video Collection",
       keywords: ["collection", "videos"],
       items: items,
@@ -77,8 +78,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

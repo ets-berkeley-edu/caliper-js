@@ -22,8 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
-var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/sensorUtils');
+var validator = require('../../src/validator');
 var AssignableEvent = require('../../src/events/assignableEvent');
 var actions = require('../../src/actions/actions');
 
@@ -53,22 +52,23 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Id
-    var uuid = eventUtils.generateUUID(config.version);
+    var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, eventValidator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "2635b9dd-0061-4059-ac61-2718ab366f75";
 
     // The Actor
-    var actor = entityFactory().create(Person, BASE_IRI.concat("/users/112233"));
+    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/112233")});
 
     // The Action
     var action = actions.activated.term;
 
     // The Object of the interaction
-    var obj = entityFactory().create(Assessment, BASE_SECTION_IRI.concat("/assess/1"), {
+    var obj = entityFactory().create(Assessment, {
+      id: BASE_SECTION_IRI.concat("/assess/1"),
       name: "Quiz One",
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
       dateModified: moment.utc("2016-09-02T11:30:00.000Z"),
@@ -86,16 +86,18 @@ testUtils.readFile(path, function(err, fixture) {
     var eventTime = moment.utc("2016-11-12T10:15:00.000Z");
 
     // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, BASE_IRI, { version: "v2" });
+    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI, version: "v2"});
 
     // Group
-    var group = entityFactory().create(CourseSection, BASE_SECTION_IRI, {
+    var group = entityFactory().create(CourseSection, {
+      id: BASE_SECTION_IRI,
       courseNumber: "CPS 435-01",
       academicSession: "Fall 2016"
     });
 
     // The Actor's Membership
-    var membership = entityFactory().create(Membership, BASE_SECTION_IRI.concat("/rosters/1"), {
+    var membership = entityFactory().create(Membership, {
+      id: BASE_SECTION_IRI.concat("/rosters/1"),
       member: actor,
       organization: _.omit(group, ["courseNumber", "academicSession"]),
       roles: [Role.instructor.term],
@@ -104,7 +106,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Session
-    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/f095bbd391ea4a5dd639724a40b606e98a631823"), {
+    var session = entityFactory().create(Session, {
+      id: BASE_IRI.concat("/sessions/f095bbd391ea4a5dd639724a40b606e98a631823"),
       startedAtTime: moment.utc("2016-11-12T10:00:00.000Z")
     });
 
