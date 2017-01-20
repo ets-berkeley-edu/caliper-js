@@ -23,7 +23,7 @@ var test = require('tape');
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
 var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var eventUtils = require('../../src/sensorUtils');
 var AssignableEvent = require('../../src/events/assignableEvent');
 var actions = require('../../src/actions/actions');
 
@@ -36,10 +36,10 @@ var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventAssignableActivated.json";
+const path = config.testFixturesBaseDirectory + "caliperEventAssignableActivated.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -122,8 +122,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(event));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

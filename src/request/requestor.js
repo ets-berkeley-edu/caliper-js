@@ -82,7 +82,7 @@ self.describe = function(sensor, data) {
  * @param payload
  */
 self.serialize = function serialize(payload) {
-  return requestUtils.serialize(payload);
+  return requestUtils.stringify(payload);
 };
 
 /**

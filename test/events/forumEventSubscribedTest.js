@@ -24,7 +24,7 @@ var test = require('tape');
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
 var eventValidator = require('../../src/events/eventValidator');
-var eventUtils = require('../../src/events/eventUtils');
+var eventUtils = require('../../src/sensorUtils');
 var ForumEvent = require('../../src/events/forumEvent');
 var actions = require('../../src/actions/actions');
 
@@ -39,10 +39,10 @@ var Session = require('../../src/entities/session/session');
 
 var Role = require('../../src/entities/lis/role');
 var Status = require('../../src/entities/lis/status');
-var requestUtils = require('../../src/request/requestUtils');
+var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventForumSubscribed.json";
+const path = config.testFixturesBaseDirectory + "caliperEventForumSubscribed.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -99,7 +99,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Session
-    var session = entityFactory().create(Session, BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"), {
+    var session = entityFactory().create(Session, {
+      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z") });
 
     // Assert that key attributes are the same
@@ -116,8 +117,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestUtils.parse(event));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, requestorUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();
