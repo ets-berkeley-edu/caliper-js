@@ -18,6 +18,7 @@
 
 var _ = require('lodash');
 var http = require('https');
+var config = require('../config');
 var logger = require('../logger');
 var requestor = require('./requestor');
 
