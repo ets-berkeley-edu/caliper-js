@@ -16,13 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var constants = require('../constants');
+var _ = require('lodash');
+var config = require('../config');
 var entityType = require('./entityType');
 
-var Entity = {
-  '@context': constants.CONTEXT,
+var proto = {
   id: null,
-  type: entityType.entity.term,
+  type: null,
   name: null,
   description: null,
   dateCreated: null,
@@ -30,4 +30,18 @@ var Entity = {
   extensions: []
 };
 
-module.exports = Entity;
+/**
+ * Factory method
+ * @returns {*}
+ */
+var createEntity = function createEntity() {
+  var context = {'@context': config.remoteCaliperJsonldContext};
+  var defaults = {type: entityType.entity.term};
+
+  return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)
+};
+
+// Object delegation
+var entity = createEntity();
+
+module.exports = entity;

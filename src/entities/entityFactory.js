@@ -17,6 +17,7 @@
  */
 
 var _ = require('lodash');
+var config = require('../config');
 var entity = require('./entity');
 var entityType = require('./entityType');
 var validator = require('./entityValidator');
@@ -27,26 +28,21 @@ var validator = require('./entityValidator');
  * the other sources are also assigned to the created object in the order provided.
  * @returns {{create: create}}
  */
-function entityFactory() {
+var entityFactory = function entityFactory() {
   return {
-    create: function create(delegate, id, opts) {
-      var proto = delegate || entity;
-      var id = id || null;
-      var options = opts || {};
+    create: function create(delegate, opts) {
+      delegate = delegate || entity;
+      opts = opts || {};
 
-      // Add id to options
-      options.id = id;
+      // Evaluate user supplied values
+      if (!_.isEmpty(opts)) {
+        opts = validator.checkOpts(delegate, opts)
+      }
 
-      // Validation checks
-      options = validator.checkContext(proto, options);
-      options = validator.checkId(options);
-      options = validator.checkType(proto, options);
-      // options = validator.moveToExtensions(proto, options);
-
-      // Combine objects (composition) against an empty target literal
-      return _.assign({}, proto, options);
+      // Compose object
+      return _.assign({}, delegate, opts);
     }
   }
-}
+};
 
 module.exports = entityFactory;
