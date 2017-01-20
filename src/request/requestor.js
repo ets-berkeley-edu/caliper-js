@@ -54,7 +54,9 @@ self.initialize = function(sensorOptions) {
  * @param data
  */
 self.createEnvelope = function(id, sendTime, dataVersion, data) {
-  id = id || config.sensorId;
+  if (_.isNil(id)) {
+    throw new Error("Required Envelope identifier not provided");
+  }
   sendTime = sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
   dataVersion = dataVersion || config.dataVersion;
 
