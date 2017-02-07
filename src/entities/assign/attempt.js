@@ -25,7 +25,7 @@ var entityType = require('../entityType');
  */
 var Attempt = _.assign({}, entity, {
   type: entityType.attempt.term,
-  actor: {},
+  assignee: {},
   assignable: {},
   isPartOf: {},
   count: null,

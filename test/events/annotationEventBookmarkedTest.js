@@ -87,7 +87,7 @@ testUtils.readFile(path, function(err, fixture) {
     // The generated Annotation
     var generated = entityFactory().create(BookmarkAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"),
-      actor: actor,
+      annotator: actor,
       annotated: annotated,
       bookmarkNotes: "Caliper profiles model discrete learning activities or supporting activities that enable learning.",
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z")

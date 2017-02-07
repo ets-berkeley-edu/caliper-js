@@ -168,7 +168,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     var ltiSession = entityFactory().create(LtiSession, {
       id: BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
-      actor: actor,
+      user: actor,
       launchParameters: launchParameters,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z")

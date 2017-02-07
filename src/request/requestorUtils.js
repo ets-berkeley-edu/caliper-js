@@ -19,9 +19,10 @@
 // var logger = require('../logger');
 var validator = require('../validator');
 
-var objPropNames = ["actor", "annotated", "assignable", "attempt", "edApp", "federatedSession", "generated",
-  "group", "isPartOf", "learningObjectives", "member", "membership", "object", "organization", "referrer",
-  "replyTo", "scoredBy", "session", "subOrganizationOf", "target", "withAgents"];
+var objPropNames = ["actor", "annotated", "annotator", "assignable", "assignee", "attempt",
+  "edApp", "federatedSession", "generated", "group", "isPartOf", "learningObjectives",
+  "member", "membership", "object", "organization", "referrer", "replyTo", "scoredBy",
+  "session", "subOrganizationOf", "target", "user", "withAgents"];
 
 const regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
 

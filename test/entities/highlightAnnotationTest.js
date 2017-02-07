@@ -40,12 +40,12 @@ testUtils.readFile(path, function(err, fixture) {
 
     const BASE_IRI = "https://example.edu";
 
-    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var annotator = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
     var annotated = entityFactory().create(Document, {id: BASE_IRI.concat("/etexts/201")});
 
     var entity = entityFactory().create(HighlightAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/highlights/20"),
-      actor: actor,
+      annotator: annotator,
       annotated: annotated,
       selection: {
         type: "TextPositionSelector",

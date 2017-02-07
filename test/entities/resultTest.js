@@ -48,7 +48,7 @@ testUtils.readFile(path, function(err, fixture) {
     var assignable = entityFactory().create(Assessment, {id: BASE_SECTION_IRI.concat("/assess/1")});
     var attempt = entityFactory().create(Attempt, {
       id: BASE_ATTEMPT_IRI,
-      actor: actor,
+      assignee: actor,
       assignable: assignable,
       count: 1,
       dateCreated: "2016-11-15T10:05:00.000Z",

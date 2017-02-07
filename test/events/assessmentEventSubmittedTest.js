@@ -84,7 +84,7 @@ testUtils.readFile(path, function(err, fixture) {
     // The object of the interaction
     var obj = entityFactory().create(Attempt, {
       id: BASE_ASSESS_IRI.concat("/users/554433/attempts/1"),
-      actor: actor,
+      assignee: actor,
       assignable: assignable,
       count: 1,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),

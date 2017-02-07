@@ -84,7 +84,7 @@ testUtils.readFile(path, function(err, fixture) {
     var selector = _.assign({}, TextPositionSelector, {start: 2300, end: 2370});
     var generated = entityFactory().create(HighlightAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/highlights?start=2300&end=2370"),
-      actor: actor,
+      annotator: actor,
       annotated: _.omit(obj, [ "name", "dateCreated", "version" ]),
       selection: selector,
       selectionText: "ISO 8601 formatted date and time expressed with millisecond precision.",

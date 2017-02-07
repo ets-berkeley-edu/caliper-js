@@ -41,14 +41,14 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_IRI = "https://example.edu";
     const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
 
-    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var annotator = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
     var annotated = entityFactory().create(Chapter, {
       id: BASE_EPUB_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/12[para06]/1:97)")
     });
 
     var entity = entityFactory().create(TagAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/tags/3"),
-      actor: actor,
+      annotator: annotator,
       annotated: annotated,
       tags: [ "profile", "event", "entity" ],
       dateCreated: moment.utc("2016-08-01T09:00:00.000Z")

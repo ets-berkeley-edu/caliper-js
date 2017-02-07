@@ -65,13 +65,13 @@ testUtils.readFile(path, function(err, fixture) {
     var action = actions.graded.term;
 
     // The Learner and the Assignment
-    var learner = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var assignee = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
     var assignable = entityFactory().create(Assessment, {id: BASE_SECTION_IRI.concat("/assess/1")});
 
     // The Object of the interaction
     var obj = entityFactory().create(Attempt, {
       id: BASE_SECTION_IRI.concat("/assess/1/users/554433/attempts/1"),
-      actor: learner,
+      assignee: assignee,
       assignable: assignable,
       count: 1,
       dateCreated: moment.utc("2016-11-15T10:05:00.000Z"),
@@ -86,7 +86,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Generated result
     var generated = entityFactory().create(Result, {
       id: BASE_SECTION_IRI.concat("/assess/1/users/554433/results/1"),
-      attempt: _.omit(obj, ["actor", "assignable", "count", "dateCreated", "startedAtTime", "endedAtTime", "duration"]),
+      attempt: _.omit(obj, ["assignee", "assignable", "count", "dateCreated", "startedAtTime", "endedAtTime", "duration"]),
       normalScore: 15,
       totalScore: 15,
       scoredBy: _.omit(actor, ["version"]),

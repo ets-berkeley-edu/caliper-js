@@ -87,7 +87,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Generated Attempt
     var generated = entityFactory().create(Attempt, {
       id: BASE_ASSESS_IRI.concat("/users/554433/attempts/1"),
-      actor: actor,
+      assignee: actor,
       assignable: _.omit(obj, [ "name", "dateToStartOn", "dateToSubmit", "maxAttempts", "maxSubmits", "maxScore", "version" ]),
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),

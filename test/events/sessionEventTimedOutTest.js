@@ -63,7 +63,7 @@ testUtils.readFile(path, function(err, fixture) {
     // The Object of the interaction
     var obj = entityFactory().create(Session, {
       id: BASE_IRI.concat("/sessions/7d6b88adf746f0692e2e873308b78c60fb13a864"),
-      actor: entityFactory().create(Person, {id: BASE_IRI.concat("/users/112233")}),
+      user: entityFactory().create(Person, {id: BASE_IRI.concat("/users/112233")}),
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
       endedAtTime: moment.utc("2016-11-15T11:15:00.000Z"),

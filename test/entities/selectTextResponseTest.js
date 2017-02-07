@@ -53,7 +53,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     var attempt = entityFactory().create(Attempt, {
       id: BASE_ITEM_IRI.concat("/users/554433/attempts/1"),
-      actor: actor,
+      assignee: actor,
       assignable: assessmentItem,
       count: 1,
       startedAtTime: moment.utc("2016-11-15T10:15:32.000Z"),
