@@ -82,7 +82,7 @@ testUtils.readFile(path, function(err, fixture) {
     // The Generated annotation
     var generated = entityFactory().create(SharedAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/shares/1"),
-      actor: actor,
+      annotator: actor,
       annotated: _.omit(obj, [ "name", "dateCreated", "version" ]),
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       withAgents: sharedWith

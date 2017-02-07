@@ -42,12 +42,12 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
     const BASE_ATTEMPT_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1";
 
-    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var assignee = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
     var assignable = entityFactory().create(Assessment, {id: BASE_SECTION_IRI.concat("/assess/1")});
 
     var entity = entityFactory().create(Attempt, {
       id: BASE_ATTEMPT_IRI,
-      actor: actor,
+      assignee: assignee,
       assignable: assignable,
       count: 1,
       dateCreated: "2016-11-15T10:05:00.000Z",

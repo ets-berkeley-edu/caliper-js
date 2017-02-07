@@ -43,7 +43,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     var entity = entityFactory().create(Session, {
       id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
-      actor: actor,
+      user: actor,
       startedAtTime: moment.utc("2016-09-15T10:00:00.000Z")
     });
 

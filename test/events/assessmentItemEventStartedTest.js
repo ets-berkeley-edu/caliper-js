@@ -96,7 +96,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Generated Attempt
     var generated = entityFactory().create(Attempt, {
       id: BASE_ITEM_IRI.concat("/users/554433/attempts/1"),
-      actor: actor,
+      assignee: actor,
       assignable: _.omit(obj, [ "name", "isPartOf", "dateToStartOn", "dateToSubmit", "maxAttempts",
         "maxSubmits", "maxScore", "isTimeDependent", "version" ]),
       isPartOf: parentAttempt,

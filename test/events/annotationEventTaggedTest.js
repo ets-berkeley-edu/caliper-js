@@ -86,7 +86,7 @@ testUtils.readFile(path, function(err, fixture) {
     var tags = [ "profile", "event", "entity" ];
     var generated = entityFactory().create(TagAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/tags/3"),
-      actor: actor,
+      annotator: actor,
       annotated: annotated,
       tags: tags,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z")

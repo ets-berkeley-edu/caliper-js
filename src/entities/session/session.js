@@ -25,7 +25,7 @@ var entityType = require('../entityType');
  */
 var Session = _.assign({}, entity, {
   type: entityType.session.term,
-  actor: {},
+  user: {},
   startedAtTime: null,
   endedAtTime: null,
   duration: null

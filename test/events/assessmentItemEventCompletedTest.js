@@ -85,7 +85,7 @@ testUtils.readFile(path, function(err, fixture) {
     // The Object of the interaction
     var obj = entityFactory().create(Attempt, {
       id: BASE_ITEM_IRI.concat("/users/554433/attempts/1"),
-      actor: actor,
+      assignee: actor,
       assignable: item,
       isPartOf: parentAttempt,
       dateCreated: moment.utc("2016-11-15T10:15:02.000Z"),
@@ -100,7 +100,7 @@ testUtils.readFile(path, function(err, fixture) {
     // The generated response
     var generated = entityFactory().create(FillinBlankResponse, {
       id: BASE_ITEM_IRI.concat("/users/554433/responses/1"),
-      attempt: _.omit(obj, [ "actor", "assignable", "isPartOf", "dateCreated", "startedAtTime", "endedAtTime", "count" ]),
+      attempt: _.omit(obj, [ "assignee", "assignable", "isPartOf", "dateCreated", "startedAtTime", "endedAtTime", "count" ]),
       values: [ "subject", "object", "predicate" ],
       dateCreated: moment.utc("2016-11-15T10:15:12.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:02.000Z"),

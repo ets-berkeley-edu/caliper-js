@@ -41,7 +41,7 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_IRI = "https://example.edu";
     const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
 
-    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var annotator = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
     var annotated = entityFactory().create(Document, {id: BASE_EPUB_IRI});
 
     // Shares
@@ -51,7 +51,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     var entity = entityFactory().create(SharedAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/shares/1"),
-      actor: actor,
+      annotator: annotator,
       annotated: annotated,
       withAgents: sharedWith,
       dateCreated: moment.utc("2016-08-01T09:00:00.000Z")
