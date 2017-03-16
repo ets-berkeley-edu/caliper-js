@@ -31,7 +31,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityAudioObject.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an AudioObject entity and validate properties', function (t) {
+  test('audioObjectTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

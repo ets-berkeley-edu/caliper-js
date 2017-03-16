@@ -46,7 +46,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventForumSubscribed.jso
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a ForumEvent (subscribed) and validate properties', function (t) {
+  test('forumEventSubscribedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -61,7 +61,7 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "a2f41f9c-d57d-4400-b3fe-716b9026334e";
+    uuid = "urn:uuid:a2f41f9c-d57d-4400-b3fe-716b9026334e";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -93,8 +93,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Actor's Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -107,7 +107,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(ForumEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,

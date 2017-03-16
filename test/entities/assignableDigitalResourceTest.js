@@ -31,7 +31,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityAssignableDigitalR
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an AssignableDigitalResource entity and validate properties', function (t) {
+  test('assignableDigitalResourceTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

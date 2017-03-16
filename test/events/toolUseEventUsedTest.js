@@ -42,7 +42,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventToolUseUsed.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a ToolUseEvent (used) and validate properties', function (t) {
+  test('toolUseEventUsedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -57,7 +57,7 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "7e10e4f3-a0d8-4430-95bd-783ffae4d916";
+    uuid = "urn:uuid:7e10e4f3-a0d8-4430-95bd-783ffae4d916";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -71,6 +71,9 @@ testUtils.readFile(path, function(err, fixture) {
     // Event time
     var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
+    // edApp
+    var edApp = obj.id;
+
     // Group
     var group = entityFactory().create(CourseSection, {
       id: BASE_SECTION_IRI,
@@ -81,8 +84,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Actor's Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -96,12 +99,12 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(ToolUseEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,
       eventTime: eventTime,
-      edApp: obj,
+      edApp: edApp,
       group: group,
       membership: membership,
       session: session

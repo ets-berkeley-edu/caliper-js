@@ -36,7 +36,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityMembership.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Membership entity and validate properties', function (t) {
+  test('membershipTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

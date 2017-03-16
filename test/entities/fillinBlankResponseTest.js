@@ -35,7 +35,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityFillinBlankRespons
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a FillinBlankResponse entity and validate properties', function (t) {
+  test('fillinBlankResponseTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

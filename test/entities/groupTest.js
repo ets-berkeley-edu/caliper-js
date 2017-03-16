@@ -34,7 +34,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityGroup.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Group entity and validate properties', function (t) {
+  test('groupTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

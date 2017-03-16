@@ -28,6 +28,22 @@ var validator = require('./entityValidator');
  */
 var entityFactory = function entityFactory() {
   return {
+    /**
+    coerce: function coerce(id) {
+      return id;
+    },
+   */
+    coerce: function coerce(delegate, opts) {
+      delegate = delegate || entity;
+      opts = opts || {};
+
+      // Evaluate user supplied values
+      if (!_.isEmpty(opts)) {
+        opts = validator.checkOpts(delegate, opts)
+      }
+
+      return opts.id;
+    },
     create: function create(delegate, opts) {
       delegate = delegate || entity;
       opts = opts || {};
@@ -37,7 +53,6 @@ var entityFactory = function entityFactory() {
         opts = validator.checkOpts(delegate, opts)
       }
 
-      // Compose object
       return _.assign({}, delegate, opts);
     }
   }

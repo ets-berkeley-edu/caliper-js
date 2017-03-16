@@ -32,7 +32,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityAssessment.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an Assessment entity and validate properties', function (t) {
+  test('assessmentTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

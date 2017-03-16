@@ -20,7 +20,7 @@ var test = require('tape');
 var _ = require('lodash');
 var diff = require('deep-diff').diff;
 
-test('Confirm that two JSON objects with varying property orders match', function (t) {
+test('propertyOrderTest', function (t) {
 
   // Plan for N assertions
   t.plan(1);

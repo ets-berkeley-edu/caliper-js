@@ -43,7 +43,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventNavigationNavigated
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a NavigationEvent (navigatedTo) and validate properties', function (t) {
+  test('navigationEventNavigatedToTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -58,7 +58,7 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "ff9ec22a-fc59-4ae1-ae8d-2c9463ee2f8f";
+    uuid = "urn:uuid:ff9ec22a-fc59-4ae1-ae8d-2c9463ee2f8f";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -81,7 +81,7 @@ testUtils.readFile(path, function(err, fixture) {
     var referrer = entityFactory().create(WebPage, {id: BASE_SECTION_IRI.concat("/pages/1")});
 
     // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI});
+    var edApp = entityFactory().coerce(SoftwareApplication, {id: BASE_IRI});
 
     // Group
     var group = entityFactory().create(CourseSection, {
@@ -93,8 +93,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Actor's Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -108,7 +108,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(NavigationEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,

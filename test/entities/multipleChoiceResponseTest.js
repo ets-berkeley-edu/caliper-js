@@ -35,7 +35,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityMultipleChoiceResp
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a MultipleChoiceResponse entity and validate properties', function (t) {
+  test('multipleChoiceResponseTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

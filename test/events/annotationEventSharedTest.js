@@ -44,7 +44,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventAnnotationShared.js
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an AnnotationEvent (shared) and validate properties', function (t) {
+  test('annotationEventSharedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -59,7 +59,7 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "3bdab9e6-11cd-4a0f-9d09-8e363994176b";
+    uuid = "urn:uuid:3bdab9e6-11cd-4a0f-9d09-8e363994176b";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -82,8 +82,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Generated annotation
     var generated = entityFactory().create(SharedAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/shares/1"),
-      annotator: actor,
-      annotated: _.omit(obj, [ "name", "dateCreated", "version" ]),
+      annotator: actor.id,
+      annotated: obj.id,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       withAgents: sharedWith
     });
@@ -104,8 +104,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Actor's Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -119,7 +119,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(AnnotationEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,

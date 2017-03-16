@@ -21,7 +21,7 @@ var config = require('../config');
 var eventType = require('./eventType');
 
 var proto = {
-  uuid: null,
+  id: null,
   type: null,
   actor: {},
   action: null,

@@ -21,7 +21,7 @@ var test = require('tape');
 var config = require('../../src/config');
 var validator = require('../../src/validator');
 
-test('Confirm that a UUID is successfully generated and validated.', function (t) {
+test('uuidTest', function (t) {
 
   const uuid = validator.generateUUID(config.uuidVersion);
   const actual = validator.isUUID(uuid);

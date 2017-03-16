@@ -45,7 +45,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventMessageReplied.json
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a MessageEvent (reply) and validate properties', function (t) {
+  test('messageEventReplyTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -62,7 +62,7 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "aed54386-a3fb-45ff-90f9-a35d3daaf031";
+    uuid = "urn:uuid:aed54386-a3fb-45ff-90f9-a35d3daaf031";
 
     // Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/778899")});
@@ -102,8 +102,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -117,7 +117,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(MessageEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,

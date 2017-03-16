@@ -33,7 +33,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityPage.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Page entity and validate properties', function (t) {
+  test('pageTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

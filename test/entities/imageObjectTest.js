@@ -31,7 +31,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityImageObject.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an ImageObject entity and validate properties', function (t) {
+  test('imageObjectTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

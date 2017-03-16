@@ -31,7 +31,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityCourseOffering.jso
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a CourseOffering entity and validate properties', function (t) {
+  test('courseOfferingTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

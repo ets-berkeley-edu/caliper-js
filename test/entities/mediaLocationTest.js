@@ -31,7 +31,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityMediaLocation.json
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a MediaLocation entity and validate properties', function (t) {
+  test('mediaLocationTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

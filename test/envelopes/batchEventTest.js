@@ -48,7 +48,7 @@ const path = config.testFixturesBaseDirectory + "caliperEnvelopeEventBatch.json"
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an Envelope containing batched Navigation, Annotation, View Events and validate properties', function (t) {
+  test('batchEventTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);
@@ -63,8 +63,12 @@ testUtils.readFile(path, function(err, fixture) {
     // Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
 
-    // edApp
-    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI});
+    // The edApp
+    var edApp = entityFactory().create(SoftwareApplication, {
+      id: BASE_IRI.concat("/reader"),
+      name: "ePub Reader",
+      version: "1.2.3"
+    });
 
     // Group
     var group = entityFactory().create(CourseSection, {
@@ -76,8 +80,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -93,7 +97,7 @@ testUtils.readFile(path, function(err, fixture) {
      * NAVIGATION EVENT
      */
 
-    var navId = "72f66ce5-d2ec-44cc-bce5-41602e1015dc";
+    var navId = "urn:uuid:72f66ce5-d2ec-44cc-bce5-41602e1015dc";
 
     // The Action
     var navAction = actions.navigatedTo.term;
@@ -114,7 +118,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var navigationEvent = eventFactory().create(NavigationEvent, {
-      uuid: navId,
+      id: navId,
       actor: actor,
       action: navAction,
       object: navObj,
@@ -131,7 +135,7 @@ testUtils.readFile(path, function(err, fixture) {
      */
 
     // Id
-    var bookmarkId = "c0afa013-64df-453f-b0a6-50f3efbe4cc0";
+    var bookmarkId = "urn:uuid:c0afa013-64df-453f-b0a6-50f3efbe4cc0";
 
     // The Action
     var bookmarkAction = actions.bookmarked.term;
@@ -154,28 +158,21 @@ testUtils.readFile(path, function(err, fixture) {
     // The generated Annotation
     var generated = entityFactory().create(BookmarkAnnotation, {
       id: BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"),
-      annotator: actor,
+      annotator: actor.id,
       annotated: annotated,
       bookmarkNotes: "Caliper profiles model discrete learning activities or supporting activities that enable learning.",
       dateCreated: moment.utc("2016-11-15T10:20:00.000Z")
     });
 
-    // The edApp
-    var reader = entityFactory().create(SoftwareApplication, {
-      id: BASE_IRI,
-      name: "ePub Reader",
-      version: "1.2.3"
-    });
-
     // Assert that key attributes are the same
     var annotationEvent = eventFactory().create(AnnotationEvent, {
-      uuid: bookmarkId,
+      id: bookmarkId,
       actor: actor,
       action: bookmarkAction,
       object: bookmarkObj,
       eventTime: bookmarkEventTime,
       generated: generated,
-      edApp: reader,
+      edApp: edApp,
       group: group,
       membership: membership,
       session: session
@@ -186,7 +183,7 @@ testUtils.readFile(path, function(err, fixture) {
      */
 
     // Id
-    var viewId = "94bad4bd-a7b1-4c3e-ade4-2253efe65172";
+    var viewId = "urn:uuid:94bad4bd-a7b1-4c3e-ade4-2253efe65172";
 
     // The Action
     var viewAction = actions.viewed.term
@@ -205,7 +202,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var viewEvent = eventFactory().create(ViewEvent, {
-      uuid: viewId,
+      id: viewId,
       actor: actor,
       action: viewAction,
       object: viewObj,
@@ -232,7 +229,8 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
+    var diffMsg = (!_.isUndefined(diff) ? "diff = " + requestorUtils.stringify(diff) : "");
+    //var diffMsg = "abc";
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

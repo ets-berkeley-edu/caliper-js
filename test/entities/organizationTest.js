@@ -31,7 +31,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityOrganization.json"
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Organization entity and validate properties', function (t) {
+  test('organizationTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

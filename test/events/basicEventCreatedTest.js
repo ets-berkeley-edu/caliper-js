@@ -37,7 +37,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventBasicCreated.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Basic event (created) and validate properties', function (t) {
+  test('basicEventCreatedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -52,7 +52,7 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "3a648e68-f00d-4c08-aa59-8738e1884f2c";
+    uuid = "urn:uuid:3a648e68-f00d-4c08-aa59-8738e1884f2c";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -73,7 +73,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(Event, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,

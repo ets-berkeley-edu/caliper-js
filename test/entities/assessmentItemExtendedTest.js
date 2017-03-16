@@ -32,7 +32,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityAssessmentItemExte
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an AssessmentItem entity with extensions and validate properties', function (t) {
+  test('assessmentItemExtendedTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

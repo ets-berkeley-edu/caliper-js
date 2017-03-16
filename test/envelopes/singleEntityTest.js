@@ -36,7 +36,7 @@ const path = config.testFixturesBaseDirectory + "caliperEnvelopeEntitySingle.jso
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an Envelope containing a single Entity and validate properties', function (t) {
+  test('singleEntityTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);
