@@ -38,24 +38,24 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu/etexts/201";
+    const BASE_IRI = "https://example.com";
 
     var document = entityFactory().create(Document, {
-      id: BASE_IRI,
+      id: BASE_IRI.concat("/#/texts/imscaliperimplguide"),
       name: "IMS Caliper Implementation Guide",
       dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
       version: "1.1"
     });
 
     var chapter = entityFactory().create(Chapter, {
-      id: BASE_IRI.concat("/chs/2"),
-      name: "Chapter 2",
+      id: BASE_IRI.concat("/#/texts/imscaliperimplguide/cfi/6/10"),
+      name: "Chapter 1",
       isPartOf: document
     });
 
     var entity = entityFactory().create(Page, {
-      id: BASE_IRI.concat("/chs/2/pp/23"),
-      name: "Page 23",
+      id: BASE_IRI.concat("/#/texts/imscaliperimplguide/cfi/6/10!/4/2/2/2@0:0"),
+      name: "Page 5",
       isPartOf: chapter
     });
 

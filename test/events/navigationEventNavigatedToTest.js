@@ -55,7 +55,7 @@ testUtils.readFile(path, function(err, fixture) {
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "urn:uuid:ff9ec22a-fc59-4ae1-ae8d-2c9463ee2f8f";

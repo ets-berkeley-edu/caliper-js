@@ -50,13 +50,14 @@ testUtils.readFile(path, function(err, fixture) {
     t.plan(2);
 
     const BASE_IRI = "https://example.edu";
+    const BASE_COM_IRI = "https://example.com";
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Id
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "urn:uuid:3bdab9e6-11cd-4a0f-9d09-8e363994176b";
@@ -69,7 +70,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // The Object of the interaction
     var obj = entityFactory().create(Document, {
-      id: BASE_IRI.concat("/etexts/201.epub"),
+      id: BASE_COM_IRI.concat("/#/texts/imscaliperimplguide"),
       name: "IMS Caliper Implementation Guide",
       version: "1.1"
     });
@@ -81,7 +82,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // The Generated annotation
     var generated = entityFactory().create(SharedAnnotation, {
-      id: BASE_IRI.concat("/users/554433/etexts/201/shares/1"),
+      id: BASE_COM_IRI.concat("/users/554433/texts/imscaliperimplguide/shares/1"),
       annotator: actor.id,
       annotated: obj.id,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
@@ -92,7 +93,11 @@ testUtils.readFile(path, function(err, fixture) {
     var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
     // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI, version: "1.2.3"});
+    var edApp = entityFactory().create(SoftwareApplication, {
+      id: BASE_COM_IRI.concat("/reader"),
+      name: "ePub Reader",
+      version: "1.2.3"
+    });
 
     // The Group
     var group = entityFactory().create(CourseSection, {
@@ -113,7 +118,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Session
     var session = entityFactory().create(Session, {
-      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
+      id: BASE_COM_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
@@ -136,6 +141,6 @@ testUtils.readFile(path, function(err, fixture) {
     var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
-    ////t.end();
+    //t.end();
   });
 });

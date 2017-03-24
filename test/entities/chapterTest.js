@@ -37,17 +37,17 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu/etexts/201.epub";
+    const BASE_IRI = "https://example.com";
 
     var parent = entityFactory().create(Document, {
-      id: BASE_IRI,
+      id: BASE_IRI.concat("/#/texts/imscaliperimplguide"),
       name: "IMS Caliper Implementation Guide",
       dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
       version: "1.1"
     });
 
     var entity = entityFactory().create(Chapter, {
-      id: BASE_IRI.concat("#epubcfi(/6/4[chap01]!)"),
+      id: BASE_IRI.concat("/#/texts/imscaliperimplguide/cfi/6/10"),
       name: "The Caliper Information Model",
       isPartOf: parent
     });

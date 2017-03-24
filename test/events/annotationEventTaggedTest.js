@@ -30,9 +30,8 @@ var actions = require('../../src/actions/actions');
 var entityFactory = require('../../src/entities/entityFactory');
 var TagAnnotation = require('../../src/entities/annotation/tagAnnotation');
 var CourseSection = require('../../src/entities/lis/courseSection');
-var Chapter = require('../../src/entities/resource/chapter');
-var Document = require('../../src/entities/resource/document');
 var Membership = require('../../src/entities/lis/membership');
+var Page = require('../../src/entities/resource/page');
 var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
@@ -52,14 +51,14 @@ testUtils.readFile(path, function(err, fixture) {
     t.plan(2);
 
     const BASE_IRI = "https://example.edu";
-    const BASE_ETEXT_IRI = "https://example.edu/etexts/201.epub";
+    const BASE_COM_IRI = "https://example.com";
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Id
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
     uuid = "urn:uuid:b2009c63-2659-4cd2-b71e-6e03c498f02b";
@@ -71,23 +70,18 @@ testUtils.readFile(path, function(err, fixture) {
     var action = actions.tagged.term;
 
     // The Object of the interaction
-    var obj = entityFactory().create(Document, {
-      id: BASE_ETEXT_IRI,
-      name: "IMS Caliper Implementation Guide",
+    var obj = entityFactory().create(Page, {
+      id: BASE_COM_IRI.concat("/#/texts/imscaliperimplguide/cfi/6/10!/4/2/2/2@0:0"),
+      name: "IMS Caliper Implementation Guide, pg 5",
       version: "1.1"
-    });
-
-    // Annotated cfi
-    var annotated = entityFactory().create(Chapter, {
-      id: BASE_ETEXT_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/12[para06]/1:97)")
     });
 
     // The generated Annotation
     var tags = [ "profile", "event", "entity" ];
     var generated = entityFactory().create(TagAnnotation, {
-      id: BASE_IRI.concat("/users/554433/etexts/201/tags/3"),
+      id: BASE_COM_IRI.concat("/users/554433/texts/imscaliperimplguide/tags/3"),
       annotator: actor.id,
-      annotated: annotated,
+      annotated: obj.id,
       tags: tags,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z")
     });
@@ -96,7 +90,11 @@ testUtils.readFile(path, function(err, fixture) {
     var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
     // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI, version: "v2"});
+    var edApp = entityFactory().create(SoftwareApplication, {
+      id: BASE_COM_IRI.concat("/reader"),
+      name: "ePub Reader",
+      version: "1.2.3"
+    });
 
     // Group
     var group = entityFactory().create(CourseSection, {
@@ -117,7 +115,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Session
     var session = entityFactory().create(Session, {
-      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
+      id: BASE_COM_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 

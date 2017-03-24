@@ -23,7 +23,7 @@ var test = require('tape');
 var config =  require('../../src/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var BookmarkAnnotation = require('../../src/entities/annotation/bookmarkAnnotation');
-var Chapter = require('../../src/entities/resource/chapter');
+var Page = require('../../src/entities/resource/page');
 var Person = require('../../src/entities/agent/person');
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
@@ -38,16 +38,15 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
-    const BASE_EPUB_IRI = "https://example.edu/etexts/201.epub";
+    const BASE_COM_IRI = "https://example.com";
 
-    var annotator = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
-    var annotated = entityFactory().create(Chapter, {
-      id: BASE_EPUB_IRI.concat("#epubcfi(/6/4[chap01]!/4[body01]/10[para05]/1:20)"
-    )});
+    var annotator = entityFactory().create(Person, {id: "https://example.edu/users/554433"});
+    var annotated = entityFactory().create(Page, {
+      id: BASE_COM_IRI.concat("/#/texts/imscaliperimplguide/cfi/6/10!/4/2/2/2@0:0")
+    });
 
     var entity = entityFactory().create(BookmarkAnnotation, {
-      id: BASE_IRI.concat("/users/554433/etexts/201/bookmarks/1"),
+      id: BASE_COM_IRI.concat("/users/554433/texts/imscaliperimplguide/bookmarks/1"),
       annotator: annotator,
       annotated: annotated,
       bookmarkNotes: "Caliper profiles model discrete learning activities or supporting activities that facilitate learning.",
