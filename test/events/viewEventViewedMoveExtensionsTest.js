@@ -45,7 +45,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventViewViewedMoveExten
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a ViewEvent (viewed) moving top-level custom properties to extensions and validate properties', function (t) {
+  test('viewEventViewedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -57,10 +57,10 @@ testUtils.readFile(path, function(err, fixture) {
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "cd088ca7-c044-405c-bb41-0b2a8506f907";
+    uuid = "urn:uuid:cd088ca7-c044-405c-bb41-0b2a8506f907";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -91,8 +91,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Actor's Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")

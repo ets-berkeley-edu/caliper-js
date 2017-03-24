@@ -38,7 +38,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventSessionLoggedInExte
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a SessionEvent (loggedIn) with extensions and validate properties', function (t) {
+  test('sessionEventLoggedInTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -49,10 +49,10 @@ testUtils.readFile(path, function(err, fixture) {
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "4ec2c31e-3ec0-4fe1-a017-b81561b075d7";
+    uuid = "urn:uuid:4ec2c31e-3ec0-4fe1-a017-b81561b075d7";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -66,10 +66,13 @@ testUtils.readFile(path, function(err, fixture) {
     // Event time
     var eventTime = moment.utc("2016-11-15T20:11:15.000Z");
 
+    // edApp
+    var edApp = obj.id;
+
     // Session
     var session = entityFactory().create(Session, {
       id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
-      user: actor,
+      user: actor.id,
       dateCreated: eventTime,
       startedAtTime: eventTime
     });
@@ -104,11 +107,12 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(SessionEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,
       eventTime: eventTime,
+      edApp: edApp,
       session: session,
       extensions: extensions
     });

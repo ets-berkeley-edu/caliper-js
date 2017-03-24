@@ -23,7 +23,7 @@ var test = require('tape');
 var config = require('../../src/config');
 var eventFactory = require('../../src/events/eventFactory');
 var validator = require('../../src/validator');
-var ToolUseEvent = require('../../src/events/toolUseEvent');
+var NavigationEvent = require('../../src/events/navigationEvent');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
@@ -33,16 +33,17 @@ var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
+var WebPage = require('../../src/entities/resource/webPage');
 var Status = require('../../src/entities/lis/status');
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventToolUseUsed.json";
+const path = config.testFixturesBaseDirectory + "caliperEventNavigationNavigatedToThinned.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('toolUseEventUsedTest', function (t) {
+  test('navigationEventNavigatedToThinnedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -57,53 +58,43 @@ testUtils.readFile(path, function(err, fixture) {
     t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "urn:uuid:7e10e4f3-a0d8-4430-95bd-783ffae4d916";
+    uuid = "urn:uuid:71657137-8e6e-44f8-8499-e1c3df6810d2";
 
     // The Actor
-    var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
+    var actor = entityFactory().coerce(Person, {id: BASE_IRI.concat("/users/554433")});
 
     // The Action
-    var action = actions.used.term;
+    var action = actions.navigatedTo.term;
 
     // The Object of the interaction
-    var obj = entityFactory().create(SoftwareApplication, {id: BASE_IRI});
+    var obj = entityFactory().coerce(WebPage, {id: BASE_SECTION_IRI.concat("/pages/2")});
 
     // Event time
     var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
-    // edApp
-    var edApp = obj.id;
+    // Referring resource
+    var referrer = entityFactory().coerce(WebPage, {id: BASE_SECTION_IRI.concat("/pages/1")});
+
+    // The edApp
+    var edApp = entityFactory().coerce(SoftwareApplication, {id: BASE_IRI});
 
     // Group
-    var group = entityFactory().create(CourseSection, {
-      id: BASE_SECTION_IRI,
-      courseNumber: "CPS 435-01",
-      academicSession: "Fall 2016"
-    });
+    var group = entityFactory().coerce(CourseSection, {id: BASE_SECTION_IRI});
 
     // The Actor's Membership
-    var membership = entityFactory().create(Membership, {
-      id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor.id,
-      organization: group.id,
-      roles: [Role.learner.term],
-      status: Status.active.term,
-      dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
-    });
+    var membership = entityFactory().coerce(Membership, {id: BASE_SECTION_IRI.concat("/rosters/1")});
 
     // Session
-    var session = entityFactory().create(Session, {
-      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
-      startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
-    });
+    var session = entityFactory().coerce(Session, {id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259")});
 
     // Assert that key attributes are the same
-    var event = eventFactory().create(ToolUseEvent, {
+    var event = eventFactory().create(NavigationEvent, {
       id: uuid,
       actor: actor,
       action: action,
       object: obj,
       eventTime: eventTime,
+      referrer: referrer,
       edApp: edApp,
       group: group,
       membership: membership,

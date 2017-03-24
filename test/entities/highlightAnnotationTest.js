@@ -33,7 +33,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityHighlightAnnotatio
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a HighlightAnnotation entity and validate properties', function (t) {
+  test('highlightAnnotationTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

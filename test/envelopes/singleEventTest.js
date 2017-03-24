@@ -45,7 +45,7 @@ const path = config.testFixturesBaseDirectory + "caliperEnvelopeEventSingle.json
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an Envelope containing single NavigationEvent (navigatedTo) and validate properties', function (t) {
+  test('singleEventTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -58,10 +58,10 @@ testUtils.readFile(path, function(err, fixture) {
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Generated UUID " + uuid + " failed validation check.");
+    t.equal(true, validator.isUuid(uuid), "Generated UUID " + uuid + " failed validation check.");
 
     // Override ID with canned value
-    uuid = "c51570e4-f8ed-4c18-bb3a-dfe51b2cc594";
+    id = "urn:uuid:" + "c51570e4-f8ed-4c18-bb3a-dfe51b2cc594";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -87,8 +87,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Generated Attempt
     var generated = entityFactory().create(Attempt, {
       id: BASE_ASSESS_IRI.concat("/users/554433/attempts/1"),
-      assignee: actor,
-      assignable: _.omit(obj, [ "name", "dateToStartOn", "dateToSubmit", "maxAttempts", "maxSubmits", "maxScore", "version" ]),
+      assignee: actor.id,
+      assignable: obj.id,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
       count: 1
@@ -107,8 +107,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -122,7 +122,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(AssessmentEvent, {
-      uuid: uuid,
+      id: id,
       actor: actor,
       action: action,
       object: obj,

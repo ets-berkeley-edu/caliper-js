@@ -31,7 +31,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntitySoftwareApplicatio
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a SoftwareApplication entity and validate properties', function (t) {
+  test('softwareApplicationTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

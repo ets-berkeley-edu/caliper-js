@@ -42,9 +42,9 @@ module.exports.checkOpts = function opts(delegate, opts) {
           }
         }
         break;
-      case "uuid":
-        if (!validator.hasUUID(opts)) {
-          opts.uuid = validator.generateUUID(config.uuidVersion);
+      case "id":
+        if (!validator.hasUuidUrn(opts)) {
+          opts.id = "urn:uuid:" + validator.generateUUID(config.uuidVersion);
         }
         break;
       case "actor":

@@ -38,7 +38,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventSessionLoggedIn.jso
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a SessionEvent (loggedIn) and validate properties', function (t) {
+  test('sessionEventLoggedInTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -49,10 +49,10 @@ testUtils.readFile(path, function(err, fixture) {
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "fcd495d0-3740-4298-9bec-1154571dc211";
+    uuid = "urn:uuid:fcd495d0-3740-4298-9bec-1154571dc211";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -66,21 +66,25 @@ testUtils.readFile(path, function(err, fixture) {
     // Event time
     var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
+    // edApp
+    var edApp = obj.id;
+
     // Session
     var session = entityFactory().create(Session, {
       id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
-      user: actor,
+      user: actor.id,
       dateCreated: moment.utc("2016-11-15T10:00:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
     // Assert that key attributes are the same
     var event = eventFactory().create(SessionEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,
       eventTime: eventTime,
+      edApp: edApp,
       session: session
     });
 

@@ -33,7 +33,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntitySharedAnnotation.j
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a SharedAnnotation entity and validate properties', function (t) {
+  test('sharedAnnotationTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

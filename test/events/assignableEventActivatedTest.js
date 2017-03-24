@@ -43,7 +43,7 @@ const path = config.testFixturesBaseDirectory + "caliperEventAssignableActivated
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an AssignableEvent (activated) and validate properties', function (t) {
+  test('assignableEventActivatedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -55,10 +55,10 @@ testUtils.readFile(path, function(err, fixture) {
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "2635b9dd-0061-4059-ac61-2718ab366f75";
+    uuid = "urn:uuid:2635b9dd-0061-4059-ac61-2718ab366f75";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/112233")});
@@ -98,8 +98,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Actor's Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.instructor.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -113,7 +113,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Assert that key attributes are the same
     var event = eventFactory().create(AssignableEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,

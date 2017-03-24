@@ -45,23 +45,23 @@ const path = config.testFixturesBaseDirectory + "caliperEventAnnotationHighlight
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an AnnotationEvent (highlighted) event and validate properties', function (t) {
+  test('annotationEventHighlightedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
 
     const BASE_IRI = "https://example.edu";
-    const BASE_ETEXT_IRI = "https://example.edu/etexts/201";
+    const BASE_COM_IRI = "https://example.com";
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Id
     var uuid = validator.generateUUID(config.uuidVersion);
 
     // Check Id
-    t.equal(true, validator.isUUID(uuid), "Validate generated UUID.");
+    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
 
     // Override ID with canned value
-    uuid = "0067a052-9bb4-4b49-9d1a-87cd43da488a";
+    uuid = "urn:uuid:0067a052-9bb4-4b49-9d1a-87cd43da488a";
 
     // The Actor
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
@@ -71,7 +71,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // The Object of the interaction
     var obj = entityFactory().create(Document, {
-      id: BASE_ETEXT_IRI,
+      id: BASE_COM_IRI.concat("/#/texts/imscaliperimplguide"),
       name: "IMS Caliper Implementation Guide",
       dateCreated: moment.utc("2016-10-01T06:00:00.000Z"),
       version: "1.1"
@@ -83,16 +83,20 @@ testUtils.readFile(path, function(err, fixture) {
     // The Generated annotation
     var selector = _.assign({}, TextPositionSelector, {start: 2300, end: 2370});
     var generated = entityFactory().create(HighlightAnnotation, {
-      id: BASE_IRI.concat("/users/554433/etexts/201/highlights?start=2300&end=2370"),
-      annotator: actor,
-      annotated: _.omit(obj, [ "name", "dateCreated", "version" ]),
+      id: BASE_COM_IRI.concat("/users/554433/texts/imscaliperimplguide/highlights?start=2300&end=2370"),
+      annotator: actor.id,
+      annotated: obj.id,
       selection: selector,
       selectionText: "ISO 8601 formatted date and time expressed with millisecond precision.",
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z")
     });
 
     // The edApp
-    var edApp = entityFactory().create(SoftwareApplication, {id: BASE_IRI, version: "v3"});
+    var edApp = entityFactory().create(SoftwareApplication, {
+      id: BASE_COM_IRI.concat("/reader"),
+      name: "ePub Reader",
+      version: "1.2.3"
+    });
 
     // Group
     var group = entityFactory().create(CourseSection, {
@@ -104,8 +108,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Actor's Membership
     var membership = entityFactory().create(Membership, {
       id: BASE_SECTION_IRI.concat("/rosters/1"),
-      member: actor,
-      organization: _.omit(group, ["courseNumber", "academicSession"]),
+      member: actor.id,
+      organization: group.id,
       roles: [Role.learner.term],
       status: Status.active.term,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z")
@@ -113,13 +117,13 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Session
     var session = entityFactory().create(Session, {
-      id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
+      id: BASE_COM_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
     // Assert that key attributes are the same
     var event = eventFactory().create(AnnotationEvent, {
-      uuid: uuid,
+      id: uuid,
       actor: actor,
       action: action,
       object: obj,
@@ -136,6 +140,66 @@ testUtils.readFile(path, function(err, fixture) {
     var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
-    ////t.end();
+    //t.end();
   });
 });
+
+/*
+ {
+ "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
+ "id": "urn:uuid:0067a052-9bb4-4b49-9d1a-87cd43da488a",
+ "type": "AnnotationEvent",
+ "actor": {
+ "id": "https://example.edu/users/554433",
+ "type": "Person"
+ },
+ "action": "Highlighted",
+ "object": {
+ "id": "https://example.com/#/texts/imscaliperimplguide",
+ "type": "Document",
+ "name": "IMS Caliper Implementation Guide",
+ "dateCreated": "2016-10-01T06:00:00.000Z",
+ "version": "1.1"
+ },
+ "generated": {
+ "id": "https://example.com/users/554433/texts/imscaliperimplguide/highlights?start=2300&end=2370",
+ "type": "HighlightAnnotation",
+ "annotator": "https://example.edu/users/554433",
+ "annotated": "https://example.com/#/texts/imscaliperimplguide",
+ "selection": {
+ "type": "TextPositionSelector",
+ "start": 2300,
+ "end": 2370
+ },
+ "selectionText": "ISO 8601 formatted date and time expressed with millisecond precision.",
+ "dateCreated": "2016-11-15T10:15:00.000Z"
+ },
+ "eventTime": "2016-11-15T10:15:00.000Z",
+ "edApp": {
+ "id": "https://example.com/reader",
+ "type": "SoftwareApplication",
+ "name": "ePub Reader",
+ "version": "1.2.3"
+ },
+ "group": {
+ "id": "https://example.edu/terms/201601/courses/7/sections/1",
+ "type": "CourseSection",
+ "courseNumber": "CPS 435-01",
+ "academicSession": "Fall 2016"
+ },
+ "membership": {
+ "id": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
+ "type": "Membership",
+ "member": "https://example.edu/users/554433",
+ "organization": "https://example.edu/terms/201601/courses/7/sections/1",
+ "roles": [ "Learner" ],
+ "status": "Active",
+ "dateCreated": "2016-08-01T06:00:00.000Z"
+ },
+ "session": {
+ "id": "https://example.com/sessions/1f6442a482de72ea6ad134943812bff564a76259",
+ "type": "Session",
+ "startedAtTime": "2016-11-15T10:00:00.000Z"
+ }
+ }
+ */

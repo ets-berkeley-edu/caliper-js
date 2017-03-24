@@ -20,17 +20,18 @@ var _ = require('lodash');
 var moment = require('moment');
 var validator = require('validator');
 var uuid = require('node-uuid');
+var urijs = require('uri-js');
 var config = require('./config');
 var entityType = require('./entities/entityType');
 var eventType = require('./events/eventType');
 
 /**
  * Check Javascript object type.
- * @param obj
+ * @param opts
  * @returns {*}
  */
-var checkObjectType = module.exports.checkObjectType = function checkObjectType(obj) {
-  return Object.prototype.toString.call(obj);
+var checkObjectType = module.exports.checkObjectType = function checkObjectType(opts) {
+  return Object.prototype.toString.call(opts);
 };
 
 /**
@@ -54,22 +55,22 @@ module.exports.generateUUID = function generateUUID(version) {
 
 /**
  * Check if object has JSON-LD @context property
- * @param obj
+ * @param opts
  * @returns {boolean}
  */
-module.exports.hasCaliperContext = function hasCaliperContext(obj) {
+module.exports.hasCaliperContext = function hasCaliperContext(opts) {
   const regex = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
   var hasCaliperContext = false;
 
-  if (obj.hasOwnProperty('@context')) {
-    switch(checkObjectType(obj['@context'])) {
+  if (opts.hasOwnProperty('@context')) {
+    switch(checkObjectType(opts['@context'])) {
       case '[object String]':
-        hasCaliperContext = regex.test(obj['@context']);
+        hasCaliperContext = regex.test(opts['@context']);
         break;
       case '[object Array]':
-        for (var i = 0, len = obj['@context'].length; i < len; i++) {
-          if (checkObjectType(obj['@context'][i]) === '[object String]') {
-            if (regex.text(obj['@context'][i])) {
+        for (var i = 0, len = opts['@context'].length; i < len; i++) {
+          if (checkObjectType(opts['@context'][i]) === '[object String]') {
+            if (regex.text(opts['@context'][i])) {
               hasCaliperContext = true;
               break;
             }
@@ -77,16 +78,16 @@ module.exports.hasCaliperContext = function hasCaliperContext(obj) {
         }
         break;
       case '[object Object]':
-        if (obj['@context'].hasOwnProperty('@vocab')) {
-          hasCaliperContext = regex.test(obj['@context']['@vocab']);
+        if (opts['@context'].hasOwnProperty('@vocab')) {
+          hasCaliperContext = regex.test(opts['@context']['@vocab']);
         }
 
         if (hasCaliperContext) {
           break;
         }
 
-        if (obj['@context'].hasOwnProperty('@base')) {
-          hasCaliperContext = regex.test(obj['@context']['@base']);
+        if (opts['@context'].hasOwnProperty('@base')) {
+          hasCaliperContext = regex.test(opts['@context']['@base']);
         }
         break;
     }
@@ -100,80 +101,102 @@ module.exports.hasCaliperContext = function hasCaliperContext(obj) {
  * @returns {boolean}
  */
 module.exports.hasContext = function hasContext() {
-
-  return !_.isNil(obj.id);
+  return !_.isNil(opts["@context"]);
 };
 
 /**
- * Check if id is undefined, null or empty.
- * @param obj
+ * Check if id is undefined, null or empty.  Given that nearly any string could constitute a URI
+ * @param opts
  * @returns {boolean}
  */
-module.exports.hasId = function hasId(obj) {
-  return !(_.isNil(obj.id) && _.isEmpty(obj.id));
+module.exports.hasId = function hasId(opts) {
+  return !(_.isNil(opts.id) && _.isEmpty(opts.id));
 };
 
 /**
  * Check if type is undefined, null or empty.
- * @param obj
+ * @param opts
  * @returns {boolean}
  */
-module.exports.hasType = function hasType(obj) {
-  return !(_.isNil(obj.type) && _.isEmpty(obj.type));
+module.exports.hasType = function hasType(opts) {
+  return !(_.isNil(opts.type) && _.isEmpty(opts.type));
 };
 
 /**
  * Check actor
- * @param obj
+ * @param opts
  */
-module.exports.hasActor = function hasActor(obj) {
-  return !_.isNil(obj.actor);
+module.exports.hasActor = function hasActor(opts) {
+  return !_.isNil(opts.actor);
 };
 
 /**
  * Check action
- * @param obj
+ * @param opts
  * @returns {boolean}
  */
-module.exports.hasAction = function hasAction(obj) {
+module.exports.hasAction = function hasAction(opts) {
   // TODO lookup action based on event
-  return !(_.isNil(obj.action) && _.isEmpty(obj.action));
+  return !(_.isNil(opts.action) && _.isEmpty(opts.action));
 };
 
 /**
  * Check object
- * @param obj
+ * @param opts
  * @returns {boolean}
  */
-module.exports.hasObject = function hasObject(obj) {
-  return !_.isNil(obj.object);
+module.exports.hasObject = function hasObject(opts) {
+  return !_.isNil(opts.object);
 };
 
 /**
  * Check if eventTime is null, undefined or invalid.
- * @param obj
+ * @param opts
  * @returns {boolean|*}
  */
-module.exports.hasEventTime = function hasEventTime(obj) {
+module.exports.hasEventTime = function hasEventTime(opts) {
   var hasDateTime = false;
-  if (!(_.isNil(obj.eventTime) && _.isEmpty(obj.eventTime))) {
-    if (moment.isMoment(obj.eventTime)) {
+  if (!(_.isNil(opts.eventTime) && _.isEmpty(opts.eventTime))) {
+    if (moment.isMoment(opts.eventTime)) {
       hasDateTime = true;
     } else {
-      hasDateTime = moment(obj.eventTime).isValid();
-      //hasDateTime = isISO8601(obj.eventTime);
+      hasDateTime = moment(opts.eventTime).isValid();
+      //hasDateTime = isISO8601(opts.eventTime);
     }
   }
   return hasDateTime;
 };
 
 /**
- * Check if UUID is null, undefined or invalid.
- * @param obj
- * @returns {boolean|*}
+ * Check if String can be parsed as a URI
+ * @type {exports.hasURI}
  */
-module.exports.hasUUID = function hasUUID(obj) {
-  return !(_.isNil(obj.uuid) && _.isEmpty(obj.uuid)) && isUUID(obj.uuid);
+var hasUri = module.exports.hasUri = function hasUri(opts) {
+  if (!(_.isNil(opts.id))) {
+    var uri = urijs.parse(opts.id);
+
+    // If an error key is appended to the object return false
+    if (!(_.isNil(uri.error))) {
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    return false;
+  }
+};
+
+/**
+ * Check if string is a UUID URN.
+ * @type {exports.isUri}
+ */
+var hasUuidUrn = module.exports.hasUuidUrn = function hasUuidUrn(opts) {
+  if (!(_.isNil(opts.id))) {
+    var uri = urijs.parse(opts.id);
+    return uri.scheme === "urn:uuid" && isUuid(uri.path) ? true : false;
+  } else {
+    return false;
+  }
 };
 
 /**
@@ -186,11 +209,23 @@ var isISO8601 = module.exports.isISO8601 = function isISO8601(str) {
 };
 
 /**
+ * Check if string is a blank node.
+ * @type {exports.isBlankNode}
+ */
+var isBlankNode = module.exports.isBlankNode = function isBlankNode(opts) {
+  if (!(_.isNil(opts.id))) {
+    return _.startsWith("_:") ? true : false;
+  } else {
+    return false;
+  }
+};
+
+/**
  * Validate UUID value. validator.isUUID(str [, version]) - check if the string is a UUID (version 3, 4 or 5).
  * @param uuid
  * @returns {*}
  */
-var isUUID = module.exports.isUUID = function isUUID(uuid) {
+var isUuid = module.exports.isUuid = function isUuid(uuid) {
   return validator.isUUID(uuid);
 };
 
@@ -206,7 +241,7 @@ var isUUID = module.exports.isUUID = function isUUID(uuid) {
 module.exports.moveToExtensions = function moveToExtensions(proto, opts) {
   var protoKeys = _.keysIn(proto);
   var optsKeys = _.keys(opts);
-  var obj = {};
+  var opts = {};
 
   for (var i = 0, len = optsKeys.length; i < len; i++) {
     var optsPropName = optsKeys[i];
@@ -216,14 +251,14 @@ module.exports.moveToExtensions = function moveToExtensions(proto, opts) {
       for (var i = 0, len = customKeys.length; i < len; i++) {
         if (customKeys[i] == '@context') {
           if (typeof customProp['@context'] === 'object') {
-            if (obj.hasOwnProperty('@context')) {
-              obj['@context'] = _.assign({}, obj['@context'], customProp['@context']);
+            if (opts.hasOwnProperty('@context')) {
+              opts['@context'] = _.assign({}, opts['@context'], customProp['@context']);
             } else {
-              obj['@context'] = customProp['@context'];
+              opts['@context'] = customProp['@context'];
             }
           }
         } else {
-          obj[customKeys[i]] = customProp[customKeys[i]];
+          opts[customKeys[i]] = customProp[customKeys[i]];
         }
         delete opts[optsPropName];
       }
@@ -231,9 +266,9 @@ module.exports.moveToExtensions = function moveToExtensions(proto, opts) {
   }
 
   if (opts.hasOwnProperty("extensions")) {
-    opts.extensions = _.assign({}, opts.extensions, obj);
+    opts.extensions = _.assign({}, opts.extensions, opts);
   } else {
-    opts.extensions = obj;
+    opts.extensions = opts;
   }
 
   return opts;

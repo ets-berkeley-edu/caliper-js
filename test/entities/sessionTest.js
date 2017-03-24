@@ -32,7 +32,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntitySession.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Session entity and validate properties', function (t) {
+  test('sessionTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

@@ -37,7 +37,7 @@ const path = config.testFixturesBaseDirectory + "caliperEnvelopeEntityBatch.json
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create an Envelope containing batched entities and validate properties', function (t) {
+  test('batchEntityTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

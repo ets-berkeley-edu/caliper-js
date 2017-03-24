@@ -32,7 +32,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityLearningObjective.
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a LearningObjective entity, assign it to a AssignableDigitalResource and validate properties', function (t) {
+  test('learningObjectiveTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

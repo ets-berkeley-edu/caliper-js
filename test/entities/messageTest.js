@@ -35,7 +35,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityMessage.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Message entity and validate properties', function (t) {
+  test('messageTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

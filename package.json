@@ -30,7 +30,8 @@
     "lodash": "4.13.x",
     "moment": "^2.10.1",
     "node-uuid": "^1.4.7",
-    "url": "0.11.x",
+    "uri-js": "^2.1.1",
+    "url": "^0.11.0",
     "validator": "^6.2.0"
   },
   "devDependencies": {

@@ -34,7 +34,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityForum.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a Forum entity and validate properties', function (t) {
+  test('forumTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);

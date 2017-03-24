@@ -35,7 +35,7 @@ const path = config.testFixturesBaseDirectory + "caliperEntityTrueFalseResponse.
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('Create a TrueFalseResponse entity and validate properties', function (t) {
+  test('trueFalseResponseTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);
