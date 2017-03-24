@@ -18,7 +18,8 @@
 
 var _ = require('lodash');
 var entity = require('./entity');
-var validator = require('./entityValidator');
+var entityValidator = require('./entityValidator');
+var validator = require('../validator');
 
 /**
  * Factory function that returns a mutated object based on a delegate prototype when the
@@ -28,18 +29,13 @@ var validator = require('./entityValidator');
  */
 var entityFactory = function entityFactory() {
   return {
-    /**
-    coerce: function coerce(id) {
-      return id;
-    },
-   */
     coerce: function coerce(delegate, opts) {
       delegate = delegate || entity;
       opts = opts || {};
 
       // Evaluate user supplied values
       if (!_.isEmpty(opts)) {
-        opts = validator.checkOpts(delegate, opts)
+        opts = entityValidator.checkOpts(delegate, opts)
       }
 
       return opts.id;
@@ -50,7 +46,7 @@ var entityFactory = function entityFactory() {
 
       // Evaluate user supplied values
       if (!_.isEmpty(opts)) {
-        opts = validator.checkOpts(delegate, opts)
+        opts = entityValidator.checkOpts(delegate, opts)
       }
 
       return _.assign({}, delegate, opts);

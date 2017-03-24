@@ -43,7 +43,7 @@ module.exports.checkOpts = function opts(delegate, opts) {
         }
         break;
       case "id":
-        if (!validator.hasId(opts)) {
+        if (!validator.hasUuidUrn(opts)) {
           opts.id = "urn:uuid:" + validator.generateUUID(config.uuidVersion);
         }
         break;

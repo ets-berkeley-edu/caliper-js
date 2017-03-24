@@ -38,7 +38,7 @@ module.exports.checkOpts = function opts(delegate, opts) {
         }
         break;
       case "id":
-        if (!validator.hasId(opts)) {
+        if (!validator.hasUri(opts)) {
           throw new Error("Required identifier not provided");
         }
         break;
