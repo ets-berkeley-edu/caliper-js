@@ -20,7 +20,7 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
 var validator = require('../../src/validator');
 var SessionEvent = require('../../src/events/sessionEvent');
@@ -33,7 +33,7 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventSessionLoggedInExtended.json";
+const path = config.testFixturesBaseDir + "caliperEventSessionLoggedInExtended.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

@@ -17,125 +17,103 @@
  */
 
 var _ = require('lodash');
-var http = require('https');
-var config = require('../config');
+var http = require('http');
+var https = require('https');
+var config = require('../config/config');
 var logger = require('../logger');
-var requestor = require('./requestor');
+var moment = require('moment');
+var httpOptions = require('../config/httpOptions');
+var requestorUtils = require('./requestorUtils');
 
-/**
- * Represents httpRequestor self.
- * @constructor httpRequestor
- */
-var self = this;
-var options = {};
+var requestor = {
+  init: function init(opts) {
+    if (_.isNil(opts)) {
+      this.error(this.messages[1]);
+    }
+    this.options = _.assign({}, httpOptions, opts);
+    this.initialized = true;
+  },
+  isInit: function isInit() {
+    return this.initialized;
+  },
+  postEnvelope: function postEnvelope(envelope) {
+    if (!this.isInit()) {
+      this.error(this.messages[0]);
+    }
+    // Set to decimal number of OCTETS per RFC 2616
+    this.options.headers["Content-Length"] = Buffer.byteLength(envelope);
 
-/*
- * Check if self is properly initialized
- */
-var initialized = function() {
-  return true; //TODO
-};
+    // logger.log('debug', 'httpRequestor: about to request using options = ' + JSON.stringify(this.options));
 
-/**
- * Initializes the default self to use.
- * @function initialize
- * @param sensorOptions $options passed straight to the self
- */
-self.initialize = function initialize(sensorOptions) {
-  if (!_.isUndefined(sensorOptions)) {
-      options = sensorOptions;
-  }
-  requestor.initialize(sensorOptions);
-  logger.log('debug', "Initialized httpRequestor with options " + JSON.stringify(options));
-};
-
-/**
- * Create envelope.
- * @param id
- * @param sendTime
- * @param dataVersion
- * @param data
- * @returns {*}
- */
-self.createEnvelope = function createEnvelope(id, sendTime, dataVersion, data) {
-  return requestor.createEnvelope(id, sendTime, dataVersion, data);
-};
-
-/**
- * Emit Caliper dimensional data (entity).
- * @param sensor
- * @param data
- */
-self.describe = function(sensor, data) {
-  self.post(sensor, data);
-};
-
-/**
- * Issue a POST request.
- * @param sensor
- * @param data
- */
-self.post = function post(sensor, data) {
-  if (initialized()) {
-
-    // Create and Serialize envelope payload
-    var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-    var envelope = self.createEnvelope(sensor.id, sendTime, config.dataVersion, data);
+    // Stringify the envelope
     var payload = self.stringify(envelope);
 
-    logger.log('debug', "Payload created.");
-
-    // Add Headers
-    var headers = {
-      'Content-Type': 'application/json',
-      'Content-Length': payload.length
-    };
-
-    // Merge headers
-    var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
-
-    logger.log('debug', 'httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
-
     // Create request
-    var request = http.request(sendOptions, function (response) {
-      logger.log('info', "finished sending. Response= " + JSON.stringify(response));
-    }, function(error){
-      logger.log('error', "ERROR sending event = " + error);
-    });
+    if (this.options.protocol === "https:") {
+      var request = https.request(this.options, function(response) {
+        var res = "";
+        response.setEncoding('utf8');
+        response.on('data', function(chunk) {
+          res += chunk;
+        });
+        response.on('end', function() {
+          callback(res);
+        });
+      });
 
-    // Write request
-    request.write(payload);
-    request.end();
+      request.on('error', function(e) {
+        this.error(e.message);
+      });
 
-  } else {
-    logger.log('error', "httpRequestor is not initialized!");
-  }
+      // Write data to request body.
+      request.write(payload);
+      request.end();
+
+    } else {
+      var request = http.request(this.options, function(response) {
+        var res = "";
+        response.setEncoding('utf8');
+        response.on('data', function(chunk) {
+          res += chunk;
+        });
+        response.on('end', function() {
+          callback(res);
+        });
+      });
+
+      request.on('error', function(e) {
+        this.error(e.message);
+      });
+
+      // Write data to request body.
+      request.write(payload);
+      request.end();
+    }
+  },
+  sendEnvelope: function sendEnvelope(envelope) {
+    if (!this.isInit()) {
+      this.error(this.messages[0]);
+    }
+      this.postEnvelope(envelope);
+  },
+  stringify: function stringify(payload) {
+    return requestorUtils.stringify(payload);
+  },
+  error: function error(msg) {
+    throw new Error(msg);
+
+    /*
+     try {
+     throw new Error(msg);
+     } catch (e) {
+     logger.log("error", e.message);
+     }
+     */
+  },
+  messages: [
+    "Requestor has not been initialized.",
+    "Requestor options not provided."
+  ]
 };
 
-
-/**
- * Emit Caliper Event data.
- * @param sensor
- * @param data
- */
-self.send = function send(sensor, data) {
-  self.post(sensor, data);
-};
-
-/**
- * Stringify payload.
- * @param payload
- * @returns {*}
- */
-self.stringify = function stringify(payload) {
-  return requestor.stringify(payload);
-};
-
-module.exports = {
-  initialize: self.initialize,
-  createEnvelope: self.createEnvelope,
-  describe: self.describe,
-  post: self.post,
-  send: self.send,
-  stringify: self.stringify
-};
+module.exports = requestor;

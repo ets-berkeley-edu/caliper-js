@@ -20,7 +20,7 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
 var validator = require('../../src/validator');
 var AnnotationEvent = require('../../src/events/annotationEvent');
@@ -40,7 +40,7 @@ var TextPositionSelector = require('../../src/entities/annotation/textPositionSe
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventAnnotationHighlighted.json";
+const path = config.testFixturesBaseDir + "caliperEventAnnotationHighlighted.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

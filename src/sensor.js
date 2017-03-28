@@ -21,7 +21,7 @@
  * @class
  */
 var _ = require('lodash');
-var client = require('./client');
+var client = require('./httpClient');
 var logger = require('./logger');
 
 /**
@@ -46,34 +46,44 @@ Sensor.setId = function(id) {
 };
 
 /**
- * Initializes the default client to use. Uses the socket consumer by default.
+ * Initializes the default client to use.
  * Sensor#initialize
+ * @memberof sensor
+ * @function initialize
  * @param id sensor identifier
  * @param options $options passed straight to the client
  */
-Sensor.initialize = function(id, options) {
+Sensor.initialize = function initialize(id, opts) {
   this.setId(id);
-  if (!_.isUndefined(options)) {
-      client.initialize(options);
+  if (!_.isUndefined(opts)) {
+      client.initialize(opts);
   }
 };
 
 /**
- * Describe an entity
- * @param  entity $entity The Caliper Entity we are describing
- * @return boolean whether the describe call succeeded
+ * Create and return envelope comprised of events, entities or a mixed data payload of both.
+ * @memberof sensor
+ * @function createEnvelope
+ * @param id
+ * @param sendTime
+ * @param dataVersion
+ * @param data
+ * @returns {*}
  */
-Sensor.describe = function(entity) {
-  client.describe(this, entity);
+Sensor.createEnvelope = function createEnvelope(id, sendTime, dataVersion, data) {
+  return client.createEnvelope(id, sendTime, dataVersion, data);
 };
 
 /**
- * Send learning events
- * @param  event $event The Caliper Event
+ * Send the data payload.
+ * @memberof sensor
+ * @function sendEnvelope
+ * @param envelope The Caliper envelope containing a data array of events, entities or both.
  * @return boolean whether the measure call succeeded
  */
-Sensor.send = function(event) {
-  client.send(this, event);
+Sensor.sendEnvelope = function sendEnvelope(envelope) {
+  envelope = envelope || {};
+  client.sendEnvelope(envelope);
 };
 
 /**
@@ -88,13 +98,13 @@ Caliper.Entities = {};
 Caliper.Events = {};
 Caliper.Request = {};
 Caliper.Validator = {};
-Caliper.Utils = {};
 
 // Actions
 Caliper.Actions.Actions = require('./actions/actions');
 
 // Config
-Caliper.Config.Config = require('./config');
+Caliper.Config.Config = require('./config/config');
+Caliper.Config.httpOptions = require('./config/httpOptions');
 
 // Entities
 Caliper.Entities.Entity          = require('./entities/entity');
@@ -180,7 +190,6 @@ Caliper.Events.ViewEvent           = require('./events/viewEvent');
 
 // Request
 Caliper.Request.Envelope            = require('./request/envelope');
-Caliper.Request.Requestor           = require('./request/requestor');
 Caliper.Request.HttpRequestor       = require('./request/httpRequestor');
 
 // Validators

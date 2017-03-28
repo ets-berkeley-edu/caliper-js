@@ -16,7 +16,7 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var config = require('../config');
+var config = require('../config/config');
 var validator = require('../validator');
 
 /**

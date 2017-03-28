@@ -21,7 +21,7 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
 var validator = require('../../src/validator');
 var ViewEvent = require('../../src/events/viewEvent');
@@ -39,7 +39,7 @@ var Status = require('../../src/entities/lis/status');
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventViewViewedMoveExtensions.json";
+const path = config.testFixturesBaseDir + "caliperEventViewViewedMoveExtensions.json";
 
 /**
 testUtils.readFile(path, function(err, fixture) {

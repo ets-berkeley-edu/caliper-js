@@ -17,7 +17,7 @@
  */
 
 var _ = require('lodash');
-var config = require('../config');
+var config = require('../config/config');
 var entityType = require('./entityType');
 
 var proto = {
@@ -35,7 +35,7 @@ var proto = {
  * @returns {*}
  */
 var createEntity = function createEntity() {
-  var context = {'@context': config.remoteCaliperJsonldContext};
+  var context = {'@context': config.jsonldExternalCaliperContext};
   var defaults = {type: entityType.entity.term};
 
   return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)

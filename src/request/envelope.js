@@ -16,15 +16,34 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var _ = require('lodash');
+var config = require('../config/config');
+var moment = require('moment');
+
 /**
  * Caliper envelope
  * @type {{sensor: null, sendTime: null, dataVersion: null, data: Array}}
  */
-var Envelope = {
+var proto = {
   sensor: null,
   sendTime: null,
   dataVersion: null,
   data: []
 };
 
-module.exports = Envelope;
+/**
+ * Factory function
+ * @returns {*}
+ */
+var createEnvelope = function createEnvelope() {
+  var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  var dataVersion = config.dataVersion;
+
+  return _.assign({}, proto, {sendTime: sendTime, dataVersion: dataVersion})
+};
+
+// Object delegation
+var envelope = createEnvelope();
+
+module.exports = envelope;
+
