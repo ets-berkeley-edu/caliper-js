@@ -25,32 +25,45 @@ var moment = require('moment');
 var httpOptions = require('../config/httpOptions');
 var requestorUtils = require('./requestorUtils');
 
-var requestor = {
-  init: function init(opts) {
-    if (_.isNil(opts)) {
-      this.error(this.messages[1]);
-    }
-    this.options = _.assign({}, httpOptions, opts);
+var msgs = [
+  "Caliper requestor has not been initialized.",
+  "Caliper requestor options have not been provided.",
+  "Caliper envelope has not been provided.",
+  "Caliper request headers set: ",
+  "Caliper envelope sent: "
+];
+
+var httpRequestor = {
+  initialize: function initialize(opts) {
+    _.isNil(id) ? this.error(msgs[1]) : this.options = _.assign({}, httpOptions, opts);
     this.initialized = true;
   },
-  isInit: function isInit() {
+  isInitialized: function isInitialized() {
     return this.initialized;
   },
+  getOptions: function getOptions() {
+    return this.options;
+  },
   postEnvelope: function postEnvelope(envelope) {
-    if (!this.isInit()) {
-      this.error(this.messages[0]);
+    if (!this.isInitialized()) {
+      this.error(msgs[0]);
     }
-    // Set to decimal number of OCTETS per RFC 2616
-    this.options.headers["Content-Length"] = Buffer.byteLength(envelope);
 
-    // logger.log('debug', 'httpRequestor: about to request using options = ' + JSON.stringify(this.options));
+    if (_.isNil(envelope)) {
+      this.error(msgs[2]);
+    }
+
+    var opts = this.getOptions();
+    opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
+
+    logger.log("debug", msgs[3] + JSON.stringify(this.options));
 
     // Stringify the envelope
     var payload = self.stringify(envelope);
 
     // Create request
-    if (this.options.protocol === "https:") {
-      var request = https.request(this.options, function(response) {
+    if (opts.protocol === "https:") {
+      var request = https.request(opts, function(response) {
         var res = "";
         response.setEncoding('utf8');
         response.on('data', function(chunk) {
@@ -62,15 +75,16 @@ var requestor = {
       });
 
       request.on('error', function(e) {
-        this.error(e.message);
+        logger.log("error", e.message);
       });
 
       // Write data to request body.
       request.write(payload);
+      logger.log("debug", msgs[4] + payload);
       request.end();
 
     } else {
-      var request = http.request(this.options, function(response) {
+      var request = http.request(opts, function(response) {
         var res = "";
         response.setEncoding('utf8');
         response.on('data', function(chunk) {
@@ -82,7 +96,7 @@ var requestor = {
       });
 
       request.on('error', function(e) {
-        this.error(e.message);
+        logger.log("error", e.message);
       });
 
       // Write data to request body.
@@ -91,9 +105,10 @@ var requestor = {
     }
   },
   sendEnvelope: function sendEnvelope(envelope) {
-    if (!this.isInit()) {
-      this.error(this.messages[0]);
+    if (!this.isInitialized()) {
+      this.error(msgs[0]);
     }
+
       this.postEnvelope(envelope);
   },
   stringify: function stringify(payload) {
@@ -109,11 +124,7 @@ var requestor = {
      logger.log("error", e.message);
      }
      */
-  },
-  messages: [
-    "Requestor has not been initialized.",
-    "Requestor options not provided."
-  ]
+  }
 };
 
-module.exports = requestor;
+module.exports = httpRequestor;

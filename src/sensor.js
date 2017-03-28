@@ -18,10 +18,9 @@
 
  /**
  * Caliper Sensor
- * @class
  */
 var _ = require('lodash');
-var client = require('./httpClient');
+var httpClient = require('./httpClient');
 var logger = require('./logger');
 
 /**
@@ -36,14 +35,11 @@ var Caliper = (typeof window !== 'undefined') ? window.Caliper || {} : {};
  * @constructor
  */
 var Sensor = {};
-
-/**
- * Sensor Identifier.
- * @param id
- */
-Sensor.setId = function(id) {
-    this.id = id;
-};
+var client = {};
+var messages = [
+  "Caliper sensor has not been initialized.",
+  "Caliper sensor identifier has not been provided."
+];
 
 /**
  * Initializes the default client to use.
@@ -51,27 +47,39 @@ Sensor.setId = function(id) {
  * @memberof sensor
  * @function initialize
  * @param id sensor identifier
- * @param options $options passed straight to the client
  */
-Sensor.initialize = function initialize(id, opts) {
-  this.setId(id);
-  if (!_.isUndefined(opts)) {
-      client.initialize(opts);
-  }
+Sensor.initialize = function initialize(id) {
+  _.isNil(id) ? this.error(messages[1]) : this.id = id;
+  this.initialized = true;
+  client = httpClient.initialize(id);
+};
+
+/**
+ * Check if Sensor is initialized.
+ */
+Sensor.isInitialized = function isInitialized() {
+  return this.initialized;
+};
+
+/**
+ * Get the Sensor identifier.
+ */
+Sensor.getId = function getId() {
+  return this.getId();
 };
 
 /**
  * Create and return envelope comprised of events, entities or a mixed data payload of both.
  * @memberof sensor
  * @function createEnvelope
- * @param id
- * @param sendTime
- * @param dataVersion
- * @param data
+ * @param opts  Envelope properties
  * @returns {*}
  */
-Sensor.createEnvelope = function createEnvelope(id, sendTime, dataVersion, data) {
-  return client.createEnvelope(id, sendTime, dataVersion, data);
+Sensor.createEnvelope = function createEnvelope(opts) {
+  if (!this.isInitialized()) {
+    this.error(messages[0]);
+  }
+  return client.createEnvelope(opts);
 };
 
 /**
@@ -82,8 +90,26 @@ Sensor.createEnvelope = function createEnvelope(id, sendTime, dataVersion, data)
  * @return boolean whether the measure call succeeded
  */
 Sensor.sendEnvelope = function sendEnvelope(envelope) {
-  envelope = envelope || {};
+  if (!this.isInitialized()) {
+    this.error(messages[0]);
+  }
   client.sendEnvelope(envelope);
+};
+
+/**
+ * Error handling
+ * @param msg
+ */
+Sensor.error = function error(msg) {
+  throw new Error(msg);
+
+  /*
+   try {
+   throw new Error(msg);
+   } catch (e) {
+   logger.log("error", e.message);
+   }
+   */
 };
 
 /**
@@ -104,7 +130,7 @@ Caliper.Actions.Actions = require('./actions/actions');
 
 // Config
 Caliper.Config.Config = require('./config/config');
-Caliper.Config.httpOptions = require('./config/httpOptions');
+Caliper.Config.HttpOptions = require('./config/httpOptions');
 
 // Entities
 Caliper.Entities.Entity          = require('./entities/entity');
@@ -191,6 +217,7 @@ Caliper.Events.ViewEvent           = require('./events/viewEvent');
 // Request
 Caliper.Request.Envelope            = require('./request/envelope');
 Caliper.Request.HttpRequestor       = require('./request/httpRequestor');
+Caliper.Request.RequestorUtils      = require('./request/requestorUtils');
 
 // Validators
 Caliper.Validator.Validator       = require('./validator');

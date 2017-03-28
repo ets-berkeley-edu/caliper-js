@@ -138,7 +138,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Initialize client
     var sensorClient = _.create(client);
-    sensorClient.init(BASE_IRI.concat("/sensors/1"));
+    sensorClient.initialize(BASE_IRI.concat("/sensors/1"));
     var envelope = sensorClient.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: event});
 
     // Compare

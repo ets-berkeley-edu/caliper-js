@@ -23,30 +23,35 @@ var httpRequestor = require('./request/httpRequestor');
 var logger = require('./logger');
 var moment = require('moment');
 
+var msgs = [
+  "Caliper sensor client has not been initialized.",
+  "Caliper sensor client identifier has not been provided.",
+  "Caliper sensor client data has not been provided."
+];
+
 var httpClient = {
-  init: function init(id) {
-    if (_.isNil(id)) {
-      this.error(this.messages[1]);
-    }
-    this.id = id;
+  initialize: function initialize(id) {
+    _.isNil(id) ? this.error(msgs[1]) : this.id = id;
     this.initialized = true;
   },
-  isInit: function isInit() {
+  isInitialized: function isInitialized() {
     return this.initialized;
   },
   getId: function getId() {
     return this.id;
   },
   createEnvelope: function createEnvelope(opts) {
-    if (!this.isInit()) {
-      this.error(this.messages[0]);
+    if (!this.isInitialized()) {
+      this.error(msgs[0]);
     }
-    var id = opts.id || this.getId(); // permit override?
+
+    if (_.isNil(opts.data)) {
+      this.error(msgs[2]);
+    }
+
+    var id = opts.id || this.getId(); // permit override with opts value?
     var sendTime = opts.sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
     var dataVersion = opts.dataVersion || config.dataVersion;
-    if (_.isNil(opts.data)) {
-      this.error(this.messages[2]);
-    }
     var payload = [];
 
     if (Array.isArray(opts.data)) {
@@ -58,11 +63,12 @@ var httpClient = {
     return _.assign({}, envelope, {sensor: id, sendTime: sendTime, dataVersion: dataVersion, data: payload});
   },
   sendEnvelope: function sendEnvelope(envelope, opts) {
-    if (!this.isInit()) {
-      this.error(this.messages[0]);
+    if (!this.isInitialized()) {
+      this.error(msgs[0]);
     }
+
     var requestor = _.create(httpRequestor);
-    requestor.init(opts);
+    requestor.initialize(opts);
     requestor.sendEnvelope(envelope);
   },
   error: function error(msg) {
@@ -75,12 +81,7 @@ var httpClient = {
       logger.log("error", e.message);
     }
     */
-  },
-  messages: [
-    "Sensor client has not been initialized.",
-    "Sensor client identifier not provided.",
-    "Sensor client data not provided."
-  ]
+  }
 };
 
 module.exports = httpClient;
