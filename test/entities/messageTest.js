@@ -20,7 +20,7 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config');
+var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Forum = require('../../src/entities/resource/forum');
@@ -30,7 +30,7 @@ var Thread = require('../../src/entities/resource/thread');
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEntityMessage.json";
+const path = config.testFixturesBaseDir + "caliperEntityMessage.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

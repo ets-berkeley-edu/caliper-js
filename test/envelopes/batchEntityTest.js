@@ -20,7 +20,11 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config');
+var config =  require('../../src/config/config');
+var client = require('../../src/httpClient');
+var httpOptions = require('../../src/config/httpOptions');
+var requestorUtils = require('../../src/request/requestorUtils');
+
 var entityFactory = require('../../src/entities/entityFactory');
 var Course = require('../../src/entities/lis/courseOffering');
 var CourseSection = require('../../src/entities/lis/courseSection');
@@ -28,11 +32,9 @@ var DigitalResourceCollection = require('../../src/entities/resource/digitalReso
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
 var VideoObject = require('../../src/entities/resource/videoObject');
-var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
-var requestor = require('../../src/request/httpRequestor');
 
-const path = config.testFixturesBaseDirectory + "caliperEnvelopeEntityBatch.json";
+const path = config.testFixturesBaseDir + "caliperEnvelopeEntityBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -100,19 +102,16 @@ testUtils.readFile(path, function(err, fixture) {
       dateModified: moment.utc("2016-09-02T11:30:00.000Z")
     });
 
-    // Initialize faux sensor and default options
-    var sensor = createFauxSensor(BASE_EDU_IRI.concat("/sensors/1"));
-    var options = {};
-
-    // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
-    requestor.initialize(options);
-
+    // Create data payload
     var data = [];
     data.push(person);
     data.push(document);
     data.push(collection);
 
-    var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, data);
+    // Initialize client
+    var sensorClient = _.create(client);
+    sensorClient.init(BASE_EDU_IRI.concat("/sensors/1"));
+    var envelope = sensorClient.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: data});
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
@@ -122,13 +121,3 @@ testUtils.readFile(path, function(err, fixture) {
     //t.end();
   });
 });
-
-/**
- * Create a fake sensor object in order to avoid generating a "window is not defined"
- * reference error since we are not running tests in the browser but on the server.
- * @param id
- * @returns {{id: *}}
- */
-function createFauxSensor(id) {
-  return {id: id};
-}

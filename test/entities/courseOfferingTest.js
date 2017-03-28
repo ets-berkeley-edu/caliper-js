@@ -20,13 +20,13 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config');
+var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var CourseOffering = require('../../src/entities/lis/courseOffering');
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEntityCourseOffering.json";
+const path = config.testFixturesBaseDir + "caliperEntityCourseOffering.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

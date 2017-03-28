@@ -20,7 +20,7 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config');
+var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Chapter = require('../../src/entities/resource/chapter');
 var Document = require('../../src/entities/resource/document');
@@ -28,7 +28,7 @@ var Page = require('../../src/entities/resource/page');
 var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEntityPage.json";
+const path = config.testFixturesBaseDir + "caliperEntityPage.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

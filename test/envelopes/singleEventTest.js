@@ -20,7 +20,11 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+var config =  require('../../src/config/config');
+var client = require('../../src/httpClient');
+var httpOptions = require('../../src/config/httpOptions');
+var requestorUtils = require('../../src/request/requestorUtils');
+
 var eventFactory = require('../../src/events/eventFactory');
 var validator = require('../../src/validator');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
@@ -36,11 +40,9 @@ var Role = require('../../src/entities/lis/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Status = require('../../src/entities/lis/status');
-var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
-var requestor = require('../../src/request/httpRequestor');
 
-const path = config.testFixturesBaseDirectory + "caliperEnvelopeEventSingle.json";
+const path = config.testFixturesBaseDir + "caliperEnvelopeEventSingle.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -134,14 +136,10 @@ testUtils.readFile(path, function(err, fixture) {
       session: session
     });
 
-    // Initialize faux sensor and default options
-    var sensor = createFauxSensor(BASE_IRI.concat("/sensors/1"));
-    var options = {};
-
-    // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
-    requestor.initialize(options);
-
-    var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, event);
+    // Initialize client
+    var sensorClient = _.create(client);
+    sensorClient.init(BASE_IRI.concat("/sensors/1"));
+    var envelope = sensorClient.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: event});
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
@@ -151,13 +149,3 @@ testUtils.readFile(path, function(err, fixture) {
     //t.end();
   });
 });
-
-/**
- * Create a fake sensor object in order to avoid generating a "window is not defined"
- * reference error since we are not running tests in the browser but on the server.
- * @param id
- * @returns {{id: *}}
- */
-function createFauxSensor(id) {
-    return {id: id};
-}
