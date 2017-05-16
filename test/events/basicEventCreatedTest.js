@@ -22,14 +22,14 @@ var test = require('tape');
 
 var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
-var validator = require('../../src/validator');
+var validator = require('../../src/validators/validator');
 var Event = require('../../src/events/event');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEventBasicCreated.json";

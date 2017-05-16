@@ -23,7 +23,7 @@ var test = require('tape');
 var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Organization = require('../../src/entities/agent/organization');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityOrganization.json";

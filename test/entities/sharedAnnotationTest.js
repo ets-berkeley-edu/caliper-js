@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
 var SharedAnnotation = require('../../src/entities/annotation/sharedAnnotation');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntitySharedAnnotation.json";

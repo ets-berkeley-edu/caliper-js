@@ -22,13 +22,13 @@ var test = require('tape');
 
 var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
-var CourseSection = require('../../src/entities/lis/courseSection');
-var Membership = require('../../src/entities/lis/membership');
+var CourseOffering = require('../../src/entities/agent/courseOffering');
+var CourseSection = require('../../src/entities/agent/courseSection');
+var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
-var Role = require('../../src/entities/lis/role');
-var Status = require('../../src/entities/lis/status');
-var requestorUtils = require('../../src/request/requestorUtils');
+var Role = require('../../src/entities/agent/role');
+var Status = require('../../src/entities/agent/status');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityMembership.json";

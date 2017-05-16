@@ -23,7 +23,7 @@ var test = require('tape');
 var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AudioObject = require('../../src/entities/resource/audioObject');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityAudioObject.json";

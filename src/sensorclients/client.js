@@ -16,33 +16,8 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var validator = require('../validator');
+var _ = require('lodash');
+var httpClient = require('./httpClient');
+var logger = require('../logger');
 
-/**
- * Check required Entity properties against set of user-supplied values
- * @param delegate
- * @param opts
- * @returns {*}
- */
-module.exports.checkOpts = function opts(delegate, opts) {
-  Object.keys(opts).forEach(function(key) {
-    switch (key) {
-      case "@context":
-        if (validator.hasCaliperContext(delegate)) {
-          delete opts['@context']; // suppress
-        }
-        break;
-      case "type":
-        if (validator.hasType(delegate)) {
-          delete opts.type; // suppress
-        }
-        break;
-      case "id":
-        if (!validator.hasUri(opts)) {
-          throw new Error("Required identifier not provided");
-        }
-        break;
-    }
-  });
-  return opts;
-};
+

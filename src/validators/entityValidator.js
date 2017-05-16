@@ -16,17 +16,16 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var config = require('../config/config');
-var validator = require('../validator');
+var validator = require('./validator');
 
 /**
- * Check required Event properties against set of user-supplied values
+ * Check required Entity properties against set of user-supplied values
  * @param delegate
  * @param opts
  * @returns {*}
  */
 module.exports.checkOpts = function opts(delegate, opts) {
-  Object.keys(delegate).forEach(function(key) {
+  Object.keys(opts).forEach(function(key) {
     switch (key) {
       case "@context":
         if (validator.hasCaliperContext(delegate)) {
@@ -36,35 +35,11 @@ module.exports.checkOpts = function opts(delegate, opts) {
       case "type":
         if (validator.hasType(delegate)) {
           delete opts.type; // suppress
-        } else {
-          if (!validator.hasType(opts.type)) {
-            throw new Error("Required type not provided");
-          }
         }
         break;
       case "id":
-        if (!validator.hasUuidUrn(opts)) {
-          opts.id = "urn:uuid:" + validator.generateUUID(config.uuidVersion);
-        }
-        break;
-      case "actor":
-        if (!validator.hasActor(opts)) {
-          throw new Error("Required actor not provided");
-        }
-        break;
-      case "action":
-        if (!validator.hasAction(opts)) {
-          throw new Error("Required action not provided");
-        }
-        break;
-      case "object":
-        if (!validator.hasObject(opts)) {
-          throw new Error("Required object not provided");
-        }
-        break;
-      case "eventTime":
-        if (!validator.hasEventTime(opts)) {
-          throw new Error("Required ISO 8601 formatted eventTime not provided");
+        if (!validator.hasUri(opts)) {
+          throw new Error("Required identifier not provided");
         }
         break;
     }

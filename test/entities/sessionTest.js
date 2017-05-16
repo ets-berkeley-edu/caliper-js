@@ -24,7 +24,7 @@ var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntitySession.json";

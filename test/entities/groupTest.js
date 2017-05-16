@@ -22,11 +22,11 @@ var test = require('tape');
 
 var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
-var CourseSection = require('../../src/entities/lis/courseSection');
+var CourseOffering = require('../../src/entities/agent/courseOffering');
+var CourseSection = require('../../src/entities/agent/courseSection');
 var Group = require('../../src/entities/agent/group');
 var Person = require('../../src/entities/agent/person');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityGroup.json";

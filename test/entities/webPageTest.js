@@ -22,9 +22,9 @@ var test = require('tape');
 
 var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseSection = require('../../src/entities/lis/courseSection');
+var CourseSection = require('../../src/entities/agent/courseSection');
 var WebPage = require('../../src/entities/resource/webPage');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityWebPage.json";

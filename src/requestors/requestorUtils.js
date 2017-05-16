@@ -17,7 +17,7 @@
  */
 
 // var logger = require('../logger');
-var validator = require('../validator');
+var validator = require('../validators/validator');
 
 var objectProperties = ["actor", "annotated", "annotator", "assignable", "assignee", "attempt", "edApp", "federatedSession",
 "generated", "group", "isPartOf", "member", "membership", "object", "organization", "referrer", "replyTo", "scoredBy",

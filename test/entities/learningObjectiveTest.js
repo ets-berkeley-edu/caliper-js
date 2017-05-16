@@ -23,8 +23,8 @@ var test = require('tape');
 var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AssignableDigitalResource = require('../../src/entities/resource/assignableDigitalResource');
-var LearningObjective = require('../../src/entities/assign/learningObjective');
-var requestorUtils = require('../../src/request/requestorUtils');
+var LearningObjective = require('../../src/entities/resource/learningObjective');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityLearningObjective.json";

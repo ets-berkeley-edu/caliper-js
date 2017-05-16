@@ -21,9 +21,9 @@ var moment = require('moment');
 var test = require('tape');
 
 var config =  require('../../src/config/config');
-var client = require('../../src/httpClient');
+var client = require('../../src/sensorclients/httpClient');
 var httpOptions = require('../../src/config/httpOptions');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
@@ -33,16 +33,16 @@ var actions = require('../../src/actions/actions');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-var Attempt = require('../../src/entities/assign/attempt');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
-var CourseSection = require('../../src/entities/lis/courseSection');
-var Membership = require('../../src/entities/lis/membership');
+var Attempt = require('../../src/entities/resource/attempt');
+var CourseOffering = require('../../src/entities/agent/courseOffering');
+var CourseSection = require('../../src/entities/agent/courseSection');
+var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
-var Result = require('../../src/entities/assign/result');
-var Role = require('../../src/entities/lis/role');
+var Result = require('../../src/entities/outcome/result');
+var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Status = require('../../src/entities/lis/status');
+var Status = require('../../src/entities/agent/status');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEnvelopeMixedBatch.json";

@@ -22,22 +22,22 @@ var test = require('tape');
 
 var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
-var validator = require('../../src/validator');
+var validator = require('../../src/validators/validator');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
 var actions = require('../../src/actions/actions');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
-var Attempt = require('../../src/entities/assign/attempt');
-var CourseSection = require('../../src/entities/lis/courseSection');
-var Membership = require('../../src/entities/lis/membership');
+var Attempt = require('../../src/entities/resource/attempt');
+var CourseSection = require('../../src/entities/agent/courseSection');
+var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
-var Role = require('../../src/entities/lis/role');
+var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Status = require('../../src/entities/lis/status');
-var requestorUtils = require('../../src/request/requestorUtils');
+var Status = require('../../src/entities/agent/status');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEventAssessmentSubmitted.json";

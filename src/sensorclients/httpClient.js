@@ -17,10 +17,10 @@
  */
 
 var _ = require('lodash');
-var config = require('./config/config');
-var envelope = require('./request/envelope');
-var httpRequestor = require('./request/httpRequestor');
-var logger = require('./logger');
+var config = require('../config/config');
+var envelope = require('../envelope');
+var httpRequestor = require('../requestors/httpRequestor');
+var logger = require('../logger');
 var moment = require('moment');
 
 var msgs = [

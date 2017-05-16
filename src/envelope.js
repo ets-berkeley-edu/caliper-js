@@ -17,7 +17,7 @@
  */
 
 var _ = require('lodash');
-var config = require('../config/config');
+var config = require('./config/config');
 var moment = require('moment');
 
 /**

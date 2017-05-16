@@ -24,10 +24,10 @@ var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-var Attempt = require('../../src/entities/assign/attempt');
+var Attempt = require('../../src/entities/resource/attempt');
 var MultipleChoiceResponse = require('../../src/entities/response/multipleChoiceResponse');
 var Person = require('../../src/entities/agent/person');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityMultipleChoiceResponse.json";

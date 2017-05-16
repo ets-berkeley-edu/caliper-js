@@ -21,9 +21,9 @@ var moment = require('moment');
 var test = require('tape');
 
 var config =  require('../../src/config/config');
-var client = require('../../src/httpClient');
+var client = require('../../src/sensorclients/httpClient');
 var httpOptions = require('../../src/config/httpOptions');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AnnotationEvent = require('../../src/events/annotationEvent');
@@ -33,15 +33,15 @@ var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var BookmarkAnnotation = require('../../src/entities/annotation/bookmarkAnnotation');
-var CourseSection = require('../../src/entities/lis/courseSection');
+var CourseSection = require('../../src/entities/agent/courseSection');
 var Document = require('../../src/entities/resource/document');
-var Membership = require('../../src/entities/lis/membership');
+var Membership = require('../../src/entities/agent/membership');
 var Page = require('../../src/entities/resource/page');
 var Person = require('../../src/entities/agent/person');
-var Role = require('../../src/entities/lis/role');
+var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Status = require('../../src/entities/lis/status');
+var Status = require('../../src/entities/agent/status');
 var WebPage = require('../../src/entities/resource/webPage');
 var testUtils = require('../testUtils');
 
