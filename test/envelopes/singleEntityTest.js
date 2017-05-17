@@ -20,13 +20,8 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-//var Sensor = require('../../src/sensor');
-var client = require('../../src/sensorclients/client');
-
 var config = require('../../src/config/config');
 var httpOptions = require('../../src/config/httpOptions');
-
-var requestor = require('../../src/requestors/httpRequestor');
 var requestorUtils = require('../../src/requestors/requestorUtils');
 
 var entityFactory = require('../../src/entities/entityFactory');
@@ -70,15 +65,17 @@ testUtils.readFile(path, function(err, fixture) {
       dateCreated: moment.utc("2016-08-02T11:32:00.000Z")
     });
 
-    // Initialize sensor, client, and requestor; create envelope but don't send.
-    // var sensor = _.create(Sensor);
-    // sensor.initialize("https://example.edu/sensors/1");
-    client.initialize("https://example.edu/sensors/1");
-    requestor.initialize(client.id.concat("/requestors/1"), {});
-    client.registerRequestor(requestor);
-    //sensor.registerClient(client);
+    // Create data payload
+    var data = [];
+    data.push(entity);
 
-    var envelope = client.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: entity});
+    // Hack an envelope
+    var envelope = {
+      sensor: "https://example.edu/sensors/1",
+      sendTime: moment.utc("2016-11-15T11:05:01.000Z"),
+      dataVersion: config.dataVersion,
+      data: data
+    };
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
