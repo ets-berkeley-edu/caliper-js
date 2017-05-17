@@ -21,6 +21,7 @@ var config = require('./config/config');
 var envelope = require('./envelope');
 var hashMap = require('hashmap');
 var logger = require('./logger');
+var moment = require('moment');
 
 /**
  * Grab an existing namespace object or create a blank object if it doesn't exist
