@@ -18,8 +18,8 @@
 
 var test = require('tape');
 
-var config = require('../../src/config');
-var validator = require('../../src/validator');
+var config = require('../../src/config/config');
+var validator = require('../../src/validators/validator');
 
 test('uuidTest', function (t) {
 

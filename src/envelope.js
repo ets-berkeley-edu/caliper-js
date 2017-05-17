@@ -16,33 +16,34 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var validator = require('../validator');
+var _ = require('lodash');
+var config = require('./config/config');
+var moment = require('moment');
 
 /**
- * Check required Entity properties against set of user-supplied values
- * @param delegate
- * @param opts
+ * Caliper envelope
+ * @type {{sensor: null, sendTime: null, dataVersion: null, data: Array}}
+ */
+var proto = {
+  sensor: null,
+  sendTime: null,
+  dataVersion: null,
+  data: []
+};
+
+/**
+ * Factory function
  * @returns {*}
  */
-module.exports.checkOpts = function opts(delegate, opts) {
-  Object.keys(opts).forEach(function(key) {
-    switch (key) {
-      case "@context":
-        if (validator.hasCaliperContext(delegate)) {
-          delete opts['@context']; // suppress
-        }
-        break;
-      case "type":
-        if (validator.hasType(delegate)) {
-          delete opts.type; // suppress
-        }
-        break;
-      case "id":
-        if (!validator.hasUri(opts)) {
-          throw new Error("Required identifier not provided");
-        }
-        break;
-    }
-  });
-  return opts;
+var createEnvelope = function createEnvelope() {
+  var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  var dataVersion = config.dataVersion;
+
+  return _.assign({}, proto, {sendTime: sendTime, dataVersion: dataVersion})
 };
+
+// Object delegation
+var envelope = createEnvelope();
+
+module.exports = envelope;
+

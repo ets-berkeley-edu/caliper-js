@@ -20,17 +20,17 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config');
+var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-var Attempt = require('../../src/entities/assign/attempt');
+var Attempt = require('../../src/entities/resource/attempt');
 var FillinBlankResponse = require('../../src/entities/response/fillinBlankResponse');
 var Person = require('../../src/entities/agent/person');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEntityFillinBlankResponse.json";
+const path = config.testFixturesBaseDir + "caliperEntityFillinBlankResponse.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

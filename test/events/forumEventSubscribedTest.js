@@ -21,27 +21,27 @@ var moment = require('moment');
 var test = require('tape');
 
 // Event
-var config = require('../../src/config');
+var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
-var validator = require('../../src/validator');
+var validator = require('../../src/validators/validator');
 var ForumEvent = require('../../src/events/forumEvent');
 var actions = require('../../src/actions/actions');
 
 // Entity
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseSection = require('../../src/entities/lis/courseSection');
+var CourseSection = require('../../src/entities/agent/courseSection');
 var Forum = require('../../src/entities/resource/forum');
-var Membership = require('../../src/entities/lis/membership');
+var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Session = require('../../src/entities/session/session');
 
-var Role = require('../../src/entities/lis/role');
-var Status = require('../../src/entities/lis/status');
-var requestorUtils = require('../../src/request/requestorUtils');
+var Role = require('../../src/entities/agent/role');
+var Status = require('../../src/entities/agent/status');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventForumSubscribed.json";
+const path = config.testFixturesBaseDir + "caliperEventForumSubscribed.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

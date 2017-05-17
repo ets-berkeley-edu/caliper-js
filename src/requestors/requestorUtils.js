@@ -17,12 +17,16 @@
  */
 
 // var logger = require('../logger');
-var validator = require('../validator');
+var validator = require('../validators/validator');
 
-var objPropNames = ["actor", "annotated", "annotator", "assignable", "assignee", "attempt",
-  "edApp", "federatedSession", "generated", "group", "isPartOf", "learningObjectives",
-  "member", "membership", "object", "organization", "referrer", "replyTo", "scoredBy",
-  "session", "subOrganizationOf", "target", "user", "withAgents"];
+var objectProperties = ["actor", "annotated", "annotator", "assignable", "assignee", "attempt", "edApp", "federatedSession",
+"generated", "group", "isPartOf", "member", "membership", "object", "organization", "referrer", "replyTo", "scoredBy",
+"session", "subOrganizationOf", "target", "user"];
+
+/*
+var arrayProperties = ["attachments", "creators", "extensions", "items", "keywords", "learningObjectives", "members",
+"roles", "tags", "values", "withAgents"];
+*/
 
 const regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
 
@@ -79,7 +83,7 @@ self.replacer = function replacer(key, val) {
       // logger.log("debug", "".concat("REMOVED ", key, " IS EMPTY"));
       return undefined;
     } else {
-      if (objPropNames.indexOf(key) >= 0) {
+      if (objectProperties.indexOf(key) >= 0) {
         val = self.deleteContext(val);
       }
     }

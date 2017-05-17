@@ -20,23 +20,23 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
-var validator = require('../../src/validator');
+var validator = require('../../src/validators/validator');
 var OutcomeEvent = require('../../src/events/outcomeEvent');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
-var Attempt = require('../../src/entities/assign/attempt');
-var CourseSection = require('../../src/entities/lis/courseSection');
+var Attempt = require('../../src/entities/resource/attempt');
+var CourseSection = require('../../src/entities/agent/courseSection');
 var Person = require('../../src/entities/agent/person');
-var Result = require('../../src/entities/assign/result');
+var Result = require('../../src/entities/outcome/result');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventOutcomeGraded.json";
+const path = config.testFixturesBaseDir + "caliperEventOutcomeGraded.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

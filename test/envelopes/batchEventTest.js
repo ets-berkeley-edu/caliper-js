@@ -20,7 +20,15 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config');
+//var Sensor = require('../../src/sensor');
+var client = require('../../src/sensorclients/client');
+
+var config = require('../../src/config/config');
+var httpOptions = require('../../src/config/httpOptions');
+
+var requestor = require('../../src/requestors/httpRequestor');
+var requestorUtils = require('../../src/requestors/requestorUtils');
+
 var eventFactory = require('../../src/events/eventFactory');
 var AnnotationEvent = require('../../src/events/annotationEvent');
 var NavigationEvent = require('../../src/events/navigationEvent');
@@ -29,21 +37,19 @@ var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
 var BookmarkAnnotation = require('../../src/entities/annotation/bookmarkAnnotation');
-var CourseSection = require('../../src/entities/lis/courseSection');
+var CourseSection = require('../../src/entities/agent/courseSection');
 var Document = require('../../src/entities/resource/document');
-var Membership = require('../../src/entities/lis/membership');
+var Membership = require('../../src/entities/agent/membership');
 var Page = require('../../src/entities/resource/page');
 var Person = require('../../src/entities/agent/person');
-var Role = require('../../src/entities/lis/role');
+var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Status = require('../../src/entities/lis/status');
+var Status = require('../../src/entities/agent/status');
 var WebPage = require('../../src/entities/resource/webPage');
-var requestorUtils = require('../../src/request/requestorUtils');
 var testUtils = require('../testUtils');
-var requestor = require('../../src/request/httpRequestor');
 
-const path = config.testFixturesBaseDirectory + "caliperEnvelopeEventBatch.json";
+const path = config.testFixturesBaseDir + "caliperEnvelopeEventBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -213,19 +219,21 @@ testUtils.readFile(path, function(err, fixture) {
       session: session
     });
 
-    // Initialize faux sensor and default options
-    var sensor = createFauxSensor(BASE_IRI.concat("/sensors/1"));
-    var options = {};
-
-    // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
-    requestor.initialize(options);
-
+    // Create data payload
     var data = [];
     data.push(navigationEvent);
     data.push(annotationEvent);
     data.push(viewEvent);
 
-    var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, data);
+    // Initialize sensor, client, and requestor; create envelope but don't send.
+    // var sensor = _.create(Sensor);
+    // sensor.initialize("https://example.edu/sensors/1");
+    client.initialize("https://example.edu/sensors/1");
+    requestor.initialize(client.id.concat("/requestors/1"), {});
+    client.registerRequestor(requestor);
+    //sensor.registerClient(client);
+
+    var envelope = client.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: data});
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
@@ -236,67 +244,3 @@ testUtils.readFile(path, function(err, fixture) {
     //t.end();
   });
 });
-
-/**
- * Create a fake sensor object in order to avoid generating a "window is not defined"
- * reference error since we are not running tests in the browser but on the server.
- * @param id
- * @returns {{id: *}}
- */
-function createFauxSensor(id) {
-  return {id: id};
-}
-
-/*
- {
- "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
- "id": "urn:uuid:d4618c23-d612-4709-8d9a-478d87808067",
- "type": "AnnotationEvent",
- "actor": {
- "id": "https://example.edu/users/554433",
- "type": "Person"
- },
- "action": "Bookmarked",
- "object": {
- "id": "https://example.com/#/texts/imscaliperimplguide",
- "type": "Document",
- "name": "IMS Caliper Implementation Guide",
- "version": "1.1"
- },
- "generated": {
- "id": "https://example.com/users/554433/texts/imscaliperimplguide/bookmarks/1",
- "type": "BookmarkAnnotation",
- "annotator": "https://example.edu/users/554433",
- "annotated": "https://example.com/#/texts/imscaliperimplguide/cfi/6/10!/4/2/2/2@0:0",
- "bookmarkNotes": "Caliper profiles model discrete learning activities or supporting activities that facilitate learning.",
- "dateCreated": "2016-11-15T10:15:00.000Z"
- },
- "eventTime": "2016-11-15T10:15:00.000Z",
- "edApp": {
- "id": "https://example.com/reader",
- "type": "SoftwareApplication",
- "name": "ePub Reader",
- "version": "1.2.3"
- },
- "group": {
- "id": "https://example.edu/terms/201601/courses/7/sections/1",
- "type": "CourseSection",
- "courseNumber": "CPS 435-01",
- "academicSession": "Fall 2016"
- },
- "membership": {
- "id": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
- "type": "Membership",
- "member": "https://example.edu/users/554433",
- "organization": "https://example.edu/terms/201601/courses/7/sections/1",
- "roles": [ "Learner" ],
- "status": "Active",
- "dateCreated": "2016-08-01T06:00:00.000Z"
- },
- "session": {
- "id": "https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259",
- "type": "Session",
- "startedAtTime": "2016-11-15T10:00:00.000Z"
- }
- },
- */

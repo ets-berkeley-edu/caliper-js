@@ -18,8 +18,8 @@
 
 var _ = require('lodash');
 var entity = require('./entity');
-var entityValidator = require('./entityValidator');
-var validator = require('../validator');
+var entityValidator = require('../validators/entityValidator');
+var validator = require('../validators/validator');
 
 /**
  * Factory function that returns a mutated object based on a delegate prototype when the

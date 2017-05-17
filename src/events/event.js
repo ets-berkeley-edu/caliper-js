@@ -17,7 +17,7 @@
  */
 
 var _ = require('lodash');
-var config = require('../config');
+var config = require('../config/config');
 var eventType = require('./eventType');
 
 var proto = {
@@ -43,7 +43,7 @@ var proto = {
  * @returns {*}
  */
 var createEvent = function createEvent() {
-  var context = {'@context': config.remoteCaliperJsonldContext};
+  var context = {'@context': config.jsonldExternalCaliperContext};
   var defaults = {type: eventType.event.term};
 
   return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)

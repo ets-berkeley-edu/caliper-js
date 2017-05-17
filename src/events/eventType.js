@@ -20,77 +20,77 @@ var config = ('../config');
 
 var eventType = {
   annotation: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "AnnotationEvent",
     iri: "http://purl.imsglobal.org/caliper/AnnotationEvent"
   },
   assessment: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "AssessmentEvent",
     iri: "http://purl.imsglobal.org/caliper/AssessmentEvent"
   },
   assessmentItem: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "AssessmentItemEvent",
     iri: "http://purl.imsglobal.org/caliper/AssessmentItemEvent"
   },
   assignable: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "AssignableEvent",
     iri: "http://purl.imsglobal.org/caliper/AssignableEvent"
   },
   event: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "Event",
     iri: "http://purl.imsglobal.org/caliper/Event"
   },
   forum: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "ForumEvent",
     iri: "http://purl.imsglobal.org/caliper/ForumEvent"
   },
   media: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "MediaEvent",
     iri: "http://purl.imsglobal.org/caliper/MediaEvent"
   },
   message: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "MessageEvent",
     iri: "http://purl.imsglobal.org/caliper/MessageEvent"
   },
   navigation: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "NavigationEvent",
     iri: "http://purl.imsglobal.org/caliper/NavigationEvent"
   },
   outcome: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "OutcomeEvent",
     iri: "http://purl.imsglobal.org/caliper/OutcomeEvent"
   },
   reading: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "ReadingEvent",
     iri: "http://purl.imsglobal.org/caliper/ReadingEvent"
   },
   session: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "SessionEvent",
     iri: "http://purl.imsglobal.org/caliper/SessionEvent"
   },
   thread: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "ThreadEvent",
     iri: "http://purl.imsglobal.org/caliper/ThreadEvent"
   },
   toolUse: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "ToolUseEvent",
     iri: "http://purl.imsglobal.org/caliper/ToolUseEvent"
   },
   view: {
-    context: config.remoteCaliperJsonldContext,
+    context: config.jsonldExternalCaliperContext,
     term: "ViewEvent",
     iri: "http://purl.imsglobal.org/caliper/ViewEvent"
   }

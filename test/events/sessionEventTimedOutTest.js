@@ -20,9 +20,9 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
-var validator = require('../../src/validator');
+var validator = require('../../src/validators/validator');
 var SessionEvent = require('../../src/events/sessionEvent');
 var actions = require('../../src/actions/actions');
 
@@ -30,10 +30,10 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Person = require('../../src/entities/agent/person');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var requestorUtils = require('../../src/request/requestorUtils');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventSessionTimedOut.json";
+const path = config.testFixturesBaseDir + "caliperEventSessionTimedOut.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

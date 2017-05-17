@@ -20,27 +20,33 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+//var Sensor = require('../../src/sensor');
+var client = require('../../src/sensorclients/client');
+
+var config = require('../../src/config/config');
+var httpOptions = require('../../src/config/httpOptions');
+
+var requestor = require('../../src/requestors/httpRequestor');
+var requestorUtils = require('../../src/requestors/requestorUtils');
+
 var eventFactory = require('../../src/events/eventFactory');
-var validator = require('../../src/validator');
+var validator = require('../../src/validators/validator');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var Attempt = require('../../src/entities/assign/attempt');
+var Attempt = require('../../src/entities/resource/attempt');
 var Assessment = require('../../src/entities/resource/assessment');
-var CourseSection = require('../../src/entities/lis/courseSection');
-var Membership = require('../../src/entities/lis/membership');
+var CourseSection = require('../../src/entities/agent/courseSection');
+var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
-var Role = require('../../src/entities/lis/role');
+var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Status = require('../../src/entities/lis/status');
-var requestorUtils = require('../../src/request/requestorUtils');
+var Status = require('../../src/entities/agent/status');
 var testUtils = require('../testUtils');
-var requestor = require('../../src/request/httpRequestor');
 
-const path = config.testFixturesBaseDirectory + "caliperEnvelopeEventSingle.json";
+const path = config.testFixturesBaseDir + "caliperEnvelopeEventSingle.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -134,14 +140,15 @@ testUtils.readFile(path, function(err, fixture) {
       session: session
     });
 
-    // Initialize faux sensor and default options
-    var sensor = createFauxSensor(BASE_IRI.concat("/sensors/1"));
-    var options = {};
+    // Initialize sensor, client, and requestor; create envelope but don't send.
+    // var sensor = _.create(Sensor);
+    // sensor.initialize("https://example.edu/sensors/1");
+    client.initialize("https://example.edu/sensors/1");
+    requestor.initialize(client.id.concat("/requestors/1"), {});
+    client.registerRequestor(requestor);
+    //sensor.registerClient(client);
 
-    // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
-    requestor.initialize(options);
-
-    var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, event);
+    var envelope = client.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: event});
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
@@ -151,13 +158,3 @@ testUtils.readFile(path, function(err, fixture) {
     //t.end();
   });
 });
-
-/**
- * Create a fake sensor object in order to avoid generating a "window is not defined"
- * reference error since we are not running tests in the browser but on the server.
- * @param id
- * @returns {{id: *}}
- */
-function createFauxSensor(id) {
-    return {id: id};
-}

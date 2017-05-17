@@ -20,26 +20,26 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config = require('../../src/config');
+var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
-var validator = require('../../src/validator');
+var validator = require('../../src/validators/validator');
 var ThreadEvent = require('../../src/events/threadEvent');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
-var CourseSection = require('../../src/entities/lis/courseSection');
+var CourseSection = require('../../src/entities/agent/courseSection');
 var Forum = require('../../src/entities/resource/forum');
-var Membership = require('../../src/entities/lis/membership');
+var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
-var Role = require('../../src/entities/lis/role');
+var Role = require('../../src/entities/agent/role');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
 var Session = require('../../src/entities/session/session');
 var Thread = require('../../src/entities/resource/thread');
-var Status = require('../../src/entities/lis/status');
-var requestorUtils = require('../../src/request/requestorUtils');
+var Status = require('../../src/entities/agent/status');
+var requestorUtils = require('../../src/requestors/requestorUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDirectory + "caliperEventThreadMarkedAsRead.json";
+const path = config.testFixturesBaseDir + "caliperEventThreadMarkedAsRead.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

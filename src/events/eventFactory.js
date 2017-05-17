@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var validator = require('./eventValidator');
+var validator = require('../validators/eventValidator');
 
 /**
  * Factory function that returns a mutated object based on a delegate prototype when the

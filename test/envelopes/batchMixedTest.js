@@ -20,7 +20,15 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config');
+//var Sensor = require('../../src/sensor');
+var client = require('../../src/sensorclients/client');
+
+var config = require('../../src/config/config');
+var httpOptions = require('../../src/config/httpOptions');
+
+var requestor = require('../../src/requestors/httpRequestor');
+var requestorUtils = require('../../src/requestors/requestorUtils');
+
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
 var OutcomeEvent = require('../../src/events/outcomeEvent');
@@ -29,26 +37,24 @@ var actions = require('../../src/actions/actions');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-var Attempt = require('../../src/entities/assign/attempt');
-var CourseOffering = require('../../src/entities/lis/courseOffering');
-var CourseSection = require('../../src/entities/lis/courseSection');
-var Membership = require('../../src/entities/lis/membership');
+var Attempt = require('../../src/entities/resource/attempt');
+var CourseOffering = require('../../src/entities/agent/courseOffering');
+var CourseSection = require('../../src/entities/agent/courseSection');
+var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
-var Result = require('../../src/entities/assign/result');
-var Role = require('../../src/entities/lis/role');
+var Result = require('../../src/entities/outcome/result');
+var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var Status = require('../../src/entities/lis/status');
-var requestorUtils = require('../../src/request/requestorUtils');
+var Status = require('../../src/entities/agent/status');
 var testUtils = require('../testUtils');
-var requestor = require('../../src/request/httpRequestor');
 
-const path = config.testFixturesBaseDirectory + "caliperEnvelopeMixedBatch.json";
+const path = config.testFixturesBaseDir + "caliperEnvelopeMixedBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('batchEventTest', function (t) {
+  test('batchMixedTest', function (t) {
 
     // Plan for N assertions
     t.plan(1);
@@ -267,13 +273,7 @@ testUtils.readFile(path, function(err, fixture) {
       group: section.id
     });
 
-    // Initialize faux sensor and default options
-    var sensor = createFauxSensor(BASE_IRI.concat("/sensors/1"));
-    var options = {};
-
-    // Initialize requestor, create envelope and reset sendTime with fixture value (or test will fail).
-    requestor.initialize(options);
-
+    // Create data payload
     var data = [];
     data.push(actor);
     data.push(assessment);
@@ -283,7 +283,16 @@ testUtils.readFile(path, function(err, fixture) {
     data.push(eventSubmitted);
     data.push(eventGraded);
 
-    var envelope = requestor.createEnvelope(sensor.id, moment.utc("2016-11-15T11:05:01.000Z"), config.dataVersion, data);
+    // Initialize sensor, client, and requestor; create envelope but don't send.
+    // var sensor = _.create(Sensor);
+    // sensor.initialize("https://example.edu/sensors/1");
+    client.initialize("https://example.edu/sensors/1");
+    requestor.initialize(client.id.concat("/requestors/1"), {});
+    client.registerRequestor(requestor);
+    //sensor.registerClient(client);
+
+
+    var envelope = client.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: data});
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
@@ -294,185 +303,3 @@ testUtils.readFile(path, function(err, fixture) {
     //t.end();
   });
 });
-
-/**
- * Create a fake sensor object in order to avoid generating a "window is not defined"
- * reference error since we are not running tests in the browser but on the server.
- * @param id
- * @returns {{id: *}}
- */
-function createFauxSensor(id) {
-  return {id: id};
-}
-
-/**
-{
-  "sensor": "https://example.edu/sensors/1",
-  "sendTime": "2016-11-15T11:05:01.000Z",
-  "dataVersion":  "http://purl.imsglobal.org/ctx/caliper/v1p1",
-  "data": [
-  {
-    "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
-    "id": "https://example.edu/users/554433",
-    "type": "Person",
-    "dateCreated": "2016-08-01T06:00:00.000Z",
-    "dateModified": "2016-09-02T11:30:00.000Z"
-  },
-  {
-    "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
-    "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1?ver=v1p0",
-    "type": "Assessment",
-    "name": "Quiz One",
-    "items": [
-      {
-        "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/1",
-        "type": "AssessmentItem"
-      },
-      {
-        "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/2",
-        "type": "AssessmentItem"
-      },
-      {
-        "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/items/3",
-        "type": "AssessmentItem"
-      }
-    ],
-    "dateCreated": "2016-08-01T06:00:00.000Z",
-    "dateModified": "2016-09-02T11:30:00.000Z",
-    "datePublished": "2016-08-15T09:30:00.000Z",
-    "dateToActivate": "2016-08-16T05:00:00.000Z",
-    "dateToShow": "2016-08-16T05:00:00.000Z",
-    "dateToStartOn": "2016-08-16T05:00:00.000Z",
-    "dateToSubmit": "2016-09-28T11:59:59.000Z",
-    "maxAttempts": 2,
-    "maxScore": 15.0,
-    "maxSubmits": 2,
-    "version": "1.0"
-  },
-  {
-    "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
-    "id": "https://example.edu",
-    "type": "SoftwareApplication",
-    "version": "v2"
-  },
-  {
-    "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
-    "id": "https://example.edu/terms/201601/courses/7/sections/1",
-    "type": "CourseSection",
-    "academicSession": "Fall 2016",
-    "courseNumber": "CPS 435-01",
-    "name": "CPS 435 Learning Analytics, Section 01",
-    "category": "seminar",
-    "subOrganizationOf": {
-      "id": "https://example.edu/terms/201601/courses/7",
-      "type": "CourseOffering",
-      "courseNumber": "CPS 435"
-    },
-    "dateCreated": "2016-08-01T06:00:00.000Z"
-  },
-  {
-    "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
-    "id": "urn:uuid:c51570e4-f8ed-4c18-bb3a-dfe51b2cc594",
-    "type": "AssessmentEvent",
-    "actor": "https://example.edu/users/554433",
-    "action": "Started",
-    "object": "https://example.edu/terms/201601/courses/7/sections/1/assess/1?ver=v1p0",
-    "generated": {
-      "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1",
-      "type": "Attempt",
-      "assignee": "https://example.edu/users/554433",
-      "assignable": "https://example.edu/terms/201601/courses/7/sections/1/assess/1?ver=v1p0",
-      "count": 1,
-      "dateCreated": "2016-11-15T10:15:00.000Z",
-      "startedAtTime": "2016-11-15T10:15:00.000Z"
-    },
-    "eventTime": "2016-11-15T10:15:00.000Z",
-    "edApp": "https://example.edu",
-    "group": "https://example.edu/terms/201601/courses/7/sections/1",
-    "membership": {
-      "id": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
-      "type": "Membership",
-      "member": "https://example.edu/users/554433",
-      "organization": "https://example.edu/terms/201601/courses/7/sections/1",
-      "roles": [ "Learner" ],
-      "status": "Active",
-      "dateCreated": "2016-08-01T06:00:00.000Z"
-    },
-    "session": {
-      "id": "https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259",
-      "type": "Session",
-      "startedAtTime": "2016-11-15T10:00:00.000Z"
-    }
-  },
-  {
-    "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
-    "id": "urn:uuid:dad88464-0c20-4a19-a1ba-ddf2f9c3ff33",
-    "type": "AssessmentEvent",
-    "actor": "https://example.edu/users/554433",
-    "action": "Submitted",
-    "object": {
-      "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1",
-      "type": "Attempt",
-      "assignee": "https://example.edu/users/554433",
-      "assignable": "https://example.edu/terms/201601/courses/7/sections/1/assess/1?ver=v1p0",
-      "count": 1,
-      "dateCreated": "2016-11-15T10:15:00.000Z",
-      "startedAtTime": "2016-11-15T10:15:00.000Z",
-      "endedAtTime": "2016-11-15T10:25:30.000Z",
-      "duration": "PT10M30S"
-    },
-    "eventTime": "2016-11-15T10:25:30.000Z",
-    "edApp": "https://example.edu",
-    "group": "https://example.edu/terms/201601/courses/7/sections/1",
-    "membership": {
-      "id": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
-      "type": "Membership",
-      "member": "https://example.edu/users/554433",
-      "organization": "https://example.edu/terms/201601/courses/7/sections/1",
-      "roles": [ "Learner" ],
-      "status": "Active",
-      "dateCreated": "2016-08-01T06:00:00.000Z"
-    },
-    "session": {
-      "id": "https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259",
-      "type": "Session",
-      "startedAtTime": "2016-11-15T10:00:00.000Z"
-    }
-  },
-  {
-    "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
-    "id": "urn:uuid:a50ca17f-5971-47bb-8fca-4e6e6879001d",
-    "type": "OutcomeEvent",
-    "actor": {
-      "id": "https://example.edu/autograder",
-      "type": "SoftwareApplication",
-      "version": "v2"
-    },
-    "action": "Graded",
-    "object": {
-      "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1",
-      "type": "Attempt",
-      "assignee": "https://example.edu/users/554433",
-      "assignable": "https://example.edu/terms/201601/courses/7/sections/1/assess/1?ver=v1p0",
-      "count": 1,
-      "dateCreated": "2016-11-15T10:05:00.000Z",
-      "startedAtTime": "2016-11-15T10:05:00.000Z",
-      "endedAtTime": "2016-11-15T10:55:12.000Z",
-      "duration": "PT50M12S"
-    },
-    "eventTime": "2016-11-15T10:57:06.000Z",
-    "edApp": "https://example.edu",
-    "generated": {
-      "id": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/results/1",
-      "type": "Result",
-      "attempt": "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1",
-      "normalScore": 15.0,
-      "totalScore": 15.0,
-      "scoredBy": "https://example.edu/autograder",
-      "dateCreated": "2016-11-15T10:55:05.000Z"
-    },
-    "group": "https://example.edu/terms/201601/courses/7/sections/1"
-  }
-]
-}
- */
