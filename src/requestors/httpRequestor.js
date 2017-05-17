@@ -46,6 +46,9 @@ self.initialize = function initialize(id, opts) {
   } else {
     this.options = _.assign({}, httpOptions);
   }
+
+  console.log("REQUESTOR INITIALIZATION WITH OPTS " + requestorUtils.stringify(this.options));
+
   this.initialized = true;
 };
 
