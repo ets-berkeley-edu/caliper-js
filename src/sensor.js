@@ -159,8 +159,14 @@ Sensor.sendEnvelope = function sendEnvelope(envelope) {
     self.error(messages[0]);
   }
    */
+
+  console.log('SENSOR ENVELOPE OUTSIDE = ' + JSON.stringify(envelope));
+
   if (clients.count() > 0) {
     clients.forEach(function(client) {
+
+      console.log('SENSOR ENVELOPE INSIDE = ' + JSON.stringify(envelope));
+
       client.sendEnvelope(envelope);
     });
   } else {
