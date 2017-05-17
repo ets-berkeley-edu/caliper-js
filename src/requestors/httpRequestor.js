@@ -21,7 +21,6 @@ var http = require('http');
 var https = require('https');
 var config = require('../config/config');
 var logger = require('../logger');
-var moment = require('moment');
 var httpOptions = require('../config/httpOptions');
 var requestorUtils = require('./requestorUtils');
 
