@@ -91,9 +91,12 @@ self.postEnvelope = function postEnvelope(envelope) {
     self.error(messages[0]);
   }
    */
+
+  /*
   if (_.isNil(envelope)) {
     self.error(messages[3]);
   }
+*/
 
   var opts = this.getOptions();
   opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
@@ -103,7 +106,46 @@ self.postEnvelope = function postEnvelope(envelope) {
   // Stringify the envelope
   var payload = self.stringify(envelope);
 
+  //logger.log('debug', "Sending data " + JSON.stringify(envelope));
+
+  // Create the Envelope payload
+  //var jsonPayload = requestor.getJsonPayload(sensor, data);
+
+  logger.log('debug', "Added data to envelope " + JSON.stringify(payload));
+
+  // Add Headers
+  var headers = {
+    'Content-Type': 'application/json'
+  };
+
+  // Add Headers
+  /**
+  var headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': payload.length
+  };
+   */
+
+  // Merge headers
+  var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
+
+  logger.log('debug', 'httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
+
   // Create request
+  var request = http.request(sendOptions, function (response) {
+    logger.log('info', "finished sending. Response = " + JSON.stringify(response));
+  }, function(error){
+    logger.log('error', "ERROR sending event = " + ERROR);
+  });
+
+  // Write request
+  request.write(payload);
+  request.end();
+
+
+  // Create request
+
+  /**
   if (opts.protocol === "https:") {
     var request = https.request(opts, function(response) {
       var res = "";
@@ -145,6 +187,7 @@ self.postEnvelope = function postEnvelope(envelope) {
     request.write(payload);
     request.end();
   }
+   */
 };
 
 /**
