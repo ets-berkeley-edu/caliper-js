@@ -18,7 +18,6 @@
 
 var _ = require('lodash');
 var config = require('../config/config');
-var envelope = require('../envelope');
 var hashMap = require('hashmap');
 var logger = require('../logger');
 
@@ -103,37 +102,6 @@ self.getRequestor = function getRequestor(key) {
  */
 self.getRequestors = function getRequestors() {
   return requestors;
-};
-
-/**
- * Create and return envelope comprised of events, entities or a mixed data payload of both.
- * @memberof client
- * @function createEnvelope
- * @param opts  Envelope properties
- * @returns {*}
- */
-self.createEnvelope = function createEnvelope(opts) {
-  /**
-  if (!self.isInitialized()) {
-    self.error(messages[0]);
-  }
-   */
-  if (_.isNil(opts.data)) {
-    self.error(messages[2]);
-  }
-
-  var id = opts.id || this.getId(); // permit override with opts value?
-  var sendTime = opts.sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-  var dataVersion = opts.dataVersion || config.dataVersion;
-  var payload = [];
-
-  if (Array.isArray(opts.data)) {
-    payload = opts.data.slice();
-  } else {
-    payload.push(opts.data);
-  }
-
-  return _.assign({}, envelope, {sensor: id, sendTime: sendTime, dataVersion: dataVersion, data: payload});
 };
 
 /**

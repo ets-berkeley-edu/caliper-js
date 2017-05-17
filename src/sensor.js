@@ -124,7 +124,6 @@ Sensor.getClients = function getClients() {
  * @param opts  Envelope properties
  * @returns {*}
  */
-/**
 Sensor.createEnvelope = function createEnvelope(opts) {
   if (!this.isInitialized()) {
     this.error(messages[0]);
@@ -146,7 +145,6 @@ Sensor.createEnvelope = function createEnvelope(opts) {
 
   return _.assign({}, envelope, {sensor: id, sendTime: sendTime, dataVersion: dataVersion, data: payload});
 };
- */
 
 /**
  * Delegate serialization and transmission of the Envelope to all registered Clients.
