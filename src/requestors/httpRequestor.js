@@ -41,7 +41,13 @@ var options = {};
  */
 self.initialize = function initialize(id, opts) {
   _.isNil(id) ? self.error(messages[1]) : this.id = id;
-  this.options = _.assign({}, httpOptions, opts);
+  this.options = opts;
+  this.options.headers = {
+      "Authorization": null,
+      "Content-Length": null,
+      "Content-Type": "application/json"
+  };
+  //this.options = _.assign({}, httpOptions, opts);
   /**
   if (!_.isNil(opts)) {
     this.options = _.assign({}, httpOptions, opts);
