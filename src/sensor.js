@@ -16,11 +16,10 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
- /**
- * Caliper Sensor
- */
 var _ = require('lodash');
-var httpClient = require('./sensor/httpClient');
+var config = require('./config/config');
+var envelope = require('./envelope');
+var hashMap = require('hashmap');
 var logger = require('./logger');
 
 /**
@@ -31,15 +30,19 @@ var logger = require('./logger');
 var Caliper = (typeof window !== 'undefined') ? window.Caliper || {} : {};
 
 /**
- * Represents Caliper Sensor.
+ * Caliper Sensor.
  * @constructor
+ * @type {{}}
  */
 var Sensor = {};
-var client = {};
-var messages = [
-  "Caliper sensor has not been initialized.",
-  "Caliper sensor identifier has not been provided."
-];
+var id;
+var initialized = false;
+
+/**
+ * Caliper Sensor clients.
+ * @type {HashMap}
+ */
+var clients = new hashMap();
 
 /**
  * Initializes the default client to use.
@@ -51,11 +54,13 @@ var messages = [
 Sensor.initialize = function initialize(id) {
   _.isNil(id) ? this.error(messages[1]) : this.id = id;
   this.initialized = true;
-  client = httpClient.initialize(id);
 };
 
 /**
  * Check if Sensor is initialized.
+ * @memberof sensor
+ * @function isInitialized
+ * @returns {boolean}
  */
 Sensor.isInitialized = function isInitialized() {
   return this.initialized;
@@ -63,9 +68,53 @@ Sensor.isInitialized = function isInitialized() {
 
 /**
  * Get the Sensor identifier.
+ * @memberof sensor
+ * @function getId
+ * @returns {*}
  */
 Sensor.getId = function getId() {
-  return this.getId();
+  return this.id;
+};
+
+/**
+ * Register client.
+ * @memberof sensor
+ * @function registerClient
+ * @param client
+ */
+Sensor.registerClient = function registerClient(client) {
+  clients.set(client.id, client);
+};
+
+/**
+ * Unregister client.
+ * @memberof sensor
+ * @function unregisterClient
+ * @param key
+ */
+Sensor.unregisterClient = function unregisterClient(key) {
+  clients.remove(key);
+};
+
+/**
+ * Retrieve a client.
+ * @memberof sensor
+ * @function getClient
+ * @param key
+ * @returns {*}
+ */
+Sensor.getClient = function getClient(key) {
+  return clients.get(key);
+};
+
+/**
+ * Retrieve all registered clients.
+ * @memberof sensor
+ * @function getClient
+ * @returns {HashMap}
+ */
+Sensor.getClients = function getClients() {
+  return clients;
 };
 
 /**
@@ -75,42 +124,92 @@ Sensor.getId = function getId() {
  * @param opts  Envelope properties
  * @returns {*}
  */
+/**
 Sensor.createEnvelope = function createEnvelope(opts) {
   if (!this.isInitialized()) {
     this.error(messages[0]);
   }
-  return client.createEnvelope(opts);
+  if (_.isNil(opts.data)) {
+    this.error(messages[2]);
+  }
+
+  var id = opts.id || this.getId(); // permit override with opts value?
+  var sendTime = opts.sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  var dataVersion = opts.dataVersion || config.dataVersion;
+  var payload = [];
+
+  if (Array.isArray(opts.data)) {
+    payload = opts.data.slice();
+  } else {
+    payload.push(opts.data);
+  }
+
+  return _.assign({}, envelope, {sensor: id, sendTime: sendTime, dataVersion: dataVersion, data: payload});
 };
+ */
 
 /**
- * Send the data payload.
+ * Delegate serialization and transmission of the Envelope to all registered Clients.
  * @memberof sensor
  * @function sendEnvelope
- * @param envelope The Caliper envelope containing a data array of events, entities or both.
- * @return boolean whether the measure call succeeded
+ * @param envelope
  */
 Sensor.sendEnvelope = function sendEnvelope(envelope) {
-  if (!this.isInitialized()) {
-    this.error(messages[0]);
+  /**
+   if (!self.isInitialized()) {
+    self.error(messages[0]);
   }
-  client.sendEnvelope(envelope);
+   */
+  if (clients.count() > 0) {
+    clients.forEach(function(client) {
+      client.sendEnvelope(envelope);
+    });
+  } else {
+    this.error(message[3])
+  }
 };
 
 /**
- * Error handling
- * @param msg
+ * Delegate serialization and transmission of the Envelope to a particular Client.
+ * @memberof sensor
+ * @function sendEnvelope
+ * @param client
+ * @param envelope
  */
-Sensor.error = function error(msg) {
-  throw new Error(msg);
-
-  /*
-   try {
-   throw new Error(msg);
-   } catch (e) {
-   logger.log("error", e.message);
-   }
+Sensor.sendEnvelopeToClient = function sendEnvelopeToClient(client, envelope) {
+  /**
+   if (!self.isInitialized()) {
+    self.error(messages[0]);
+  }
    */
+  if (clients.has(client.id)) {
+    client.sendEnvelope(envelope);
+  } else {
+    this.error(messages[4]);
+  }
 };
+
+/**
+ * Error Handler.
+ * @memberof sensor
+ * @function error
+ * @param message
+ */
+Sensor.error = function error(message) {
+  throw new Error(message);
+};
+
+/**
+ * Error messages.
+ * @memberof sensor
+ */
+var messages = [
+  "Caliper Sensor has not been initialized.",
+  "Caliper Sensor identifier (id) has not been provided.",
+  "Caliper Sensor Envelope data has not been provided.",
+  "No Clients have been registered.",
+  "Chosen Client has not been registered."
+];
 
 /**
  * Add the modules that need to be exported under the Caliper namespace.
@@ -129,7 +228,7 @@ Caliper.SensorClients = {};
 Caliper.Validators = {};
 
 // Actions
-Caliper.Actions.Actions                   = require('./actions/actions');
+Caliper.Actions                           = require('./actions/actions');
 
 // Config
 Caliper.Config.Config                     = require('./config/config');
@@ -230,7 +329,6 @@ Caliper.Selectors.TextPositionSelector     = require('./selectors/textPositionSe
 
 // Sensor clients
 Caliper.SensorClients.Client               = require('./sensorclients/client');
-Caliper.SensorClients.Client               = require('./sensorclients/httpClient');
 
 // Validators
 Caliper.Validators.Validator               = require('./validators/validator');

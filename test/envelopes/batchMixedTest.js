@@ -20,9 +20,13 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-var config =  require('../../src/config/config');
-var client = require('../../src/sensorclients/httpClient');
+//var Sensor = require('../../src/sensor');
+var client = require('../../src/sensorclients/client');
+
+var config = require('../../src/config/config');
 var httpOptions = require('../../src/config/httpOptions');
+
+var requestor = require('../../src/requestors/httpRequestor');
 var requestorUtils = require('../../src/requestors/requestorUtils');
 
 var eventFactory = require('../../src/events/eventFactory');
@@ -279,10 +283,16 @@ testUtils.readFile(path, function(err, fixture) {
     data.push(eventSubmitted);
     data.push(eventGraded);
 
-    // Initialize client
-    var sensorClient = _.create(client);
-    sensorClient.initialize(BASE_IRI.concat("/sensors/1"));
-    var envelope = sensorClient.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: data});
+    // Initialize sensor, client, and requestor; create envelope but don't send.
+    // var sensor = _.create(Sensor);
+    // sensor.initialize("https://example.edu/sensors/1");
+    client.initialize("https://example.edu/sensors/1");
+    requestor.initialize(client.id.concat("/requestors/1"), {});
+    client.registerRequestor(requestor);
+    //sensor.registerClient(client);
+
+
+    var envelope = client.createEnvelope({sendTime: moment.utc("2016-11-15T11:05:01.000Z"), data: data});
 
     // Compare
     var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));

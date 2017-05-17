@@ -25,6 +25,7 @@
     "caterpillar-browser": "3.0.x",
     "caterpillar-filter": "3.0.x",
     "caterpillar-human": "3.0.x",
+    "hashmap": "^2.1.0",
     "http-browserify": "^1.7.0",
     "https-browserify": "0.0.x",
     "lodash": "4.13.x",
