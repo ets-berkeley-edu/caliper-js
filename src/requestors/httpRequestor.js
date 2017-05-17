@@ -129,7 +129,7 @@ self.postEnvelope = function postEnvelope(envelope) {
   // Merge headers
   var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
 
-  logger.log('info', 'httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
+  console.log('httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
 
   // Create request
   var request = http.request(sendOptions, function (response) {
