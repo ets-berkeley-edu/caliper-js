@@ -222,7 +222,6 @@ Caliper.Constants = {};
 Caliper.Entities = {};
 Caliper.Envelopes = {};
 Caliper.Events = {};
-Caliper.Requestors = {};
 Caliper.Selectors = {};
 Caliper.SensorClients = {};
 Caliper.Validators = {};
@@ -325,7 +324,7 @@ Caliper.Selectors.TextPositionSelector     = require('./selectors/textPositionSe
 
 // Sensor clients
 Caliper.SensorClients.Client               = require('./sensorclients/client');
-Caliper.Requestors.RequestorUtils          = require('./sensorclients/clientUtils');
+Caliper.SensorClients.ClientUtils          = require('./sensorclients/clientUtils');
 
 // Validators
 Caliper.Validators.Validator               = require('./validators/validator');
