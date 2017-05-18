@@ -320,15 +320,12 @@ Caliper.Events.ThreadEvent                 = require('./events/threadEvent');
 Caliper.Events.ToolUseEvent                = require('./events/toolUseEvent');
 Caliper.Events.ViewEvent                   = require('./events/viewEvent');
 
-// Requestors
-Caliper.Requestors.HttpRequestor           = require('./requestors/httpRequestor');
-Caliper.Requestors.RequestorUtils          = require('./requestors/requestorUtils');
-
 // Selectors
 Caliper.Selectors.TextPositionSelector     = require('./selectors/textPositionSelector');
 
 // Sensor clients
 Caliper.SensorClients.Client               = require('./sensorclients/client');
+Caliper.Requestors.RequestorUtils          = require('./sensorclients/clientUtils');
 
 // Validators
 Caliper.Validators.Validator               = require('./validators/validator');

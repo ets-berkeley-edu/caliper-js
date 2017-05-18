@@ -22,7 +22,7 @@ var https = require('https');
 var config = require('../config/config');
 var httpOptions = require('../config/httpOptions');
 var logger = require('../logger');
-var requestorUtils = require('../requestors/requestorUtils');
+var clientUtils = require('./clientUtils');
 
 /**
  * Caliper self.
@@ -39,7 +39,7 @@ var options = {};
  * Client#initialize
  * @memberof client
  * @function initialize
- * @param id requestor identifier
+ * @param id client identifier
  */
 self.initialize = function initialize(id, options) {
   _.isNil(id) ? self.error(messages[1]) : this.id = id;
@@ -194,7 +194,7 @@ self.sendEnvelope = function sendEnvelope(envelope) {
  * @returns {*}
  */
 self.stringify = function stringify(payload) {
-  return requestorUtils.stringify(payload);
+  return clientUtils.stringify(payload);
 };
 
 /**

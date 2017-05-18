@@ -22,7 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config/config');
 var httpOptions = require('../../src/config/httpOptions');
-var requestorUtils = require('../../src/requestors/requestorUtils');
+var clientUtils = require('../../src/sensorclients/clientUtils');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
@@ -287,8 +287,8 @@ testUtils.readFile(path, function(err, fixture) {
     };
 
     // Compare
-    var diff = testUtils.compare(fixture, requestorUtils.parse(envelope));
-    var diffMsg = (!_.isUndefined(diff) ? "diff = " + requestorUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, clientUtils.parse(envelope));
+    var diffMsg = (!_.isUndefined(diff) ? "diff = " + clientUtils.stringify(diff) : "");
     //var diffMsg = "abc";
 
     t.equal(true, _.isUndefined(diff), diffMsg);
