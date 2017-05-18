@@ -47,6 +47,9 @@ self.initialize = function initialize(id, opts) {
       "Content-Length": null,
       "Content-Type": "application/json"
   };
+  this.options.method = "POST";
+
+
   //this.options = _.assign({}, httpOptions, opts);
   /**
   if (!_.isNil(opts)) {
@@ -111,7 +114,7 @@ self.postEnvelope = function postEnvelope(envelope) {
 */
 
   var opts = this.getOptions();
-  opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
+  //opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
 
   logger.log("debug", messages[4] + JSON.stringify(this.options));
 
@@ -139,7 +142,8 @@ self.postEnvelope = function postEnvelope(envelope) {
    */
 
   // Merge headers
-  var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
+  var sendOptions = this.getOptions();
+  //var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
 
   console.log('httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
 
