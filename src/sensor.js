@@ -159,6 +159,7 @@ Sensor.sendEnvelope = function sendEnvelope(envelope) {
     self.error(messages[0]);
   }
    */
+
   if (clients.count() > 0) {
     clients.forEach(function(client) {
       client.sendEnvelope(envelope);

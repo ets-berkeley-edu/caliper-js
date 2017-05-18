@@ -21,7 +21,6 @@ var http = require('http');
 var https = require('https');
 var config = require('../config/config');
 var logger = require('../logger');
-var moment = require('moment');
 var httpOptions = require('../config/httpOptions');
 var requestorUtils = require('./requestorUtils');
 
@@ -42,11 +41,17 @@ var options = {};
  */
 self.initialize = function initialize(id, opts) {
   _.isNil(id) ? self.error(messages[1]) : this.id = id;
+  this.options = opts;
+
+  //this.options = _.merge({}, httpOptions, opts);
+  /**
   if (!_.isNil(opts)) {
-    this.options = _.assign({}, httpOptions, opts);
+    this.options = _.merge({}, httpOptions, opts);
   } else {
-    this.options = _.assign({}, httpOptions);
+    this.options = _.merge({}, httpOptions);
   }
+   */
+
   this.initialized = true;
 };
 
@@ -92,19 +97,62 @@ self.postEnvelope = function postEnvelope(envelope) {
     self.error(messages[0]);
   }
    */
+
+  /*
   if (_.isNil(envelope)) {
     self.error(messages[3]);
   }
+*/
 
   var opts = this.getOptions();
-  opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
+  //opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
 
   logger.log("debug", messages[4] + JSON.stringify(this.options));
 
   // Stringify the envelope
   var payload = self.stringify(envelope);
 
+  //logger.log('debug', "Sending data " + JSON.stringify(envelope));
+
+  // Create the Envelope payload
+  //var jsonPayload = requestor.getJsonPayload(sensor, data);
+
+  logger.log('debug', "Added data to envelope " + JSON.stringify(payload));
+
+  // Add Headers
+  var headers = {
+    'Content-Type': 'application/json'
+  };
+
+  // Add Headers
+  /**
+  var headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': payload.length
+  };
+   */
+
+  // Merge headers
+  var sendOptions = this.getOptions();
+  //var sendOptions = _.merge(options, {method: 'POST'}, {headers: headers});
+
+  console.log('httpRequestor: about to request using sendOptions = ' + JSON.stringify(sendOptions));
+
   // Create request
+  var request = http.request(sendOptions, function (response) {
+    logger.log('info', "finished sending. Response = " + JSON.stringify(response));
+  }, function(error){
+    logger.log('error', "ERROR sending event = " + ERROR);
+  });
+
+  // Write request
+  request.write(payload);
+  request.end();
+
+
+  // Create request
+
+  /**
   if (opts.protocol === "https:") {
     var request = https.request(opts, function(response) {
       var res = "";
@@ -146,6 +194,7 @@ self.postEnvelope = function postEnvelope(envelope) {
     request.write(payload);
     request.end();
   }
+   */
 };
 
 /**

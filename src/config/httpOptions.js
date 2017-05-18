@@ -54,7 +54,7 @@ var httpOptions = {
     "Content-Length": null,
     "Content-Type": "application/json"
   },
-  hostname: null,
+  host: null,
   localAddress: null,
   method: "POST",
   path: "/",
