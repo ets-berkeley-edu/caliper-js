@@ -42,17 +42,15 @@ var options = {};
 self.initialize = function initialize(id, opts) {
   _.isNil(id) ? self.error(messages[1]) : this.id = id;
   this.options = opts;
-  
-  //this.options = _.assign({}, httpOptions, opts);
+
+  //this.options = _.merge({}, httpOptions, opts);
   /**
   if (!_.isNil(opts)) {
-    this.options = _.assign({}, httpOptions, opts);
+    this.options = _.merge({}, httpOptions, opts);
   } else {
-    this.options = _.assign({}, httpOptions);
+    this.options = _.merge({}, httpOptions);
   }
    */
-
-  console.log("REQUESTOR INITIALIZATION WITH OPTS " + requestorUtils.stringify(this.options));
 
   this.initialized = true;
 };

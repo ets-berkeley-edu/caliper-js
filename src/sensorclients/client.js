@@ -17,9 +17,12 @@
  */
 
 var _ = require('lodash');
+var http = require('http');
+var https = require('https');
 var config = require('../config/config');
-var hashMap = require('hashmap');
+var httpOptions = require('../config/httpOptions');
 var logger = require('../logger');
+var requestorUtils = require('../requestors/requestorUtils');
 
 /**
  * Caliper self.
@@ -29,7 +32,7 @@ var logger = require('../logger');
 var self = this;
 var id;
 var initialized = false;
-var requestors = new hashMap();
+var options = {};
 
 /**
  * Initializes the default client to use.
@@ -38,8 +41,19 @@ var requestors = new hashMap();
  * @function initialize
  * @param id requestor identifier
  */
-self.initialize = function initialize(id) {
+self.initialize = function initialize(id, options) {
   _.isNil(id) ? self.error(messages[1]) : this.id = id;
+  this.options = options;
+
+  //this.options = _.merge({}, httpOptions, options);
+  /**
+   if (!_.isNil(options)) {
+    this.options = _.merge({}, httpOptions, options);
+  } else {
+    this.options = _.merge({}, httpOptions);
+  }
+   */
+
   this.initialized = true;
 };
 
@@ -64,89 +78,123 @@ self.getId = function getId() {
 };
 
 /**
- * Register Requestor.
+ * Get Options.
  * @memberof client
- * @function registerRequestor
- * @param requestor
- */
-self.registerRequestor = function registerRequestor(requestor) {
-  requestors.set(requestor.id, requestor);
-};
-
-/**
- * Unregister Requestor.
- * @memberof client
- * @function unregisterRequestor
- * @param key
- */
-self.unregisterRequestor = function unregisterRequestor(key) {
-  requestors.remove(key);
-};
-
-/**
- * Retrieve a Requestor.
- * @memberof client
- * @function getRequestor
- * @param key
+ * @function getOptions
  * @returns {*}
  */
-self.getRequestor = function getRequestor(key) {
-  return requestors.get(key);
+self.getOptions = function getOptions() {
+  return this.options;
 };
 
 /**
- * Retrieve all registered Requestors.
- * @memberof client
- * @function getRequestors
- * @returns {HashMap}
+ * Post the Envelope.
+ * @memberof httpRequestor
+ * @function postEnvelope
+ * @param envelope
  */
-self.getRequestors = function getRequestors() {
-  return requestors;
+self.postEnvelope = function postEnvelope(envelope) {
+  /**
+   if (!self.isInitialized()) {
+    self.error(messages[0]);
+  }
+   */
+
+  /*
+   if (_.isNil(envelope)) {
+   self.error(messages[3]);
+   }
+   */
+
+  // Retrieve options
+  var options = this.getOptions();
+  options.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
+
+  console.log("Sensor Client options = " + JSON.stringify(options));
+
+  // Stringify the envelope
+  var payload = self.stringify(envelope);
+
+  logger.log('debug', "Sending data " + JSON.stringify(envelope));
+
+  // Create request
+  var request = http.request(options, function (response) {
+    logger.log('debug', "Response received = " + JSON.stringify(response));
+  }, function(error){
+    logger.log('error', "ERROR sending event = " + error);
+  });
+
+  // Write request
+  request.write(payload);
+  request.end();
+
+
+  // Create request
+
+  /**
+   if (opts.protocol === "https:") {
+    var request = https.request(opts, function(response) {
+      var res = "";
+      response.setEncoding('utf8');
+      response.on('data', function(chunk) {
+        res += chunk;
+      });
+      response.on('end', function() {
+        callback(res);
+      });
+    });
+
+    request.on('error', function(e) {
+      logger.log("error", e.message);
+    });
+
+    // Write data to request body.
+    request.write(payload);
+    logger.log("debug", messages[5] + payload);
+    request.end();
+
+  } else {
+    var request = http.request(opts, function(response) {
+      var res = "";
+      response.setEncoding('utf8');
+      response.on('data', function(chunk) {
+        res += chunk;
+      });
+      response.on('end', function() {
+        callback(res);
+      });
+    });
+
+    request.on('error', function(e) {
+      logger.log("error", e.message);
+    });
+
+    // Write data to request body.
+    request.write(payload);
+    request.end();
+  }
+   */
 };
 
 /**
- * Delegate serialization and transmission of the Envelope to all registered Requestors.
+ * Send Envelope
  * @memberof client
  * @function sendEnvelope
  * @param envelope
  */
 self.sendEnvelope = function sendEnvelope(envelope) {
-  /**
-  if (!self.isInitialized()) {
-    self.error(messages[0]);
-  }
-   */
-
-  console.log('CLIENT ENVELOPE OUTSIDE = ' + JSON.stringify(envelope));
-
-  if (requestors.count() > 0) {
-    requestors.forEach(function(requestor) {
-
-      console.log('CLIENT ENVELOPE INSIDE = ' + JSON.stringify(envelope));
-
-      requestor.sendEnvelope(envelope);
-    });
-  } else {
-    self.error(messages[2])
-  }
+  this.postEnvelope(envelope);
 };
 
 /**
- * Delegate serialization and transmission of the Envelope to a particular Requestor.
- * @memberof sensor
- * @function sendEnvelope
- * @param requestor
- * @param envelope
+ * Stringify the payload.
+ * @memberof client
+ * @function stringify
+ * @param payload
+ * @returns {*}
  */
-self.sendEnvelopeToRequestor = function sendEnvelopeToRequestor(requestor, envelope) {
-  if (!self.isInitialized()) {
-    self.error(messages[0]);
-  }
-  if (requestors.has(requestor.id)) {
-    requestor.sendEnvelope(envelope);
-  } else {
-    self.error(messages[3]);
-  }
+self.stringify = function stringify(payload) {
+  return requestorUtils.stringify(payload);
 };
 
 /**
@@ -174,11 +222,7 @@ module.exports = {
   initialize: self.initialize,
   initialized: self.isInitialized,
   getId: self.getId,
-  registerRequestor: self.registerRequestor,
-  unregisterRequestor: self.unregisterRequestor,
-  getRequestor: self.getRequestor,
-  getRequestors: self.getRequestors,
-  createEnvelope: self.createEnvelope,
-  sendEnvelope: self.sendEnvelope,
-  sendEnvelopeToRequestor: self.sendEnvelopeToRequestor
+  getOptions: self.getOptions,
+  postEnvelope: self.postEnvelope,
+  sendEnvelope: self.sendEnvelope
 };
