@@ -26,7 +26,7 @@ var Course = require('../../src/entities/agent/courseOffering');
 var CourseSection = require('../../src/entities/agent/courseSection');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var VideoObject = require('../../src/entities/resource/videoObject');
-var requestorUtils = require('../../src/requestors/requestorUtils');
+var clientUtils = require('../../src/sensorclients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityDigitalResourceCollection.json";
@@ -78,8 +78,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestorUtils.parse(entity));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, clientUtils.parse(entity));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + clientUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();

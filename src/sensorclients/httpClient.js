@@ -22,7 +22,7 @@ var https = require('https');
 var config = require('../config/config');
 var httpOptions = require('../config/httpOptions');
 var logger = require('../logger');
-var requestorUtils = require('../requestors/requestorUtils');
+var clientUtils = require('./clientUtils');
 
 /**
  * Caliper self.
@@ -39,7 +39,7 @@ var options = {};
  * Client#initialize
  * @memberof client
  * @function initialize
- * @param id requestor identifier
+ * @param id client identifier
  */
 self.initialize = function initialize(id, options) {
   _.isNil(id) ? self.error(messages[1]) : this.id = id;
@@ -107,10 +107,10 @@ self.postEnvelope = function postEnvelope(envelope) {
    */
 
   // Retrieve options
-  var options = this.getOptions();
-  options.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
+  var opts = this.getOptions();
+  opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
 
-  console.log("Sensor Client options = " + JSON.stringify(options));
+  console.log("Sensor Client options = " + JSON.stringify(opts));
 
   // Stringify the envelope
   var payload = self.stringify(envelope);
@@ -118,7 +118,7 @@ self.postEnvelope = function postEnvelope(envelope) {
   logger.log('debug', "Sending data " + JSON.stringify(envelope));
 
   // Create request
-  var request = http.request(options, function (response) {
+  var request = http.request(opts, function (response) {
     logger.log('debug', "Response received = " + JSON.stringify(response));
   }, function(error){
     logger.log('error', "ERROR sending event = " + error);
@@ -194,7 +194,7 @@ self.sendEnvelope = function sendEnvelope(envelope) {
  * @returns {*}
  */
 self.stringify = function stringify(payload) {
-  return requestorUtils.stringify(payload);
+  return clientUtils.stringify(payload);
 };
 
 /**

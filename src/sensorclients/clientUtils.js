@@ -31,8 +31,8 @@ var arrayProperties = ["attachments", "creators", "extensions", "items", "keywor
 const regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
 
 /**
- * Represents requestorUtils self.
- * @constructor requestorUtils
+ * Represents clientUtils self.
+ * @constructor clientUtils
  */
 var self = this;
 

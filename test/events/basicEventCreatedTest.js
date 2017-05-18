@@ -29,7 +29,7 @@ var actions = require('../../src/actions/actions');
 var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var Person = require('../../src/entities/agent/person');
-var requestorUtils = require('../../src/requestors/requestorUtils');
+var clientUtils = require('../../src/sensorclients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEventBasicCreated.json";
@@ -81,8 +81,8 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Compare
-    var diff = testUtils.compare(fixture, requestorUtils.parse(event));
-    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + requestorUtils.stringify(diff) : "");
+    var diff = testUtils.compare(fixture, clientUtils.parse(event));
+    var diffMsg = "Validate JSON" + (!_.isUndefined(diff) ? " diff = " + clientUtils.stringify(diff) : "");
 
     t.equal(true, _.isUndefined(diff), diffMsg);
     //t.end();
