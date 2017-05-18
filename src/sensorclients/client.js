@@ -107,10 +107,10 @@ self.postEnvelope = function postEnvelope(envelope) {
    */
 
   // Retrieve options
-  var options = this.getOptions();
-  options.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
+  var opts = this.getOptions();
+  opts.headers["Content-Length"] = Buffer.byteLength(envelope); // decimal number of OCTETS per RFC 2616
 
-  console.log("Sensor Client options = " + JSON.stringify(options));
+  console.log("Sensor Client options = " + JSON.stringify(opts));
 
   // Stringify the envelope
   var payload = self.stringify(envelope);
@@ -118,7 +118,7 @@ self.postEnvelope = function postEnvelope(envelope) {
   logger.log('debug', "Sending data " + JSON.stringify(envelope));
 
   // Create request
-  var request = http.request(options, function (response) {
+  var request = http.request(opts, function (response) {
     logger.log('debug', "Response received = " + JSON.stringify(response));
   }, function(error){
     logger.log('error', "ERROR sending event = " + error);
