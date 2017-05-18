@@ -21,7 +21,7 @@ var moment = require('moment');
 var test = require('tape');
 
 //var Sensor = require('../../src/sensor');
-var client = require('../../src/sensorclients/client');
+var client = require('../../src/sensorclients/httpClient');
 
 var config = require('../../src/config/config');
 var httpOptions = require('../../src/config/httpOptions');

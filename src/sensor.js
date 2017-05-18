@@ -323,7 +323,7 @@ Caliper.Events.ViewEvent                   = require('./events/viewEvent');
 Caliper.Selectors.TextPositionSelector     = require('./selectors/textPositionSelector');
 
 // Sensor clients
-Caliper.SensorClients.Client               = require('./sensorclients/client');
+Caliper.SensorClients.HttpClient           = require('./sensorclients/httpClient');
 Caliper.SensorClients.ClientUtils          = require('./sensorclients/clientUtils');
 
 // Validators
