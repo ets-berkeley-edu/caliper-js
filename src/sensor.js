@@ -150,10 +150,10 @@ Sensor.createEnvelope = function createEnvelope(opts) {
 /**
  * Delegate serialization and transmission of the Envelope to all registered Clients.
  * @memberof sensor
- * @function sendEnvelope
+ * @function sendToClients
  * @param envelope
  */
-Sensor.sendEnvelope = function sendEnvelope(envelope) {
+Sensor.sendToClients = function sendToClients(envelope) {
   /**
    if (!self.isInitialized()) {
     self.error(messages[0]);
@@ -162,7 +162,7 @@ Sensor.sendEnvelope = function sendEnvelope(envelope) {
 
   if (clients.count() > 0) {
     clients.forEach(function(client) {
-      client.sendEnvelope(envelope);
+      client.send(envelope);
     });
   } else {
     this.error(message[3])
@@ -172,18 +172,18 @@ Sensor.sendEnvelope = function sendEnvelope(envelope) {
 /**
  * Delegate serialization and transmission of the Envelope to a particular Client.
  * @memberof sensor
- * @function sendEnvelope
+ * @function sendToClients
  * @param client
  * @param envelope
  */
-Sensor.sendEnvelopeToClient = function sendEnvelopeToClient(client, envelope) {
+Sensor.sendToClient = function sendToClient(client, envelope) {
   /**
    if (!self.isInitialized()) {
     self.error(messages[0]);
   }
    */
   if (clients.has(client.id)) {
-    client.sendEnvelope(envelope);
+    client.send(envelope);
   } else {
     this.error(messages[4]);
   }

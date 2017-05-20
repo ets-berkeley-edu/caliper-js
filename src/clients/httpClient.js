@@ -93,7 +93,7 @@ self.getOptions = function getOptions() {
  * @function postEnvelope
  * @param envelope
  */
-self.postEnvelope = function postEnvelope(envelope) {
+self.send = function send(envelope) {
   /**
    if (!self.isInitialized()) {
     self.error(messages[0]);
@@ -177,16 +177,6 @@ self.postEnvelope = function postEnvelope(envelope) {
 };
 
 /**
- * Send Envelope
- * @memberof client
- * @function sendEnvelope
- * @param envelope
- */
-self.sendEnvelope = function sendEnvelope(envelope) {
-  this.postEnvelope(envelope);
-};
-
-/**
  * Stringify the payload.
  * @memberof client
  * @function stringify
@@ -224,5 +214,5 @@ module.exports = {
   getId: self.getId,
   getOptions: self.getOptions,
   postEnvelope: self.postEnvelope,
-  sendEnvelope: self.sendEnvelope
+  sendToClients: self.sendToClients
 };
