@@ -27,7 +27,7 @@ var CourseSection = require('../../src/entities/agent/courseSection');
 var Forum = require('../../src/entities/resource/forum');
 var Message = require('../../src/entities/resource/message');
 var Thread = require('../../src/entities/resource/thread');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityThread.json";

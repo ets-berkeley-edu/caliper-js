@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Page = require('../../src/entities/resource/page');
 var Person = require('../../src/entities/agent/person');
 var TagAnnotation = require('../../src/entities/annotation/tagAnnotation');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityTagAnnotation.json";

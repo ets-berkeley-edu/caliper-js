@@ -22,7 +22,7 @@ var test = require('tape');
 
 var config = require('../../src/config/config');
 var httpOptions = require('../../src/config/httpOptions');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AnnotationEvent = require('../../src/events/annotationEvent');

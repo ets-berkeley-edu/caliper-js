@@ -26,7 +26,7 @@ var Course = require('../../src/entities/agent/courseOffering');
 var CourseSection = require('../../src/entities/agent/courseSection');
 var DigitalResourceCollection = require('../../src/entities/resource/digitalResourceCollection');
 var VideoObject = require('../../src/entities/resource/videoObject');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityDigitalResourceCollection.json";

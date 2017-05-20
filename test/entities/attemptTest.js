@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var Attempt = require('../../src/entities/resource/attempt');
 var Person = require('../../src/entities/agent/person');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityAttempt.json";

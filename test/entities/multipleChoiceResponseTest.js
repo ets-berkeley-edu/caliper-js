@@ -27,7 +27,7 @@ var AssessmentItem = require('../../src/entities/resource/assessmentItem');
 var Attempt = require('../../src/entities/resource/attempt');
 var MultipleChoiceResponse = require('../../src/entities/response/multipleChoiceResponse');
 var Person = require('../../src/entities/agent/person');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityMultipleChoiceResponse.json";
