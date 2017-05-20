@@ -20,7 +20,7 @@ var _ = require('lodash');
 var http = require('http');
 var https = require('https');
 var config = require('../config/config');
-var httpOptions = require('./options');
+var options = require('./options');
 var logger = require('../logger');
 var clientUtils = require('./clientUtils');
 
@@ -45,12 +45,12 @@ self.initialize = function initialize(id, options) {
   _.isNil(id) ? self.error(messages[1]) : this.id = id;
   this.options = options;
 
-  //this.options = _.merge({}, httpOptions, options);
+  //this.options = _.merge({}, options, options);
   /**
    if (!_.isNil(options)) {
-    this.options = _.merge({}, httpOptions, options);
+    this.options = _.merge({}, options, options);
   } else {
-    this.options = _.merge({}, httpOptions);
+    this.options = _.merge({}, options);
   }
    */
 

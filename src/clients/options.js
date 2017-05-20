@@ -44,7 +44,7 @@
  * timeOut:                   <number> A number specifying the socket timeout in milliseconds. This will set the
  *                              timeout before the socket is connected.
  */
-var httpOptions = {
+var options = {
   agent: null,
   auth: null,
   createConnection: null,
@@ -64,4 +64,4 @@ var httpOptions = {
   timeOut: 10000
 };
 
-module.exports = httpOptions;
+module.exports = options;

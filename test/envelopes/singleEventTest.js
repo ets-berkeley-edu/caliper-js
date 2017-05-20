@@ -24,7 +24,7 @@ var test = require('tape');
 var client = require('../../src/clients/httpClient');
 
 var config = require('../../src/config/config');
-var httpOptions = require('../../src/clients/options');
+var options = require('../../src/clients/options');
 
 var clientUtils = require('../../src/clients/clientUtils');
 
