@@ -20,7 +20,7 @@ var _ = require('lodash');
 var http = require('http');
 var https = require('https');
 var config = require('../config/config');
-var httpOptions = require('../config/httpOptions');
+var httpOptions = require('./options');
 var logger = require('../logger');
 var clientUtils = require('./clientUtils');
 

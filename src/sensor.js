@@ -231,7 +231,6 @@ Caliper.Actions                           = require('./actions/actions');
 
 // Config
 Caliper.Config.Config                     = require('./config/config');
-Caliper.Config.HttpOptions                = require('./config/httpOptions');
 
 // Envelope
 Caliper.Envelopes.Envelope                 = require('./envelope');
@@ -323,8 +322,9 @@ Caliper.Events.ViewEvent                   = require('./events/viewEvent');
 Caliper.Selectors.TextPositionSelector     = require('./selectors/textPositionSelector');
 
 // Sensor clients
-Caliper.Clients.HttpClient           = require('./clients/httpClient');
 Caliper.Clients.ClientUtils          = require('./clients/clientUtils');
+Caliper.Clients.HttpClient           = require('./clients/httpClient');
+Caliper.Config.Options                = require('./clients/options');
 
 // Validators
 Caliper.Validators.Validator               = require('./validators/validator');
