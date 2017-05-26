@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Document = require('../../src/entities/resource/document');
 var HighlightAnnotation = require('../../src/entities/annotation/highlightAnnotation');
 var Person = require('../../src/entities/agent/person');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityHighlightAnnotation.json";

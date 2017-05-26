@@ -24,7 +24,7 @@ var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var Assessment = require('../../src/entities/resource/assessment');
 var AssessmentItem = require('../../src/entities/resource/assessmentItem');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityAssessmentItemExtended.json";

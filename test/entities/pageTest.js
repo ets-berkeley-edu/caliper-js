@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var Chapter = require('../../src/entities/resource/chapter');
 var Document = require('../../src/entities/resource/document');
 var Page = require('../../src/entities/resource/page');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityPage.json";

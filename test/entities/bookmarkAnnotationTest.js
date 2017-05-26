@@ -25,7 +25,7 @@ var entityFactory = require('../../src/entities/entityFactory');
 var BookmarkAnnotation = require('../../src/entities/annotation/bookmarkAnnotation');
 var Page = require('../../src/entities/resource/page');
 var Person = require('../../src/entities/agent/person');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityBookmarkAnnotation.json";

@@ -24,7 +24,7 @@ var config =  require('../../src/config/config');
 var entityFactory = require('../../src/entities/entityFactory');
 var AssignableDigitalResource = require('../../src/entities/resource/assignableDigitalResource');
 var LearningObjective = require('../../src/entities/resource/learningObjective');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityLearningObjective.json";

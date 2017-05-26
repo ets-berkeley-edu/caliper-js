@@ -26,7 +26,7 @@ var CourseOffering = require('../../src/entities/agent/courseOffering');
 var CourseSection = require('../../src/entities/agent/courseSection');
 var Group = require('../../src/entities/agent/group');
 var Person = require('../../src/entities/agent/person');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEntityGroup.json";

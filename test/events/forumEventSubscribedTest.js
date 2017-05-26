@@ -38,7 +38,7 @@ var Session = require('../../src/entities/session/session');
 
 var Role = require('../../src/entities/agent/role');
 var Status = require('../../src/entities/agent/status');
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
 const path = config.testFixturesBaseDir + "caliperEventForumSubscribed.json";

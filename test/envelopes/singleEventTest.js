@@ -20,13 +20,8 @@ var _ = require('lodash');
 var moment = require('moment');
 var test = require('tape');
 
-//var Sensor = require('../../src/sensor');
-var client = require('../../src/sensorclients/httpClient');
-
 var config = require('../../src/config/config');
-var httpOptions = require('../../src/config/httpOptions');
-
-var clientUtils = require('../../src/sensorclients/clientUtils');
+var clientUtils = require('../../src/clients/clientUtils');
 
 var eventFactory = require('../../src/events/eventFactory');
 var validator = require('../../src/validators/validator');
