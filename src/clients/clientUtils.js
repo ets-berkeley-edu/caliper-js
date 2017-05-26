@@ -37,6 +37,15 @@ const regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
 var self = this;
 
 /**
+ * Calculate the decimal number of OCTETS per RFC 2616 for HTTP header Content-Length value.
+ * @param string
+ * @returns {Number}
+ */
+self.calculateByteLength = function calculateByteLength(obj) {
+  return Buffer.byteLength(obj);
+};
+
+/**
  * Delete @context property if value corresponds to the IMS Caliper context IRI.
  * @param obj
  * @returns {*}
@@ -122,6 +131,7 @@ self.stringify = function stringify(obj) {
 };
 
 module.exports = {
+  calculateByteLength: self.calculateByteLength,
   parse: self.parse,
   stringify: self.stringify
 };

@@ -21,7 +21,6 @@ var moment = require('moment');
 var test = require('tape');
 
 var config = require('../../src/config/config');
-var options = require('../../src/clients/options');
 var clientUtils = require('../../src/clients/clientUtils');
 
 var entityFactory = require('../../src/entities/entityFactory');

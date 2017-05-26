@@ -53,7 +53,7 @@ var clients = new hashMap();
  * @param id sensor identifier
  */
 Sensor.initialize = function initialize(id) {
-  _.isNil(id) ? this.error(messages[1]) : this.id = id;
+  _.isNil(id) ? Sensor.error(messages[1]) : this.id = id;
   this.initialized = true;
 };
 
@@ -126,14 +126,14 @@ Sensor.getClients = function getClients() {
  * @returns {*}
  */
 Sensor.createEnvelope = function createEnvelope(opts) {
-  if (!this.isInitialized()) {
-    this.error(messages[0]);
+  if (!Sensor.isInitialized()) {
+    Sensor.error(messages[0]);
   }
   if (_.isNil(opts.data)) {
-    this.error(messages[2]);
+    Sensor.error(messages[2]);
   }
 
-  var id = opts.id || this.getId(); // permit override with opts value?
+  var id = opts.id || Sensor.getId(); // permit override with opts value?
   var sendTime = opts.sendTime || moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
   var dataVersion = opts.dataVersion || config.dataVersion;
   var payload = [];
@@ -148,28 +148,6 @@ Sensor.createEnvelope = function createEnvelope(opts) {
 };
 
 /**
- * Delegate serialization and transmission of the Envelope to all registered Clients.
- * @memberof sensor
- * @function sendToClients
- * @param envelope
- */
-Sensor.sendToClients = function sendToClients(envelope) {
-  /**
-   if (!self.isInitialized()) {
-    self.error(messages[0]);
-  }
-   */
-
-  if (clients.count() > 0) {
-    clients.forEach(function(client) {
-      client.send(envelope);
-    });
-  } else {
-    this.error(message[3])
-  }
-};
-
-/**
  * Delegate serialization and transmission of the Envelope to a particular Client.
  * @memberof sensor
  * @function sendToClients
@@ -177,15 +155,34 @@ Sensor.sendToClients = function sendToClients(envelope) {
  * @param envelope
  */
 Sensor.sendToClient = function sendToClient(client, envelope) {
-  /**
-   if (!self.isInitialized()) {
-    self.error(messages[0]);
+  if (!Sensor.isInitialized()) {
+    Sensor.error(messages[0]);
   }
-   */
+
   if (clients.has(client.id)) {
     client.send(envelope);
   } else {
-    this.error(messages[4]);
+    Sensor.error(messages[4]);
+  }
+};
+
+/**
+ * Delegate serialization and transmission of the Envelope to all registered Clients.
+ * @memberof sensor
+ * @function sendToClients
+ * @param envelope
+ */
+Sensor.sendToClients = function sendToClients(envelope) {
+  if (!Sensor.isInitialized()) {
+    Sensor.error(messages[0]);
+  }
+
+  if (clients.count() > 0) {
+    clients.forEach(function(client) {
+      client.send(envelope);
+    });
+  } else {
+    Sensor.error(message[3])
   }
 };
 
@@ -322,9 +319,9 @@ Caliper.Events.ViewEvent                   = require('./events/viewEvent');
 Caliper.Selectors.TextPositionSelector     = require('./selectors/textPositionSelector');
 
 // Sensor clients
-Caliper.Clients.ClientUtils          = require('./clients/clientUtils');
-Caliper.Clients.HttpClient           = require('./clients/httpClient');
-Caliper.Config.Options                = require('./clients/options');
+Caliper.Clients.ClientUtils                = require('./clients/clientUtils');
+Caliper.Clients.HttpClient                 = require('./clients/httpClient');
+Caliper.Clients.HttpOptions                = require('./clients/httpOptions');
 
 // Validators
 Caliper.Validators.Validator               = require('./validators/validator');
