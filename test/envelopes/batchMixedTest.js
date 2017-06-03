@@ -173,15 +173,15 @@ testUtils.readFile(path, function(err, fixture) {
     action = actions.submitted.term;
 
     // The object of the interaction
-    var attempt = entityFactory().create(Attempt, {
+    var generated = entityFactory().create(Attempt, {
       id: BASE_ASSESS_IRI.concat("/users/554433/attempts/1"),
       assignee: actor.id,
       assignable: assessment.id,
       count: 1,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
-      endedAtTime: moment.utc("2016-11-15T10:25:30.000Z"),
-      duration: "PT10M30S"
+      endedAtTime: moment.utc("2016-11-15T10:55:12.000Z"),
+      duration: "PT50M12S"
     });
 
     // Event time
@@ -208,8 +208,9 @@ testUtils.readFile(path, function(err, fixture) {
       id: uuid,
       actor: actor.id,
       action: action,
-      object: attempt,
+      object: assessment.id,
       eventTime: eventTime,
+      generated: generated,
       edApp: app.id,
       group: section.id,
       membership: membership,
