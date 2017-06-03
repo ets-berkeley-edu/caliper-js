@@ -69,8 +69,8 @@ testUtils.readFile(path, function(err, fixture) {
     // The Action
     var action = actions.submitted.term;
 
-    // The Assessment
-    var assignable = entityFactory().create(Assessment, {
+    // The Object of the interaction
+    var obj = entityFactory().create(Assessment, {
       id: BASE_ASSESS_IRI,
       name: "Quiz One",
       dateToStartOn: moment.utc("2016-11-14T05:00:00.000Z"),
@@ -81,20 +81,20 @@ testUtils.readFile(path, function(err, fixture) {
       version: "1.0"
     });
 
-    // The object of the interaction
-    var obj = entityFactory().create(Attempt, {
+    // Event time
+    var eventTime = moment.utc("2016-11-15T10:25:30.000Z");
+
+    // Generated Attempt
+    var generated = entityFactory().create(Attempt, {
       id: BASE_ASSESS_IRI.concat("/users/554433/attempts/1"),
       assignee: actor.id,
-      assignable: assignable,
+      assignable: obj.id,
       count: 1,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
       endedAtTime: moment.utc("2016-11-15T10:25:30.000Z"),
       duration: "PT10M30S"
     });
-
-    // Event time
-    var eventTime = moment.utc("2016-11-15T10:25:30.000Z");
 
     // The edApp
     var edApp = entityFactory().create(SoftwareApplication, {
@@ -132,6 +132,7 @@ testUtils.readFile(path, function(err, fixture) {
       action: action,
       object: obj,
       eventTime: eventTime,
+      generated: generated,
       edApp: edApp,
       group: group,
       membership: membership,

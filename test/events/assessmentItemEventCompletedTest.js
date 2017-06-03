@@ -75,6 +75,20 @@ testUtils.readFile(path, function(err, fixture) {
     var parent = entityFactory().create(Assessment, {id: BASE_ASSESS_IRI});
     var parentAttemptId = entityFactory().coerce(Attempt, {id: BASE_ASSESS_IRI.concat("/users/554433/attempts/1")});
 
+    // Object of the interaction
+    var obj = entityFactory().create(AssessmentItem, {
+      id: BASE_ASSESS_IRI.concat("/items/3"),
+      name: "Assessment Item 3",
+      isPartOf: parent,
+      dateToStartOn: moment.utc("2016-11-14T05:00:00.000Z"),
+      dateToSubmit: moment.utc("2016-11-18T11:59:59.000Z"),
+      maxAttempts: 2,
+      maxSubmits: 2,
+      maxScore: 1,
+      isTimeDependent: false,
+      version: "1.0"
+    });
+
     // Item
     var item = entityFactory().create(AssessmentItem, {
       id: BASE_ASSESS_IRI.concat("/items/3"),
@@ -82,8 +96,11 @@ testUtils.readFile(path, function(err, fixture) {
       isPartOf: parent
     });
 
-    // The Object of the interaction
-    var obj = entityFactory().create(Attempt, {
+    // Event time
+    var eventTime = moment.utc("2016-11-15T10:15:12.000Z");
+
+    // The Attempt
+    var attempt = entityFactory().create(Attempt, {
       id: BASE_ITEM_IRI.concat("/users/554433/attempts/1"),
       assignee: actor.id,
       assignable: item,
@@ -94,13 +111,10 @@ testUtils.readFile(path, function(err, fixture) {
       count: 1
     });
 
-    // Event time
-    var eventTime = moment.utc("2016-11-15T10:15:12.000Z");
-
     // The generated response
     var generated = entityFactory().create(FillinBlankResponse, {
       id: BASE_ITEM_IRI.concat("/users/554433/responses/1"),
-      attempt: obj.id,
+      attempt: attempt,
       values: [ "subject", "object", "predicate" ],
       dateCreated: moment.utc("2016-11-15T10:15:12.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:02.000Z"),
