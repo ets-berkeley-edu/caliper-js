@@ -105,7 +105,7 @@ testUtils.readFile(path, function(err, fixture) {
 
     // Session
     var session = entityFactory().create(Session, {
-      id: BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
+      id: BASE_COM_IRI.concat("/sessions/c25fd3da-87fa-45f5-8875-b682113fa5ee"),
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
@@ -167,7 +167,7 @@ testUtils.readFile(path, function(err, fixture) {
     var launchParameters = _.assign({}, ltiRequired, ltiRecommended, ltiOptional, ltiCustom, ltiExtensions);
 
     var ltiSession = entityFactory().create(LtiSession, {
-      id: BASE_COM_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
+      id: BASE_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
       user: actor.id,
       launchParameters: launchParameters,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
