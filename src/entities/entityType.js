@@ -51,6 +51,7 @@ var entityType = {
   person: {term: "Person", iri: "http://purl.imsglobal.org/caliper/Person"},
   response: {term: "Response", iri: "http://purl.imsglobal.org/caliper/Response"},
   result: {term: "Result", iri: "http://purl.imsglobal.org/caliper/Result"},
+  score: {term: "Score", iri: "http://purl.imsglobal.org/caliper/Score"},
   selectTextResponse: {term: "SelectTextResponse", iri: "http://purl.imsglobal.org/caliper/SelectTextResponse"},
   session: {term: "Session", iri: "http://purl.imsglobal.org/caliper/Session"},
   sharedAnnotation: {term: "SharedAnnotation", iri: "http://purl.imsglobal.org/caliper/SharedAnnotation"},

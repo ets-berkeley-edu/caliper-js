@@ -21,15 +21,15 @@ var entity = require('../entity');
 var entityType = require('../entityType');
 
 /**
- * Compose Result from Entity and set default properties.
+ * Compose Score from Entity and set default properties.
  */
-var Result = _.assign({}, entity, {
-  type: entityType.result.term,
+var Score = _.assign({}, entity, {
+  type: entityType.score.term,
   attempt: {},
-  maxResultScore: null,
-  resultScore: null,
+  maxScore: null,
+  scoreGiven: null,
   comment: null,
   scoredBy: null
 });
 
-module.exports = Result;
+module.exports = Score;
