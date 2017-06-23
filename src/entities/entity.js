@@ -27,7 +27,7 @@ var proto = {
   description: null,
   dateCreated: null,
   dateModified: null,
-  extensions: []
+  extensions: {}
 };
 
 /**
