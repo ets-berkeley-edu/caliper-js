@@ -35,7 +35,7 @@ var proto = {
   membership: {},
   session: {},
   federatedSession: {},
-  extensions: []
+  extensions: {}
 };
 
 /**
