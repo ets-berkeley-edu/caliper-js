@@ -62,32 +62,38 @@ testUtils.readFile(path, function(err, fixture) {
 
     // The Object of the interaction
     var obj = entityFactory().create(Document, {
-      id: BASE_SECTION_IRI.concat("/resources/123"),
+      id: BASE_SECTION_IRI.concat("/resources/123?version=3"),
       name: "Course Syllabus",
       dateCreated: moment.utc("2016-11-12T07:15:00.000Z"),
       dateModified: moment.utc("2016-11-15T10:15:00.000Z"),
-      version: "2"
+      version: "3"
     });
 
     // Event time
     var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
 
-    // Custom Extension
-    var history = {
-      "@context": {
-        "id": "@id",
-        "type": "@type",
-        "example": "http://example.edu/ctx/edu/",
-        "previousVersion": {"@id": "example:previousVersion", "@type": "@id"}
-      },
-      "previousVersion": {
-        "id": "https://example.edu/terms/201601/courses/7/sections/1/resources/123?version=1",
-        "type": "Document"
-      }
-    };
+    // Archived versions
+    var doc1 = entityFactory().create(Document, {
+      id: BASE_SECTION_IRI.concat("/resources/123?version=1"),
+      dateCreated: moment.utc("2016-11-12T07:15:00.000Z"),
+      version: "1"
+    });
 
-    var extensions = [];
-    extensions.push(history);
+    var doc2 = entityFactory().create(Document, {
+      id: BASE_SECTION_IRI.concat("/resources/123?version=2"),
+      dateCreated: moment.utc("2016-11-12T07:15:00.000Z"),
+      dateModified: moment.utc("2016-11-13T11:00:00.000Z"),
+      version: "2"
+    });
+
+    var archive = [];
+    archive.push(doc2);
+    archive.push(doc1);
+
+    // Extensions
+    var extensions = {
+      archive: archive
+    };
 
     // Assert that key attributes are the same
     var event = eventFactory().create(Event, {

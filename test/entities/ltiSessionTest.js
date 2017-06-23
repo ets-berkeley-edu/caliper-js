@@ -80,11 +80,11 @@ testUtils.readFile(path, function(err, fixture) {
         "@context": {
           sdo: "http://schema.org/",
           xsd: "http://www.w3.org/2001/XMLSchema#",
-          jobTitle: {id: "sdo:jobTitle", type: "xsd:string"},
-          givenName: {id: "sdo:givenName", type: "xsd:string"},
-          familyName: {id: "sdo:familyName", type: "xsd:string"},
-          email: {id: "sdo:email", type: "xsd:string"},
-          url: {id: "sdo:url", type: "xsd:string"}
+          jobTitle: {"@id": "sdo:jobTitle", "@type": "xsd:string"},
+          givenName: {"@id": "sdo:givenName", "@type": "xsd:string"},
+          familyName: {"@id": "sdo:familyName", "@type": "xsd:string"},
+          email: {"@id": "sdo:email", "@type": "xsd:string"},
+          url: {"@id": "sdo:url", "@type": "xsd:string"}
         },
         id: "https://example.edu/faculty/trighaversine",
         type: "Person",

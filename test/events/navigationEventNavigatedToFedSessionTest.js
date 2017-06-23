@@ -45,7 +45,7 @@ const path = config.testFixturesBaseDir + "caliperEventNavigationNavigatedToFedS
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('navigationEventNavigatedToTest', function (t) {
+  test('navigationEventNavigatedToFedSessionTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -147,11 +147,11 @@ testUtils.readFile(path, function(err, fixture) {
         "@context": {
           sdo: "http://schema.org/",
           xsd: "http://www.w3.org/2001/XMLSchema#",
-          jobTitle: {id: "sdo:jobTitle", type: "xsd:string"},
-          givenName: {id: "sdo:givenName", type: "xsd:string"},
-          familyName: {id: "sdo:familyName", type: "xsd:string"},
-          email: {id: "sdo:email", type: "xsd:string"},
-          url: {id: "sdo:url", type: "xsd:string"}
+          jobTitle: {"@id": "sdo:jobTitle", "@type": "xsd:string"},
+          givenName: {"@id": "sdo:givenName", "@type": "xsd:string"},
+          familyName: {"@id": "sdo:familyName", "@type": "xsd:string"},
+          email: {"@id": "sdo:email", "@type": "xsd:string"},
+          url: {"@id": "sdo:url", "@type": "xsd:string"}
         },
         id: "https://example.edu/faculty/trighaversine",
         type: "Person",

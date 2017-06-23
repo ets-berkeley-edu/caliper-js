@@ -49,6 +49,11 @@ var eventType = {
     term: "ForumEvent",
     iri: "http://purl.imsglobal.org/caliper/ForumEvent"
   },
+  grade: {
+    context: config.jsonldExternalCaliperContext,
+    term: "GradeEvent",
+    iri: "http://purl.imsglobal.org/caliper/GradeEvent"
+  },
   media: {
     context: config.jsonldExternalCaliperContext,
     term: "MediaEvent",
@@ -63,16 +68,6 @@ var eventType = {
     context: config.jsonldExternalCaliperContext,
     term: "NavigationEvent",
     iri: "http://purl.imsglobal.org/caliper/NavigationEvent"
-  },
-  outcome: {
-    context: config.jsonldExternalCaliperContext,
-    term: "OutcomeEvent",
-    iri: "http://purl.imsglobal.org/caliper/OutcomeEvent"
-  },
-  reading: {
-    context: config.jsonldExternalCaliperContext,
-    term: "ReadingEvent",
-    iri: "http://purl.imsglobal.org/caliper/ReadingEvent"
   },
   session: {
     context: config.jsonldExternalCaliperContext,

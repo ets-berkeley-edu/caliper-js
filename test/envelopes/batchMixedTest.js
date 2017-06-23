@@ -25,7 +25,7 @@ var clientUtils = require('../../src/clients/clientUtils');
 
 var eventFactory = require('../../src/events/eventFactory');
 var AssessmentEvent = require('../../src/events/assessmentEvent');
-var OutcomeEvent = require('../../src/events/outcomeEvent');
+var GradeEvent = require('../../src/events/gradeEvent');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
@@ -36,7 +36,7 @@ var CourseOffering = require('../../src/entities/agent/courseOffering');
 var CourseSection = require('../../src/entities/agent/courseSection');
 var Membership = require('../../src/entities/agent/membership');
 var Person = require('../../src/entities/agent/person');
-var Result = require('../../src/entities/outcome/result');
+var Score = require('../../src/entities/outcome/score');
 var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
@@ -181,7 +181,7 @@ testUtils.readFile(path, function(err, fixture) {
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
       endedAtTime: moment.utc("2016-11-15T10:55:12.000Z"),
-      duration: "PT50M12S"
+      duration: "PT40M12S"
     });
 
     // Event time
@@ -237,27 +237,28 @@ testUtils.readFile(path, function(err, fixture) {
       assignee: actor.id,
       assignable: assessment.id,
       count: 1,
-      dateCreated: moment.utc("2016-11-15T10:05:00.000Z"),
-      startedAtTime: moment.utc("2016-11-15T10:05:00.000Z"),
+      dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
+      startedAtTime: moment.utc("2016-11-15T10:15:00.000Z"),
       endedAtTime: moment.utc("2016-11-15T10:55:12.000Z"),
-      duration: "PT50M12S"
+      duration: "PT40M12S"
     });
 
     // Event time
     eventTime = moment.utc("2016-11-15T10:57:06.000Z");
 
-    // Generated result
-    var result = entityFactory().create(Result, {
-      id: BASE_SECTION_IRI.concat("/assess/1/users/554433/results/1"),
+    // Generated score
+    var result = entityFactory().create(Score, {
+      id: BASE_SECTION_IRI.concat("/assess/1/users/554433/attempts/1/scores/1"),
       attempt: attempt.id,
-      normalScore: 15,
-      totalScore: 15,
+      maxScore: 15,
+      scoreGiven: 10,
       scoredBy: grader.id,
-      dateCreated: moment.utc("2016-11-15T10:55:05.000Z")
+      comment: "auto-graded exam",
+      dateCreated: moment.utc("2016-11-15T10:56:00.000Z")
     });
 
     // Assert that key attributes are the same
-    var eventGraded = eventFactory().create(OutcomeEvent, {
+    var eventGraded = eventFactory().create(GradeEvent, {
       id: uuid,
       actor: grader,
       action: action,

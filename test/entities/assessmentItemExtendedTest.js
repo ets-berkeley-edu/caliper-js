@@ -42,32 +42,19 @@ testUtils.readFile(path, function(err, fixture) {
     var parent = entityFactory().create(Assessment, {id: BASE_ASSESS_IRI});
 
     // Custom extension
-    var question = {
-      "@context": {
-        id: "@id",
-        type: "@type",
-        example: "http://example.edu/ctx/edu",
-        xsd: "http://www.w3.org/2001/XMLSchema#",
-        itemType: { id: "example:itemType", type: "xsd:string" },
-        itemText: { id: "example:itemText", type: "xsd:string" },
-        itemCorrectResponse: { id: "example:itemCorrectResponse", type: "xsd:boolean" }
-      },
-      itemType: "true/false",
-      itemText: "In Caliper event actors are limited to people only.",
-      itemCorrectResponse: false
+    var extensions = {
+      "questionType": "Dichotomous",
+      "questionText": "Is a Caliper SoftwareApplication a subtype of Caliper Agent?",
+      "correctResponse": "yes"
     };
-
-    var extensions = [];
-    extensions.push(question);
 
     var entity = entityFactory().create(AssessmentItem, {
       id: BASE_ASSESS_IRI.concat("/items/3"),
       isPartOf: parent,
       dateCreated: moment.utc("2016-08-01T06:00:00.000Z"),
       datePublished: moment.utc("2016-08-15T09:30:00.000Z"),
-      maxAttempts: 2,
       maxSubmits: 2,
-      maxScore: 5,
+      maxScore: 1,
       isTimeDependent: false,
       extensions: extensions
     });

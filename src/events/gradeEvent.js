@@ -21,8 +21,8 @@ var event = require('./event');
 var eventType = require('./eventType');
 
 /**
- * Compose OutcomeEvent from Event and set default properties.
+ * Compose GradeEvent from Event and set default properties.
  */
-var OutcomeEvent = _.assign({}, event, {type: eventType.outcome.term});
+var GradeEvent = _.assign({}, event, {type: eventType.grade.term});
 
-module.exports = OutcomeEvent;
+module.exports = GradeEvent;
