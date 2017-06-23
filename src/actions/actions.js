@@ -106,11 +106,7 @@ var actions = {
   disliked: {
     term: "Disliked",
     iri: "http://purl.imsglobal.org/vocab/caliper/action#Disliked",
-    events: ["event"]},
-  earned: {
-    term: "Earned",
-    iri: "http://purl.imsglobal.org/vocab/caliper/action#Earned",
-    events: ["outcomeEvent"]
+    events: ["event"]
   },
   enabledCloseCaptioning: {
     term: "EnabledCloseCaptioning",

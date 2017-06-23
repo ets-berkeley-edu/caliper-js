@@ -38,7 +38,7 @@ const path = config.testFixturesBaseDir + "caliperEventSessionLoggedInExtended.j
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('sessionEventLoggedInTest', function (t) {
+  test('sessionEventLoggedInExtendedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -69,41 +69,23 @@ testUtils.readFile(path, function(err, fixture) {
     // edApp
     var edApp = obj.id;
 
+    // Session extensions
+    var extensions = {
+      request: {
+        "id": "d71016dc-ed2f-46f9-ac2c-b93f15f38fdc",
+        "hostname": "example.com",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+      }
+    };
+
     // Session
     var session = entityFactory().create(Session, {
       id: BASE_IRI.concat("/sessions/1f6442a482de72ea6ad134943812bff564a76259"),
       user: actor.id,
       dateCreated: eventTime,
-      startedAtTime: eventTime
+      startedAtTime: eventTime,
+      extensions: extensions
     });
-
-    // Custom extension: request
-    var request = {
-      "requestId": "d71016dc-ed2f-46f9-ac2c-b93f15f38fdc",
-      "hostname": "example.com",
-      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
-    };
-
-    // Custom extension: GeoLocation
-    var geo = {
-      "@context": {
-        id: "@id",
-        type: "@type",
-        sdo: "http://schema.org",
-        xsd: "http://www.w3.org/2001/XMLSchema#",
-        GeoCoordinates: "sdo:GeoCoordinates",
-        latitude: { id: "sdo:latitude", type: "xsd:decimal" },
-        longitude: { id: "sdo:longitude", type: "xsd:decimal" }
-      },
-      id: "https://example.com/maps/@42.27611,-83.73778,19z",
-      type: "GeoCoordinates",
-      latitude: 42.2761100,
-      longitude: -83.7377800
-    };
-
-    var extensions = [];
-    extensions.push(request);
-    extensions.push(geo);
 
     // Assert that key attributes are the same
     var event = eventFactory().create(SessionEvent, {
@@ -113,8 +95,7 @@ testUtils.readFile(path, function(err, fixture) {
       object: obj,
       eventTime: eventTime,
       edApp: edApp,
-      session: session,
-      extensions: extensions
+      session: session
     });
 
     // Compare

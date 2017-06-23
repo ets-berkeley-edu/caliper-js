@@ -43,7 +43,7 @@ const path = config.testFixturesBaseDir + "caliperEventViewViewedExtended.json";
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('viewEventViewedTest', function (t) {
+  test('viewEventViewedExtendedTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -102,28 +102,14 @@ testUtils.readFile(path, function(err, fixture) {
       startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
     });
 
-    // Custom extension
-    var job = {
-      "@context": {
-        id: "@id",
-        type: "@type",
-        example: "http://example.edu/ctx/edu",
-        xsd: "http://www.w3.org/2001/XMLSchema#",
-        ChronJob: "example:ChronJob",
-        job: "example:job",
-        jobTag: { id: "example:jobTag", type: "xsd:string" },
-        jobDate: { id: "example:jobDate", type: "xsd:dateTime" }
-      },
+    // Extensions
+    var extensions = {
       job: {
-        id: "https://example.edu/data/jobs/08c1233d-9ba3-40ac-952f-004c47a50ff7",
-        type: "ChronJob",
-        jobTag: "caliper",
+        id: "08c1233d-9ba3-40ac-952f-004c47a50ff7",
+        jobTag: "caliper_batch_job",
         jobDate: moment.utc("2016-11-16T01:01:00.000Z")
       }
     };
-
-    var extensions = [];
-    extensions.push(job);
 
     // Assert that key attributes are the same
     var event = eventFactory().create(ViewEvent, {

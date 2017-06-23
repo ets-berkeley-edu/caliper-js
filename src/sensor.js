@@ -282,6 +282,10 @@ Caliper.Entities.Thread                    = require('./entities/resource/thread
 Caliper.Entities.VideoObject               = require('./entities/resource/videoObject');
 Caliper.Entities.WebPage                   = require('./entities/resource/webPage');
 
+// Outcome
+Caliper.Entities.Result                    = require('./entities/outcome/result');
+Caliper.Entities.Score                     = require('./entities/outcome/score');
+
 // Response
 Caliper.Entities.Response                  = require('./entities/response/response');
 Caliper.Entities.FillinBlankResponse       = require('./entities/response/fillinBlankResponse');
@@ -289,9 +293,6 @@ Caliper.Entities.MultipleChoiceResponse    = require('./entities/response/multip
 Caliper.Entities.MultipleResponseResponse  = require('./entities/response/multipleResponseResponse');
 Caliper.Entities.SelectTextResponse        = require('./entities/response/selectTextResponse');
 Caliper.Entities.TrueFalseResponse         = require('./entities/response/trueFalseResponse');
-
-// Result
-Caliper.Entities.Result                    = require('./entities/outcome/result');
 
 // Session
 Caliper.Entities.Session                   = require('./entities/session/session');
@@ -309,7 +310,7 @@ Caliper.Events.ForumEvent                  = require('./events/forumEvent');
 Caliper.Events.MediaEvent                  = require('./events/mediaEvent');
 Caliper.Events.MessageEvent                = require('./events/messageEvent');
 Caliper.Events.NavigationEvent             = require('./events/navigationEvent');
-Caliper.Events.OutcomeEvent                = require('./events/outcomeEvent');
+Caliper.Events.GradeEvent                  = require('./events/gradeEvent');
 Caliper.Events.SessionEvent                = require('./events/sessionEvent');
 Caliper.Events.ThreadEvent                 = require('./events/threadEvent');
 Caliper.Events.ToolUseEvent                = require('./events/toolUseEvent');
