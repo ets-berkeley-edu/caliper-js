@@ -24,14 +24,15 @@ var _ = require('lodash-node');
 var client = require('./client');
 var logger = require('./logger');
 var caliperCommon = require('./sensor-common');
+
 /**
  * Grab an existing namespace object or create a blank object if it doesn't exist
  * so we can attach non-sensor module exports to it
  * @type {{}|*|Caliper}
  */
-var Caliper = caliperCommon.init(window.Caliper || {});
+var Caliper = caliperCommon.init({});
 
 // Replace/create Caliper in global namespace
-window.Caliper = Caliper;
+exports.Caliper = Caliper;
 
-logger.log('debug', "Added Sensor to window global %o", window.Sensor);
+logger.log('debug', "Exported Caliper...");
