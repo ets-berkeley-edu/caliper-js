@@ -96,7 +96,7 @@ self.send = function(sensor, data) {
 
         // Create request
         var request = http.request(sendOptions, function (response) {
-            logger.log('info', "finished sending. Response = " + JSON.stringify(response));
+            logger.log('info', "finished sending. Response = " + response);
         }, function(error){
             logger.log('error', "ERROR sending event = " + ERROR);
         });
