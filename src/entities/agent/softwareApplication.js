@@ -16,23 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var _ = require('lodash');
+var agent = require('./agent');
+var entityType = require('../entityType');
 
 /**
- * Represents SoftwareApplication.  
- * SoftwareApplication's prototype set to Agent
- * @constructor
- * @param {string} id URI
- * @extends Organization
+ * Compose SoftwareApplication from Agent and set default properties.
  */
-function SoftwareApplication(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.SOFTWARE_APPLICATION);
-}
-
-SoftwareApplication.prototype = _.create(Entity.prototype);
+var SoftwareApplication = _.assign({}, agent, {type: entityType.softwareApplication.term, version: null});
 
 module.exports = SoftwareApplication;

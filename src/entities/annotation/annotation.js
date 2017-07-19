@@ -16,29 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var _ = require('lodash');
+var entity = require('../entity');
+var entityType = require('../entityType');
 
 /**
- * Represents Annotation.  
- * Annotation's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @property {string} annotationId URI
- * @extends Entity
+ * Compose Annotation from Entity and set default properties.
  */
-function Annotation(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.ANNOTATION);
-    this.setAnnotated(null);
-}
-
-Annotation.prototype = _.create(Entity.prototype);
-
-Annotation.prototype.setAnnotated = function(annotated) {
-  this.annotated = annotated;
-};
+var Annotation = _.assign({}, entity, {type: entityType.annotation.term, annotator: {}, annotated: {}});
 
 module.exports = Annotation;

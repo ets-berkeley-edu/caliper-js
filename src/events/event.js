@@ -16,97 +16,40 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var Context = require('../context/context');
+var _ = require('lodash');
+var config = require('../config/config');
+var eventType = require('./eventType');
+
+var proto = {
+  id: null,
+  type: null,
+  actor: {},
+  action: null,
+  object: {},
+  eventTime: null,
+  generated: {},
+  target: {},
+  referrer: {},
+  edApp: {},
+  group: {},
+  membership: {},
+  session: {},
+  federatedSession: {},
+  extensions: {}
+};
 
 /**
- * Represents Base Caliper Event.
- * @constructor
- * @property {string} context Context
- * @property {string} type Type
- * @property {Object} actor Actor Object
- * @property {string} action String representing the action
- * @property {Object} target Target
- * @property {Object} generated Generated
- * @property {string} startedAtTime String representing Date
- * @property {string} endedAtTime String representing Date
- * @property {string} duration duration The format is expected to be PnYnMnDTnHnMnS
- * @property {Object} group Group Object
- * @property {Object} edApp EdApp Object
+ * Factory function
+ * @returns {*}
  */
+var createEvent = function createEvent() {
+  var context = {'@context': config.jsonldExternalCaliperContext};
+  var defaults = {type: eventType.event.term};
 
-// constructor
-function Event() {
-    this.setContext(Context.CONTEXT);
-    this.setType(null);
-    this.setActor(null);
-    this.setAction(null);
-    this.setObject(null);
-    this.setTarget(null);
-    this.setGenerated(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
-    this.setEdApp(null);
-    this.setGroup(null);
-    this.setMembership(null);
-    this.setFederatedSession(null);
-}
-
-// Setters for Caliper Event properties
-Event.prototype.setContext = function(context) {
-    this['@context'] = context;
+  return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)
 };
 
-Event.prototype.setType = function(type) {
-    this['@type'] = type;
-};
+// Object delegation
+var event = createEvent();
 
-Event.prototype.setActor = function(actor) {
-    this.actor = actor;
-};
-
-Event.prototype.setAction = function(action) {
-    this.action = action;
-};
-
-Event.prototype.setObject = function(object) {
-    this.object = object;
-};
-
-Event.prototype.setTarget = function(target) {
-    this.target = target;
-};
-
-Event.prototype.setGenerated = function(generated) {
-    this.generated = generated;
-};
-
-Event.prototype.setStartedAtTime = function(startedAt) {
-    this.startedAtTime = startedAt;
-};
-
-Event.prototype.setEndedAtTime = function(endedAt) {
-    this.endedAtTime = endedAt;
-};
-
-Event.prototype.setDuration = function(duration) {
-    this.duration = duration;
-};
-
-Event.prototype.setEdApp = function(edApp) {
-    this.edApp = edApp;
-};
-
-Event.prototype.setGroup = function(group) {
-    this.group = group;
-};
-
-Event.prototype.setMembership = function(membership) {
-    this.membership = membership;
-};
-
-Event.prototype.setFederatedSession = function(federatedSession) {
-    this.federatedSession = federatedSession;
-};
-
-module.exports = Event;
+module.exports = event;

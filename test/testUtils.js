@@ -16,54 +16,37 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
+var _ = require('lodash');
 var diff = require('deep-diff').diff;
-var jf = require('jsonfile')
-var util = require('util')
+var jf = require('jsonfile');
 
 /**
- * Utility function to compare JSON (represented by a object) to JSON fixture expectedJsonFile: filename
- * (relative to test/resources directory) without .json extension JsonToCompare: Object representing JSON
- * that will be compared to expectedJson t: The Tape test object filterCallback: callback function to filter
- * out JSON attributes, paths that should not be compared. Callback shouldreturn TRUE for any key + path
- * combination that should not be analyzed for differences.
- **/
-var jsonCompare = function (expectedJsonFile, JsonToCompare, t, filterCallback) {
-
+ * Calculate deep-level differences between two objects.
+ * @param expected
+ * @param actual
+ * @param filter signature should be function(path, key) and should return a truthy value for any path-key combination to be filtered. If filtered, the difference analysis does no further analysis of the identified object-property path.
+ * @returns {*}
+ */
+module.exports.compare = function compare(expected, actual, filter) {
   var differences;
 
-  var FIXTURES_BASE_DIR = '../caliper-common-fixtures/src/test/resources/fixtures/';
-  var file = FIXTURES_BASE_DIR + expectedJsonFile + '.json';
-  jf.readFile(file, function (err, expectedJson) {
-    // console.log("INFO: Loaded JSON from file: " + util.inspect(expectedJson));
-    if (_.isNull(expectedJson)) {
-      var errMsg = "ERROR: Unable to load specified JSON fixture: " + file;
-      console.log(errMsg);
-      differences = errMsg; // define so we trigger failure;
-    } else {
-      if (_.isUndefined(filterCallback)) {
-        differences = diff(expectedJson, JsonToCompare);
-      } else {
-        differences = diff(expectedJson, JsonToCompare, filterCallback);
-      }
-    }
+  if (_.isUndefined(filter)) {
+    differences = diff(expected, actual);
+  } else {
+    differences = diff(expected, actual, filter);
+  }
 
-    t.equal(true, _.isUndefined(differences), "Validate Event JSON");
-
-    // console.log("DEBUG: Differences is undefined = " + _.isUndefined(differences) + " equal = " + equal);
-
-    if (!_.isUndefined(differences)) {
-      console.log("ERROR: JSON Differences = " + JSON.stringify(differences));
-    }
-  })
+  return differences;
 };
 
-var defaultDateCreatedStr = function(){
-
+/**
+ * Read test fixture asynchronously and return content via callback
+ * @param path
+ * @param callback function that returns file content.
+ */
+module.exports.readFile = function readFile(path, callback) {
+  jf.readFile(path, function(err, content) {
+    if (err) throw err;
+    return callback(null, content);
+  });
 };
-
-var defaultDateModifiedStr = function(){
-
-};
-
-module.exports = jsonCompare;

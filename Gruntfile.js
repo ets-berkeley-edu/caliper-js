@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'dist/caliperSensor-1.0.0.js': ['src/**/*.js']
+          'dist/caliperSensor-1.1.0.js': ['src/**/*.js']
         },
         options: {
 
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         pretty: true,
         output: 'console'
       },
-      files: ['test/*.js']
+      files: ['test/**/*.js']
     },
     jsdoc: {
       dist: {
