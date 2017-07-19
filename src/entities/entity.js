@@ -32,7 +32,7 @@ var Type = require('./entityType');
  * @property {string} dateModified String Representation of Date
  */
 function Entity() {
-    // this.setContext(Context.CONTEXT);
+    this.setContext(Context.CONTEXT);
     this.setType(Type.ENTITY);
     this.setName(null);
     this.setDescription(null);

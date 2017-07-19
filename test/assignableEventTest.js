@@ -143,5 +143,5 @@ test('Create Assignable Event and validate attributes', function (t) {
     console.log("Assignable Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperEventAssignableActivated', event, t);
+    jsonCompare('caliperAssignableEvent', event, t);
 });

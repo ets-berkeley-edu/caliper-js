@@ -157,7 +157,7 @@ test('Create Envelope containing a single Navigation Event and validate attribut
     console.log("Envelope payload = " + util.inspect(payload));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperEnvelopeEventSingle', payload, t);
+    jsonCompare('eventStorePayload', payload, t);
 });
 
 /**

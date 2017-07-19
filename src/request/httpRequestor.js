@@ -22,7 +22,6 @@ var http = require('https');
 var logger = require('../logger');
 var moment = require('moment');
 var requestor = require('./eventStoreRequestor');
-var requestUtils = require('./requestUtils')
 
 /**
  * Represents httpRequestor self.

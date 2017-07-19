@@ -134,5 +134,5 @@ test('Create TagAnnotation Event and validate attributes', function (t) {
     console.log("TAGGED_ANNOTATION Annotation Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperEventAnnotationTagged', event, t);
+    jsonCompare('caliperTagAnnotationEvent', event, t);
 });

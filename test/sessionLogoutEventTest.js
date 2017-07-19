@@ -137,5 +137,5 @@ test('Create Session LOGOUT Event and validate attributes', function(t) {
     console.log("Session Event = " + util.inspect(event));
 
     // Assert that JSON produced is the same
-    jsonCompare('caliperEventSessionLoggedOut', event, t);
+    jsonCompare('caliperSessionLogoutEvent', event, t);
 });
