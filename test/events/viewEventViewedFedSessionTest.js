@@ -23,7 +23,7 @@ var test = require('tape');
 var config = require('../../src/config/config');
 var eventFactory = require('../../src/events/eventFactory');
 var validator = require('../../src/validators/validator');
-var NavigationEvent = require('../../src/events/navigationEvent');
+var ViewEvent = require('../../src/events/viewEvent');
 var actions = require('../../src/actions/actions');
 
 var entityFactory = require('../../src/entities/entityFactory');
@@ -40,12 +40,12 @@ var Status = require('../../src/entities/agent/status');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventNavigationNavigatedToFedSession.json";
+const path = config.testFixturesBaseDir + "caliperEventViewViewedFedSession.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
 
-  test('navigationEventNavigatedToFedSessionTest', function (t) {
+  test('viewEventViewedFedSessionTest', function (t) {
 
     // Plan for N assertions
     t.plan(2);
@@ -53,6 +53,28 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_IRI = "https://example.edu";
     const BASE_COM_IRI = "https://example.com";
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+
+    // LTI-related message parameters
+    var messageParameters = {
+      lti_message_type: "basic-lti-launch-request",
+      lti_version: "LTI-2p0",
+      context_id: "4f1a161f-59c3-43e5-be37-445ad09e3f76",
+      context_type: "CourseSection",
+      resource_link_id: "6b37a950-42c9-4117-8f4f-03e6e5c88d24",
+      roles: [ "Learner" ],
+      user_id: "0ae836b9-7fc9-4060-006f-27b2066ac545",
+      custom: {
+        caliper_profile_url: "https://example.edu/lti/tc/cps",
+        caliper_session_id: "1c519ff7-3dfa-4764-be48-d2fb35a2925a",
+        tool_consumer_instance_url: "https://example.edu"
+      },
+      ext: {
+        edu_example_course_section: "https://example.edu/terms/201601/courses/7/sections/1",
+        edu_example_course_section_roster: "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
+        edu_example_course_section_learner: "https://example.edu/users/554433",
+        edu_example_course_section_instructor: "https://example.edu/faculty/1234"
+      }
+    };
 
     // Id
     var uuid = validator.generateUUID(config.uuidVersion);
@@ -67,7 +89,7 @@ testUtils.readFile(path, function(err, fixture) {
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
 
     // The Action
-    var action = actions.navigatedTo.term;
+    var action = actions.viewed.term;
 
     // The Object of the interaction
     var obj = entityFactory().create(Document, {
@@ -78,10 +100,7 @@ testUtils.readFile(path, function(err, fixture) {
     });
 
     // Event time
-    var eventTime = moment.utc("2016-11-15T10:15:00.000Z");
-
-    // Referring resource
-    var referrer = entityFactory().create(WebPage, {id: BASE_SECTION_IRI.concat("/pages/4")});
+    var eventTime = moment.utc("2016-11-15T10:20:00.000Z");
 
     // The edApp
     var edApp = entityFactory().coerce(SoftwareApplication, {id: BASE_COM_IRI});
@@ -89,8 +108,9 @@ testUtils.readFile(path, function(err, fixture) {
     // Group
     var group = entityFactory().create(CourseSection, {
       id: BASE_SECTION_IRI,
-      courseNumber: "CPS 435-01",
-      academicSession: "Fall 2016"
+      extensions: {
+        edu_example_course_section_instructor: messageParameters.ext.edu_example_course_section_instructor
+      }
     });
 
     // The Actor's Membership
@@ -106,82 +126,25 @@ testUtils.readFile(path, function(err, fixture) {
     // Session
     var session = entityFactory().create(Session, {
       id: BASE_COM_IRI.concat("/sessions/c25fd3da-87fa-45f5-8875-b682113fa5ee"),
-      startedAtTime: moment.utc("2016-11-15T10:00:00.000Z")
+      dateCreated: moment.utc("2016-11-15T10:20:00.000Z"),
+      startedAtTime: moment.utc("2016-11-15T10:20:00.000Z")
     });
 
-    var ltiRequired = {
-      lti_message_type: "basic-lti-launch-request",
-      lti_version: "LTI-2p0",
-      resource_link_id: "88391-e1919-bb3456"
-    };
-
-    var ltiRecommended = {
-      context_id: "8213060-006f-27b2066ac545",
-      launch_presentation_document_target: "iframe",
-      launch_presentation_height: 240,
-      launch_presentation_return_url: "https://example.edu/terms/201601/courses/7/sections/1/pages/5",
-      launch_presentation_width: 320,
-      roles: "Learner,Student",
-      tool_consumer_instance_guid: "example.edu",
-      user_id: "0ae836b9-7fc9-4060-006f-27b2066ac545"
-    };
-
-    var ltiOptional = {
-      context_type: "CourseSection",
-      launch_presentation_locale: "en-US",
-      launch_presentation_css_url: "https://example.edu/css/tool.css",
-      role_scope_mentor: "f5b2cc6c-8c5c-24e8-75cc-fac5,dc19e42c-b0fe-68b8-167e-4b1a"
-    };
-
-    // includes LTI 2.0 deprecated properties (e.g., context_title) with recommended custom_ prefix
-    var ltiCustom = {
-      custom_caliper_session_id: "https://example.edu/sessions/1f6442a482de72ea6ad134943812bff564a76259",
-      custom_context_title: "CPS 435 Learning Analytics",
-      custom_context_label: "CPS 435",
-      custom_resource_link_title: "LTI tool",
-      custom_user_image: "https://example.edu/users/554433/profile/avatar.jpg"
-    };
-
-    var ltiExtensions = {
-      "ext_vnd_instructor": {
-        "@context": {
-          sdo: "http://schema.org/",
-          xsd: "http://www.w3.org/2001/XMLSchema#",
-          jobTitle: {"@id": "sdo:jobTitle", "@type": "xsd:string"},
-          givenName: {"@id": "sdo:givenName", "@type": "xsd:string"},
-          familyName: {"@id": "sdo:familyName", "@type": "xsd:string"},
-          email: {"@id": "sdo:email", "@type": "xsd:string"},
-          url: {"@id": "sdo:url", "@type": "xsd:string"}
-        },
-        id: "https://example.edu/faculty/trighaversine",
-        type: "Person",
-        jobTitle: "Professor",
-        givenName: "Trig",
-        familyName: "Haversine",
-        email: "trighaversine@example.edu",
-        url: "https://example.edu/faculty/trighaversine"
-      }
-    };
-
-    // Compose launchParameters from objects above
-    var launchParameters = _.assign({}, ltiRequired, ltiRecommended, ltiOptional, ltiCustom, ltiExtensions);
-
     var ltiSession = entityFactory().create(LtiSession, {
-      id: BASE_IRI.concat("/sessions/b533eb02823f31024e6b7f53436c42fb99b31241"),
+      id: "urn:uuid:1c519ff7-3dfa-4764-be48-d2fb35a2925a",
       user: actor.id,
-      launchParameters: launchParameters,
+      messageParameters: messageParameters,
       dateCreated: moment.utc("2016-11-15T10:15:00.000Z"),
       startedAtTime: moment.utc("2016-11-15T10:15:00.000Z")
     });
 
     // Assert that key attributes are the same
-    var event = eventFactory().create(NavigationEvent, {
+    var event = eventFactory().create(ViewEvent, {
       id: uuid,
       actor: actor,
       action: action,
       object: obj,
       eventTime: eventTime,
-      referrer: referrer,
       edApp: edApp,
       group: group,
       membership: membership,
@@ -197,3 +160,75 @@ testUtils.readFile(path, function(err, fixture) {
     //t.end();
   });
 });
+
+/**
+
+{
+  "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
+  "id": "urn:uuid:4be6d29d-5728-44cd-8a8f-3d3f07e46b61",
+  "type": "ViewEvent",
+  "actor": {
+  "id": "https://example.edu/users/554433",
+    "type": "Person"
+},
+  "action": "Viewed",
+  "object": {
+  "id": "https://example.com/lti/reader/202.epub",
+    "type": "Document",
+    "name": "Caliper Case Studies",
+    "mediaType": "application/epub+zip",
+    "dateCreated": "2016-08-01T09:00:00.000Z"
+},
+  "eventTime": "2016-11-15T10:20:00.000Z",
+  "edApp": "https://example.com",
+  "group": {
+  "id": "https://example.edu/terms/201601/courses/7/sections/1",
+    "type": "CourseSection",
+    "extensions": {
+    "edu_example_course_section_instructor": "https://example.edu/faculty/1234"
+  }
+},
+  "membership": {
+  "id": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
+    "type": "Membership",
+    "member": "https://example.edu/users/554433",
+    "organization": "https://example.edu/terms/201601/courses/7/sections/1",
+    "roles": [ "Learner" ],
+    "status": "Active",
+    "dateCreated": "2016-08-01T06:00:00.000Z"
+},
+  "federatedSession": {
+  "id": "urn:uuid:1c519ff7-3dfa-4764-be48-d2fb35a2925a",
+    "type": "LtiSession",
+    "user": "https://example.edu/users/554433",
+    "messageParameters": {
+    "lti_message_type": "basic-lti-launch-request",
+      "lti_version": "LTI-2p0",
+      "context_id": "4f1a161f-59c3-43e5-be37-445ad09e3f76",
+      "context_type": "CourseSection",
+      "resource_link_id": "6b37a950-42c9-4117-8f4f-03e6e5c88d24",
+      "roles": [ "Learner" ],
+      "user_id": "0ae836b9-7fc9-4060-006f-27b2066ac545",
+      "custom": {
+      "caliper_profile_url": "https://example.edu/lti/tc/cps",
+        "caliper_session_id": "1c519ff7-3dfa-4764-be48-d2fb35a2925a",
+        "tool_consumer_instance_url": "https://example.edu"
+    },
+    "ext": {
+      "edu_example_course_section": "https://example.edu/terms/201601/courses/7/sections/1",
+        "edu_example_course_section_roster": "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
+        "edu_example_course_section_learner": "https://example.edu/users/554433",
+        "edu_example_course_section_instructor": "https://example.edu/faculty/1234"
+    }
+  },
+  "dateCreated": "2016-11-15T10:15:00.000Z",
+    "startedAtTime": "2016-11-15T10:15:00.000Z"
+},
+  "session": {
+  "id": "https://example.com/sessions/c25fd3da-87fa-45f5-8875-b682113fa5ee",
+    "type": "Session",
+    "dateCreated": "2016-11-15T10:20:00.000Z",
+    "startedAtTime": "2016-11-15T10:20:00.000Z"
+}
+}
+ **/

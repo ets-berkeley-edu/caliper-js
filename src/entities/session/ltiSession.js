@@ -23,6 +23,6 @@ var entityType = require('../entityType');
 /**
  * Link LtiSession to delegate Session and assign default property values.
  */
-var LtiSession = _.assign({}, session, {type: entityType.ltiSession.term, launchParameters: {}});
+var LtiSession = _.assign({}, session, {type: entityType.ltiSession.term, messageParameters: {}});
 
 module.exports = LtiSession;
