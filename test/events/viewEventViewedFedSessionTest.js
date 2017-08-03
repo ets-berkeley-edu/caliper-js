@@ -35,7 +35,6 @@ var Person = require('../../src/entities/agent/person');
 var Role = require('../../src/entities/agent/role');
 var Session = require('../../src/entities/session/session');
 var SoftwareApplication = require('../../src/entities/agent/softwareApplication');
-var WebPage = require('../../src/entities/resource/webPage');
 var Status = require('../../src/entities/agent/status');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
