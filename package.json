@@ -20,9 +20,6 @@
       "email": "arwhyte@umich.edu"
     }
   ],
-  "engines": {
-    "node": "8.4.0"
-  },
   "dependencies": {
     "caterpillar": "^3.0.x",
     "caterpillar-browser": "^3.0.x",
@@ -44,7 +41,7 @@
     "grunt": "^1.0.x",
     "grunt-browserify": "^5.2.0",
     "grunt-http-server": "^2.0.x",
-    "grunt-jsdoc": ">=2.1.1",
+    "grunt-jsdoc": "^2.2.0",
     "grunt-tape": "^0.1.x",
     "jsonfile": "^4.0.0",
     "karma": "^1.7.1",
