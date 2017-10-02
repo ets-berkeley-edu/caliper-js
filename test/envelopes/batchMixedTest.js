@@ -58,7 +58,6 @@ testUtils.readFile(path, function(err, fixture) {
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
     const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
 
-
     /*
      * ENTITY DESCRIBES
      */

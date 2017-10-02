@@ -48,20 +48,14 @@ testUtils.readFile(path, function(err, fixture) {
   test('messageEventReplyTest', function (t) {
 
     // Plan for N assertions
-    t.plan(2);
+    t.plan(1);
 
     const BASE_IRI = "https://example.edu";
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
     const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2";
     const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/2/topics/1";
 
-    // Id
-    var uuid = validator.generateUUID(config.uuidVersion);
-
-    // Check Id
-    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
-
-    // Override ID with canned value
+    // Id with canned value
     uuid = "urn:uuid:aed54386-a3fb-45ff-90f9-a35d3daaf031";
 
     // Actor

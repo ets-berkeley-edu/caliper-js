@@ -41,17 +41,11 @@ testUtils.readFile(path, function(err, fixture) {
   test('sessionEventLoggedInExtendedTest', function (t) {
 
     // Plan for N assertions
-    t.plan(2);
+    t.plan(1);
 
     const BASE_IRI = "https://example.edu";
 
-    // Id
-    var uuid = validator.generateUUID(config.uuidVersion);
-
-    // Check Id
-    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
-
-    // Override ID with canned value
+    // Id with canned value
     uuid = "urn:uuid:4ec2c31e-3ec0-4fe1-a017-b81561b075d7";
 
     // The Actor

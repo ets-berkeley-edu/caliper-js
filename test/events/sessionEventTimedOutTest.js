@@ -41,17 +41,11 @@ testUtils.readFile(path, function(err, fixture) {
   test('sessionEventTimedOutTest', function(t) {
 
     // Plan for N assertions
-    t.plan(2);
+    t.plan(1);
 
     const BASE_IRI = "https://example.edu";
 
-    // Id
-    var uuid = validator.generateUUID(config.uuidVersion);
-
-    // Check Id
-    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
-
-    // Override ID with canned value
+    // Id with canned value
     uuid = "urn:uuid:4e61cf6c-ffbe-45bc-893f-afe7ad4079dc";
 
     // The Actor
