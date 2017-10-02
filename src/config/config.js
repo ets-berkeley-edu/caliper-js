@@ -27,6 +27,7 @@
 var Config = {
   dataFormat: "JSON-LD",
   dataVersion: "http://purl.imsglobal.org/ctx/caliper/v1p1",
+  dateTimeFormat: "YYYY-MM-DDTHH:mm:ss.SSSZ",
   jsonldExternalCaliperContext: "http://purl.imsglobal.org/ctx/caliper/v1p1",
   testFixturesBaseDir: "../caliper-common-fixtures/src/test/resources/fixtures/",
   uuidVersion: 4

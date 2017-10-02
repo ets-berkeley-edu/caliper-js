@@ -36,7 +36,7 @@ var proto = {
  * @returns {*}
  */
 var createEnvelope = function createEnvelope() {
-  var sendTime = moment.utc().format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+  var sendTime = moment.utc().format(config.dateTimeFormat);
   var dataVersion = config.dataVersion;
 
   return _.assign({}, proto, {sendTime: sendTime, dataVersion: dataVersion})

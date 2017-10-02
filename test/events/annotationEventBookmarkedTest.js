@@ -47,19 +47,13 @@ testUtils.readFile(path, function(err, fixture) {
   test('annotationEventBookmarkedTest', function (t) {
 
     // Plan for N assertions
-    t.plan(2);
+    t.plan(1);
 
     const BASE_IRI = "https://example.edu";
     const BASE_COM_IRI = "https://example.com";
     const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
-    // Id
-    var uuid = validator.generateUUID(config.uuidVersion);
-
-    // Check Id
-    t.equal(true, validator.isUuid(uuid), "Validate generated UUID.");
-
-    // Override ID with canned value
+    // Id with canned value
     uuid = "urn:uuid:d4618c23-d612-4709-8d9a-478d87808067";
 
     // The Actor
