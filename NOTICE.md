@@ -1,4 +1,4 @@
-Copyright © 2016 IMS Global Learning Consortium, Inc. All Rights Reserved.
+Copyright © 2018 IMS Global Learning Consortium, Inc. All Rights Reserved.
 
 Trademark Information -- http://www.imsglobal.org/copyright.html
 
