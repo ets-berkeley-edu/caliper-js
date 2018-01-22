@@ -65,20 +65,12 @@ self.createEnvelope = function(sensor, data) {
     return envelope;
 };
 
-self.replacer = function(key, value) {
-  // Filtering out if empty, null or undefined
-  if (_.isEmpty(value)) {
-    return undefined;
-  }
-  return value;
-}
-
 /**
  * Generate JSON. Private method that is not exported.
  * @param envelope
  */
 self.generateJsonPayload = function generateJsonPayload(payload) {
-    return JSON.stringify(payload, self.replacer);
+    return JSON.stringify(payload);
 }
 
 /**

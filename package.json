@@ -6,7 +6,6 @@
   "name": "caliperjs",
   "version": "1.0.0",
   "description": "Caliper Javascript Sensor",
-  "main": "src/server-sensor.js",
   "dependencies": {
     "caterpillar": "^2.0.7",
     "caterpillar-browser": "^2.0.1",
