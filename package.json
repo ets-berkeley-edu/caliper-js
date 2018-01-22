@@ -29,23 +29,23 @@
     "http-browserify": "^1.7.0",
     "https-browserify": "^1.0.0",
     "lodash": "^4.17.4",
-    "moment": "^2.10.1",
+    "moment": "^2.20.1",
     "node-uuid": "^1.4.7",
     "request": "^2.81.0",
     "uri-js": "^3.0.2",
     "url": "^0.11.0",
-    "validator": "^9.0.0"
+    "validator": "^9.2.0"
   },
   "devDependencies": {
     "deep-diff": "^0.3.0",
     "grunt": "^1.0.x",
     "grunt-browserify": "^5.2.0",
     "grunt-http-server": "^2.0.x",
-    "grunt-jsdoc": "^2.2.0",
+    "grunt-jsdoc": "^2.2.1",
     "grunt-tape": "^0.1.x",
     "jsonfile": "^4.0.0",
     "karma": "^1.7.1",
-    "karma-browserify": "^5.1.1",
+    "karma-browserify": "^5.1.3",
     "tape": "^4.8.0",
     "util": "^0.10.x"
   },
