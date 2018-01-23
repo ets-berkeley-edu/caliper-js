@@ -16,29 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var _ = require('lodash');
+var annotation = require('./annotation');
+var entityType = require('../entityType');
 
 /**
- * Represents BookmarkAnnotation.  
- * BookmarkAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @property {string} bookmarkNotes
- * @extends Annotation
+ * Compose BookmarkAnnotation from Annotation and set default properties.
  */
-function BookmarkAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.BOOKMARK_ANNOTATION);
-    this.setBookmarkNotes(null);
-}
-
-BookmarkAnnotation.prototype = _.create(Annotation.prototype);
-
-BookmarkAnnotation.prototype.setBookmarkNotes = function(bookmarkNotes) {
-  this.bookmarkNotes = bookmarkNotes;
-};
+var BookmarkAnnotation = _.assign({}, annotation, {type: entityType.bookmarkAnnotation.term, bookmarkNotes: null});
 
 module.exports = BookmarkAnnotation;

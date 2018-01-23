@@ -16,26 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Event = require('./event');
-var EventType = require('./eventType');
+var _ = require('lodash');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Media Event.  
- * MediaEvent's prototype set to Event
- * @constructor
- * @property {Object} mediaLocation Media Location
- * @extends Event
+ * Compose MediaEvent from Event and set default properties.
  */
-function MediaEvent() {
-    Event.call(this);
-    this.setType(EventType.MEDIA);
-}
-
-MediaEvent.prototype = _.create(Event.prototype);
-
-MediaEvent.prototype.setMediaLocation = function (mediaLocation) {
-  this.mediaLocation = mediaLocation;
-};
+var MediaEvent = _.assign({}, event, {type: eventType.media.term});
 
 module.exports = MediaEvent;

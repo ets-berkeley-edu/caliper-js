@@ -15,21 +15,20 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
- 
-var logger = require('caterpillar').createLogger({
-  level: 6
-});
 
-var output = logger
-  .pipe(
-    require('caterpillar-filter').createFilter()
-  )
-  .pipe(
-    require('caterpillar-human').createHuman()
-  )
-  .pipe(
-    require('caterpillar-browser').createBrowser()
-  );
+
+var level = process.argv.indexOf('--log') === -1 ? 6 : 7;
+var logger = require('caterpillar').create({ level: level });
+var filter = require('caterpillar-filter').create();
+var human = require('caterpillar-human').create();
+
+// Pipe to filter to human to stdout
+// logger.pipe(filter).pipe(human).pipe(process.stdout);
+
+// If debugging write logger data to debug.log
+if (level === 7) {
+  logger.pipe(require('fs').createWriteStream('caliper_js-debug.log'));
+}
 
 // Export
 module.exports = {

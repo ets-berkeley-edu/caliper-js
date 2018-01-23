@@ -16,29 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Response = require('./response');
-var ResponseType = require('./responseType');
+var _ = require('lodash');
+var response = require('./response');
+var entityType = require('../entityType');
 
 /**
- * Represents SelectTextResponse.
- * SelectTextResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @property {Object[]} values Array of response values
- * @extends Response
+ * Link SelectTextResponse to delegate Response and assign default property values.
  */
-function SelectTextResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.SELECTTEXT);
-    this.setValues(null);
-}
-
-SelectTextResponse.prototype = _.create(Response.prototype);
-
-SelectTextResponse.prototype.setValues = function(values) {
-    this.values = values;
-};
+var SelectTextResponse = _.assign({}, response, {type: entityType.selectTextResponse.term, values: []});
 
 module.exports = SelectTextResponse;

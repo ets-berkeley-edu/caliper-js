@@ -16,47 +16,19 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var _ = require('lodash');
+var entity = require('../entity');
+var entityType = require('../entityType');
 
 /**
- * Represents Session.  
- * Session's prototype set to Entity
- * @constructor
- * @param {string} id URI
- * @property {Object} actor
- * @property {string} startedAtTime String Representation of Date
- * @property {string} endedAtTime String Representatio of Date
- * @property {string} duration The format is expected to be PnYnMnDTnHnMnS
- * @extends Entity
+ * Link Session to delegate Entity and assign default property values.
  */
-function Session(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.SESSION);
-    this.setActor(null);
-    this.setStartedAtTime(null);
-    this.setEndedAtTime(null);
-    this.setDuration(null);
-}
-
-Session.prototype = _.create(Entity.prototype);
-
-Session.prototype.setActor = function(actor) {
-    this.actor = actor;
-};
-
-Session.prototype.setStartedAtTime = function(startedAt) {
-    this.startedAtTime = startedAt;
-};
-
-Session.prototype.setEndedAtTime = function(endedAt) {
-    this.endedAtTime = endedAt;
-};
-
-Session.prototype.setDuration = function(duration) {
-    this.duration = duration;
-};
+var Session = _.assign({}, entity, {
+  type: entityType.session.term,
+  user: {},
+  startedAtTime: null,
+  endedAtTime: null,
+  duration: null
+});
 
 module.exports = Session;

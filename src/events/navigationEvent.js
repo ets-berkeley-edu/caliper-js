@@ -16,26 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Event = require('./event');
-var EventType = require('./eventType');
+var _ = require('lodash');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Navigation Event.  
- * NavigationEvent's prototype set to Event
- * @constructor
- * @property {Object} navigatedFrom Object they navigated from
- * @extends Event
+ * Compose NavigationEvent from Event and set default properties.
  */
-function NavigationEvent() {
-    Event.call(this);
-    this.setType(EventType.NAVIGATION);
-}
-
-NavigationEvent.prototype = _.create(Event.prototype);
-
-NavigationEvent.prototype.setNavigatedFrom = function (navigatedFrom) {
-  this.navigatedFrom = navigatedFrom;
-};
+var NavigationEvent = _.assign({}, event, {type: eventType.navigation.term});
 
 module.exports = NavigationEvent;
