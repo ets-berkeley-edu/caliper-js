@@ -16,17 +16,79 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var config = ('../config');
+
 var eventType = {
-    "ANNOTATION": "http://purl.imsglobal.org/caliper/v1/AnnotationEvent",
-    "ASSESSMENT": "http://purl.imsglobal.org/caliper/v1/AssessmentEvent",
-    "ASSESSMENT_ITEM": "http://purl.imsglobal.org/caliper/v1/AssessmentItemEvent",
-    "ASSIGNABLE": "http://purl.imsglobal.org/caliper/v1/AssignableEvent",
-    "EVENT": "http://purl.imsglobal.org/caliper/v1/Event",
-    "MEDIA": "http://purl.imsglobal.org/caliper/v1/MediaEvent",
-    "NAVIGATION": "http://purl.imsglobal.org/caliper/v1/NavigationEvent",
-    "OUTCOME": "http://purl.imsglobal.org/caliper/v1/OutcomeEvent",
-    "VIEWED": "http://purl.imsglobal.org/caliper/v1/ViewEvent",
-    "SESSION": "http://purl.imsglobal.org/caliper/v1/SessionEvent"
+  annotation: {
+    context: config.jsonldExternalCaliperContext,
+    term: "AnnotationEvent",
+    iri: "http://purl.imsglobal.org/caliper/AnnotationEvent"
+  },
+  assessment: {
+    context: config.jsonldExternalCaliperContext,
+    term: "AssessmentEvent",
+    iri: "http://purl.imsglobal.org/caliper/AssessmentEvent"
+  },
+  assessmentItem: {
+    context: config.jsonldExternalCaliperContext,
+    term: "AssessmentItemEvent",
+    iri: "http://purl.imsglobal.org/caliper/AssessmentItemEvent"
+  },
+  assignable: {
+    context: config.jsonldExternalCaliperContext,
+    term: "AssignableEvent",
+    iri: "http://purl.imsglobal.org/caliper/AssignableEvent"
+  },
+  event: {
+    context: config.jsonldExternalCaliperContext,
+    term: "Event",
+    iri: "http://purl.imsglobal.org/caliper/Event"
+  },
+  forum: {
+    context: config.jsonldExternalCaliperContext,
+    term: "ForumEvent",
+    iri: "http://purl.imsglobal.org/caliper/ForumEvent"
+  },
+  grade: {
+    context: config.jsonldExternalCaliperContext,
+    term: "GradeEvent",
+    iri: "http://purl.imsglobal.org/caliper/GradeEvent"
+  },
+  media: {
+    context: config.jsonldExternalCaliperContext,
+    term: "MediaEvent",
+    iri: "http://purl.imsglobal.org/caliper/MediaEvent"
+  },
+  message: {
+    context: config.jsonldExternalCaliperContext,
+    term: "MessageEvent",
+    iri: "http://purl.imsglobal.org/caliper/MessageEvent"
+  },
+  navigation: {
+    context: config.jsonldExternalCaliperContext,
+    term: "NavigationEvent",
+    iri: "http://purl.imsglobal.org/caliper/NavigationEvent"
+  },
+  session: {
+    context: config.jsonldExternalCaliperContext,
+    term: "SessionEvent",
+    iri: "http://purl.imsglobal.org/caliper/SessionEvent"
+  },
+  thread: {
+    context: config.jsonldExternalCaliperContext,
+    term: "ThreadEvent",
+    iri: "http://purl.imsglobal.org/caliper/ThreadEvent"
+  },
+  toolUse: {
+    context: config.jsonldExternalCaliperContext,
+    term: "ToolUseEvent",
+    iri: "http://purl.imsglobal.org/caliper/ToolUseEvent"
+  },
+  view: {
+    context: config.jsonldExternalCaliperContext,
+    term: "ViewEvent",
+    iri: "http://purl.imsglobal.org/caliper/ViewEvent"
+  }
 };
 
 module.exports = eventType;

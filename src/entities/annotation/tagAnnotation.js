@@ -16,29 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var _ = require('lodash');
+var annotation = require('./annotation');
+var entityType = require('../entityType');
 
 /**
- * Represents TagAnnotation.  
- * TagAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @property {string[]} tags Array of Strings representing tags
- * @extends Annotation
+ * Compose TagAnnotation from Annotation and set default properties.
  */
-function TagAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.TAG_ANNOTATION);
-    this.setTags(null);
-}
-
-TagAnnotation.prototype = _.create(Annotation.prototype);
-
-TagAnnotation.prototype.setTags = function(tags) {
-  this.tags = tags;
-};
+var TagAnnotation = _.assign({}, annotation, {type: entityType.tagAnnotation.term, tags: []});
 
 module.exports = TagAnnotation;

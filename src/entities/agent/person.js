@@ -16,23 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var _ = require('lodash');
+var agent = require('./agent');
+var entityType = require('../entityType');
 
 /**
- * Represents Person.  
- * Person's prototype set to Agent
- * @constructor
- * @param {string} id URI
- * @extends Agent
+ * Compose Person from Agent and set default properties.
  */
-function Person(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.PERSON);
-}
-
-Person.prototype = _.create(Entity.prototype);
+var Person = _.assign({}, agent, {type: entityType.person.term});
 
 module.exports = Person;

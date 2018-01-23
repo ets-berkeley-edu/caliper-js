@@ -16,62 +16,32 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var Context = require('../context/context');
-var Type = require('./entityType');
+var _ = require('lodash');
+var config = require('../config/config');
+var entityType = require('./entityType');
+
+var proto = {
+  id: null,
+  type: null,
+  name: null,
+  description: null,
+  dateCreated: null,
+  dateModified: null,
+  extensions: {}
+};
 
 /**
- * Represents base Caliper Entity.  Analogous to a schema.org Thing
- * @constructor
- * @property {string} @context URI
- * @property {string} @id URI
- * @property {string} @type URI
- * @property {string} name Name
- * @property {string} description Description
- * @property {Object[]} properties Array of Extensions
- * @property {string} dateCreated String Representation of Date
- * @property {string} dateModified String Representation of Date
+ * Factory method
+ * @returns {*}
  */
-function Entity() {
-    this.setContext(Context.CONTEXT);
-    this.setType(Type.ENTITY);
-    this.setName(null);
-    this.setDescription(null);
-    this.setExtensions({});
-    this.setDateCreated(null);
-    this.setDateModified(null);
-}
+var createEntity = function createEntity() {
+  var context = {'@context': config.jsonldExternalCaliperContext};
+  var defaults = {type: entityType.entity.term};
 
-// Setters for base properties of all Caliper Entities
-Entity.prototype.setContext = function (context) {
-    this['@context'] = context;
+  return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)
 };
 
-Entity.prototype.setId = function (id) {
-    this['@id'] = id;
-};
+// Object delegation
+var entity = createEntity();
 
-Entity.prototype.setType = function (type) {
-    this['@type'] = type;
-};
-
-Entity.prototype.setName = function (name) {
-    this.name = name;
-};
-
-Entity.prototype.setDescription = function (description) {
-    this.description = description;
-};
-
-Entity.prototype.setExtensions = function (extensions) {
-    this.extensions = extensions;
-};
-
-Entity.prototype.setDateCreated = function (dateCreated) {
-    this.dateCreated = dateCreated;
-};
-
-Entity.prototype.setDateModified = function (dateModified) {
-    this.dateModified = dateModified;
-};
-
-module.exports = Entity;
+module.exports = entity;

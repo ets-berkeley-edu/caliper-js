@@ -16,21 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Event = require('./event');
-var EventType = require('./eventType');
+var _ = require('lodash');
+var event = require('./event');
+var eventType = require('./eventType');
 
 /**
- * Represents Assignable Event.  
- * AssignableEvent's prototype set to Event
- * @constructor
- * @extends Event
+ * Compose AssignableEvent from Event and set default properties.
  */
-function AssignableEvent() {
-    Event.call(this);
-    this.setType(EventType.ASSIGNABLE);
-}
-
-AssignableEvent.prototype = _.create(Event.prototype);
+var AssignableEvent = _.assign({}, event, {type: eventType.assignable.term});
 
 module.exports = AssignableEvent;

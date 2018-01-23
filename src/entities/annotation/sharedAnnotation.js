@@ -16,29 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var _ = require('lodash');
+var annotation = require('./annotation');
+var entityType = require('../entityType');
 
 /**
- * Represents SharedAnnotation.  
- * SharedAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @property {Object[]} withAgents Array of Agents
- * @extends Annotation
+ * Compose SharedAnnotation from Annotation and set default properties.
  */
-function SharedAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.SHARED_ANNOTATION);
-    this.setWithAgents(null);
-}
-
-SharedAnnotation.prototype = _.create(Annotation.prototype);
-
-SharedAnnotation.prototype.setWithAgents = function(withAgents) {
-  this.withAgents = withAgents;
-};
+var SharedAnnotation = _.assign({}, annotation, {type: entityType.sharedAnnotation.term, withAgents: []});
 
 module.exports = SharedAnnotation;

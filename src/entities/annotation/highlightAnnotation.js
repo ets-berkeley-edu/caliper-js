@@ -16,35 +16,17 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Annotation = require('./annotation');
-var AnnotationType = require('./annotationType');
+var _ = require('lodash');
+var annotation = require('./annotation');
+var entityType = require('../entityType');
 
 /**
- * Represents HighlightAnnotation.
- * HighlightAnnotation's prototype set to Annotation
- * @constructor
- * @param {string} id URI
- * @property {Object} selection {startPosition, endPosition
- * @property {string} selectionText Text that was Selected 
- * @extends Annotation
+ * Compose HighlightAnnotation from Annotation and set default properties.
  */
-function HighlightAnnotation(id) {
-    Annotation.call(this);
-    this.setId(id);
-    this.setType(AnnotationType.HIGHLIGHT_ANNOTATION);
-    this.setSelection(null);
-    this.setSelectionText(null);
-}
-
-HighlightAnnotation.prototype = _.create(Annotation.prototype);
-
-HighlightAnnotation.prototype.setSelection = function(selection) {
-  this.selection = selection;
-};
-
-HighlightAnnotation.prototype.setSelectionText = function(selectionText) {
-  this.selectionText = selectionText;
-};
+var HighlightAnnotation = _.assign({}, annotation, {
+  type: entityType.highlightAnnotation.term,
+  selection: {},
+  selectionText: null
+});
 
 module.exports = HighlightAnnotation;

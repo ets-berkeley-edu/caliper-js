@@ -16,29 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Entity = require('../entity');
-var EntityType = require('../entityType');
+var _ = require('lodash');
+var agent = require('./agent');
+var entityType = require('../entityType');
 
 /**
- * Represents an LTI W3C Organization.
- * Organization's prototype set to Entity.
- * @constructor
- * @param {string} id URI
- * @property {Object} subOrganizationOf Parent Organization Object
- * @extends Agent
+ * Compose Organization from Agent and set default properties.
  */
-function Organization(id) {
-    Entity.call(this);
-    this.setId(id);
-    this.setType(EntityType.ORGANIZATION);
-    this.setSubOrganizationOf(null);
-}
-
-Organization.prototype = _.create(Entity.prototype);
-
-Organization.prototype.setSubOrganizationOf = function(subOrganizationOf) {
-  this.subOrganizationOf = subOrganizationOf;
-};
+var Organization = _.assign({}, agent, {type: entityType.organization.term, subOrganizationOf: {}, members: []});
 
 module.exports = Organization;

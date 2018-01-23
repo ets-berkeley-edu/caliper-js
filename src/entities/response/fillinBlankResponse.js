@@ -16,29 +16,13 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var _ = require('lodash-node');
-var Response = require('./response');
-var ResponseType = require ('./responseType');
+var _ = require('lodash');
+var response = require('./response');
+var entityType = require('../entityType');
 
 /**
- * Represents FillinBlankResponse.
- * FillinBlankResponse's prototype set to Response
- * @constructor
- * @param {string} id URI
- * @property {Object[]} values Array of response values
- * @extends Response
+ * Link FillinBlankResponse to delegate Response and assign default property values.
  */
-function FillinBlankResponse(id) {
-    Response.call(this);
-    this.setId(id);
-    this.setType(ResponseType.FILLINBLANK);
-    this.setValues(null);
-}
-
-FillinBlankResponse.prototype = _.create(Response.prototype);
-
-FillinBlankResponse.prototype.setValues = function(values) {
-    this.values = values;
-};
+var FillinBlankResponse = _.assign({}, response, {type: entityType.fillinBlankResponse.term, values: []});
 
 module.exports = FillinBlankResponse;
