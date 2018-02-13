@@ -11,7 +11,7 @@ The [Caliper Analytics&reg; Specification](https://www.imsglobal.org/caliper/v1p
 * __develop__: unstable development branch.  Current work that targets a future release is merged to this branch.
 
 ## Tags
-*caliper-js* releases are tagged and versioned MAJOR.MINOR.PATCH\[-label\] (e.g., 1.1.1).  Pre-release tags are identified with an extensions label (e.g., "1.2.0-RC01").  The tags are stored in this repository.
+*caliper-js* releases are tagged and versioned MAJOR.MINOR.PATCH\[-label\] (e.g., 1.2.0).  Pre-release tags are identified with an extensions label (e.g., "1.2.0-RC01").  The tags are stored in this repository.
 
 ## Getting started
 1. *Read* the [Caliper Analytics&reg; Specification](https://www.imsglobal.org/caliper/v1p1/caliper-spec-v1p1).  
@@ -190,7 +190,7 @@ Install and build the *caliper-js* library per the steps above.  Then reference 
 
 ```html
 <head> 
-  <script src="[path to]/caliperSensor-1.1.1.js"></script>
+  <script src="[path to]/caliperSensor-1.2.0.js"></script>
 </head>
 ```
 
@@ -250,7 +250,7 @@ payload.push(event);
 var opts = {
   sensor: sensor.id,
   sendTime: new Date().toISOString(),
-  dataVersion: "http://purl.imsglobal.org/ctx/caliper/v1p1",
+  dataVersion: "http://purl.imsglobal.org/ctx/caliper/v1p2",
   data: payload
 };
 
