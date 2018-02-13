@@ -79,6 +79,11 @@ var eventType = {
     term: "ThreadEvent",
     iri: "http://purl.imsglobal.org/caliper/ThreadEvent"
   },
+  toolLaunch: {
+    context: config.jsonldExternalCaliperContext,
+    term: "ToolLaunchEvent",
+    iri: "http://purl.imsglobal.org/caliper/ToolLaunchEvent"
+  },
   toolUse: {
     context: config.jsonldExternalCaliperContext,
     term: "ToolUseEvent",
