@@ -12,141 +12,144 @@
     <script type="text/javascript">
     $(document).ready(function() {
 
-        // Initialize sensor, client, requestor and options.  Register client and requestor.
-        var sensor = Caliper.Sensor;
-        sensor.initialize("https://example.edu/sensor/1");
+      // Initialize Sensor and register Client (delegation chain)
+      var sensor = Caliper.Sensor;
+      sensor.initialize("https://example.com/sensor/1");
+      var config = Caliper.Config.Config;
+      var options = Caliper.Clients.HttpOptions;
+      options.uri = "http://127.0.0.1:8070/test/endpoint";
+      var client = Caliper.Clients.HttpClient;
+      client.initialize(sensor.id.concat("/clients/1"), options);
+      sensor.registerClient(client);
 
-        var client = Caliper.SensorClients.Client;
-        client.initialize(sensor.id.concat("/clients/1"));
+      const BASE_COURSE_IRI = "https://example.edu/politicalScience/2017/american-revolution-101";
+      const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
 
-        var requestor = Caliper.Requestors.HttpRequestor;
-        requestor.initialize(client.id.concat("/requestors/1"), {
-          host: "127.0.0.1",
-          port: "8070",
-          path: "/v1p1/custom/event_data"
-        });
+      var eventId = "urn:uuid:d4618c23-d612-4709-8d9a-478d87808067";
 
-        sensor.registerClient(client);
-        client.registerRequestor(requestor);
+      // The Actor for the Caliper Event
+      var actor = Caliper.Entities.EntityFactory().create(Caliper.Entities.Person, {
+        id: "https://example.edu/user/554433",
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        dateModified: moment("2017-09-02T11:30:00Z")
+      });
 
-        const BASE_COURSE_IRI = "https://example.edu/politicalScience/2017/american-revolution-101";
-        const BASE_EPUB_IRI = "https://example.com/viewer/book/34843";
+      // The Action for the Caliper Event
+      var action = Caliper.Actions.navigatedTo.term;
 
-        var id = uuid = "urn:uuid:d4618c23-d612-4709-8d9a-478d87808067";
+      // The Object being interacted with by the Actor
+      var obj = Caliper.Entities.EntityFactory().create(Caliper.Entities.Document, {
+        id: BASE_EPUB_IRI.concat("#epubcfi(/4/3)"),
+        name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        dateModified: moment("2017-09-02T11:30:00Z"),
+        version: "2nd ed."
+      });
 
-        // The Actor for the Caliper Event
-        var actorId = "https://example.edu/user/554433";
-        var actor = Caliper.Entities.EntityFactory().create(Caliper.Entities.Person, actorId, {
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            dateModified: moment("2017-09-02T11:30:00Z")
-        });
+      // The target object (frame) within the Event Object
+      var target = Caliper.Entities.EntityFactory().create(Caliper.Entities.Frame, {
+        id: BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"),
+        name: "Key Figures: George Washington",
+        isPartOf: obj,
+        index: 1,
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        dateModified: moment("2017-09-02T11:30:00Z"),
+        version: "2nd ed."
+      });
 
-        // Federated Session
-        var sessionId = "https://example.edu/lms/federatedSession/123456789";
-        var session = Caliper.Entities.EntityFactory().create(Caliper.Entities.Session, sessionId, {
-            actor: actor,
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            startedAtTime: moment("2017-09-15T10:15:00Z")
-        });
+      // Specific to the Navigation Event - the location where the user navigated from
+      var referrer = Caliper.Entities.EntityFactory().create(Caliper.Entities.WebPage, {
+        id: BASE_COURSE_IRI.concat("/index.html"),
+        name: "American Revolution 101 Landing Page",
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        dateModified: moment("2017-09-02T11:30:00Z"),
+        version: "1.0"
+      });
 
-        // The Action for the Caliper Event
-        var action = Caliper.Actions.navigatedTo.term;
+      // The edApp
+      var edApp = Caliper.Entities.EntityFactory().create(Caliper.Entities.SoftwareApplication, {
+        id: "https://example.com/viewer",
+        name: "ePub",
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        dateModified: moment("2017-09-02T11:30:00Z"),
+        version: "1.2.3"
+      });
 
-        // The Object being interacted with by the Actor
-        var obj = Caliper.Entities.EntityFactory().create(Caliper.Entities.Document, BASE_EPUB_IRI.concat("#epubcfi(/4/3)"), {
-            name: "The Glorious Cause: The American Revolution, 1763-1789 (Oxford History of the United States)",
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            dateModified: moment("2017-09-02T11:30:00Z"),
-            version: "2nd ed."
-        });
+      // LIS Course Offering
+      var course = Caliper.Entities.EntityFactory().create(Caliper.Entities.CourseOffering, {
+        id: BASE_COURSE_IRI,
+        name: "Political Science 101: The American Revolution",
+        courseNumber: "POL101",
+        academicSession: "Fall-2017",
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        dateModified: moment("2017-09-02T11:30:00Z")
+      });
 
-        // The target object (frame) within the Event Object
-        var target = Caliper.Entities.EntityFactory().create(Caliper.Entities.Frame, BASE_EPUB_IRI.concat("#epubcfi(/4/3/1)"), {
-            name: "Key Figures: George Washington",
-            isPartOf: obj,
-            index: 1,
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            dateModified: moment("2017-09-02T11:30:00Z"),
-            version: "2nd ed."
-        });
+      // LIS Course Section (Event.group)
+      var section = Caliper.Entities.EntityFactory().create(Caliper.Entities.CourseSection, {
+        id: BASE_COURSE_IRI.concat("/section/001"),
+        name: "American Revolution 101",
+        courseNumber: "POL101",
+        academicSession: "Fall-2017",
+        subOrganizationOf: course,
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        dateModified: moment("2017-09-02T11:30:00Z")
+      });
 
-        // Specific to the Navigation Event - the location where the user navigated from
-        var referrer = Caliper.Entities.EntityFactory().create(Caliper.Entities.WebPage, BASE_COURSE_IRI.concat("/index.html"), {
-            name: "American Revolution 101 Landing Page",
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            dateModified: moment("2017-09-02T11:30:00Z"),
-            version: "1.0"
-        });
+      // The Actor's Membership
+      var membership = Caliper.Entities.EntityFactory().create(Caliper.Entities.Membership, {
+        id: BASE_COURSE_IRI.concat("/roster/554433"),
+        name: "American Revolution 101",
+        description: "Roster entry",
+        member: actor.id,
+        organization: section.id,
+        roles: [ Caliper.Entities.Role.learner.term ],
+        status: Caliper.Entities.Status.active.term,
+        dateCreated: moment("2017-08-01T06:00:00Z")
+      });
 
-        // The edApp
-        var edAppId = "https://example.com/viewer";
-        var edApp = Caliper.Entities.EntityFactory().create(Caliper.Entities.SoftwareApplication, edAppId, {
-            name: "ePub",
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            dateModified: moment("2017-09-02T11:30:00Z"),
-            version: "1.2.3"
-        });
+      // Session
+      var session = Caliper.Entities.EntityFactory().create(Caliper.Entities.Session, {
+        id: "https://example.edu/lms/federatedSession/123456789",
+        dateCreated: moment("2017-08-01T06:00:00Z"),
+        startedAtTime: moment("2017-09-15T10:15:00Z")
+      });
 
-        // LIS Course Offering
-        var course = Caliper.Entities.EntityFactory().create(Caliper.Entities.CourseOffering, BASE_COURSE_IRI, {
-            name: "Political Science 101: The American Revolution",
-            courseNumber: "POL101",
-            academicSession: "Fall-2017",
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            dateModified: moment("2017-09-02T11:30:00Z")
-        });
+      // Assert that key attributes are the same
+      var event = Caliper.Events.EventFactory().create(Caliper.Events.NavigationEvent, {
+        id: eventId,
+        actor: actor,
+        action: action,
+        object: obj,
+        eventTime: moment("2017-09-15T10:15:00Z"),
+        target: target,
+        referrer: referrer,
+        edApp: edApp,
+        group: section,
+        membership: membership,
+        session: session
+      });
 
-        // LIS Course Section
-        var sectionId = BASE_COURSE_IRI.concat("/section/001");
-        var section = Caliper.Entities.EntityFactory().create(Caliper.Entities.CourseSection, sectionId, {
-            name: "American Revolution 101",
-            courseNumber: "POL101",
-            academicSession: "Fall-2017",
-            subOrganizationOf: course,
-            dateCreated: moment("2017-08-01T06:00:00Z"),
-            dateModified: moment("2017-09-02T11:30:00Z")
-        });
+      console.log('INFO: created navigation event %O', event);
 
-        // LIS Group
-        var groupId = sectionId.concat("/group/001");
-        var group = Caliper.Entities.EntityFactory().create(Caliper.Entities.Group, groupId, {
-            name: "Discussion Group 001",
-            subOrganizationOf: section,
-            dateCreated: moment("2017-08-01T06:00:00Z")
-        });
+      // Create data payload
+      var data = [];
+      data.push(event);
 
-        // The Actor's Membership
-        var membershipId = BASE_COURSE_IRI.concat("/roster/554433");
-        var membership = Caliper.Entities.EntityFactory().create(Caliper.Entities.Membership, membershipId, {
-            name: "American Revolution 101",
-            description: "Roster entry",
-            member: actor['@id'],
-            organization: section['@id'],
-            roles: [Caliper.Entities.Role.LEARNER],
-            status: Caliper.Entities.Status.ACTIVE,
-            dateCreated: moment("2017-08-01T06:00:00Z")
-        });
+      // Create envelope with data payload.
+      var envelope = sensor.createEnvelope({
+        sensor: client.id,
+        sendTime: moment.utc(),
+        dataVersion: config.dataVersion,
+        data: data
+      });
 
-        // Assert that key attributes are the same
-        var event = Caliper.Events.EventFactory().create(Caliper.Events.NavigationEvent, {
-            id: id,
-            actor: actor,
-            action: action,
-            object: obj,
-            eventTime: moment("2017-09-15T10:15:00Z"),
-            target: target,
-            referrer: referrer,
-            edApp: edApp,
-            group: group,
-            membership: membership,
-            session: session
-        });
+      console.log('INFO: created envelope %O', envelope);
 
-        console.log('created navigation event %O', event);
+      // Pass envelope to client to transmit.
+      sensor.sendToClient(client, envelope);
 
-        sensor.send(event);
-
-        console.log('sent navigation event %O', event);
+      console.log('INFO: sent envelope containing navigation event');
     });
     </script>
 </body>
