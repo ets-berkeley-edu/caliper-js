@@ -26,7 +26,7 @@ var AudioObject = require('../../src/entities/resource/audioObject');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityAudioObject.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityAudioObject.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

@@ -33,7 +33,7 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventSessionLoggedOut.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEventSessionLoggedOut.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

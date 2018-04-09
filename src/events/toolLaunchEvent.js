@@ -23,6 +23,8 @@ var eventType = require('./eventType');
 /**
  * Compose ToolUseEvent from Event and set default properties.
  */
-var ToolLaunchEvent = _.assign({}, event, {type: eventType.toolLaunch.term});
+var ToolLaunchEvent = _.assign({}, event,
+  {'@context': eventType.toolLaunch.context},
+  {type: eventType.toolLaunch.term});
 
 module.exports = ToolLaunchEvent;

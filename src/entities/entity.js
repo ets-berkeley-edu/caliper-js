@@ -35,7 +35,7 @@ var proto = {
  * @returns {*}
  */
 var createEntity = function createEntity() {
-  var context = {'@context': config.jsonldExternalCaliperContext};
+  var context = {'@context': config.jsonldContext.v1p1};
   var defaults = {type: entityType.entity.term};
 
   return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)

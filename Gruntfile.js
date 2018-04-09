@@ -6,26 +6,11 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'dist/caliperSensor-1.1.0.js': ['src/**/*.js']
+          'dist/caliperSensor-1.2.0.js': ['src/**/*.js']
         },
         options: {
 
         }
-      }
-    },
-    'http-server': {
-      'dev': {
-        // the server root directory
-        root: '.',
-        port: 8888,
-        host: "127.0.0.1",
-        cache: 0,
-        showDir: true,
-        autoIndex: true,
-        // server default file extension
-        ext: "html",
-        // run in parallel with other tasks
-        runInBackground: false
       }
     },
     tape: {
@@ -52,9 +37,6 @@ module.exports = function(grunt) {
 
   // Load the plugin that provides the "browserify" task.
   grunt.loadNpmTasks('grunt-browserify');
-
-  // Load plugin that provides http-server task
-  grunt.loadNpmTasks('grunt-http-server');
 
   // Load jsDoc3 plugin
   grunt.loadNpmTasks('grunt-jsdoc');

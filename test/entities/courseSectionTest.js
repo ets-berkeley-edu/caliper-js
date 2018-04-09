@@ -27,7 +27,7 @@ var CourseSection = require('../../src/entities/agent/courseSection');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityCourseSection.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityCourseSection.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

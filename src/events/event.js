@@ -43,7 +43,7 @@ var proto = {
  * @returns {*}
  */
 var createEvent = function createEvent() {
-  var context = {'@context': config.jsonldExternalCaliperContext};
+  var context = {'@context': eventType.event.context};
   var defaults = {type: eventType.event.term};
 
   return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)

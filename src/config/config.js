@@ -20,16 +20,25 @@
  * Configuration values employed as default options.
  * dataFormat:                    Default value is JSON-LD.
  * dataVersion:                   Caliper version for Envelope data.
- * jsonldExternalCaliperContext:  Versioned Caliper remote context IRI.
+ * jsonldContext:                 Versioned Caliper remote context IRI.
  * testFixturesBaseDir:           Base directory for test fixtures.
  * uuidVersion:                   UUID versions 1 and 4 supported.
  */
 var Config = {
   dataFormat: "JSON-LD",
-  dataVersion: "http://purl.imsglobal.org/ctx/caliper/v1p2",
+  dataVersion: "http://purl.imsglobal.org/ctx/caliper/v1p1",
   dateTimeFormat: "YYYY-MM-DDTHH:mm:ss.SSSZ",
-  jsonldExternalCaliperContext: "http://purl.imsglobal.org/ctx/caliper/v1p2",
-  testFixturesBaseDir: "../caliper-common-fixtures/src/test/resources/fixtures/",
+  jsonldContext: {
+    v1p0: "http://purl.imsglobal.org/ctx/caliper/v1/Context",
+    v1p1: "http://purl.imsglobal.org/ctx/caliper/v1p1",
+    v1p1_toollaunch: "http://purl.imsglobal.org/ctx/caliper/v1p1/ToolLaunchProfile-extension",
+    v1p2: "https://purl.imsglobal.org/caliper/v1p2/context/Core"
+  },
+  testFixturesBaseDir: {
+    v1p0: "../caliper-common-fixtures/v1p0/",
+    v1p1: "../caliper-common-fixtures/v1p1/",
+    v1p2: "../caliper-common-fixtures/v1p2/"
+  },
   uuidVersion: 4
 };
 

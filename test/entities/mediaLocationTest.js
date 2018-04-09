@@ -26,7 +26,7 @@ var MediaLocation = require('../../src/entities/resource/mediaLocation');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityMediaLocation.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityMediaLocation.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
