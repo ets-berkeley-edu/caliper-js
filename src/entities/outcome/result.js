@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var entity = require('../entity');
-var entityType = require('../entityType');
+var entityType = require('../entityType').result;
 
 /**
  * Compose Result from Entity and set default properties.
  */
 var Result = _.assign({}, entity, {
-  type: entityType.result.term,
+  '@context': entityType.context,
+  type: entityType.term,
   attempt: {},
   maxResultScore: null,
   resultScore: null,

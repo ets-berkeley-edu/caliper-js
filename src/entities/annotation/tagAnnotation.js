@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var annotation = require('./annotation');
-var entityType = require('../entityType');
+var entityType = require('../entityType').tagAnnotation;
 
 /**
  * Compose TagAnnotation from Annotation and set default properties.
  */
-var TagAnnotation = _.assign({}, annotation, {type: entityType.tagAnnotation.term, tags: []});
+var TagAnnotation = _.assign({}, annotation, {
+  '@context': entityType.context,
+  type: entityType.term,
+  tags: []
+});
 
 module.exports = TagAnnotation;

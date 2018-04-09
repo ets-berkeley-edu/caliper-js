@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').media;
 
 /**
  * Compose MediaEvent from Event and set default properties.
  */
-var MediaEvent = _.assign({}, event, {type: eventType.media.term});
+var MediaEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term
+});
 
 module.exports = MediaEvent;

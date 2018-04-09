@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var config = require('../config/config');
-var entityType = require('./entityType');
+var entityType = require('./entityType').entity;
 
 var proto = {
   id: null,
@@ -35,8 +35,8 @@ var proto = {
  * @returns {*}
  */
 var createEntity = function createEntity() {
-  var context = {'@context': config.jsonldContext.v1p1};
-  var defaults = {type: entityType.entity.term};
+  var context = {'@context': entityType.context};
+  var defaults = {type: entityType.term};
 
   return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)
 };

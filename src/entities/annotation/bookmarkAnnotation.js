@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var annotation = require('./annotation');
-var entityType = require('../entityType');
+var entityType = require('../entityType').bookmarkAnnotation;
 
 /**
  * Compose BookmarkAnnotation from Annotation and set default properties.
  */
-var BookmarkAnnotation = _.assign({}, annotation, {type: entityType.bookmarkAnnotation.term, bookmarkNotes: null});
+var BookmarkAnnotation = _.assign({}, annotation, {
+  '@context': entityType.context,
+  type: entityType.term,
+  bookmarkNotes: null
+});
 
 module.exports = BookmarkAnnotation;

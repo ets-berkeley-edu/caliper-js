@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var digitalResource = require('./digitalResource');
-var entityType = require('../entityType');
+var entityType = require('../entityType').mediaObject;
 
 /**
  * Compose MediaObject from DigitalResource and set default properties.
  */
-var MediaObject = _.assign({}, digitalResource, {type: entityType.mediaObject.term, duration: null});
+var MediaObject = _.assign({}, digitalResource, {
+  '@context': entityType.context,
+  type: entityType.term,
+  duration: null});
 
 module.exports = MediaObject;

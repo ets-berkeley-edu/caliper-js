@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var organization = require('./organization');
-var entityType = require('../entityType');
+var entityType = require('../entityType').group;
 
 /**
  * Compose Group from Organization and set default properties.
  */
-var Group = _.assign({}, organization, {type: entityType.group.term});
+var Group = _.assign({}, organization, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = Group;

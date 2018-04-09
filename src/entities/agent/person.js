@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var agent = require('./agent');
-var entityType = require('../entityType');
+var entityType = require('../entityType').person;
 
 /**
  * Compose Person from Agent and set default properties.
  */
-var Person = _.assign({}, agent, {type: entityType.person.term});
+var Person = _.assign({}, agent, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = Person;

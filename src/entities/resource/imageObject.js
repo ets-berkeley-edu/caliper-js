@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var mediaObject = require('./mediaObject');
-var entityType = require('../entityType');
+var entityType = require('../entityType').imageObject;
 
 /**
  * Compose ImageObject from MediaObject and set default properties.
  */
-var ImageObject = _.assign({}, mediaObject, {type: entityType.imageObject.term});
+var ImageObject = _.assign({}, mediaObject, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = ImageObject;

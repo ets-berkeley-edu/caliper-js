@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var entity = require('../entity');
-var entityType = require('../entityType');
+var entityType = require('../entityType').attempt;
 
 /**
  * Compose Attempt from Entity and set default properties.
  */
 var Attempt = _.assign({}, entity, {
-  type: entityType.attempt.term,
+  '@context': entityType.context,
+  type: entityType.term,
   assignee: {},
   assignable: {},
   isPartOf: {},

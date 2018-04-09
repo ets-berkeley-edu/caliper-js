@@ -18,7 +18,7 @@
 
 var _ = require('lodash');
 var config = require('../config/config');
-var eventType = require('./eventType');
+var eventType = require('./eventType').event;
 
 var proto = {
   id: null,
@@ -43,8 +43,8 @@ var proto = {
  * @returns {*}
  */
 var createEvent = function createEvent() {
-  var context = {'@context': eventType.event.context};
-  var defaults = {type: eventType.event.term};
+  var context = {'@context': eventType.context};
+  var defaults = {type: eventType.term};
 
   return config.dataFormat === "JSON-LD" ? _.assign({}, context, proto, defaults) : _.assign({}, proto, defaults)
 };

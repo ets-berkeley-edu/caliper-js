@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var annotation = require('./annotation');
-var entityType = require('../entityType');
+var entityType = require('../entityType').sharedAnnotation;
 
 /**
  * Compose SharedAnnotation from Annotation and set default properties.
  */
-var SharedAnnotation = _.assign({}, annotation, {type: entityType.sharedAnnotation.term, withAgents: []});
+var SharedAnnotation = _.assign({}, annotation, {
+  '@context': entityType.context,
+  type: entityType.term,
+  withAgents: []
+});
 
 module.exports = SharedAnnotation;

@@ -18,11 +18,13 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').grade;
 
 /**
  * Compose GradeEvent from Event and set default properties.
  */
-var GradeEvent = _.assign({}, event, {type: eventType.grade.term});
+var GradeEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term});
 
 module.exports = GradeEvent;
