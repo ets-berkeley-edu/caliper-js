@@ -43,7 +43,7 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var Status = require('../../src/entities/agent/status');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEnvelopeMixedBatch.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEnvelopeMixedBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

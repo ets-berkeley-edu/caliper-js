@@ -27,7 +27,7 @@ var WebPage = require('../../src/entities/resource/webPage');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityWebPage.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityWebPage.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

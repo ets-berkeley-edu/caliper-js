@@ -19,11 +19,14 @@
 var _ = require('lodash');
 var collection = require('./digitalResourceCollection');
 var assignable = require('./assignableDigitalResource');
-var entityType = require('../entityType');
+var entityType = require('../entityType').assessment;
 
 /**
  * Compose Assessment from DigitalResourceCollection and AssignableDigitalResource and set default properties.
  */
-var Assessment = _.assign({}, collection, assignable, {type: entityType.assessment.term});
+var Assessment = _.assign({}, collection, assignable, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = Assessment;

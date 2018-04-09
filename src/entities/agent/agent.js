@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var entity = require('../entity');
-var entityType = require('../entityType');
+var entityType = require('../entityType').agent;
 
 /**
  * Compose Agent from Entity and set default properties.
  */
-var Agent = _.assign({}, entity, {type: entityType.agent.term});
+var Agent = _.assign({}, entity, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = Agent;

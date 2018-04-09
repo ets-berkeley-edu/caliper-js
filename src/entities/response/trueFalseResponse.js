@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var response = require('./response');
-var entityType = require('../entityType');
+var entityType = require('../entityType').trueFalseResponse;
 
 /**
  * Link TrueFalseResponse to delegate Response and assign default property values.
  */
-var TrueFalseResponse = _.assign({}, response, {type: entityType.trueFalseResponse.term, value: null});
+var TrueFalseResponse = _.assign({}, response, {
+  '@context': entityType.context,
+  type: entityType.term,
+  value: null
+});
 
 module.exports = TrueFalseResponse;

@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var entity = require('../entity');
-var entityType = require('../entityType');
+var entityType = require('../entityType').membership;
 
 /**
  * Link Membership to delegate Entity and assign default property values.
  */
 var Membership = _.assign({}, entity, {
-  type: entityType.membership.term,
+  '@context': entityType.context,
+  type: entityType.term,
   member: {},
   organization: {},
   roles: [],

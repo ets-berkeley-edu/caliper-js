@@ -18,11 +18,13 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').thread;
 
 /**
  * Compose ThreadEvent from Event and set default properties.
  */
-var ThreadEvent = _.assign({}, event, {type: eventType.thread.term});
+var ThreadEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term});
 
 module.exports = ThreadEvent;

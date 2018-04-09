@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var digitalResource = require('./digitalResource');
-var entityType = require('../entityType');
+var entityType = require('../entityType').page;
 
 /**
  * Compose Page from DigitalResource and set default properties.
  */
-var Page = _.assign({}, digitalResource, {type: entityType.page.term});
+var Page = _.assign({}, digitalResource, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = Page;

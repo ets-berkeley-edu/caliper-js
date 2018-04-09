@@ -18,11 +18,13 @@
 
 var _ = require('lodash');
 var collection = require('./digitalResourceCollection');
-var entityType = require('../entityType');
+var entityType = require('../entityType').thread;
 
 /**
  * Compose Thread from DigitalResourceCollection and set default properties.
  */
-var Thread = _.assign({}, collection, {type: entityType.thread.term});
+var Thread = _.assign({}, collection, {
+  '@context': entityType.context,
+  type: entityType.term});
 
 module.exports = Thread;

@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var entity = require('../entity');
-var entityType = require('../entityType');
+var entityType = require('../entityType').learningObjective;
 
 /**
  * Compose LearningObjective from Entity and set default properties.
  */
-var LearningObjective = _.assign({}, entity, {type: entityType.learningObjective.term});
+var LearningObjective = _.assign({}, entity, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = LearningObjective;

@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var session = require('./session');
-var entityType = require('../entityType');
+var entityType = require('../entityType').ltiSession;
 
 /**
  * Link LtiSession to delegate Session and assign default property values.
  */
-var LtiSession = _.assign({}, session, {type: entityType.ltiSession.term, messageParameters: {}});
+var LtiSession = _.assign({}, session, {
+  '@context': entityType.context,
+  type: entityType.term, messageParameters: {}
+});
 
 module.exports = LtiSession;

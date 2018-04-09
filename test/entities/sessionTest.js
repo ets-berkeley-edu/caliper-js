@@ -27,7 +27,7 @@ var Session = require('../../src/entities/session/session');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntitySession.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntitySession.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

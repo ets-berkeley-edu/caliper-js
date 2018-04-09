@@ -18,15 +18,17 @@
 
 var _ = require('lodash');
 var digitalResource = require('./digitalResource');
-var entityType = require('../entityType');
+var entityType = require('../entityType').message;
 
 /**
  * Compose Message from DigitalResource and set default properties.
  */
 var Message = _.assign({}, digitalResource, {
-  type: entityType.message.term,
+  '@context': entityType.context,
+  type: entityType.term,
   body: null,
   replyTo: null,
-  attachments: [] });
+  attachments: []
+});
 
 module.exports = Message;

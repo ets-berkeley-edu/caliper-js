@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var response = require('./response');
-var entityType = require('../entityType');
+var entityType = require('../entityType').fillinBlankResponse;
 
 /**
  * Link FillinBlankResponse to delegate Response and assign default property values.
  */
-var FillinBlankResponse = _.assign({}, response, {type: entityType.fillinBlankResponse.term, values: []});
+var FillinBlankResponse = _.assign({}, response, {
+  '@context': entityType.context,
+  type: entityType.term,
+  values: []});
 
 module.exports = FillinBlankResponse;

@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var courseOffering = require('./courseOffering');
-var entityType = require('../entityType');
+var entityType = require('../entityType').courseSection;
 
 /**
  * Link CourseSection to delegate CourseOffering and assign default property values.
  */
-var CourseSection = _.assign({}, courseOffering, {type: entityType.courseSection.term, category: null});
+var CourseSection = _.assign({}, courseOffering, {
+  '@context': entityType.context,
+  type: entityType.term,
+  category: null
+});
 
 module.exports = CourseSection;

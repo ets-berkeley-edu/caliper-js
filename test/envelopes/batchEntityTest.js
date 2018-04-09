@@ -32,7 +32,7 @@ var Person = require('../../src/entities/agent/person');
 var VideoObject = require('../../src/entities/resource/videoObject');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEnvelopeEntityBatch.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEnvelopeEntityBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

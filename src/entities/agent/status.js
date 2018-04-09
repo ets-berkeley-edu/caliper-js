@@ -16,9 +16,17 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
+var config = require('../../config/config');
+
 var status =  {
-  active: {term: "Active", iri: "http://purl.imsglobal.org/vocab/lis/v2/status#Active"},
-  inactive: {term: "Inactive", iri: "http://purl.imsglobal.org/vocab/lis/v2/status#Deleted"}
+  active: {
+    context: config.jsonldContext.v1p1,
+    term: "Active",
+    iri: "http://purl.imsglobal.org/vocab/lis/v2/status#Active"},
+  inactive: {
+    context: config.jsonldContext.v1p1,
+    term: "Inactive",
+    iri: "http://purl.imsglobal.org/vocab/lis/v2/status#Deleted"}
 };
 
 module.exports = status;

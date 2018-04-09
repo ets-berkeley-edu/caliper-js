@@ -16,76 +16,81 @@
  * with this program. If not, see http://www.gnu.org/licenses/.
  */
 
-var config = ('../config');
+var config = require('../config/config');
 
 var eventType = {
   annotation: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "AnnotationEvent",
     iri: "http://purl.imsglobal.org/caliper/AnnotationEvent"
   },
   assessment: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "AssessmentEvent",
     iri: "http://purl.imsglobal.org/caliper/AssessmentEvent"
   },
   assessmentItem: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "AssessmentItemEvent",
     iri: "http://purl.imsglobal.org/caliper/AssessmentItemEvent"
   },
   assignable: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "AssignableEvent",
     iri: "http://purl.imsglobal.org/caliper/AssignableEvent"
   },
   event: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "Event",
     iri: "http://purl.imsglobal.org/caliper/Event"
   },
   forum: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "ForumEvent",
     iri: "http://purl.imsglobal.org/caliper/ForumEvent"
   },
   grade: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "GradeEvent",
     iri: "http://purl.imsglobal.org/caliper/GradeEvent"
   },
   media: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "MediaEvent",
     iri: "http://purl.imsglobal.org/caliper/MediaEvent"
   },
   message: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "MessageEvent",
     iri: "http://purl.imsglobal.org/caliper/MessageEvent"
   },
   navigation: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "NavigationEvent",
     iri: "http://purl.imsglobal.org/caliper/NavigationEvent"
   },
   session: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "SessionEvent",
     iri: "http://purl.imsglobal.org/caliper/SessionEvent"
   },
   thread: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "ThreadEvent",
     iri: "http://purl.imsglobal.org/caliper/ThreadEvent"
   },
+  toolLaunch: {
+    context: config.jsonldContext.v1p1_toollaunch,
+    term: "ToolLaunchEvent",
+    iri: "http://purl.imsglobal.org/caliper/ToolLaunchEvent"
+  },
   toolUse: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "ToolUseEvent",
     iri: "http://purl.imsglobal.org/caliper/ToolUseEvent"
   },
   view: {
-    context: config.jsonldExternalCaliperContext,
+    context: config.jsonldContext.v1p1,
     term: "ViewEvent",
     iri: "http://purl.imsglobal.org/caliper/ViewEvent"
   }

@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').assignable;
 
 /**
  * Compose AssignableEvent from Event and set default properties.
  */
-var AssignableEvent = _.assign({}, event, {type: eventType.assignable.term});
+var AssignableEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term
+});
 
 module.exports = AssignableEvent;

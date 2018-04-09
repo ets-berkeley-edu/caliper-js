@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var collection = require('./digitalResourceCollection');
-var entityType = require('../entityType');
+var entityType = require('../entityType').forum;
 
 /**
  * Compose Forum from DigitalResourceCollection and set default properties.
  */
-var Forum = _.assign({}, collection, {type: entityType.forum.term});
+var Forum = _.assign({}, collection, {
+  '@context': entityType.context,
+  type: entityType.term
+});
 
 module.exports = Forum;

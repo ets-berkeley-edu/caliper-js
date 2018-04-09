@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var response = require('./response');
-var entityType = require('../entityType');
+var entityType = require('../entityType').multipleResponseResponse;
 
 /**
  * Link MultipleResponseResponse to delegate Response and assign default property values.
  */
-var MultipleResponseResponse = _.assign({}, response, {type: entityType.multipleResponseResponse.term, values: []});
+var MultipleResponseResponse = _.assign({}, response, {
+  '@context': entityType.context,
+  type: entityType.term,
+  values: []
+});
 
 module.exports = MultipleResponseResponse;

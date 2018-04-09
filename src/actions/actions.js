@@ -153,6 +153,10 @@ var actions = {
     term: "JumpedTo",
     iri: "http://purl.imsglobal.org/caliper/actions/JumpedTo",
     events: ["event", "mediaEvent"]},
+  launched: {
+      term: "Launched",
+      iri: "http://purl.imsglobal.org/caliper/actions/Launched",
+      events: ["event", "toolLaunchEvent"]},
   liked: {
     term: "Liked",
     iri: "http://purl.imsglobal.org/caliper/actions/Liked",

@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').annotation;
 
 /**
  * Compose AnnotationEvent from Event and set default properties.
  */
-var AnnotationEvent = _.assign({}, event, {type: eventType.annotation.term});
+var AnnotationEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term
+});
 
 module.exports = AnnotationEvent;
