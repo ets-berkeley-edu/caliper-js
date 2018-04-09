@@ -40,7 +40,7 @@ var Status = require('../../src/entities/agent/status');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventAnnotationTagged.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEventAnnotationTagged.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

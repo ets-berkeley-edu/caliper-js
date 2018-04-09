@@ -39,7 +39,7 @@ var Status = require('../../src/entities/agent/status');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEventViewViewedFedSession.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEventViewViewedFedSession.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -56,23 +56,18 @@ testUtils.readFile(path, function(err, fixture) {
     // LTI-related message parameters
     var messageParameters = {
       lti_message_type: "basic-lti-launch-request",
-      lti_version: "LTI-2p0",
+      lti_version: "LTI-1p0",
       context_id: "4f1a161f-59c3-43e5-be37-445ad09e3f76",
-      context_type: "CourseSection",
+      context_type: "urn:lti:context-type:ims/lis/CourseSection",
+      context_label: "SI182",
+      context_title: "Design of Personal Environments",
       resource_link_id: "6b37a950-42c9-4117-8f4f-03e6e5c88d24",
-      roles: [ "Learner" ],
+      roles: [ "urn:lti:role:ims/lis/Learner" ],
+      tool_consumer_instance_guid: "SomeLMS.example.edu",
+      tool_consumer_instance_description: "Sample University (SomeLMS)",
       user_id: "0ae836b9-7fc9-4060-006f-27b2066ac545",
-      custom: {
-        caliper_profile_url: "https://example.edu/lti/tc/cps",
-        caliper_session_id: "1c519ff7-3dfa-4764-be48-d2fb35a2925a",
-        tool_consumer_instance_url: "https://example.edu"
-      },
-      ext: {
-        edu_example_course_section: "https://example.edu/terms/201601/courses/7/sections/1",
-        edu_example_course_section_roster: "https://example.edu/terms/201601/courses/7/sections/1/rosters/1",
-        edu_example_course_section_learner: "https://example.edu/users/554433",
-        edu_example_course_section_instructor: "https://example.edu/faculty/1234"
-      }
+      custom_xstart: "2016-08-21T01:00:00Z",
+      ext_com_somelms_example_course_section_instructor: "https://example.edu/faculty/1234"
     };
 
     // Id with canned value
@@ -102,7 +97,7 @@ testUtils.readFile(path, function(err, fixture) {
     var group = entityFactory().create(CourseSection, {
       id: BASE_SECTION_IRI,
       extensions: {
-        edu_example_course_section_instructor: messageParameters.ext.edu_example_course_section_instructor
+        edu_example_course_section_instructor: messageParameters.ext_com_somelms_example_course_section_instructor
       }
     });
 

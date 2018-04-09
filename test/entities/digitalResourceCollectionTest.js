@@ -29,7 +29,7 @@ var VideoObject = require('../../src/entities/resource/videoObject');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityDigitalResourceCollection.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityDigitalResourceCollection.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

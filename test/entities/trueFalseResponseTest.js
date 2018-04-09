@@ -30,7 +30,7 @@ var TrueFalseResponse = require('../../src/entities/response/trueFalseResponse')
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityTrueFalseResponse.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityTrueFalseResponse.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

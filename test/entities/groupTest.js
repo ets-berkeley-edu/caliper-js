@@ -29,7 +29,7 @@ var Person = require('../../src/entities/agent/person');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityGroup.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityGroup.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

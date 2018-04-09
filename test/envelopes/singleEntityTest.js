@@ -31,7 +31,7 @@ var DigitalResourceCollection = require('../../src/entities/resource/digitalReso
 var Person = require('../../src/entities/agent/person');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEnvelopeEntitySingle.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEnvelopeEntitySingle.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

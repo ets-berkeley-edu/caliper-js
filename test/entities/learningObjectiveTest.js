@@ -27,7 +27,7 @@ var LearningObjective = require('../../src/entities/resource/learningObjective')
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityLearningObjective.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityLearningObjective.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;

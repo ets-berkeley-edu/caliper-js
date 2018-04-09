@@ -29,7 +29,7 @@ var Thread = require('../../src/entities/resource/thread');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir + "caliperEntityForum.json";
+const path = config.testFixturesBaseDir.v1p1 + "caliperEntityForum.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
