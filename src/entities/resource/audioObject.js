@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var mediaObject = require('./mediaObject');
-var entityType = require('../entityType');
+var entityType = require('../entityType').audioObject;
 
 /**
  * Compose AudioObject from MediaObject and set default properties.
  */
 var AudioObject = _.assign({}, mediaObject, {
-  type: entityType.audioObject.term,
+  '@context': entityType.context,
+  type: entityType.term,
   volumeMin: null,
   volumeMax: null,
   volumeLevel: null,

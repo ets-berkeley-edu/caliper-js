@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var response = require('./response');
-var entityType = require('../entityType');
+var entityType = require('../entityType').multipleChoiceResponse;
 
 /**
  * Link MultipleChoiceResponse to delegate Response and assign default property values.
  */
-var MultipleChoiceResponse = _.assign({}, response, {type: entityType.multipleChoiceResponse.term, value: null});
+var MultipleChoiceResponse = _.assign({}, response, {
+  '@context': entityType.context,
+  type: entityType.term,
+  value: null
+});
 
 module.exports = MultipleChoiceResponse;

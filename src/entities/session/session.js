@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var entity = require('../entity');
-var entityType = require('../entityType');
+var entityType = require('../entityType').session;
 
 /**
  * Link Session to delegate Entity and assign default property values.
  */
 var Session = _.assign({}, entity, {
-  type: entityType.session.term,
+  '@context': entityType.context,
+  type: entityType.term,
   user: {},
   startedAtTime: null,
   endedAtTime: null,

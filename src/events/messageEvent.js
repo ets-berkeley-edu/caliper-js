@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').message;
 
 /**
  * Compose MessageEvent from Event and set default properties.
  */
-var MessageEvent = _.assign({}, event, {type: eventType.message.term});
+var MessageEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term
+});
 
 module.exports = MessageEvent;

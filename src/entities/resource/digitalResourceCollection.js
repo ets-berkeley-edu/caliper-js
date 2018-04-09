@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var digitalResource = require('./digitalResource');
-var entityType = require('../entityType');
+var entityType = require('../entityType').digitalResourceCollection;
 
 /**
  * Compose DigitalResourceCollection from DigitalResource and set default properties.
  */
 var DigitalResourceCollection = _.assign({}, digitalResource, {
-  type: entityType.digitalResourceCollection.term,
+  '@context': entityType.context,
+  type: entityType.term,
   items: []
 });
 

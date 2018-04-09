@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').session;
 
 /**
  * Compose SessionEvent from Event and set default properties.
  */
-var SessionEvent = _.assign({}, event, {type: eventType.session.term});
+var SessionEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term
+});
 
 module.exports = SessionEvent;

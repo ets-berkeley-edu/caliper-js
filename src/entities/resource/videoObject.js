@@ -18,11 +18,13 @@
 
 var _ = require('lodash');
 var mediaObject = require('./mediaObject');
-var entityType = require('../entityType');
+var entityType = require('../entityType').videoObject;
 
 /**
  * Compose VideoObject from MediaObject and set default properties.
  */
-var VideoObject = _.assign({}, mediaObject, {type: entityType.videoObject.term});
+var VideoObject = _.assign({}, mediaObject, {
+  '@context': entityType.context,
+  type: entityType.term});
 
 module.exports = VideoObject;

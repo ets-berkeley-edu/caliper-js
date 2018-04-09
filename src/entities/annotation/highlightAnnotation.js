@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var annotation = require('./annotation');
-var entityType = require('../entityType');
+var entityType = require('../entityType').highlightAnnotation;
 
 /**
  * Compose HighlightAnnotation from Annotation and set default properties.
  */
 var HighlightAnnotation = _.assign({}, annotation, {
-  type: entityType.highlightAnnotation.term,
+  '@context': entityType.context,
+  type: entityType.term,
   selection: {},
   selectionText: null
 });

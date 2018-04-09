@@ -18,11 +18,16 @@
 
 var _ = require('lodash');
 var entity = require('../entity');
-var entityType = require('../entityType');
+var entityType = require('../entityType').annotation;
 
 /**
  * Compose Annotation from Entity and set default properties.
  */
-var Annotation = _.assign({}, entity, {type: entityType.annotation.term, annotator: {}, annotated: {}});
+var Annotation = _.assign({}, entity, {
+  '@context': entityType.context,
+  type: entityType.term,
+  annotator: {},
+  annotated: {}
+});
 
 module.exports = Annotation;

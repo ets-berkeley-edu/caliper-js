@@ -18,13 +18,14 @@
 
 var _ = require('lodash');
 var organization = require('./organization');
-var entityType = require('../entityType');
+var entityType = require('../entityType').courseOffering;
 
 /**
  * Link CourseOffering to delegate Organization and assign default property values.
  */
 var CourseOffering = _.assign({}, organization, {
-  type: entityType.courseOffering.term,
+  '@context': entityType.context,
+  type: entityType.term,
   courseNumber: null,
   academicSession: null
 });

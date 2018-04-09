@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').assessment;
 
 /**
  * Compose AssessmentEvent from Event and set default properties.
  */
-var AssessmentEvent = _.assign({}, event, {type: eventType.assessment.term});
+var AssessmentEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term
+});
 
 module.exports = AssessmentEvent;

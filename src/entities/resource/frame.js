@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var digitalResource = require('./digitalResource');
-var entityType = require('../entityType');
+var entityType = require('../entityType').frame;
 
 /**
  * Compose Frame from DigitalResource and set default properties.
  */
-var Frame = _.assign({}, digitalResource, {type: entityType.frame.term, index: null});
+var Frame = _.assign({}, digitalResource, {
+  '@context': entityType.context,
+  type: entityType.term,
+  index: null
+});
 
 module.exports = Frame;

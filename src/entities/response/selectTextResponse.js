@@ -18,11 +18,15 @@
 
 var _ = require('lodash');
 var response = require('./response');
-var entityType = require('../entityType');
+var entityType = require('../entityType').selectTextResponse;
 
 /**
  * Link SelectTextResponse to delegate Response and assign default property values.
  */
-var SelectTextResponse = _.assign({}, response, {type: entityType.selectTextResponse.term, values: []});
+var SelectTextResponse = _.assign({}, response, {
+  '@context': entityType.context,
+  type: entityType.term,
+  values: []
+});
 
 module.exports = SelectTextResponse;

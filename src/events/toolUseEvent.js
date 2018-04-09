@@ -18,11 +18,14 @@
 
 var _ = require('lodash');
 var event = require('./event');
-var eventType = require('./eventType');
+var eventType = require('./eventType').toolUse;
 
 /**
  * Compose ToolUseEvent from Event and set default properties.
  */
-var ToolUseEvent = _.assign({}, event, {type: eventType.toolUse.term});
+var ToolUseEvent = _.assign({}, event, {
+  '@context': eventType.context,
+  type: eventType.term
+});
 
 module.exports = ToolUseEvent;
