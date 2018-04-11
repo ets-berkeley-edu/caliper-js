@@ -39,13 +39,15 @@ Clone the IMS Global [caliper-common-fixtures](https://github.com/IMSGlobal/cali
 grunt
 ```
 
-### Caliper Vocabulary
+## Caliper Vocabulary
 The [Caliper Analytics&reg; Specification](https://www.imsglobal.org/caliper/v1p1/caliper-spec-v1p1) defines a set of concepts, relationships and rules for describing learning activities. Each activity domain modeled is described in a profile. Each profile is composed of one or more `Event` types (e.g., `AssessmentEvent`, `NavigationEvent`). Each `Event` type is associated with a set of actions undertaken by learners, instructors, and others. Various `Entity` types representing people, groups, and resources are provided in order to better describe both the relationships established between participating entities and the contextual elements relevant to the interaction (e.g., `Assessment`, `Attempt`, `CourseSection`, `Person`).
 
-### Creating Events and Entities
+caliper-js implements all profiles described in [Caliper Analytics&reg; Specification](https://www.imsglobal.org/caliper/v1p1/caliper-spec-v1p1). 
+
+## Creating Events and Entities
 A Caliper `Event` describes the relationship established between two entities, one an `actor` and the other an `object`, formed as a result of a purposeful `action` undertaken by the actor at a particular moment in time and, optionally, situated within a given learning context.  Below is an example of an `AssessmentEvent` expressed as JSON-LD:
 
-Example I: AssessmentEvent
+### Example I: AssessmentEvent
 ```json
 {
   "@context": "http://purl.imsglobal.org/ctx/caliper/v1p1",
@@ -123,7 +125,7 @@ caliper-js provides a couple of factory functions to simplify creating events an
 * *eventFactory()* returns a mutated `Event` object based on a caliper-js delegate to which is assigned an options object of user-provided key:value pairs. The function exposes a single method signature: *.create(delegate, opts)*.   
 * *entityFactory()* returns a mutated `Entity` object based on a caliper-js delegate to which is assigned an options object of user-provided key:value pairs. The function exposes two method signatures: *.create(delegate, opts)* and *.coerce(delegate, opts)*.  Use the *.create(delegate, opts)* method to express a Caliper `Entity` as an object; use the *.coerce(delegate, opt)* method to express an `Entity` as a string that corresponds to its IRI.
 
-#### Example II: Minting an `Assessment` entity expressed as an object
+### Example II: Minting an `Assessment` entity expressed as an object
 ```javascript
 var obj = entityFactory().create(Assessment, {
   id: "https://example.edu/terms/201801/courses/7/sections/1/assess/1",
@@ -134,16 +136,16 @@ var obj = entityFactory().create(Assessment, {
 });
 ```
 
-#### Example III: Minting a `SofwareApplication` entity expressed as a string 
+### Example III: Minting a `SofwareApplication` entity expressed as a string 
 ```javascript
 var edApp = entityFactory().coerce(SoftwareApplication, {id: "http://example.edu"});
 
 ```
 
-### Using Envelopes (batching)
+## Using Envelopes (batching)
 Caliper `Event` and `Entity` data MUST be transmitted inside a Caliper `Envelope`, a JSON data structure that includes metadata about the emitting application sensor and the data payload.  The `sensor`, `sendTime`, `dataVersion` and `data` properties are required.  The `data` array comprises an ordered collection of one or more Caliper `Event` and/or `Entity` *describe* documents.  Each `Event` and `Entity` describe transmitted inside an `Envelope` MUST be serialized as a JSON-LD document.
 
-#### Example IV: Caliper Envelope (single ToolUseEvent data payload)
+### Example IV: Caliper Envelope (single ToolUseEvent data payload)
 ```json
 {
   "sensor": "https://example.edu/sensors/1",
@@ -189,7 +191,7 @@ Caliper `Event` and `Entity` data MUST be transmitted inside a Caliper `Envelope
 
 ```
 
-### Sending Envelopes
+## Sending Envelopes
 1. Initialize Sensor
 2. Define HTTP options
 3. Initialize and register one or more client instances.
@@ -256,9 +258,7 @@ var envelope = sensor.createEnvelope(opts);
 sensor.sendToClient(client, envelope);
 ```
 
-
-
-### Installing and using the Library:
+## Installing and using the Library:
 Install and build the caliper-js library per the steps above.  Then reference the caliper-js library inside the \<head\> tag of your HTML file:
 
 ```html
