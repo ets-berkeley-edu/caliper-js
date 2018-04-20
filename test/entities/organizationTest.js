@@ -26,7 +26,7 @@ var Organization = require('../../src/entities/agent/organization');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityOrganization.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityOrganization.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -36,7 +36,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu/colleges/1";
+    var BASE_IRI = "https://example.edu/colleges/1";
 
     var college = entityFactory().create(Organization, {
       id: BASE_IRI,

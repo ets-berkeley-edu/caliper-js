@@ -32,7 +32,7 @@ var Person = require('../../src/entities/agent/person');
 var VideoObject = require('../../src/entities/resource/videoObject');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEnvelopeEntityBatch.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEnvelopeEntityBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -42,10 +42,10 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_EDU_IRI = "https://example.edu";
-    const BASE_COM_IRI = "https://example.com";
-    const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    var BASE_EDU_IRI = "https://example.edu";
+    var BASE_COM_IRI = "https://example.com";
+    var BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
+    var BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Person
     var person = entityFactory().create(Person, {

@@ -29,7 +29,7 @@ var VideoObject = require('../../src/entities/resource/videoObject');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityDigitalResourceCollection.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityDigitalResourceCollection.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -39,9 +39,9 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
-    const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    var BASE_IRI = "https://example.edu";
+    var BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
+    var BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Course context
     var course = entityFactory().create(Course, {id: BASE_COURSE_IRI});

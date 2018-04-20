@@ -30,7 +30,7 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityResult.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityResult.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -40,9 +40,9 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-    const BASE_ATTEMPT_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1";
+    var BASE_IRI = "https://example.edu";
+    var BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    var BASE_ATTEMPT_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1/users/554433/attempts/1";
 
     var actor = entityFactory().create(Person, {id: BASE_IRI.concat("/users/554433")});
     var assignable = entityFactory().create(Assessment, {id: BASE_SECTION_IRI.concat("/assess/1")});

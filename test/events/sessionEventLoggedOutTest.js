@@ -33,7 +33,7 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEventSessionLoggedOut.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEventSessionLoggedOut.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -43,7 +43,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
+    var BASE_IRI = "https://example.edu";
 
     // Id with canned value
     uuid = "urn:uuid:a438f8ac-1da3-4d48-8c86-94a1b387e0f6";

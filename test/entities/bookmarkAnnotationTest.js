@@ -28,7 +28,7 @@ var Person = require('../../src/entities/agent/person');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityBookmarkAnnotation.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityBookmarkAnnotation.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -38,7 +38,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_COM_IRI = "https://example.com";
+    var BASE_COM_IRI = "https://example.com";
 
     var annotator = entityFactory().create(Person, {id: "https://example.edu/users/554433"});
     var annotated = entityFactory().create(Page, {

@@ -43,7 +43,7 @@ var SoftwareApplication = require('../../src/entities/agent/softwareApplication'
 var Status = require('../../src/entities/agent/status');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEnvelopeMixedBatch.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEnvelopeMixedBatch.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -53,10 +53,10 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
-    const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-    const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+    var BASE_IRI = "https://example.edu";
+    var BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
+    var BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    var BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
 
     /*
      * ENTITY DESCRIBES

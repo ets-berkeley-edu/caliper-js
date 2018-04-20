@@ -18,15 +18,15 @@
 
 var config = require('../../config/config');
 
-const BASE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership";
-const ADMIN_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator";
-const CONTENT_DEV_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/ContentDeveloper";
-const INSTR_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor";
-const LEARNER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner";
-const MANAGER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Manager";
-const MEMBER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Member";
-const MENTOR_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor";
-const TEACH_ASST_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant";
+var BASE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership";
+var ADMIN_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Administrator";
+var CONTENT_DEV_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/ContentDeveloper";
+var INSTR_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Instructor";
+var LEARNER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Learner";
+var MANAGER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Manager";
+var MEMBER_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Member";
+var MENTOR_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/Mentor";
+var TEACH_ASST_SUBROLE_IRI = "http://purl.imsglobal.org/vocab/lis/v2/membership/TeachingAssistant";
 
 var role = {
   learner: {

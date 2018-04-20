@@ -29,7 +29,7 @@ var Person = require('../../src/entities/agent/person');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityDigitalResource.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityDigitalResource.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -39,9 +39,9 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-    const BASE_COLLECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1/resources/1";
+    var BASE_IRI = "https://example.edu";
+    var BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    var BASE_COLLECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1/resources/1";
 
     var creators = [];
     creators.push(entityFactory().create(Person, {id: BASE_IRI.concat("/users/223344")}));
