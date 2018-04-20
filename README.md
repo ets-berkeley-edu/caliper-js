@@ -1,6 +1,6 @@
 # IMS Global Learning Consortium, Inc.
 
-# *caliper-js*
+# caliper-js
 
 The [Caliper Analytics&reg; Specification](https://www.imsglobal.org/caliper/v1p1/caliper-spec-v1p1) provides a structured approach to describing, collecting and exchanging learning activity data at scale.  Caliper also defines an application programming interface (the Sensor API&trade;) for marshalling and transmitting event data from instrumented applications to target endpoints for storage, analysis and use.  
 
@@ -25,7 +25,7 @@ npm install -g grunt-cli
 npm install
 ``` 
 
-### Performing a Build
+## Performing a Build
 Clone the IMS Global [caliper-common-fixtures](https://github.com/IMSGlobal/caliper-common-fixtures) repo at the same level as *caliper-js*. Then invoke [Grunt](https://gruntjs.com) to execute the unit tests, generate [JSDocs](http://usejsdoc.org/), and build the *caliper-js* library. 
 
 ```
@@ -209,7 +209,7 @@ options.headers["Authorization"] = "40dI6P62Q_qrWxpTk95z8w";
 
 // Initialize and register client
 var client = Caliper.Clients.HttpClient;
-client.initialize("my_client_id", options);
+client.initialize("http://example.org/sensors/1/clients/2", options);
 sensor.registerClient(client);
 
 // Set Event property values
@@ -225,7 +225,7 @@ var obj = entityFactory().create(Assessment, {
   // ... add additional optional property assignments
 });
 
-// ... Use entityFactory() to create additional Event property assignments.
+// ... Use the entityFactory() to mint additional entity values.
 
 // Create Event
 var event = EventFactory().create(AssessmentEvent, {
@@ -240,7 +240,7 @@ var event = EventFactory().create(AssessmentEvent, {
   session: session
 });
 
-// ... Create additional Events and/or Entity describes.
+// ... Create additional events and/or entity describes.
 
 // Create data payload
 var payload = [];
