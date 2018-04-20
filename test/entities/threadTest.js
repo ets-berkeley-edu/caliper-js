@@ -30,7 +30,7 @@ var Thread = require('../../src/entities/resource/thread');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityThread.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityThread.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -40,10 +40,10 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
-    const BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/1";
-    const BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/1/topics/1";
+    var BASE_COURSE_IRI = "https://example.edu/terms/201601/courses/7";
+    var BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    var BASE_FORUM_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/1";
+    var BASE_THREAD_IRI = "https://example.edu/terms/201601/courses/7/sections/1/forums/1/topics/1";
 
     // Forum context
     var course = entityFactory().create(Course, {id: BASE_COURSE_IRI});

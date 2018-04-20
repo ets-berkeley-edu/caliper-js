@@ -27,7 +27,7 @@ var Frame = require('../../src/entities/resource/frame');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityFrame.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityFrame.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -37,7 +37,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
+    var BASE_IRI = "https://example.edu";
 
     var document = entityFactory().create(Document, {
       id: BASE_IRI.concat("/etexts/201"),

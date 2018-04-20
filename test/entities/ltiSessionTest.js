@@ -27,7 +27,7 @@ var LtiSession = require('../../src/entities/session/ltiSession');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityLtiSession.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityLtiSession.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -37,8 +37,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_COM_IRI = "https://example.com";
-    const BASE_EDU_IRI = "https://example.edu";
+    var BASE_COM_IRI = "https://example.com";
+    var BASE_EDU_IRI = "https://example.edu";
     
     // LTI-related message parameters
     var messageParameters = {

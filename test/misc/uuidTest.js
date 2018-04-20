@@ -23,8 +23,8 @@ var validator = require('../../src/validators/validator');
 
 test('uuidTest', function (t) {
 
-  const uuid = validator.generateUUID(config.uuidVersion);
-  const actual = validator.isUuid(uuid);
+  var uuid = validator.generateUUID(config.uuidVersion);
+  var actual = validator.isUuid(uuid);
 
   t.plan(1);
   t.equal(true, actual, "Validate generated UUID.");

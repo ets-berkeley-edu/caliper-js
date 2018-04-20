@@ -41,7 +41,7 @@ var Status = require('../../src/entities/agent/status');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEventForumSubscribed.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEventForumSubscribed.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -51,8 +51,8 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu";
-    const BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
+    var BASE_IRI = "https://example.edu";
+    var BASE_SECTION_IRI = "https://example.edu/terms/201601/courses/7/sections/1";
 
     // Id with canned value
     uuid = "urn:uuid:a2f41f9c-d57d-4400-b3fe-716b9026334e";

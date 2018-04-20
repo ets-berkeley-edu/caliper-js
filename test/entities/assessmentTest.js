@@ -27,7 +27,7 @@ var AssessmentItem = require('../../src/entities/resource/assessmentItem');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityAssessment.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityAssessment.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -37,7 +37,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
+    var BASE_ASSESS_IRI = "https://example.edu/terms/201601/courses/7/sections/1/assess/1";
 
     var items = [];
     items.push(entityFactory().create(AssessmentItem, {id: BASE_ASSESS_IRI.concat("/items/1")}));

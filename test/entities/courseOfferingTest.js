@@ -26,7 +26,7 @@ var CourseOffering = require('../../src/entities/agent/courseOffering');
 var clientUtils = require('../../src/clients/clientUtils');
 var testUtils = require('../testUtils');
 
-const path = config.testFixturesBaseDir.v1p1 + "caliperEntityCourseOffering.json";
+var path = config.testFixturesBaseDir.v1p1 + "caliperEntityCourseOffering.json";
 
 testUtils.readFile(path, function(err, fixture) {
   if (err) throw err;
@@ -36,7 +36,7 @@ testUtils.readFile(path, function(err, fixture) {
     // Plan for N assertions
     t.plan(1);
 
-    const BASE_IRI = "https://example.edu/terms/201601/courses/7";
+    var BASE_IRI = "https://example.edu/terms/201601/courses/7";
 
     var entity = entityFactory().create(CourseOffering, {
       id: BASE_IRI,

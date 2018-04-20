@@ -59,7 +59,7 @@ module.exports.generateUUID = function generateUUID(version) {
  * @returns {boolean}
  */
 module.exports.hasCaliperContext = function hasCaliperContext(opts) {
-  const regex = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
+  var regex = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
   var hasCaliperContext = false;
 
   if (opts.hasOwnProperty('@context')) {

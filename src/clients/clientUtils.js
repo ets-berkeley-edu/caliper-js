@@ -28,7 +28,7 @@ var arrayProperties = ["attachments", "creators", "extensions", "items", "keywor
 "roles", "tags", "values", "withAgents"];
 */
 
-const regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
+var regexCtx = /http:\/\/purl.imsglobal.org\/ctx\/caliper\/?v?[0-9]*p?[0-9]*/;
 
 /**
  * Represents clientUtils self.
