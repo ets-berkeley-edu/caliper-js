@@ -3,8 +3,8 @@
 # caliper-js
 
 The [Caliper Analytics&reg; Specification](https://www.imsglobal.org/caliper/v1p1/caliper-spec-v1p1) 
-provides a structured approach to describing, collecting and exchanging learning activity data at scale.  
-Caliper also defines an application programming interface (the Sensor API&trade;) for marshalling and 
+provides a structured approach to describing, collecting and exchanging learning activity data at 
+scale. Caliper also defines an application programming interface (the Sensor API&trade;) for marshalling and 
 transmitting event data from instrumented applications to target endpoints for storage, analysis and use.  
 
 *caliper-js* is a reference implementation of the Sensor API&trade; written in Javascript.
@@ -21,7 +21,7 @@ tags are identified with an extensions label (e.g., "1.2.0-RC01").  The tags are
 ## Contributing
 We welcome the posting of issues by non IMS Global Learning Consortium members (e.g., feature 
 requests, bug reports, questions, etc.) but we *do not* accept contributions in the form of pull 
-requests from non-members. For more information, see [CONTRIBUTING.md](CONTRIBUTING.MD) for more 
+requests from non-members. For more information, see [CONTRIBUTING.md](CONTRIBUTING.md) for more 
 information.
 
 ## Getting started
